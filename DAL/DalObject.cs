@@ -225,24 +225,52 @@ namespace DalObject
             throw new NotImplementedException();
         }
 
-        public static IDAL.DO.Station GetStation(int StationId)
+        public static Station GetStation(int StationId)
         {
-            return IDAL.DO.Station[StationId];
+            for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
+            {
+                if(DataSource.Stations[i].Id == StationId)
+                {
+                    return DataSource.Stations[i];
+                }
+            }
+            throw new NotImplementedException();
         }
 
-        public static IDAL.DO.Drone GetDrone(int DroneId)
+        public static Drone GetDrone(int DroneId)
         {
-            return IDAL.DO.Drone[DroneId];
+            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+            {
+                if (DataSource.Drones[i].Id == DroneId)
+                {
+                    return DataSource.Drones[i];
+                }
+            }
+            throw new NotImplementedException();
         }
 
-        public static IDAL.DO.Parcel GetParcel(int ParcelId)
+        public static Parcel GetParcel(int ParcelId)
         {
-            return IDAL.DO.Parcel[ParcelId];
+            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
+            {
+                if (DataSource.Parcels[i].Id == ParcelId)
+                {
+                    return DataSource.Parcels[i];
+                }
+            }
+            throw new NotImplementedException();
         }
 
-        public static IDAL.DO.Customer GetCustomer(int CustomerId)
+        public static Customer GetCustomer(int CustomerId)
         {
-            return IDAL.DO.Customer[CustomerId];
+            for (int i = 0; i < DataSource.Config.VacantIndexC; i++)
+            {
+                if (DataSource.Customers[i].Id == CustomerId)
+                {
+                    return DataSource.Customers[i];
+                }
+            }
+            throw new NotImplementedException();
         }
     }
 }
