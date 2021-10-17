@@ -2,9 +2,9 @@
 
 namespace IDAL
 {
-	namespace DO
-	{
-		public class DalObjects
+    namespace DO
+    {
+        public class DalObjects
         {
             public DalObject()
             {
@@ -149,7 +149,7 @@ namespace IDAL
                 return IDAL.DO.Customer[CustomerId];
             }
         }
-	}
+    }
 }
 
 
