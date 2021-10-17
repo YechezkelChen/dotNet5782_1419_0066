@@ -6,18 +6,18 @@ namespace DalObject
 {
     internal class DataSource
     {
-        Drone[] Drones = new Drone[10];
-        Station[] Stations = new Station[5];
-        Customer[] Customers = new Customer[100];
-        Parcel[] Parcels = new Parcel[1000];
+        public static Drone[] Drones = new Drone[10];
+        public static Station[] Stations = new Station[5];
+        public static Customer[] Customers = new Customer[100];
+        public static Parcel[] Parcels = new Parcel[1000];
 
         internal class Config
         {
-            public static int VacantIndexD = 0;//for drone
-            public static int VacantIndexS = 0;//for station
-            public static int VacantIndexC = 0;//for Customer
-            public static int VacantIndexP = 0;//for Parcel
-            public static int ParcelsId = 0;
+            internal static int VacantIndexD = 0;//for drone
+            internal static int VacantIndexS = 0;//for station
+            internal static int VacantIndexC = 0;//for Customer
+            internal static int VacantIndexP = 0;//for Parcel
+            internal static int ParcelsId = 0;
         }
 
         public static void Initialize()
