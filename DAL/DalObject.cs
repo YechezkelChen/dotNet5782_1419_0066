@@ -95,17 +95,17 @@ namespace DalObject
             Console.WriteLine("Enter Battry Drone: ");
             double.TryParse(Console.ReadLine(), out b);
             NewDrone.Battry = b;
-            
-            if (DataSource.Config.VacantIndexD == 10) // if there is no place in array
+
+            if (DataSource.Config.VacantIndexD == DataSource.Drones.Length) // if there is no place in array
             {
-            //    IDAL.DO.Drone[] NewArrayDrones = new IDAL.DO.Drone[DalObject.DataSource.Config.VacantIndexD * 2]; // increse the place in array double 2
-            //    for (int i = 0; i < sizeof(IDAL.DO.Drone[] DataSource.Drones) ; i++)
-            //        IDAL.DO.Drone[] NewArrayDrones[i] = IDAL.DO.Drone[] DataSource.Drones[i]; // copy the old array to new array
-            //    IDAL.DO.Drone[] DataSource.Drones = IDAL.DO.Drone[] NewArrayDrones;
+                Drone[] NewArrayDrones = new Drone[DataSource.Config.VacantIndexD * 2]; // increse the place in array double 2
+                for (int i = 0; i < DataSource.Drones.Length; i++)
+                    NewArrayDrones[i] = DataSource.Drones[i]; // copy the old array to new array
+                DataSource.Drones = NewArrayDrones;
             }
-            //IDAL.DO.Drone[] DataSource.Drones[DalObject.DataSource.Config.VacantIndexD] = NewDrone; // insert to the last place in array
+            DataSource.Drones[DataSource.Config.VacantIndexD] = NewDrone; // insert to the last place in array
             DataSource.Config.VacantIndexD++; // the new spote of the empty index in array
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public static int AddParcel()
@@ -177,21 +177,22 @@ namespace DalObject
             Console.WriteLine("Enter Delivered Time Parcel: ");
             DateTime.TryParse(Console.ReadLine(), out d);
             NewParcel.Delivered = d;
-            
-            if (DataSource.Config.ParcelsId== 10) // if there is no place in array
+
+            if (DataSource.Config.VacantIndexP == DataSource.Parcels.Length) // if there is no place in array
             {
-                //IDAL.DO.Parcel[] NewArrayParcels = new IDAL.DO.Parcel[DalObject.DataSource.Config.VacantIndexP * 2]; // increse the place in array double 2
-                //for (int i = 0; i < sizeof(IDAL.DO.Parcel[] DataSource.Parcels) ; i++)
-                //    IDAL.DO.Parcel[] NewArrayParcels[i] = IDAL.DO.Parcel[] DataSource.Parcels[i]; // copy the old array to new array
-                //IDAL.DO.Parcel[] DataSource.Parcels = IDAL.DO.Parcel[] NewArrayParcels;
+                Parcel[] NewArrayParcels = new Parcel[DataSource.Config.VacantIndexP * 2]; // increse the place in array double 2
+                for (int i = 0; i < DataSource.Parcels.Length; i++)
+                    NewArrayParcels[i] = DataSource.Parcels[i]; // copy the old array to new array
+                DataSource.Parcels = NewArrayParcels;
             }
-            NewParcel.Id = DataSource.Config.ParcelsId; // insert the Parcels new Id
-            //IDAL.DO.Parcel[] DataSource.Parcels[DalObject.DataSource.Config.VacantIndexP] = NewParcel; // insert to the last place in array
+
+            DataSource.Parcels[DataSource.Config.VacantIndexP] = NewParcel; // insert to the last place in array
             DataSource.Config.VacantIndexP++; // the new spote of the empty index in array
+            NewParcel.Id = DataSource.Config.ParcelsId; // insert the Parcels new Id
             int tmp = DataSource.Config.ParcelsId;
             DataSource.Config.ParcelsId++; // new Id for the fautre parce Id
             return tmp; // return the new number created
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public static void AddCustomer()
@@ -213,15 +214,15 @@ namespace DalObject
             double.TryParse(Console.ReadLine(), out d);
             NewCustomer.Lattitued = d;
 
-            if (DataSource.Config.VacantIndexC == 15) // if there is no place in array
+            if (DataSource.Config.VacantIndexC == DataSource.Customers.Length) // if there is no place in array
             {
-                //IDAL.DO.Customer[] NewArrayCustomers = new IDAL.DO.Customer[DalObject.DataSource.Config.VacantIndexC * 2]; // increse the place in array double 2
-                //for (int i = 0; i < sizeof(IDAL.DO.Customer[] DataSource.Customers) ; i++)
-                //    IDAL.DO.Customer[] NewArrayCustomers[i] = IDAL.DO.Customer[] DataSource.Customers[i]; // copy the old array to new array
-                //IDAL.DO.Customer[] DataSource.Customers = IDAL.DO.Customer[] NewArrayCustomers;
+                Customer[] NewArrayCustomers = new Customer[DataSource.Config.VacantIndexC * 2]; // increse the place in array double 2
+                for (int i = 0; i < DataSource.Customers.Length; i++)
+                    NewArrayCustomers[i] = DataSource.Customers[i]; // copy the old array to new array
+                DataSource.Customers = NewArrayCustomers;
             }
-          /*  IDAL.DO.Customer[] DataSource.Customers[DalObject.DataSource.Config.VacantIndexC] = NewCustomer; */// insert to the last place in array
-            DataSource.Config.VacantIndexC++; // the new spote of the empty index in array
+            DataSource.Customers[DataSource.Config.VacantIndexC] = NewCustomer; // insert to the last place in array
+            DataSource.Config.VacantIndexD++; // the new spote of the empty index in array
             throw new NotImplementedException();
         }
 

@@ -57,7 +57,7 @@ namespace DalObject
             Parcels[8] = new Parcel { Id = rand.Next(100000000, 999999999), SenderId = rand.Next(100000000, 999999999), TargetId = rand.Next(100000000, 999999999), Weight = WeightCategories.Medium, Priority = Priorities.Emergency, DroneId = Drones[3].Id, Requested = DateTime.Now, Scheduled = DateTime.Now, PickedUp = DateTime.Now, Delivered = DateTime.Now };
             Parcels[9] = new Parcel { Id = rand.Next(100000000, 999999999), SenderId = rand.Next(100000000, 999999999), TargetId = rand.Next(100000000, 999999999), Weight = WeightCategories.Light, Priority = Priorities.Emergency, DroneId = Drones[4].Id, Requested = DateTime.Now, Scheduled = DateTime.Now, PickedUp = DateTime.Now, Delivered = DateTime.Now };
             Config.VacantIndexP = 10;
-            Config.ParcelsId = 11;
+            Config.ParcelsId = 1000000000;//bigger frome all the ID 
         }
     }
 }
