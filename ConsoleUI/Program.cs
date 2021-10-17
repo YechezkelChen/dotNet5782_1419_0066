@@ -23,16 +23,16 @@ namespace ConsoleUI
                         switch (ep)
 	                    {
 		                    case EntityOption.Station:
-                                DalObject.AddStation();
+                                DalObject.DalObject.AddStation();
                                 break;
                             case EntityOption.Drone:
-                                DalObject.AddDrone();
+                                DalObject.DalObject.AddDrone();
                                 break;
                             case EntityOption.Customer:
-                                DalObject.AddCustomer();
+                                DalObject.DalObject.AddCustomer();
                                 break;
                             case EntityOption.Parcel:
-                                DalObject.AddParcel();
+                                DalObject.DalObject.AddParcel();
                                 break;
                             case EntityOption.Exit:
                                 break;
@@ -45,10 +45,6 @@ namespace ConsoleUI
                     case Option.View:
                         break;
                     case Option.ListView:
-                        EntityOption ep;
-                        Console.WriteLine("Choose one of the entity:\n" + "s: Station\n" + "d: Drone\n" + "c: Customer\n" + "p: Parcel\n" + "e: Exit\n");
-                        int.TryParse(Console.ReadLine(), out ep);
-
                         break;
                     case Option.Exit:
                         break;
@@ -56,11 +52,6 @@ namespace ConsoleUI
                         break;
 	            }
 	        } while (op != Option.Exit);
-            
-            
-
-            IDAL.DO.Station baseStation = new IDAL.DO.Station();
-            Console.WriteLine(Station);
         }
     }
 }
