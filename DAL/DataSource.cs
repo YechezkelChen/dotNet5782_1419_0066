@@ -1,8 +1,8 @@
 ﻿using System;
 using IDAL.DO;
-using DalObjects;
+using DalObject;
 
-namespace DalObjects
+namespace DalObject
 {
     internal class DataSource
     {
