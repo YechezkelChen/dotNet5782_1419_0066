@@ -6,10 +6,10 @@ namespace DalObjects
 {
     internal class DataSource
     {
-       public static Drone[] Drones = new Drone[10];
-       public static Station[] Stations = new Station[5];
-       public static Customer[] Customers = new Customer[100];
-       public static Parcel[] Parcels = new Parcel[1000];
+        Drone[] Drones = new Drone[10];
+        Station[] Stations = new Station[5];
+        Customer[] Customers = new Customer[100];
+        Parcel[] Parcels = new Parcel[1000];
 
         internal class Config
         {
