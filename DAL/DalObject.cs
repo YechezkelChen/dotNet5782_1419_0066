@@ -31,16 +31,16 @@ namespace DalObject
             int.TryParse(Console.ReadLine(), out num1);
             NewStation.ChargeSlots = num1;
 
-            if (DataSource.Config.VacantIndexS == 15) // if there is no place in array
+            if (DataSource.Config.VacantIndexS == DataSource.Stations.Length) // if there is no place in array
             {
-            //    IDAL.DO.Station[] NewArrayStations = new IDAL.DO.Station[DalObject.DataSource.Config.VacantIndexS * 2]; // increse the place in array double 2
-            //    for (int i = 0; i < sizeof(IDAL.DO.Station[] DataSource.Stations) ; i++)
-            //        IDAL.DO.Station[] NewArrayStations[i] = IDAL.DO.Station[] DataSource.Stations[i]; // copy the old array to new array
-            //    IDAL.DO.Station[] DataSource.Stations = IDAL.DO.Station[] NewArrayStations;
+                Station[] NewArrayStations = new Station[DataSource.Config.VacantIndexS * 2]; // increse the place in array double 2
+                for (int i = 0; i < DataSource.Stations.Length; i++)
+                    NewArrayStations[i] = DataSource.Stations[i]; // copy the old array to new array
+                DataSource.Stations = NewArrayStations;
             }
-            //IDAL.DO.Station[] DataSource.Stations[DalObject.DataSource.Config.VacantIndexS] = NewStation; // insert to the last place in array
+            DataSource.Stations[DataSource.Config.VacantIndexS] = NewStation; // insert to the last place in array
             DataSource.Config.VacantIndexS++; // the new spote of the empty index in array
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public static void AddDrone()
