@@ -45,6 +45,10 @@ namespace ConsoleUI
                     case Option.View:
                         break;
                     case Option.ListView:
+                        EntityOption ep;
+                        Console.WriteLine("Choose one of the entity:\n" + "s: Station\n" + "d: Drone\n" + "c: Customer\n" + "p: Parcel\n" + "e: Exit\n");
+                        int.TryParse(Console.ReadLine(), out ep);
+
                         break;
                     case Option.Exit:
                         break;

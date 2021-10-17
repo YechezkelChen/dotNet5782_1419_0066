@@ -2,8 +2,8 @@
 
 namespace IDAL
 {
-	namespace DO
-	{
+    namespace DO
+    {
         public struct DroneCharge
         {
             public int DroneId { get; set; }

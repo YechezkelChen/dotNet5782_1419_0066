@@ -3,12 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31727.386
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Targil0", "Targil0\Targil0.csproj", "{78F84A66-D058-4C39-B8AC-65863E6A7729}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Targil0", "Targil0\Targil0.csproj", "{78F84A66-D058-4C39-B8AC-65863E6A7729}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CD666DD3-9C9C-471E-BEBF-2FDDC1C297E3}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{C26E8264-D1D5-405A-A8EE-F1CA3ECD2064}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{5627EB25-CC27-4DCB-AC74-E2807DC0ADE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +24,14 @@ Global
 		{78F84A66-D058-4C39-B8AC-65863E6A7729}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78F84A66-D058-4C39-B8AC-65863E6A7729}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78F84A66-D058-4C39-B8AC-65863E6A7729}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C26E8264-D1D5-405A-A8EE-F1CA3ECD2064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C26E8264-D1D5-405A-A8EE-F1CA3ECD2064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C26E8264-D1D5-405A-A8EE-F1CA3ECD2064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C26E8264-D1D5-405A-A8EE-F1CA3ECD2064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5627EB25-CC27-4DCB-AC74-E2807DC0ADE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5627EB25-CC27-4DCB-AC74-E2807DC0ADE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5627EB25-CC27-4DCB-AC74-E2807DC0ADE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5627EB25-CC27-4DCB-AC74-E2807DC0ADE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
