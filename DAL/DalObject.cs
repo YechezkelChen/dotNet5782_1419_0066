@@ -30,17 +30,17 @@ namespace DalObject
             Console.WriteLine("Enter ChargeSlots Station: ");
             int.TryParse(Console.ReadLine(), out num1);
             NewStation.ChargeSlots = num1;
-
-            if (DalObject.DataSource.Config.VacantIndexS == sizeof(IDAL.DO.Station[] DataSource.Stations)) // if there is no place in array
-            {
-                IDAL.DO.Station[] NewArrayStations = new IDAL.DO.Station[DalObject.DataSource.Config.VacantIndexS * 2]; // increse the place in array double 2
-                for (int i = 0; i < sizeof(IDAL.DO.Station[] DataSource.Stations) ; i++)
-                    IDAL.DO.Station[] NewArrayStations[i] = IDAL.DO.Station[] DataSource.Stations[i]; // copy the old array to new array
-                IDAL.DO.Station[] DataSource.Stations = IDAL.DO.Station[] NewArrayStations;
-            }
-            IDAL.DO.Station[] DataSource.Stations[DalObject.DataSource.Config.VacantIndexS] = NewStation; // insert to the last place in array
-            DalObject.DataSource.Config.VacantIndexS++; // the new spote of the empty index in array
-            throw new NotImplementedException();
+            
+            //if (DalObject.DataSource.Config.VacantIndexS == sizeof(IDAL.DO.Station[] DataSource.Stations)) // if there is no place in array
+            //{
+            //    IDAL.DO.Station[] NewArrayStations = new IDAL.DO.Station[DalObject.DataSource.Config.VacantIndexS * 2]; // increse the place in array double 2
+            //    for (int i = 0; i < sizeof(IDAL.DO.Station[] DataSource.Stations) ; i++)
+            //        IDAL.DO.Station[] NewArrayStations[i] = IDAL.DO.Station[] DataSource.Stations[i]; // copy the old array to new array
+            //    IDAL.DO.Station[] DataSource.Stations = IDAL.DO.Station[] NewArrayStations;
+            //}
+            //IDAL.DO.Station[] DataSource.Stations[DalObject.DataSource.Config.VacantIndexS] = NewStation; // insert to the last place in array
+            //DalObject.DataSource.Config.VacantIndexS++; // the new spote of the empty index in array
+            //throw new NotImplementedException();
         }
 
         public static void AddDrone()
