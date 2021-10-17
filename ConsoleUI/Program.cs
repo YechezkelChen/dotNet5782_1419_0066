@@ -5,22 +5,25 @@ namespace ConsoleUI
 {
     class Program
     {
-        public enum Option { Add, Update, View, ListView, Exit};
-        public enum EntityOption { Station, Drone, Customer, Parcel, Exit};
+        public enum Option { Add = 1, Update, View, ListView, Exit};
+        public enum EntityOption { Station = 1, Drone, Customer, Parcel, Exit};
 
         static void Main(string[] args)
         {
+            int c;
             Option op;
             EntityOption ep;
-            Console.WriteLine("HELLO\n" + "Choose one of the following:\n" + "a: Add\n" + "u: Update\n" + "v: View\n" + "l: List View\n" + "e: Exit\n");
-            int.TryParse(Console.ReadLine(), out op);
+            Console.WriteLine("HELLO\n" + "Choose one of the following:\n" + "1: Add\n" + "2: Update\n" + "3: View\n" + "4: List View\n" + "5: Exit\n");
+            int.TryParse(Console.ReadLine(), out c);
+            op = (Option)c;
             do
 	        {
                 switch (op)
 	            {
 		            case Option.Add:
-                        Console.WriteLine("Choose one of the entity:\n" + "s: Station\n" + "d: Drone\n" + "c: Customer\n" + "p: Parcel\n" + "e: Exit\n");
-                        int.TryParse(Console.ReadLine(), out ep);
+                        Console.WriteLine("Choose one of the entity:\n" + "1: Station\n" + "2: Drone\n" + "3: Customer\n" + "4: Parcel\n" + "5: Exit\n");
+                        int.TryParse(Console.ReadLine(), out c);
+                        ep = (EntityOption)c;
                         switch (ep)
 	                    {
 		                    case EntityOption.Station:
@@ -45,8 +48,9 @@ namespace ConsoleUI
                         break;
                     case Option.View:
                         int MyId;
-                        Console.WriteLine("Choose one of the entity:\n" + "s: Station\n" + "d: Drone\n" + "c: Customer\n" + "p: Parcel\n" + "e: Exit\n");
-                        int.TryParse(Console.ReadLine(), out ep);
+                        Console.WriteLine("Choose one of the entity:\n" + "1: Station\n" + "2: Drone\n" + "3: Customer\n" + "4: Parcel\n" + "5: Exit\n");
+                        int.TryParse(Console.ReadLine(), out c);
+                        ep = (EntityOption)c;
                         Console.WriteLine("Enter Id of the entity:\n");
                         int.TryParse(Console.ReadLine(), out MyId);
                         switch (ep)
