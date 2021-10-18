@@ -326,7 +326,7 @@ namespace DalObject
             }
         }
 
-        public static void PackageCollection(Parcel P)//Assign a package to a skimmer
+        public static void CollectionParcelByDrone(Parcel P)//Assign a package to a skimmer
         {
             for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
             {
@@ -339,15 +339,14 @@ namespace DalObject
                     }
                 }
             }
-
         }
 
-        public static void PackageDelivery(Parcel P)
+        public static void supplyParcelToCustomer(Parcel P)
         {
             P.Delivered = DateTime.Now;
         }
 
-        public static void SendingDroneToCharge(Drone D,Station S)
+        public static void SendDroneToDroneCharge(Drone D,Station S)
         {
             D.Status = DroneStatuses.Maintenance;
             S.ChargeSlots--;
@@ -357,14 +356,14 @@ namespace DalObject
             D.Battry = 100;
         }
 
-        public static void ReleaseDrone(Drone D,Station S)
+        public static void ReleaseDroneFromDroneCharge(Drone D,Station S)
         {
             DroneCharge[] NewDroneCharges = new DroneCharge[100];
-            if(D.Battry==100)
+            if (D.Battry == 100) 
             {
                 for (int i = 0; i < DataSource.DroneCharges.Length; i++)
                 {
-                    if (DataSource.DroneCharges[i].DroneId==D.Id && DataSource.DroneCharges[i].Stationld==S.Id)
+                    if (DataSource.DroneCharges[i].DroneId == D.Id && DataSource.DroneCharges[i].Stationld == S.Id) 
                     {
                         for (int j = 0,k=0; j < DataSource.DroneCharges.Length; j++,k++)//to remove the elemnt
                         {
@@ -380,9 +379,7 @@ namespace DalObject
                 S.ChargeSlots++;
             }
         }
-
     }
-
 }
 
 
