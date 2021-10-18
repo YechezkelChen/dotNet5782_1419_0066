@@ -327,7 +327,9 @@ namespace DalObject
                     NewParcel.DroneId = num;
             }
             else
+            {
                 NewParcel.DroneId = -1;
+            }
             Console.WriteLine("Enter Requested Time Parcel: ");
             DateTime.TryParse(Console.ReadLine(), out d);
             NewParcel.Requested = d;
