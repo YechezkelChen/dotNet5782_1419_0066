@@ -312,9 +312,9 @@ namespace DalObject
                     DataSource.Stations[i].ToString();
         }
 
-        public static void ConnectParcelToDrone(Parcel P)
+        public static void ConnectParcelToDrone(Parcel P)//Assign a package to a skimmer
         {
-            P.Delivered = DateTime.Now;//The time to create a package for delivery
+            P.Requested = DateTime.Now;//The time to create a package for delivery
             for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
             {
                 if(DataSource.Drones[i].Status==DroneStatuses.Available)
@@ -326,6 +326,46 @@ namespace DalObject
             }
         }
 
+        public static void PackageCollection(Parcel P)//Assign a package to a skimmer
+        {
+            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+            {
+                if (DataSource.Drones[i].Status == DroneStatuses.Delivery)
+                {
+                    if (P.DroneId == DataSource.Drones[i].Id)
+                    {
+                        P.Delivered = DateTime.Now;
+                    }
+                }
+            }
+
+        }
+
+        public static void PackageDelivery(Parcel P)
+        {
+            P.PickedUp = DateTime.Now;
+        }
+
+        public static void SendingDroneToCharge(Drone D,Station S)
+        {
+            D.Status = DroneStatuses.Maintenance;
+            S.ChargeSlots--;
+            DataSource.Config.VacantIndexDC++;
+            DataSource.DroneCharges[DataSource.Config.VacantIndexDC].DroneId = D.Id;
+            DataSource.DroneCharges[DataSource.Config.VacantIndexDC].Stationld = S.Id;
+            D.Battry = 100;
+        }
+
+        public static void ReleaseDrone(Drone D,Station S)
+        {
+            if(D.Battry==100)
+            {
+                DataSource.DroneCharges[DataSource.Config.VacantIndexDC].DroneId = 0;
+                DataSource.DroneCharges[DataSource.Config.VacantIndexDC].Stationld = 0;
+                DataSource.Config.VacantIndexDC--;
+                S.ChargeSlots++;
+            }
+        }
 
     }
 

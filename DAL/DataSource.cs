@@ -10,6 +10,7 @@ namespace DalObject
         public static Station[] Stations = new Station[5];
         public static Customer[] Customers = new Customer[100];
         public static Parcel[] Parcels = new Parcel[1000];
+        public static DroneCharge[] DroneCharges = new DroneCharge[100];
 
         internal class Config
         {
@@ -17,6 +18,7 @@ namespace DalObject
             internal static int VacantIndexS = 0;//for station
             internal static int VacantIndexC = 0;//for Customer
             internal static int VacantIndexP = 0;//for Parcel
+            internal static int VacantIndexDC = 0;
             internal static int ParcelsId = 0;
         }
 
