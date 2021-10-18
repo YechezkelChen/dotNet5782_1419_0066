@@ -104,7 +104,7 @@ namespace ConsoleUI
                         }
                         break;
                     case Option.ListView:
-                        Console.WriteLine("Choose one of the entity:\n" + "1:List Stations\n" + "2:List Drones" + "3:List Customers" + "4:List Parcels" + "List Parcels No Drones" + "5:List Stations Charge" + "6:Exit");
+                        Console.WriteLine("Choose one of the entity:\n" + "1: List Stations\n" + "2: List Drones\n" + "3: List Customers\n" + "4: List Parcels\n" + "5: List Parcels No Drones\n" + "6: List Stations Charge\n" + "7:Exit\n");
                         int.TryParse(Console.ReadLine(), out c);
                         olv = (OptionListView)c;
                         switch (olv)

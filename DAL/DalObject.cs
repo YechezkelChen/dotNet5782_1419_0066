@@ -134,39 +134,39 @@ namespace DalObject
         public static void printStations()//print the list
         {
             for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
-                DataSource.Stations[i].ToString();
+                Console.WriteLine(DataSource.Stations[i].ToString());
         }
 
         public static void printDrones()//print the list
         {
             for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
-                DataSource.Drones[i].ToString();
+                Console.WriteLine(DataSource.Drones[i].ToString());
         }
 
         public static void printParcels()//print the list
         {
             for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
-                DataSource.Parcels[i].ToString();
+                Console.WriteLine(DataSource.Parcels[i].ToString());
         }
 
         public static void printCustomers()//print the list
         {
             for (int i = 0; i < DataSource.Config.VacantIndexC; i++)
-                DataSource.Customers[i].ToString();
+                Console.WriteLine(DataSource.Customers[i].ToString());
         }
 
         public static void printParcelsNoDrones()//print the list
         {
             for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
                 if (DataSource.Parcels[i].DroneId <= 0)//the id drone is not exist
-                    DataSource.Parcels[i].ToString();
+                    Console.WriteLine(DataSource.Parcels[i].ToString());
         }
 
         public static void printStationsCharge()//print the list
         {
             for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
                 if (DataSource.Stations[i].ChargeSlots > 0)
-                    DataSource.Stations[i].ToString();
+                    Console.WriteLine(DataSource.Stations[i].ToString());
         }
 
         public static void ConnectParcelToDrone()//Assign a package to a skimmer
