@@ -307,8 +307,6 @@ namespace DalObject
             S.ChargeSlots++;
 
 
-
-
             //Drone D = new Drone();
             //D = InputDrone();//get the data on the Drone
 
@@ -334,7 +332,6 @@ namespace DalObject
             //    DataSource.DroneCharges = NewDroneCharges;
             //    DataSource.Config.VacantIndexDC--;
             //    S.ChargeSlots++;
-            }
         }
 
         public static Parcel InputParcel()
