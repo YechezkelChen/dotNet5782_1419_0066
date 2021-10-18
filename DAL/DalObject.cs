@@ -309,9 +309,20 @@ namespace DalObject
                 default:
                     break;
             }
-            Console.WriteLine("Enter Drone Id Parcel: ");
+            Console.WriteLine("Chooce a Drone forme the list:");
+            printDrones();//print all the drones in the data
+            Console.WriteLine("Enter Drone Id frome the list to your Parcel: ");
             int.TryParse(Console.ReadLine(), out num);
-            NewParcel.DroneId = num;
+            bool flag = false;
+            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+            {
+                if (num == DataSource.Drones[i].Id)
+                    flag = true;
+            }
+            if (!flag)//the drone the user whant is not in the list
+                NewParcel.DroneId = -1;//parcel that not have drone
+            else
+                NewParcel.DroneId = num;
             Console.WriteLine("Enter Requested Time Parcel: ");
             DateTime.TryParse(Console.ReadLine(), out d);
             NewParcel.Requested = d;
