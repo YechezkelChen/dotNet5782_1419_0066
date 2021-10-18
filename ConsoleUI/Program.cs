@@ -10,7 +10,7 @@ namespace ConsoleUI
 
         public enum OptionListView { ListStations = 1, ListDrones, ListCustomers, ListParcels, ListParcelsNoDrones, ListStationsCharge, Exit };
 
-        public enum OptionUpdate { ConnectParcelToDrone = 1, CollectionParcelByDrone, supplyParcelToCustomer, SendDroneToDroneCharge, ReleaseDroneFromDroneCharge };
+        public enum OptionUpdate { ConnectParcelToDrone = 1, CollectionParcelByDrone, SupplyParcelToCustomer, SendDroneToDroneCharge, ReleaseDroneFromDroneCharge, Exit };
         static void Main(string[] args)
         {
             int c;
@@ -50,9 +50,31 @@ namespace ConsoleUI
 	                    }
                         break;
                     case Option.Update:
-                        Console.WriteLine("Choose one of to update:\n" + "1: Connect Parcel To Drone:\n" + "2: Collection Parcel By Drone\n" + "3: supply Parcel To Customer\n" + "4: Send Drone To Drone Charge\n" + "5: Release Drone From Drone Charge" + "6: Exit\n");
+                        Console.WriteLine("Choose one of to update:\n" + "1: Connect Parcel To Drone:\n" + "2: Collection Parcel By Drone\n" + "3: Supply Parcel To Customer\n" + "4: Send Drone To Drone Charge\n" + "5: Release Drone From Drone Charge" + "6: Exit\n");
                         int.TryParse(Console.ReadLine(), out c);
                         ou = (OptionUpdate)c;
+                        switch (ou)
+                        {
+                            case OptionUpdate.ConnectParcelToDrone:
+                                DalObject.DalObject.ConnectParcelToDrone();
+                                break;
+                            case OptionUpdate.CollectionParcelByDrone:
+                                DalObject.DalObject.CollectionParcelByDrone();
+                                break;
+                            case OptionUpdate.SupplyParcelToCustomer:
+                                DalObject.DalObject.SupplyParcelToCustomer();
+                                break;
+                            case OptionUpdate.SendDroneToDroneCharge:
+                                DalObject.DalObject.SendDroneToDroneCharge();
+                                break;
+                            case OptionUpdate.ReleaseDroneFromDroneCharge:
+                                DalObject.DalObject.ReleaseDroneFromDroneCharge();
+                                break;
+                            case OptionUpdate.Exit:
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     case Option.View:
                         Console.WriteLine("Choose one of the entity:\n" + "1: Station\n" + "2: Drone\n" + "3: Customer\n" + "4: Parcel\n" + "5: Exit\n");
