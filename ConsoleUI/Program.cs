@@ -65,7 +65,11 @@ namespace ConsoleUI
                                 DalObject.DalObject.SupplyParcelToCustomer();
                                 break;
                             case OptionUpdate.SendDroneToDroneCharge:
-                                DalObject.DalObject.SendDroneToDroneCharge();
+                                int IdStation;
+                                Console.WriteLine("Enter the id station:\n");
+                                DalObject.DalObject.PrintStationsCharge();
+                                int.TryParse(Console.ReadLine(), out IdStation);
+                                DalObject.DalObject.SendDroneToDroneCharge(IdStation);
                                 break;
                             case OptionUpdate.ReleaseDroneFromDroneCharge:
                                 DalObject.DalObject.ReleaseDroneFromDroneCharge();
