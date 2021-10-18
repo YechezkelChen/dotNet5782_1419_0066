@@ -24,7 +24,6 @@ namespace DalObject
             }
             DataSource.Stations[DataSource.Config.VacantIndexS] = NewStation; // insert to the last place in array
             DataSource.Config.VacantIndexS++; // the new spote of the empty index in array
-            throw new NotImplementedException();
         }
 
         public static void AddDrone()
@@ -41,7 +40,6 @@ namespace DalObject
             }
             DataSource.Drones[DataSource.Config.VacantIndexD] = NewDrone; // insert to the last place in array
             DataSource.Config.VacantIndexD++; // the new spote of the empty index in array
-            throw new NotImplementedException();
         }
 
         public static int AddParcel()
@@ -63,7 +61,6 @@ namespace DalObject
             int tmp = DataSource.Config.ParcelsId;
             DataSource.Config.ParcelsId++; // new Id for the fautre parce Id
             return tmp; // return the new number created
-            throw new NotImplementedException();
         }
 
         public static void AddCustomer()
@@ -81,7 +78,6 @@ namespace DalObject
             }
             DataSource.Customers[DataSource.Config.VacantIndexC] = NewCustomer; // insert to the last place in array
             DataSource.Config.VacantIndexD++; // the new spote of the empty index in array
-            throw new NotImplementedException();
         }
 
         public static Station GetStation(int StationId)
@@ -274,7 +270,7 @@ namespace DalObject
             {
                 Console.WriteLine("Enter Weight Parcel:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
                 int.TryParse(Console.ReadLine(), out num);
-            } while (num != 1 || num != 2 || num != 3);
+            } while (num != 1 && num != 2 && num != 3);
             switch (num)
             {
                 case 1:
@@ -295,7 +291,7 @@ namespace DalObject
 
                 Console.WriteLine("Enter Priority Parcel:\n" + "1: Normal\n" + "2: Fast\n" + "3: Emergency\n");
                 int.TryParse(Console.ReadLine(), out num);
-            } while (num != 1 || num != 2 || num != 3);
+            } while (num != 1 && num != 2 && num != 3);
             switch (num)
             {
                 case 1:
@@ -365,7 +361,7 @@ namespace DalObject
             {
                 Console.WriteLine("Enter MaxWeight Drone:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
                 int.TryParse(Console.ReadLine(), out num);
-            } while (num != 1 || num != 2 || num != 3);
+            } while (num != 1 && num != 2 && num != 3);
             switch (num)
             {
                 case 1:
@@ -385,7 +381,7 @@ namespace DalObject
             {
                 Console.WriteLine("Enter Status Drone:\n" + "1: Available\n" + "2: Maintenance\n" + "3: Delivery\n");
                 int.TryParse(Console.ReadLine(), out num);
-            } while (num != 1 || num != 2 || num != 3);
+            } while (num != 1 && num != 2 && num != 3);
             switch (num)
             {
                 case 1:
