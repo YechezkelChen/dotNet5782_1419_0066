@@ -289,6 +289,24 @@ namespace DalObject
             S.ChargeSlots++;
             D.Status = DroneStatuses.Available;
             DroneCharge[] NewDroneCharges = new DroneCharge[100];
+            for (int i = 0; i < DataSource.DroneCharges.Length; i++)
+            {
+                if (DataSource.DroneCharges[i].DroneId == D.Id && DataSource.DroneCharges[i].Stationld == S.Id)
+                {
+                    for (int j = 0, k = 0; j < DataSource.DroneCharges.Length; j++, k++)//to remove the elemnt
+                    {
+                        if (j != i)//copy all the array befor I
+                            NewDroneCharges[k] = DataSource.DroneCharges[j];
+                        else//keep the index of I to remove the elemnt
+                            k--;
+                    }
+                }
+            }
+            DataSource.DroneCharges = NewDroneCharges;
+            DataSource.Config.VacantIndexDC--;
+            S.ChargeSlots++;
+
+
 
 
             //Drone D = new Drone();
@@ -297,25 +315,25 @@ namespace DalObject
             //Station S = new Station();
             //S = InputStation();//get the data of the station
 
-            DroneCharge[] NewDroneCharges = new DroneCharge[100];
-            if (D.Battry == 100) 
-            {
-                for (int i = 0; i < DataSource.DroneCharges.Length; i++)
-                {
-                    if (DataSource.DroneCharges[i].DroneId == D.Id && DataSource.DroneCharges[i].Stationld == S.Id) 
-                    {
-                        for (int j = 0,k=0; j < DataSource.DroneCharges.Length; j++,k++)//to remove the elemnt
-                        {
-                            if (j != i)//copy all the array befor I
-                                NewDroneCharges[k] = DataSource.DroneCharges[j];
-                            else//keep the index of I to remove the elemnt
-                                k--;
-                        }
-                    }
-                }
-                DataSource.DroneCharges = NewDroneCharges;
-                DataSource.Config.VacantIndexDC--;
-                S.ChargeSlots++;
+            //DroneCharge[] NewDroneCharges = new DroneCharge[100];
+            //if (D.Battry == 100) 
+            //{
+            //    for (int i = 0; i < DataSource.DroneCharges.Length; i++)
+            //    {
+            //        if (DataSource.DroneCharges[i].DroneId == D.Id && DataSource.DroneCharges[i].Stationld == S.Id) 
+            //        {
+            //            for (int j = 0,k=0; j < DataSource.DroneCharges.Length; j++,k++)//to remove the elemnt
+            //            {
+            //                if (j != i)//copy all the array befor I
+            //                    NewDroneCharges[k] = DataSource.DroneCharges[j];
+            //                else//keep the index of I to remove the elemnt
+            //                    k--;
+            //            }
+            //        }
+            //    }
+            //    DataSource.DroneCharges = NewDroneCharges;
+            //    DataSource.Config.VacantIndexDC--;
+            //    S.ChargeSlots++;
             }
         }
 
