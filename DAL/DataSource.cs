@@ -18,7 +18,7 @@ namespace DalObject
             internal static int VacantIndexS = 0;//for station
             internal static int VacantIndexC = 0;//for Customer
             internal static int VacantIndexP = 0;//for Parcel
-            internal static int VacantIndexDC = 0;
+            internal static int VacantIndexDC = 0;//for Drone Charge
             internal static int ParcelsId = 0;
         }
 

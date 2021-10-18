@@ -334,7 +334,8 @@ namespace DalObject
                 {
                     if (P.DroneId == DataSource.Drones[i].Id)
                     {
-                        P.Delivered = DateTime.Now;
+                        P.PickedUp = DateTime.Now;
+                        break;
                     }
                 }
             }
@@ -343,25 +344,38 @@ namespace DalObject
 
         public static void PackageDelivery(Parcel P)
         {
-            P.PickedUp = DateTime.Now;
+            P.Delivered = DateTime.Now;
         }
 
         public static void SendingDroneToCharge(Drone D,Station S)
         {
             D.Status = DroneStatuses.Maintenance;
             S.ChargeSlots--;
-            DataSource.Config.VacantIndexDC++;
             DataSource.DroneCharges[DataSource.Config.VacantIndexDC].DroneId = D.Id;
             DataSource.DroneCharges[DataSource.Config.VacantIndexDC].Stationld = S.Id;
+            DataSource.Config.VacantIndexDC++;
             D.Battry = 100;
         }
 
         public static void ReleaseDrone(Drone D,Station S)
         {
+            DroneCharge[] NewDroneCharges = new DroneCharge[100];
             if(D.Battry==100)
             {
-                DataSource.DroneCharges[DataSource.Config.VacantIndexDC].DroneId = 0;
-                DataSource.DroneCharges[DataSource.Config.VacantIndexDC].Stationld = 0;
+                for (int i = 0; i < DataSource.DroneCharges.Length; i++)
+                {
+                    if (DataSource.DroneCharges[i].DroneId==D.Id && DataSource.DroneCharges[i].Stationld==S.Id)
+                    {
+                        for (int j = 0,k=0; j < DataSource.DroneCharges.Length; j++,k++)//to remove the elemnt
+                        {
+                            if (j != i)//copy all the array befor I
+                                NewDroneCharges[k] = DataSource.DroneCharges[j];
+                            else//keep the index of I to remove the elemnt
+                                k--;
+                        }
+                    }
+                }
+                DataSource.DroneCharges = NewDroneCharges;
                 DataSource.Config.VacantIndexDC--;
                 S.ChargeSlots++;
             }
