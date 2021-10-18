@@ -18,11 +18,11 @@ namespace ConsoleUI
             EntityOption ep;
             OptionListView olv;
             OptionUpdate ou;
-            Console.WriteLine("HELLO\n" + "Choose one of the following:\n" + "1: Add\n" + "2: Update\n" + "3: View\n" + "4: List View\n" + "5: Exit\n");
-            int.TryParse(Console.ReadLine(), out c);
-            op = (Option)c;
             do
 	        {
+                Console.WriteLine("\nHELLO\n" + "Choose one of the following:\n" + "1: Add\n" + "2: Update\n" + "3: View\n" + "4: List View\n" + "5: Exit\n");
+                int.TryParse(Console.ReadLine(), out c);
+                op = (Option)c;
                 switch (op)
 	            {
 		            case Option.Add:
