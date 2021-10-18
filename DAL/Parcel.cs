@@ -19,7 +19,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return $"Id #{Id}: SenderId={SenderId}, TargetId={TargetId},Weight={Weight}, Priority={Priority}, DroneId={DroneId}, Requested={Requested}, Scheduled={Scheduled}, PickedUp={PickedUp},Delivered={Delivered}";
+                return $"Id #{Id}: SenderId = {SenderId}, TargetId = {TargetId},Weight = {Weight}, Priority = {Priority}, DroneId = {DroneId}, Requested = {Requested}, Scheduled = {Scheduled}, PickedUp = {PickedUp},Delivered = {Delivered}";
             }
 
         }

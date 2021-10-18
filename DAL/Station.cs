@@ -14,7 +14,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return $"Station #{Id}: Name={Name}, Longitude={(int)Longitude},Lattitued{(int)Lattitued}, Number Of ChargeSlots={ChargeSlots}";
+                return $"Station #{Id}: Name = {Name}, Longitude = {Longitude},Lattitued = {Lattitued}, Number Of ChargeSlots = {ChargeSlots}";
             }
         }
     }
