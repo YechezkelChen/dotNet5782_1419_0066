@@ -12,24 +12,8 @@ namespace DalObject
 
         public static void AddStation()
         {
-            int num1;
-            double num2;
             Station NewStation = new Station();
-            Console.WriteLine("Enter Id Station: ");
-            int.TryParse(Console.ReadLine(), out num1);
-            NewStation.Id = num1;
-            Console.WriteLine("Enter Name Station: ");
-            int.TryParse(Console.ReadLine(), out num1);
-            NewStation.Name = num1;
-            Console.WriteLine("Enter Longitude Station: ");
-            double.TryParse(Console.ReadLine(), out num2);
-            NewStation.Longitude = num2;
-            Console.WriteLine("Enter Lattitued Station: ");
-            double.TryParse(Console.ReadLine(), out num2);
-            NewStation.Lattitued = num2;
-            Console.WriteLine("Enter ChargeSlots Station: ");
-            int.TryParse(Console.ReadLine(), out num1);
-            NewStation.ChargeSlots = num1;
+            NewStation = InputStation();
 
             if (DataSource.Config.VacantIndexS == DataSource.Stations.Length) // if there is no place in array
             {
@@ -45,56 +29,8 @@ namespace DalObject
 
         public static void AddDrone()
         {
-            int num;
-            double b;
             Drone NewDrone = new Drone();
-            Console.WriteLine("Enter Id Drone: ");
-            int.TryParse(Console.ReadLine(), out num);
-            NewDrone.Id = num;
-            Console.WriteLine("Enter Model Drone: ");
-            NewDrone.Model = Console.ReadLine();
-            do
-            {
-                Console.WriteLine("Enter MaxWeight Drone:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
-                int.TryParse(Console.ReadLine(), out num);
-            } while (num != 1 || num != 2 || num != 3);
-            switch (num)
-            {
-                case 1:
-                    NewDrone.MaxWeight = WeightCategories.Light;
-                    break;
-                case 2:
-                    NewDrone.MaxWeight = WeightCategories.Medium;
-                    break;
-                case 3:
-                    NewDrone.MaxWeight = WeightCategories.Heavy;
-                    break;
-                default:
-                    break;
-            }
-
-            do
-            {
-                Console.WriteLine("Enter Status Drone:\n" + "1: Available\n" + "2: Maintenance\n" + "3: Delivery\n");
-                int.TryParse(Console.ReadLine(), out num);
-            } while (num != 1 || num != 2 || num != 3);
-            switch (num)
-            {
-                case 1:
-                    NewDrone.Status = DroneStatuses.Available;
-                    break;
-                case 2:
-                    NewDrone.Status = DroneStatuses.Maintenance;
-                    break;
-                case 3:
-                    NewDrone.Status = DroneStatuses.Delivery;
-                    break;
-                default:
-                    break;
-            }
-            Console.WriteLine("Enter Battry Drone: ");
-            double.TryParse(Console.ReadLine(), out b);
-            NewDrone.Battry = b;
+            NewDrone = InputDrone();//get the data on the Drone
 
             if (DataSource.Config.VacantIndexD == DataSource.Drones.Length) // if there is no place in array
             {
@@ -110,73 +46,8 @@ namespace DalObject
 
         public static int AddParcel()
         {
-            int num;
-            DateTime d;
             Parcel NewParcel = new Parcel();
-            Console.WriteLine("Enter Id Parcel: ");
-            int.TryParse(Console.ReadLine(), out num);
-            NewParcel.Id = num;
-            Console.WriteLine("Enter Sender Id Parcel: ");
-            int.TryParse(Console.ReadLine(), out num);
-            NewParcel.SenderId = num;
-            Console.WriteLine("Enter Target Id Parcel: ");
-            int.TryParse(Console.ReadLine(), out num);
-            NewParcel.TargetId = num;
-            do
-            {
-                Console.WriteLine("Enter Weight Parcel:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
-                int.TryParse(Console.ReadLine(), out num);
-            } while (num != 1 || num != 2 || num != 3);
-            switch (num)
-            {
-                case 1:
-                    NewParcel.Weight = WeightCategories.Light;
-                    break;
-                case 2:
-                    NewParcel.Weight = WeightCategories.Medium;
-                    break;
-                case 3:
-                    NewParcel.Weight = WeightCategories.Heavy;
-                    break;
-                default:
-                    break;
-            }
-
-            do
-            {
-
-                Console.WriteLine("Enter Priority Parcel:\n" + "1: Normal\n" + "2: Fast\n" + "3: Emergency\n");
-                int.TryParse(Console.ReadLine(), out num);
-            } while (num != 1 || num != 2 || num != 3);
-            switch (num)
-            {
-                case 1:
-                    NewParcel.Priority = Priorities.Normal;
-                    break;
-                case 2:
-                    NewParcel.Priority = Priorities.Fast;
-                    break;
-                case 3:
-                    NewParcel.Priority = Priorities.Emergency;
-                    break;
-                default:
-                    break;
-            }
-            Console.WriteLine("Enter Drone Id Parcel: ");
-            int.TryParse(Console.ReadLine(), out num);
-            NewParcel.DroneId = num;
-            Console.WriteLine("Enter Requested Time Parcel: ");
-            DateTime.TryParse(Console.ReadLine(), out d);
-            NewParcel.Requested = d;
-            Console.WriteLine("Enter Scheduled Time Parcel: ");
-            DateTime.TryParse(Console.ReadLine(), out d);
-            NewParcel.Scheduled = d;
-            Console.WriteLine("Enter Picked Up Time Parcel: ");
-            DateTime.TryParse(Console.ReadLine(), out d);
-            NewParcel.PickedUp = d;
-            Console.WriteLine("Enter Delivered Time Parcel: ");
-            DateTime.TryParse(Console.ReadLine(), out d);
-            NewParcel.Delivered = d;
+            NewParcel = InputParcel();//get the parcel
 
             if (DataSource.Config.VacantIndexP == DataSource.Parcels.Length) // if there is no place in array
             {
@@ -197,22 +68,9 @@ namespace DalObject
 
         public static void AddCustomer()
         {
-            int num;
-            double d;
             Customer NewCustomer = new Customer();
-            Console.WriteLine("Enter Id Customer: ");
-            int.TryParse(Console.ReadLine(), out num);
-            NewCustomer.Id = num;
-            Console.WriteLine("Enter Name Customer: ");
-            NewCustomer.Name = Console.ReadLine();
-            Console.WriteLine("Enter Phone Customer: ");
-            NewCustomer.Phone = Console.ReadLine();
-            Console.WriteLine("Enter Longitude Customer: ");
-            double.TryParse(Console.ReadLine(), out d);
-            NewCustomer.Longitude = d;
-            Console.WriteLine("Enter Lattitued Customer: ");
-            double.TryParse(Console.ReadLine(), out d);
-            NewCustomer.Lattitued = d;
+            NewCustomer = InputCustomer();//get the data on the customer
+           
 
             if (DataSource.Config.VacantIndexC == DataSource.Customers.Length) // if there is no place in array
             {
@@ -312,8 +170,10 @@ namespace DalObject
                     DataSource.Stations[i].ToString();
         }
 
-        public static void ConnectParcelToDrone(Parcel P)//Assign a package to a skimmer
+        public static void ConnectParcelToDrone()//Assign a package to a skimmer
         {
+            Parcel P = new Parcel();
+            P = InputParcel();
             P.Requested = DateTime.Now;//The time to create a package for delivery
             for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
             {
@@ -326,8 +186,10 @@ namespace DalObject
             }
         }
 
-        public static void CollectionParcelByDrone(Parcel P)//Assign a package to a skimmer
+        public static void CollectionParcelByDrone()//Assign a package to a skimmer
         {
+            Parcel P = new Parcel();
+            P = InputParcel();
             for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
             {
                 if (DataSource.Drones[i].Status == DroneStatuses.Delivery)
@@ -341,13 +203,21 @@ namespace DalObject
             }
         }
 
-        public static void supplyParcelToCustomer(Parcel P)
+        public static void SupplyParcelToCustomer()
         {
+            Parcel P = new Parcel();
+            P = InputParcel();
             P.Delivered = DateTime.Now;
         }
 
-        public static void SendDroneToDroneCharge(Drone D,Station S)
+        public static void SendDroneToDroneCharge()
         {
+            Drone D = new Drone();
+            D = InputDrone();//get the data on the Drone
+
+            Station S = new Station();
+            S = InputStation();//get the data of the station
+
             D.Status = DroneStatuses.Maintenance;
             S.ChargeSlots--;
             DataSource.DroneCharges[DataSource.Config.VacantIndexDC].DroneId = D.Id;
@@ -356,8 +226,14 @@ namespace DalObject
             D.Battry = 100;
         }
 
-        public static void ReleaseDroneFromDroneCharge(Drone D,Station S)
+        public static void ReleaseDroneFromDroneCharge()
         {
+            Drone D = new Drone();
+            D = InputDrone();//get the data on the Drone
+
+            Station S = new Station();
+            S = InputStation();//get the data of the station
+
             DroneCharge[] NewDroneCharges = new DroneCharge[100];
             if (D.Battry == 100) 
             {
@@ -378,6 +254,181 @@ namespace DalObject
                 DataSource.Config.VacantIndexDC--;
                 S.ChargeSlots++;
             }
+        }
+
+        public static Parcel InputParcel()
+        {
+            int num;
+            DateTime d;
+            Parcel NewParcel = new Parcel();
+            Console.WriteLine("Enter Id Parcel: ");
+            int.TryParse(Console.ReadLine(), out num);
+            NewParcel.Id = num;
+            Console.WriteLine("Enter Sender Id Parcel: ");
+            int.TryParse(Console.ReadLine(), out num);
+            NewParcel.SenderId = num;
+            Console.WriteLine("Enter Target Id Parcel: ");
+            int.TryParse(Console.ReadLine(), out num);
+            NewParcel.TargetId = num;
+            do
+            {
+                Console.WriteLine("Enter Weight Parcel:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
+                int.TryParse(Console.ReadLine(), out num);
+            } while (num != 1 || num != 2 || num != 3);
+            switch (num)
+            {
+                case 1:
+                    NewParcel.Weight = WeightCategories.Light;
+                    break;
+                case 2:
+                    NewParcel.Weight = WeightCategories.Medium;
+                    break;
+                case 3:
+                    NewParcel.Weight = WeightCategories.Heavy;
+                    break;
+                default:
+                    break;
+            }
+
+            do
+            {
+
+                Console.WriteLine("Enter Priority Parcel:\n" + "1: Normal\n" + "2: Fast\n" + "3: Emergency\n");
+                int.TryParse(Console.ReadLine(), out num);
+            } while (num != 1 || num != 2 || num != 3);
+            switch (num)
+            {
+                case 1:
+                    NewParcel.Priority = Priorities.Normal;
+                    break;
+                case 2:
+                    NewParcel.Priority = Priorities.Fast;
+                    break;
+                case 3:
+                    NewParcel.Priority = Priorities.Emergency;
+                    break;
+                default:
+                    break;
+            }
+            Console.WriteLine("Enter Drone Id Parcel: ");
+            int.TryParse(Console.ReadLine(), out num);
+            NewParcel.DroneId = num;
+            Console.WriteLine("Enter Requested Time Parcel: ");
+            DateTime.TryParse(Console.ReadLine(), out d);
+            NewParcel.Requested = d;
+            Console.WriteLine("Enter Scheduled Time Parcel: ");
+            DateTime.TryParse(Console.ReadLine(), out d);
+            NewParcel.Scheduled = d;
+            Console.WriteLine("Enter Picked Up Time Parcel: ");
+            DateTime.TryParse(Console.ReadLine(), out d);
+            NewParcel.PickedUp = d;
+            Console.WriteLine("Enter Delivered Time Parcel: ");
+            DateTime.TryParse(Console.ReadLine(), out d);
+            NewParcel.Delivered = d;
+
+            return NewParcel;
+        }
+
+        public static Customer InputCustomer()
+        {
+            int num;
+            double d;
+            Customer NewCustomer = new Customer();
+            Console.WriteLine("Enter Id Customer: ");
+            int.TryParse(Console.ReadLine(), out num);
+            NewCustomer.Id = num;
+            Console.WriteLine("Enter Name Customer: ");
+            NewCustomer.Name = Console.ReadLine();
+            Console.WriteLine("Enter Phone Customer: ");
+            NewCustomer.Phone = Console.ReadLine();
+            Console.WriteLine("Enter Longitude Customer: ");
+            double.TryParse(Console.ReadLine(), out d);
+            NewCustomer.Longitude = d;
+            Console.WriteLine("Enter Lattitued Customer: ");
+            double.TryParse(Console.ReadLine(), out d);
+            NewCustomer.Lattitued = d;
+
+            return NewCustomer;
+        }
+
+        public static Drone InputDrone()
+        {
+            int num;
+            double b;
+            Drone NewDrone = new Drone();
+            Console.WriteLine("Enter Id Drone: ");
+            int.TryParse(Console.ReadLine(), out num);
+            NewDrone.Id = num;
+            Console.WriteLine("Enter Model Drone: ");
+            NewDrone.Model = Console.ReadLine();
+            do
+            {
+                Console.WriteLine("Enter MaxWeight Drone:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
+                int.TryParse(Console.ReadLine(), out num);
+            } while (num != 1 || num != 2 || num != 3);
+            switch (num)
+            {
+                case 1:
+                    NewDrone.MaxWeight = WeightCategories.Light;
+                    break;
+                case 2:
+                    NewDrone.MaxWeight = WeightCategories.Medium;
+                    break;
+                case 3:
+                    NewDrone.MaxWeight = WeightCategories.Heavy;
+                    break;
+                default:
+                    break;
+            }
+
+            do
+            {
+                Console.WriteLine("Enter Status Drone:\n" + "1: Available\n" + "2: Maintenance\n" + "3: Delivery\n");
+                int.TryParse(Console.ReadLine(), out num);
+            } while (num != 1 || num != 2 || num != 3);
+            switch (num)
+            {
+                case 1:
+                    NewDrone.Status = DroneStatuses.Available;
+                    break;
+                case 2:
+                    NewDrone.Status = DroneStatuses.Maintenance;
+                    break;
+                case 3:
+                    NewDrone.Status = DroneStatuses.Delivery;
+                    break;
+                default:
+                    break;
+            }
+            Console.WriteLine("Enter Battry Drone: ");
+            double.TryParse(Console.ReadLine(), out b);
+            NewDrone.Battry = b;
+
+            return NewDrone;
+        }
+
+        public static Station InputStation()
+        {
+            int num1;
+            double num2;
+            Station NewStation = new Station();
+            Console.WriteLine("Enter Id Station: ");
+            int.TryParse(Console.ReadLine(), out num1);
+            NewStation.Id = num1;
+            Console.WriteLine("Enter Name Station: ");
+            int.TryParse(Console.ReadLine(), out num1);
+            NewStation.Name = num1;
+            Console.WriteLine("Enter Longitude Station: ");
+            double.TryParse(Console.ReadLine(), out num2);
+            NewStation.Longitude = num2;
+            Console.WriteLine("Enter Lattitued Station: ");
+            double.TryParse(Console.ReadLine(), out num2);
+            NewStation.Lattitued = num2;
+            Console.WriteLine("Enter ChargeSlots Station: ");
+            int.TryParse(Console.ReadLine(), out num1);
+            NewStation.ChargeSlots = num1;
+
+            return NewStation;
         }
     }
 }
