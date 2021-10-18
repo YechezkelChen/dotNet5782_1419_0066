@@ -82,50 +82,54 @@ namespace DalObject
 
         public static Station GetStation(int StationId)
         {
+            Station NewStation = new Station();
             for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
             {
                 if(DataSource.Stations[i].Id == StationId)
                 {
-                    return DataSource.Stations[i];
+                    NewStation = DataSource.Stations[i];
                 }
             }
-            throw new NotImplementedException();
+            return NewStation;
         }
 
         public static Drone GetDrone(int DroneId)
         {
+            Drone NewDrone = new Drone();
             for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
             {
                 if (DataSource.Drones[i].Id == DroneId)
                 {
-                    return DataSource.Drones[i];
+                    NewDrone = DataSource.Drones[i];
                 }
             }
-            throw new NotImplementedException();
+            return NewDrone;
         }
 
         public static Parcel GetParcel(int ParcelId)
         {
+            Parcel NewParcel = new Parcel();
             for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
             {
                 if (DataSource.Parcels[i].Id == ParcelId)
                 {
-                    return DataSource.Parcels[i];
+                    NewParcel = DataSource.Parcels[i];
                 }
             }
-            throw new NotImplementedException();
+            return NewParcel;
         }
 
         public static Customer GetCustomer(int CustomerId)
         {
+            Customer NewCustomer = new Customer();
             for (int i = 0; i < DataSource.Config.VacantIndexC; i++)
             {
                 if (DataSource.Customers[i].Id == CustomerId)
                 {
-                    return DataSource.Customers[i];
+                    NewCustomer = DataSource.Customers[i];
                 }
             }
-            throw new NotImplementedException();
+            return NewCustomer;
         }
 
         public static void printStations()//print the list
