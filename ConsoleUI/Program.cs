@@ -46,7 +46,7 @@ namespace ConsoleUI
                             case EntityOption.Exit:
                                 break;
                             default:
-                                break;
+                                break; 
 	                    }
                         break;
                     case Option.Update:
