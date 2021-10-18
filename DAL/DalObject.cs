@@ -67,7 +67,6 @@ namespace DalObject
         {
             Customer NewCustomer = new Customer();
             NewCustomer = InputCustomer();//get the data on the customer
-           
 
             if (DataSource.Config.VacantIndexC == DataSource.Customers.Length) // if there is no place in array
             {
@@ -77,7 +76,7 @@ namespace DalObject
                 DataSource.Customers = NewArrayCustomers;
             }
             DataSource.Customers[DataSource.Config.VacantIndexC] = NewCustomer; // insert to the last place in array
-            DataSource.Config.VacantIndexD++; // the new spote of the empty index in array
+            DataSource.Config.VacantIndexC++; // the new spote of the empty index in array
         }
 
         public static Station GetStation(int StationId)
