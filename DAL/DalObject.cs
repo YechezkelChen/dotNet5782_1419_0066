@@ -76,7 +76,7 @@ namespace DalObject
                 DataSource.Customers = NewArrayCustomers;
             }
             DataSource.Customers[DataSource.Config.VacantIndexC] = NewCustomer; // insert to the last place in array
-            DataSource.Config.VacantIndexC++; // the new spote of the empty index in array
+            DataSource.Config.VacantIndexC++;  // the new spote of the empty index in array
         }
 
         public static Station GetStation(int StationId)
