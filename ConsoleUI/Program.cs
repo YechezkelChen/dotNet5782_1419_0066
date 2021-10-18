@@ -86,16 +86,16 @@ namespace ConsoleUI
                         switch (ep)
                         {
                             case EntityOption.Station:
-                                DalObject.DalObject.GetStation(MyId).ToString();
+                                Console.WriteLine(DalObject.DalObject.GetStation(MyId).ToString());
                                 break;
                             case EntityOption.Drone:
-                                DalObject.DalObject.GetDrone(MyId).ToString();
+                                Console.WriteLine(DalObject.DalObject.GetDrone(MyId).ToString());
                                 break;
                             case EntityOption.Customer:
-                                DalObject.DalObject.GetCustomer(MyId).ToString();
+                                Console.WriteLine(DalObject.DalObject.GetCustomer(MyId).ToString());
                                 break;
                             case EntityOption.Parcel:
-                                DalObject.DalObject.GetParcel(MyId).ToString();
+                                Console.WriteLine(DalObject.DalObject.GetParcel(MyId).ToString());
                                 break;
                             case EntityOption.Exit:
                                 break;
