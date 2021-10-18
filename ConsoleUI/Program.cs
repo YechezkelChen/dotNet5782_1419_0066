@@ -110,22 +110,22 @@ namespace ConsoleUI
                         switch (olv)
                         {
                             case OptionListView.ListStations:
-                                DalObject.DalObject.printStations();
+                                DalObject.DalObject.PrintStations();
                                 break;
                             case OptionListView.ListDrones:
-                                DalObject.DalObject.printDrones();
+                                DalObject.DalObject.PrintDrones();
                                 break;
                             case OptionListView.ListCustomers:
-                                DalObject.DalObject.printCustomers();
+                                DalObject.DalObject.PrintCustomers();
                                 break;
                             case OptionListView.ListParcels:
-                                DalObject.DalObject.printParcels();
+                                DalObject.DalObject.PrintParcels();
                                 break;
                             case OptionListView.ListParcelsNoDrones:
-                                DalObject.DalObject.printParcelsNoDrones();
+                                DalObject.DalObject.PrintParcelsNoDrones();
                                 break;
                             case OptionListView.ListStationsCharge:
-                                DalObject.DalObject.printStationsCharge();
+                                DalObject.DalObject.PrintStationsCharge();
                                 break;
                             case OptionListView.Exit:
                                 break;
