@@ -158,7 +158,7 @@ namespace DalObject
         public static void printParcelsNoDrones()//print the list
         {
             for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
-                if (DataSource.Parcels[i].DroneId <= 0)//the id drone is not exist
+                if (DataSource.Parcels[i].DroneId == -1)//the id drone is not exist
                     Console.WriteLine(DataSource.Parcels[i].ToString());
         }
 
