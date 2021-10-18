@@ -311,6 +311,22 @@ namespace DalObject
                 if (DataSource.Stations[i].ChargeSlots > 0)
                     DataSource.Stations[i].ToString();
         }
+
+        public static void ConnectParcelToDrone(Parcel P)
+        {
+            P.Delivered = DateTime.Now;//The time to create a package for delivery
+            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+            {
+                if(DataSource.Drones[i].Status==DroneStatuses.Available)
+                {
+                    DataSource.Drones[i].Status = DroneStatuses.Delivery;
+                    P.DroneId = DataSource.Drones[i].Id;//conect
+                    P.Scheduled = DateTime.Now;
+                }
+            }
+        }
+
+
     }
 
 }
