@@ -50,7 +50,7 @@ namespace ConsoleUI
 	                    }
                         break;
                     case Option.Update:
-                        Console.WriteLine("Choose one of to update:\n" + "1: Connect Parcel To Drone:\n" + "2: Collection Parcel By Drone\n" + "3: Supply Parcel To Customer\n" + "4: Send Drone To Drone Charge\n" + "5: Release Drone From Drone Charge" + "6: Exit\n");
+                        Console.WriteLine("Choose one of to update:\n" + "1: Connect Parcel To Drone:\n" + "2: Collection Parcel By Drone\n" + "3: Supply Parcel To Customer\n" + "4: Send Drone To Drone Charge\n" + "5: Release Drone From Drone Charge\n" + "6: Exit\n");
                         int.TryParse(Console.ReadLine(), out c);
                         ou = (OptionUpdate)c;
                         switch (ou)
