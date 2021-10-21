@@ -72,7 +72,7 @@ namespace DalObject
             Station NewStation = new Station();
             for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
             {
-                if(DataSource.Stations[i].Id == StationId)
+                if (DataSource.Stations[i].Id == StationId)
                 {
                     NewStation = DataSource.Stations[i];
                 }
@@ -119,51 +119,37 @@ namespace DalObject
             return NewCustomer;
         }
 
-        public static void PrintStations()//print the list
+        public static Station[] GetStations()
         {
-            for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
-                Console.WriteLine(DataSource.Stations[i].ToString());
-        }
-
-        public static void PrintDrones()//print the list
-        {
-            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
-                Console.WriteLine(DataSource.Drones[i].ToString());
-        }
-
-        public static void PrintDronesAvailable()//print the list
-        {
-            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
-                if (DataSource.Drones[i].Status == DroneStatuses.Available)
-                    Console.WriteLine(DataSource.Drones[i].ToString());
-        }
-
-        public static void PrintParcels()//print the list
-        {
+            Parcel[] newParcels = new Parcel[DataSource.Config.VacantIndexP];
             for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
-                Console.WriteLine(DataSource.Parcels[i].ToString());
+                newParcels[i] = DataSource.parcels[i];
+            return newParcels;
         }
 
-        public static void PrintCustomers()//print the list
+        public static Drone[] GetDrones()
         {
-            for (int i = 0; i < DataSource.Config.VacantIndexC; i++)
-                Console.WriteLine(DataSource.Customers[i].ToString());
+            Drone[] newDrones = new Drone[DataSource.Config.VacantIndexD];
+            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+                newDrones[i] = DataSource.drones[i];
+            return newDrones;
         }
 
-        public static void PrintParcelsNoDrones()//print the list
+        public static Parcel[] GetParcels()
         {
+            Parcel[] newParcels = new Parcel[DataSource.Config.VacantIndexP];
             for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
-                if (DataSource.Parcels[i].DroneId == -1)//the id drone is not exist
-                    Console.WriteLine(DataSource.Parcels[i].ToString());
+                newParcels[i] = DataSource.parcels[i];
+            return newParcels;
         }
-
-        public static void PrintStationsCharge()//print the list
+  
+        public static Customer[] GetCustomers()
         {
-            for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
-                if (DataSource.Stations[i].ChargeSlots > 0)
-                    Console.WriteLine(DataSource.Stations[i].ToString());
+            Drone[] newDrones = new Drone[DataSource.Config.VacantIndexD];
+            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+                newDrones[i] = DataSource.drones[i];
+            return newDrones;
         }
-
         public static void ConnectParcelToDrone()//Assign a package to a skimmer
         {
             int IdDrone, IdParcel;

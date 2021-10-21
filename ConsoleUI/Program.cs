@@ -14,6 +14,7 @@ namespace ConsoleUI
         public enum OptionUpdate { ConnectParcelToDrone = 1, CollectionParcelByDrone, SupplyParcelToCustomer, SendDroneToDroneCharge, ReleaseDroneFromDroneCharge, Exit };
         static void Main(string[] args)
         {
+            DalObject.DalObject d;
             int c;
             Option op;
             EntityOption ep;
@@ -332,6 +333,50 @@ namespace ConsoleUI
             NewParcel.Requested = d;
 
             return NewParcel;
+        }
+
+        public static void PrintStations()//print the list
+        {
+            for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
+                Console.WriteLine(DataSource.Stations[i].ToString());
+        }
+        public static void PrintDrones()//print the list
+        {
+            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+                Console.WriteLine(DataSource.Drones[i].ToString());
+        }
+
+        public static void PrintDronesAvailable()//print the list
+        {
+            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+                if (DataSource.Drones[i].Status == DroneStatuses.Available)
+                    Console.WriteLine(DataSource.Drones[i].ToString());
+        }
+
+        public static void PrintParcels()//print the list
+        {
+            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
+                Console.WriteLine(DataSource.Parcels[i].ToString());
+        }
+
+        public static void PrintCustomers()//print the list
+        {
+            for (int i = 0; i < DataSource.Config.VacantIndexC; i++)
+                Console.WriteLine(DataSource.Customers[i].ToString());
+        }
+
+        public static void PrintParcelsNoDrones()//print the list
+        {
+            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
+                if (DataSource.Parcels[i].DroneId == -1)//the id drone is not exist
+                    Console.WriteLine(DataSource.Parcels[i].ToString());
+        }
+
+        public static void PrintStationsCharge()//print the list
+        {
+            for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
+                if (DataSource.Stations[i].ChargeSlots > 0)
+                    Console.WriteLine(DataSource.Stations[i].ToString());
         }
     }
 }
