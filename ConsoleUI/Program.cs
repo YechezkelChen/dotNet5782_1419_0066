@@ -179,6 +179,10 @@ namespace ConsoleUI
 	        } while (op != Option.Exit);
         }
 
+        /// <summary>
+        /// read fron the user station to insert to list
+        /// </summary>
+        /// <returns></no returns, just read from user>
         public static Station InputStation()
         {
             int num1;
@@ -203,6 +207,10 @@ namespace ConsoleUI
             return NewStation;
         }
 
+        /// <summary>
+        /// read fron the user drone to insert to list
+        /// </summary>
+        /// <returns></no returns, just read from user>
         public static Drone InputDrone()
         {
             int num;
@@ -259,6 +267,10 @@ namespace ConsoleUI
             return NewDrone;
         }
 
+        /// <summary>
+        /// read fron the user customer to insert to list
+        /// </summary>
+        /// <returns></no returns, just read from user>
         public static Customer InputCustomer()
         {
             int num;
@@ -281,6 +293,10 @@ namespace ConsoleUI
             return NewCustomer;
         }
 
+        /// <summary>
+        /// read fron the user parcel to insert to list
+        /// </summary>
+        /// <returns></no returns, just read from user>
         public static Parcel InputParcel()
         {
             int num;
@@ -366,12 +382,21 @@ namespace ConsoleUI
             return NewParcel;
         }
 
+        /// <summary>
+        /// print all the list of stations
+        /// </summary>
+        /// <returns></no returns, just print>
         public static void PrintStations()//print the list
         {
             Station[] newStations = DalObject.DalObject.GetStations();
             for (int i = 0; i < newStations.Length; i++)
                 Console.WriteLine(newStations[i].ToString());
         }
+
+        /// <summary>
+        /// print all the list of drones
+        /// </summary>
+        /// <returns></no returns, just print>
         public static void PrintDrones()//print the list
         {
             Drone[] newDrones = DalObject.DalObject.GetDrones();
@@ -379,6 +404,10 @@ namespace ConsoleUI
                 Console.WriteLine(newDrones[i].ToString());
         }
 
+        /// <summary>
+        /// print all the list of Drones Available
+        /// </summary>
+        /// <returns></no returns, just print>
         public static void PrintDronesAvailable()//print the list
         {
             Drone[] newDrones = DalObject.DalObject.GetDrones();
@@ -387,19 +416,32 @@ namespace ConsoleUI
                     Console.WriteLine(newDrones[i].ToString());
         }
 
-        public static void PrintDronesCharge()
+        /// <summary>
+        /// print all the list of Drones Charge
+        /// </summary>
+        /// <returns></no returns, just print>
+        public static void PrintDronesCharge()//print the list
         {
             DroneCharge[] newDronesCharge = DalObject.DalObject.GetDronesCharge();
             for (int i = 0; i < newDronesCharge.Length; i++)
                 Console.WriteLine(newDronesCharge[i].ToString());
         }
 
+        /// <summary>
+        /// print all the list of customers
+        /// </summary>
+        /// <returns></no returns, just print>
         public static void PrintCustomers()//print the list
         {
             Customer[] newCustomers = DalObject.DalObject.GetCustomers();
             for (int i = 0; i < newCustomers.Length; i++)
                 Console.WriteLine(newCustomers[i].ToString());
         }
+
+        /// <summary>
+        /// print all the list of parcels
+        /// </summary>
+        /// <returns></no returns, just print>
         public static void PrintParcels()//print the list
         {
             Parcel[] newParcels = DalObject.DalObject.GetParcels();
@@ -407,7 +449,11 @@ namespace ConsoleUI
                 Console.WriteLine(newParcels[i].ToString());
         }
 
-        public static void PrintParcelsWithNoAssign()
+        /// <summary>
+        /// print all the list of Parcels With No Assign 
+        /// </summary>
+        /// <returns></no returns, just print>
+        public static void PrintParcelsWithNoAssign()//print the list
         {
             Parcel[] newParcels = DalObject.DalObject.GetParcels();
             for (int i = 0; i < newParcels.Length; i++)
@@ -415,7 +461,11 @@ namespace ConsoleUI
                     Console.WriteLine(newParcels[i].ToString());
         }
 
-        public static void PrintParcelsPickedUp()
+        /// <summary>
+        /// print all the list of Parcels Picked Up
+        /// </summary>
+        /// <returns></no returns, just print>
+        public static void PrintParcelsPickedUp()//print the list
         {
             Parcel[] newParcels = DalObject.DalObject.GetParcels();
             for (int i = 0; i < newParcels.Length; i++)
@@ -423,6 +473,10 @@ namespace ConsoleUI
                     Console.WriteLine(newParcels[i].ToString());
         }
 
+        /// <summary>
+        /// print all the list of Parcels No Drones
+        /// </summary>
+        /// <returns></no returns, just print>
         public static void PrintParcelsNoDrones()//print the list
         {
             Parcel[] newParcels = DalObject.DalObject.GetParcels();
@@ -431,6 +485,10 @@ namespace ConsoleUI
                     Console.WriteLine(newParcels[i].ToString());
         }
 
+        /// <summary>
+        /// print all the list of Stations Charge
+        /// </summary>
+        /// <returns></no returns, just print>
         public static void PrintStationsCharge()//print the list
         {
             Station[] newStations = DalObject.DalObject.GetStations();
@@ -438,7 +496,6 @@ namespace ConsoleUI
                 if (newStations[i].chargeSlots > 0)
                     Console.WriteLine(newStations[i].ToString());
         }
-
     }
 }
 
