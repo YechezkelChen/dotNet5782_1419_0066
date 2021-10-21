@@ -62,22 +62,36 @@ namespace ConsoleUI
                         switch (ou)
                         {
                             case OptionUpdate.ConnectParcelToDrone:
-                                DalObject.DalObject.ConnectParcelToDrone();
+                                int idDrone, idParcel;
+                                Console.WriteLine("Enter id of parcel to connect:\n");
+                                PrintParcelsNoDrones();
+                                int.TryParse(Console.ReadLine(), out idParcel);
+                                Parcel parcel = DalObject.DalObject.GetParcel(idParcel);
+                                Console.WriteLine("Enter id of drone:\n");
+                                PrintDronesAvailable();
+                                int.TryParse(Console.ReadLine(), out idDrone);
+                                Drone drone = DalObject.DalObject.GetDrone(idDrone);
+                                DalObject.DalObject.ConnectParcelToDrone(parcel, drone);
                                 break;
                             case OptionUpdate.CollectionParcelByDrone:
-                                DalObject.DalObject.CollectionParcelByDrone();
+                                int IdParcel;
+                                Console.WriteLine("Enter id of parcel to PickedUp:\n");
+                                PrintParcelsWithNoAssign();
+                                int.TryParse(Console.ReadLine(), out IdParcel);
+                                Parcel helpParcel = DalObject.DalObject.GetParcel(IdParcel);
+                                DalObject.DalObject.CollectionParcelByDrone(helpParcel);
                                 break;
-                            case OptionUpdate.SupplyParcelToCustomer:
+                            case OptionUpdate.SupplyParcelToCustomer:////////////////////////////////////////////////////
                                 DalObject.DalObject.SupplyParcelToCustomer();
                                 break;
-                            case OptionUpdate.SendDroneToDroneCharge:
+                            case OptionUpdate.SendDroneToDroneCharge:///////////////////////////////////
                                 int IdStation;
                                 Console.WriteLine("Enter the id station:\n");
                                 PrintStationsCharge();
                                 int.TryParse(Console.ReadLine(), out IdStation);
                                 DalObject.DalObject.SendDroneToDroneCharge(IdStation);
                                 break;
-                            case OptionUpdate.ReleaseDroneFromDroneCharge:
+                            case OptionUpdate.ReleaseDroneFromDroneCharge:////////////////////////////////////////////
                                 DalObject.DalObject.ReleaseDroneFromDroneCharge();
                                 break;
                             case OptionUpdate.Exit:
@@ -367,6 +381,14 @@ namespace ConsoleUI
             Parcel[] newParcels = DalObject.DalObject.GetParcels();
             for (int i = 0; i < newParcels.Length; i++) 
                 Console.WriteLine(newParcels[i].ToString());
+        }
+
+        public static void PrintParcelsWithNoAssign()
+        {
+            Parcel[] newParcels = DalObject.DalObject.GetParcels();
+            for (int i = 0; i < newParcels.Length; i++)
+                if (newParcels[i].droneId != -1)//the parcel wasnt connected
+                    Console.WriteLine(newParcels[i].ToString());
         }
 
         public static void PrintParcelsNoDrones()//print the list

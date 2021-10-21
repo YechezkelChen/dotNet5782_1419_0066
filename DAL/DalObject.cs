@@ -150,33 +150,17 @@ namespace DalObject
                 newCustomers[i] = DataSource.customers[i];
             return newCustomers;
         }
-        public static void ConnectParcelToDrone()//Assign a package to a skimmer
+        public static void ConnectParcelToDrone(Parcel p, Drone d)//Assign a package to a skimmer
         {
-            int IdDrone, IdParcel;
-            Console.WriteLine("Enter id of parcel to connect:\n");
-            PrintParcelsNoDrones();
-            int.TryParse(Console.ReadLine(), out IdParcel);
-            Parcel P = GetParcel(IdParcel);
-            Console.WriteLine("Enter id of drone:\n");
-            PrintDronesAvailable();
-            int.TryParse(Console.ReadLine(), out IdDrone);
-            Drone D = GetDrone(IdDrone);
-            P.requested = DateTime.Now;//The time to create a package for delivery
-            D.status = DroneStatuses.Delivery;
-            P.droneId = D.id;//conect
-            P.scheduled = DateTime.Now;
+            p.requested = DateTime.Now;//The time to create a package for delivery
+            d.status = DroneStatuses.Delivery;
+            p.droneId = d.id;//conect
+            p.scheduled = DateTime.Now;
         }
 
-        public static void CollectionParcelByDrone()//Assign a package to a drone
+        public static void CollectionParcelByDrone(Parcel p)//Assign a package to a drone
         {
-            int IdParcel;
-            Console.WriteLine("Enter id of parcel to PickedUp:\n");
-            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
-                if (DataSource.parcels[i].droneId != -1)//the parcel was connected
-                    Console.WriteLine(DataSource.parcels[i].ToString());
-            int.TryParse(Console.ReadLine(), out IdParcel);
-            Parcel P = GetParcel(IdParcel);
-            P.pickedUp = DateTime.Now;
+            p.pickedUp = DateTime.Now;
         }
 
         public static void SupplyParcelToCustomer()
