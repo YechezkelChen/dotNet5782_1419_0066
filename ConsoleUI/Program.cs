@@ -14,7 +14,7 @@ namespace ConsoleUI
         public enum OptionUpdate { ConnectParcelToDrone = 1, CollectionParcelByDrone, SupplyParcelToCustomer, SendDroneToDroneCharge, ReleaseDroneFromDroneCharge, Exit };
         static void Main(string[] args)
         {
-            DalObject.DalObject d;//for the initialize
+            DalObject.DalObject d = new DalObject.DalObject();//for the initialize
             int c, idDrone, idParcel, idStation;
             Option op;
             EntityOption ep;

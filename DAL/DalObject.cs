@@ -160,10 +160,21 @@ namespace DalObject
         }
         public static void ConnectParcelToDrone(Parcel p, Drone d)//Assign a package to a skimmer
         {
-            p.requested = DateTime.Now;//The time to create a package for delivery
-            d.status = DroneStatuses.Delivery;
-            p.droneId = d.id;//conect
-            p.scheduled = DateTime.Now;
+            int index = -1;
+            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
+            {
+                if (DataSource.parcels[i].id == p.id)
+                    index = i; // found the place in array
+            }
+            DataSource.parcels[index].requested = DateTime.Now;//The time to create a package for delivery
+            DataSource.parcels[index].droneId = d.id;//conect
+            DataSource.parcels[index].scheduled = DateTime.Now;
+            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+            {
+                if (DataSource.drones[i].id == d.id)
+                    index = i; // found the place in array
+            }
+            DataSource.drones[index].status = DroneStatuses.Delivery;
         }
 
         public static void CollectionParcelByDrone(Parcel p)//Assign a package to a drone
