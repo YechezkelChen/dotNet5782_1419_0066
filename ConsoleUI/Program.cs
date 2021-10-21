@@ -1,5 +1,6 @@
 ﻿using System;
-
+using DalObject;
+using IDAL.DO;
 
 namespace ConsoleUI
 {
@@ -32,15 +33,19 @@ namespace ConsoleUI
                         switch (ep)
 	                    {
 		                    case EntityOption.Station:
+                                Station newStation = InputStation();
                                 DalObject.DalObject.AddStation();
                                 break;
                             case EntityOption.Drone:
+                                Drone newDrone = InputDrone();
                                 DalObject.DalObject.AddDrone();
                                 break;
                             case EntityOption.Customer:
+                                Customer newCustomer = InputCustomer();
                                 DalObject.DalObject.AddCustomer();
                                 break;
                             case EntityOption.Parcel:
+                                Parcel newParcel = InputParcel();
                                 DalObject.DalObject.AddParcel();
                                 break;
                             case EntityOption.Exit:
@@ -144,5 +149,191 @@ namespace ConsoleUI
 	            }
 	        } while (op != Option.Exit);
         }
+
+        public static Station InputStation()
+        {
+            int num1;
+            double num2;
+            Station NewStation = new Station();
+            Console.WriteLine("Enter Id Station: ");
+            int.TryParse(Console.ReadLine(), out num1);
+            NewStation.Id = num1;
+            Console.WriteLine("Enter Name Station: ");
+            int.TryParse(Console.ReadLine(), out num1);
+            NewStation.Name = num1;
+            Console.WriteLine("Enter Longitude Station: ");
+            double.TryParse(Console.ReadLine(), out num2);
+            NewStation.Longitude = num2;
+            Console.WriteLine("Enter Lattitued Station: ");
+            double.TryParse(Console.ReadLine(), out num2);
+            NewStation.Lattitued = num2;
+            Console.WriteLine("Enter ChargeSlots Station: ");
+            int.TryParse(Console.ReadLine(), out num1);
+            NewStation.ChargeSlots = num1;
+
+            return NewStation;
+        }
+
+        public static Drone InputDrone()
+        {
+            int num;
+            double b;
+            Drone NewDrone = new Drone();
+            Console.WriteLine("Enter Id Drone: ");
+            int.TryParse(Console.ReadLine(), out num);
+            NewDrone.Id = num;
+            Console.WriteLine("Enter Model Drone: ");
+            NewDrone.Model = Console.ReadLine();
+            do
+            {
+                Console.WriteLine("Enter MaxWeight Drone:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
+                int.TryParse(Console.ReadLine(), out num);
+            } while (num != 1 && num != 2 && num != 3);
+            switch (num)
+            {
+                case 1:
+                    NewDrone.MaxWeight = WeightCategories.Light;
+                    break;
+                case 2:
+                    NewDrone.MaxWeight = WeightCategories.Medium;
+                    break;
+                case 3:
+                    NewDrone.MaxWeight = WeightCategories.Heavy;
+                    break;
+                default:
+                    break;
+            }
+
+            do
+            {
+                Console.WriteLine("Enter Status Drone:\n" + "1: Available\n" + "2: Maintenance\n" + "3: Delivery\n");
+                int.TryParse(Console.ReadLine(), out num);
+            } while (num != 1 && num != 2 && num != 3);
+            switch (num)
+            {
+                case 1:
+                    NewDrone.Status = DroneStatuses.Available;
+                    break;
+                case 2:
+                    NewDrone.Status = DroneStatuses.Maintenance;
+                    break;
+                case 3:
+                    NewDrone.Status = DroneStatuses.Delivery;
+                    break;
+                default:
+                    break;
+            }
+            Console.WriteLine("Enter Battry Drone: ");
+            double.TryParse(Console.ReadLine(), out b);
+            NewDrone.Battry = b;
+
+            return NewDrone;
+        }
+
+        public static Customer InputCustomer()
+        {
+            int num;
+            double d;
+            Customer NewCustomer = new Customer();
+            Console.WriteLine("Enter Id Customer: ");
+            int.TryParse(Console.ReadLine(), out num);
+            NewCustomer.Id = num;
+            Console.WriteLine("Enter Name Customer: ");
+            NewCustomer.Name = Console.ReadLine();
+            Console.WriteLine("Enter Phone Customer: ");
+            NewCustomer.Phone = Console.ReadLine();
+            Console.WriteLine("Enter Longitude Customer: ");
+            double.TryParse(Console.ReadLine(), out d);
+            NewCustomer.Longitude = d;
+            Console.WriteLine("Enter Lattitued Customer: ");
+            double.TryParse(Console.ReadLine(), out d);
+            NewCustomer.Lattitued = d;
+
+            return NewCustomer;
+        }
+
+        public static Parcel InputParcel()
+        {
+            int num;
+            DateTime d;
+            Parcel NewParcel = new Parcel();
+            Console.WriteLine("Enter Id Parcel: ");
+            int.TryParse(Console.ReadLine(), out num);
+            NewParcel.Id = num;
+            Console.WriteLine("Enter Sender Id Parcel: ");
+            int.TryParse(Console.ReadLine(), out num);
+            NewParcel.SenderId = num;
+            Console.WriteLine("Enter Target Id Parcel: ");
+            int.TryParse(Console.ReadLine(), out num);
+            NewParcel.TargetId = num;
+            do
+            {
+                Console.WriteLine("Enter Weight Parcel:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
+                int.TryParse(Console.ReadLine(), out num);
+            } while (num != 1 && num != 2 && num != 3);
+            switch (num)
+            {
+                case 1:
+                    NewParcel.Weight = WeightCategories.Light;
+                    break;
+                case 2:
+                    NewParcel.Weight = WeightCategories.Medium;
+                    break;
+                case 3:
+                    NewParcel.Weight = WeightCategories.Heavy;
+                    break;
+                default:
+                    break;
+            }
+
+            do
+            {
+
+                Console.WriteLine("Enter Priority Parcel:\n" + "1: Normal\n" + "2: Fast\n" + "3: Emergency\n");
+                int.TryParse(Console.ReadLine(), out num);
+            } while (num != 1 && num != 2 && num != 3);
+            switch (num)
+            {
+                case 1:
+                    NewParcel.Priority = Priorities.Normal;
+                    break;
+                case 2:
+                    NewParcel.Priority = Priorities.Fast;
+                    break;
+                case 3:
+                    NewParcel.Priority = Priorities.Emergency;
+                    break;
+                default:
+                    break;
+            }
+            if (DataSource.Config.VacantIndexD != 0)
+            {
+                Console.WriteLine("Chooce a Drone forme the list:");
+                PrintDronesAvailable();//print all the drones in the data
+                Console.WriteLine("Enter Drone Id frome the list to your Parcel: ");
+                int.TryParse(Console.ReadLine(), out num);
+                bool flag = false;
+                for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+                {
+                    if (num == DataSource.Drones[i].Id)
+                        flag = true;
+                }
+                if (!flag)//the drone the user whant is not in the list
+                    NewParcel.DroneId = -1;//parcel that not have drone
+                else
+                    NewParcel.DroneId = num;
+            }
+            else
+            {
+                NewParcel.DroneId = -1;
+            }
+            Console.WriteLine("Enter Requested Time Parcel: ");
+            DateTime.TryParse(Console.ReadLine(), out d);
+            NewParcel.Requested = d;
+
+            return NewParcel;
+        }
     }
 }
+
+
