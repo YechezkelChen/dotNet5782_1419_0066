@@ -67,64 +67,64 @@ namespace DalObject
             DataSource.Config.VacantIndexC++;  // the new spote of the empty index in array
         }
 
-        public static Station GetStation(int StationId)
+        public static Station GetStation(int stationId)
         {
-            Station NewStation = new Station();
+            Station newStation = new Station();
             for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
             {
-                if (DataSource.Stations[i].Id == StationId)
+                if (DataSource.stations[i].id == stationId)
                 {
-                    NewStation = DataSource.Stations[i];
+                    newStation = DataSource.stations[i];
                 }
             }
-            return NewStation;
+            return newStation;
         }
 
-        public static Drone GetDrone(int DroneId)
+        public static Drone GetDrone(int droneId)
         {
-            Drone NewDrone = new Drone();
+            Drone newDrone = new Drone();
             for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
             {
-                if (DataSource.Drones[i].Id == DroneId)
+                if (DataSource.drones[i].id == droneId)
                 {
-                    NewDrone = DataSource.Drones[i];
+                    newDrone = DataSource.drones[i];
                 }
             }
-            return NewDrone;
+            return newDrone;
         }
 
-        public static Parcel GetParcel(int ParcelId)
+        public static Parcel GetParcel(int parcelId)
         {
-            Parcel NewParcel = new Parcel();
+            Parcel newParcel = new Parcel();
             for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
             {
-                if (DataSource.Parcels[i].Id == ParcelId)
+                if (DataSource.parcels[i].id == parcelId)
                 {
-                    NewParcel = DataSource.Parcels[i];
+                    newParcel = DataSource.parcels[i];
                 }
             }
-            return NewParcel;
+            return newParcel;
         }
 
-        public static Customer GetCustomer(int CustomerId)
+        public static Customer GetCustomer(int customerId)
         {
-            Customer NewCustomer = new Customer();
+            Customer newCustomer = new Customer();
             for (int i = 0; i < DataSource.Config.VacantIndexC; i++)
             {
-                if (DataSource.Customers[i].Id == CustomerId)
+                if (DataSource.customers[i].id == customerId)
                 {
-                    NewCustomer = DataSource.Customers[i];
+                    newCustomer = DataSource.customers[i];
                 }
             }
-            return NewCustomer;
+            return newCustomer;
         }
 
         public static Station[] GetStations()
         {
-            Parcel[] newParcels = new Parcel[DataSource.Config.VacantIndexP];
-            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
-                newParcels[i] = DataSource.parcels[i];
-            return newParcels;
+            Station[] newStations = new Station[DataSource.Config.VacantIndexS];
+            for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
+                newStations[i] = DataSource.stations[i];
+            return newStations;
         }
 
         public static Drone[] GetDrones()
@@ -145,10 +145,10 @@ namespace DalObject
   
         public static Customer[] GetCustomers()
         {
-            Drone[] newDrones = new Drone[DataSource.Config.VacantIndexD];
-            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
-                newDrones[i] = DataSource.drones[i];
-            return newDrones;
+            Customer[] newCustomers = new Customer[DataSource.Config.VacantIndexC];
+            for (int i = 0; i < DataSource.Config.VacantIndexC; i++)
+                newCustomers[i] = DataSource.customers[i];
+            return newCustomers;
         }
         public static void ConnectParcelToDrone()//Assign a package to a skimmer
         {
@@ -161,10 +161,10 @@ namespace DalObject
             PrintDronesAvailable();
             int.TryParse(Console.ReadLine(), out IdDrone);
             Drone D = GetDrone(IdDrone);
-            P.Requested = DateTime.Now;//The time to create a package for delivery
-            D.Status = DroneStatuses.Delivery;
-            P.DroneId = D.Id;//conect
-            P.Scheduled = DateTime.Now;
+            P.requested = DateTime.Now;//The time to create a package for delivery
+            D.status = DroneStatuses.Delivery;
+            P.droneId = D.id;//conect
+            P.scheduled = DateTime.Now;
         }
 
         public static void CollectionParcelByDrone()//Assign a package to a drone
@@ -172,11 +172,11 @@ namespace DalObject
             int IdParcel;
             Console.WriteLine("Enter id of parcel to PickedUp:\n");
             for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
-                if (DataSource.Parcels[i].DroneId != -1)//the parcel was connected
-                    Console.WriteLine(DataSource.Parcels[i].ToString());
+                if (DataSource.parcels[i].droneId != -1)//the parcel was connected
+                    Console.WriteLine(DataSource.parcels[i].ToString());
             int.TryParse(Console.ReadLine(), out IdParcel);
             Parcel P = GetParcel(IdParcel);
-            P.PickedUp = DateTime.Now;
+            P.pickedUp = DateTime.Now;
         }
 
         public static void SupplyParcelToCustomer()
@@ -184,11 +184,11 @@ namespace DalObject
             int IdParcel;
             Console.WriteLine("Enter id of parcel to delivered:\n");
             for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
-                if (DataSource.Parcels[i].PickedUp != null)//the parcel was pickup
-                    Console.WriteLine(DataSource.Parcels[i].ToString());
+                if (DataSource.parcels[i].pickedUp != null)//the parcel was pickup
+                    Console.WriteLine(DataSource.parcels[i].ToString());
             int.TryParse(Console.ReadLine(), out IdParcel);
             Parcel P = GetParcel(IdParcel);
-            P.Delivered = DateTime.Now;
+            P.delivered = DateTime.Now;
         }
 
         public static void SendDroneToDroneCharge(int IdStation)
@@ -198,13 +198,13 @@ namespace DalObject
             PrintDrones();
             int.TryParse(Console.ReadLine(), out IdDrone);
             Drone D = GetDrone(IdDrone);
-            D.Status = DroneStatuses.Maintenance;
+            D.status = DroneStatuses.Maintenance;
             Station S = GetStation(IdStation);
-            S.ChargeSlots--;
-            DataSource.DroneCharges[DataSource.Config.VacantIndexDC].DroneId = D.Id;
-            DataSource.DroneCharges[DataSource.Config.VacantIndexDC].Stationld = S.Id;
+            S.chargeSlots--;
+            DataSource.DroneCharges[DataSource.Config.VacantIndexDC].droneId = D.id;
+            DataSource.DroneCharges[DataSource.Config.VacantIndexDC].stationld = S.id;
             DataSource.Config.VacantIndexDC++;
-            D.Battry = 100;
+            D.battry = 100;
         }
 
         public static void ReleaseDroneFromDroneCharge()
@@ -217,12 +217,12 @@ namespace DalObject
             Station S = GetStation(IdStation);
             int.TryParse(Console.ReadLine(), out IdDrone);
             Drone D = GetDrone(IdDrone);
-            S.ChargeSlots++;
-            D.Status = DroneStatuses.Available;
+            S.chargeSlots++;
+            D.status = DroneStatuses.Available;
             DroneCharge[] NewDroneCharges = new DroneCharge[100];
             for (int i = 0; i < DataSource.DroneCharges.Length; i++)
             {
-                if (DataSource.DroneCharges[i].DroneId == D.Id && DataSource.DroneCharges[i].Stationld == S.Id)
+                if (DataSource.DroneCharges[i].droneId == D.id && DataSource.DroneCharges[i].stationld == S.id)
                 {
                     for (int j = 0, k = 0; j < DataSource.DroneCharges.Length; j++, k++)//to remove the elemnt
                     {
@@ -235,7 +235,7 @@ namespace DalObject
             }
             DataSource.DroneCharges = NewDroneCharges;
             DataSource.Config.VacantIndexDC--;
-            S.ChargeSlots++;
+            S.chargeSlots++;
         }
     }
 }
