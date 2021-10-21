@@ -208,7 +208,6 @@ namespace DalObject
                     index = i; // found the place in array
             }
             DataSource.drones[index].status = DroneStatuses.Maintenance;
-            DataSource.drones[index].battry = 100;
             for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
             {
                 if (DataSource.stations[i].id == s.id)
@@ -236,6 +235,7 @@ namespace DalObject
                     index = i; // found the place in array
             }
             DataSource.drones[index].status = DroneStatuses.Available;
+            DataSource.drones[index].battry = 100;
 
             DroneCharge[] newDroneCharges = new DroneCharge[100];
             for (int i = 0; i < DataSource.droneCharges.Length; i++)
