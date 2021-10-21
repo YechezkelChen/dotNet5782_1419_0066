@@ -10,60 +10,60 @@ namespace DalObject
             DataSource.Initialize();
         }
 
-        public static void AddStation(Station NewStation)
+        public static void AddStation(Station newStation)
         {
-            if (DataSource.Config.VacantIndexS == DataSource.Stations.Length) // if there is no place in array
+            if (DataSource.Config.VacantIndexS == DataSource.stations.Length) // if there is no place in array
             {
-                Station[] NewArrayStations = new Station[DataSource.Config.VacantIndexS * 2]; // increse the place in array double 2
-                for (int i = 0; i < DataSource.Stations.Length; i++)
-                    NewArrayStations[i] = DataSource.Stations[i]; // copy the old array to new array
-                DataSource.Stations = NewArrayStations;
+                Station[] newArrayStations = new Station[DataSource.Config.VacantIndexS * 2]; // increse the place in array double 2
+                for (int i = 0; i < DataSource.stations.Length; i++)
+                    newArrayStations[i] = DataSource.stations[i]; // copy the old array to new array
+                DataSource.stations = newArrayStations;
             }
-            DataSource.Stations[DataSource.Config.VacantIndexS] = NewStation; // insert to the last place in array
+            DataSource.stations[DataSource.Config.VacantIndexS] = newStation; // insert to the last place in array
             DataSource.Config.VacantIndexS++; // the new spote of the empty index in array
         }
 
-        public static void AddDrone(Drone NewDrone)
+        public static void AddDrone(Drone newDrone)
         {
-            if (DataSource.Config.VacantIndexD == DataSource.Drones.Length) // if there is no place in array
+            if (DataSource.Config.VacantIndexD == DataSource.drones.Length) // if there is no place in array
             {
-                Drone[] NewArrayDrones = new Drone[DataSource.Config.VacantIndexD * 2]; // increse the place in array double 2
-                for (int i = 0; i < DataSource.Drones.Length; i++)
-                    NewArrayDrones[i] = DataSource.Drones[i]; // copy the old array to new array
-                DataSource.Drones = NewArrayDrones;
+                Drone[] newArrayDrones = new Drone[DataSource.Config.VacantIndexD * 2]; // increse the place in array double 2
+                for (int i = 0; i < DataSource.drones.Length; i++)
+                    newArrayDrones[i] = DataSource.drones[i]; // copy the old array to new array
+                DataSource.drones = newArrayDrones;
             }
-            DataSource.Drones[DataSource.Config.VacantIndexD] = NewDrone; // insert to the last place in array
+            DataSource.drones[DataSource.Config.VacantIndexD] = newDrone; // insert to the last place in array
             DataSource.Config.VacantIndexD++; // the new spote of the empty index in array
         }
 
-        public static int AddParcel(Parcel NewParcel)
+        public static int AddParcel(Parcel newParcel)
         {
-            if (DataSource.Config.VacantIndexP == DataSource.Parcels.Length) // if there is no place in array
+            if (DataSource.Config.VacantIndexP == DataSource.parcels.Length) // if there is no place in array
             {
-                Parcel[] NewArrayParcels = new Parcel[DataSource.Config.VacantIndexP * 2]; // increse the place in array double 2
-                for (int i = 0; i < DataSource.Parcels.Length; i++)
-                    NewArrayParcels[i] = DataSource.Parcels[i]; // copy the old array to new array
-                DataSource.Parcels = NewArrayParcels;
+                Parcel[] newArrayParcels = new Parcel[DataSource.Config.VacantIndexP * 2]; // increse the place in array double 2
+                for (int i = 0; i < DataSource.parcels.Length; i++)
+                    newArrayParcels[i] = DataSource.parcels[i]; // copy the old array to new array
+                DataSource.parcels = newArrayParcels;
             }
 
-            DataSource.Parcels[DataSource.Config.VacantIndexP] = NewParcel; // insert to the last place in array
+            DataSource.parcels[DataSource.Config.VacantIndexP] = newParcel; // insert to the last place in array
             DataSource.Config.VacantIndexP++; // the new spote of the empty index in array
-            NewParcel.Id = DataSource.Config.ParcelsId; // insert the Parcels new Id
+            newParcel.id = DataSource.Config.ParcelsId; // insert the Parcels new Id
             int tmp = DataSource.Config.ParcelsId;
             DataSource.Config.ParcelsId++; // new Id for the fautre parce Id
             return tmp; // return the new number created
         }
 
-        public static void AddCustomer(Customer NewCustomer)
+        public static void AddCustomer(Customer newCustomer)
         {
-            if (DataSource.Config.VacantIndexC == DataSource.Customers.Length) // if there is no place in array
+            if (DataSource.Config.VacantIndexC == DataSource.customers.Length) // if there is no place in array
             {
-                Customer[] NewArrayCustomers = new Customer[DataSource.Config.VacantIndexC * 2]; // increse the place in array double 2
-                for (int i = 0; i < DataSource.Customers.Length; i++)
-                    NewArrayCustomers[i] = DataSource.Customers[i]; // copy the old array to new array
-                DataSource.Customers = NewArrayCustomers;
+                Customer[] newArrayCustomers = new Customer[DataSource.Config.VacantIndexC * 2]; // increse the place in array double 2
+                for (int i = 0; i < DataSource.customers.Length; i++)
+                    newArrayCustomers[i] = DataSource.customers[i]; // copy the old array to new array
+                DataSource.customers = newArrayCustomers;
             }
-            DataSource.Customers[DataSource.Config.VacantIndexC] = NewCustomer; // insert to the last place in array
+            DataSource.customers[DataSource.Config.VacantIndexC] = newCustomer; // insert to the last place in array
             DataSource.Config.VacantIndexC++;  // the new spote of the empty index in array
         }
 
