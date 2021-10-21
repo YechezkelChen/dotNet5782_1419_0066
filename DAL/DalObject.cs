@@ -135,6 +135,14 @@ namespace DalObject
             return newDrones;
         }
 
+        public static DroneCharge[] GetDronesCharge()
+        {
+            DroneCharge[] newDronesCharge = new DroneCharge[DataSource.Config.VacantIndexDC];
+            for (int i = 0; i < DataSource.Config.VacantIndexDC; i++)
+                newDronesCharge[i] = DataSource.droneCharges[i];
+            return newDronesCharge;
+        }
+
         public static Parcel[] GetParcels()
         {
             Parcel[] newParcels = new Parcel[DataSource.Config.VacantIndexP];
@@ -163,63 +171,42 @@ namespace DalObject
             p.pickedUp = DateTime.Now;
         }
 
-        public static void SupplyParcelToCustomer()
+        public static void SupplyParcelToCustomer(Parcel p)
         {
-            int IdParcel;
-            Console.WriteLine("Enter id of parcel to delivered:\n");
-            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
-                if (DataSource.parcels[i].pickedUp != null)//the parcel was pickup
-                    Console.WriteLine(DataSource.parcels[i].ToString());
-            int.TryParse(Console.ReadLine(), out IdParcel);
-            Parcel P = GetParcel(IdParcel);
-            P.delivered = DateTime.Now;
+            p.delivered = DateTime.Now;
         }
 
-        public static void SendDroneToDroneCharge(int IdStation)
+        public static void SendDroneToDroneCharge(Drone d,Station s)
         {
-            int IdDrone;
-            Console.WriteLine("Enter id of drone:\n");
-            PrintDrones();
-            int.TryParse(Console.ReadLine(), out IdDrone);
-            Drone D = GetDrone(IdDrone);
-            D.status = DroneStatuses.Maintenance;
-            Station S = GetStation(IdStation);
-            S.chargeSlots--;
-            DataSource.DroneCharges[DataSource.Config.VacantIndexDC].droneId = D.id;
-            DataSource.DroneCharges[DataSource.Config.VacantIndexDC].stationld = S.id;
+            d.status = DroneStatuses.Maintenance;
+            s.chargeSlots--;
+            DataSource.droneCharges[DataSource.Config.VacantIndexDC].droneId = d.id;
+            DataSource.droneCharges[DataSource.Config.VacantIndexDC].stationld = s.id;
             DataSource.Config.VacantIndexDC++;
-            D.battry = 100;
+            d.battry = 100;
         }
 
-        public static void ReleaseDroneFromDroneCharge()
+        public static void ReleaseDroneFromDroneCharge(Station s,Drone d)
         {
-            int IdStation, IdDrone;
-            Console.WriteLine("Enter id of Station and Drone to relese:\n");
-            for (int i = 0; i < DataSource.Config.VacantIndexDC; i++)
-                Console.WriteLine(DataSource.DroneCharges[i].ToString());
-            int.TryParse(Console.ReadLine(), out IdStation);
-            Station S = GetStation(IdStation);
-            int.TryParse(Console.ReadLine(), out IdDrone);
-            Drone D = GetDrone(IdDrone);
-            S.chargeSlots++;
-            D.status = DroneStatuses.Available;
-            DroneCharge[] NewDroneCharges = new DroneCharge[100];
-            for (int i = 0; i < DataSource.DroneCharges.Length; i++)
+            s.chargeSlots++;
+            d.status = DroneStatuses.Available;
+            DroneCharge[] newDroneCharges = new DroneCharge[100];
+            for (int i = 0; i < DataSource.droneCharges.Length; i++)
             {
-                if (DataSource.DroneCharges[i].droneId == D.id && DataSource.DroneCharges[i].stationld == S.id)
+                if (DataSource.droneCharges[i].droneId == d.id && DataSource.droneCharges[i].stationld == s.id)
                 {
-                    for (int j = 0, k = 0; j < DataSource.DroneCharges.Length; j++, k++)//to remove the elemnt
+                    for (int j = 0, k = 0; j < DataSource.droneCharges.Length; j++, k++)//to remove the elemnt
                     {
                         if (j != i)//copy all the array befor I
-                            NewDroneCharges[k] = DataSource.DroneCharges[j];
+                            newDroneCharges[k] = DataSource.droneCharges[j];
                         else//keep the index of I to remove the elemnt
                             k--;
                     }
                 }
             }
-            DataSource.DroneCharges = NewDroneCharges;
+            DataSource.droneCharges = newDroneCharges;
             DataSource.Config.VacantIndexDC--;
-            S.chargeSlots++;
+            s.chargeSlots++;
         }
     }
 }
