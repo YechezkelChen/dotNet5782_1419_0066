@@ -6,15 +6,15 @@ namespace IDAL
     {
         public struct Drone
         {
-            public int Id { get; set; }
-            public string Model { get; set; }
-            public WeightCategories MaxWeight { get; set; }
-            public DroneStatuses Status { get; set; }
-            public double Battry { get; set; }
+            public int id { get; set; }
+            public string model { get; set; }
+            public WeightCategories maxWeight { get; set; }
+            public DroneStatuses status { get; set; }
+            public double battry { get; set; }
 
             public override string ToString()
             {
-                return $"Id #{Id}: Model={Model}, MaxWeight={MaxWeight},Statuses={Status}, Battry={Battry}";
+                return $"Id #{id}: Model={model}, MaxWeight={maxWeight},Statuses={status}, Battry={battry}";
             }
         }
     }

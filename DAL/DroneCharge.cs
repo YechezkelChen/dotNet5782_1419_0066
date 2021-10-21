@@ -6,12 +6,12 @@ namespace IDAL
     {
         public struct DroneCharge
         {
-            public int DroneId { get; set; }
-            public int Stationld { get; set; }
+            public int droneId { get; set; }
+            public int stationld { get; set; }
 
             public override string ToString()
             {
-                return $"DroneId #{DroneId}: Stationld={Stationld}";
+                return $"DroneId #{droneId}: Stationld={stationld}";
             }
         }
     }
