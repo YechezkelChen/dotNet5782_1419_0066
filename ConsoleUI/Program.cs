@@ -73,7 +73,7 @@ namespace ConsoleUI
                             case OptionUpdate.SendDroneToDroneCharge:
                                 int IdStation;
                                 Console.WriteLine("Enter the id station:\n");
-                                DalObject.DalObject.PrintStationsCharge();
+                                PrintStationsCharge();
                                 int.TryParse(Console.ReadLine(), out IdStation);
                                 DalObject.DalObject.SendDroneToDroneCharge(IdStation);
                                 break;
@@ -120,22 +120,22 @@ namespace ConsoleUI
                         switch (olv)
                         {
                             case OptionListView.ListStations:
-                                DalObject.DalObject.PrintStations();
+                                PrintStations();
                                 break;
                             case OptionListView.ListDrones:
-                                DalObject.DalObject.PrintDrones();
+                                PrintDrones();
                                 break;
                             case OptionListView.ListCustomers:
-                                DalObject.DalObject.PrintCustomers();
+                                PrintCustomers();
                                 break;
                             case OptionListView.ListParcels:
-                                DalObject.DalObject.PrintParcels();
+                                PrintParcels();
                                 break;
                             case OptionListView.ListParcelsNoDrones:
-                                DalObject.DalObject.PrintParcelsNoDrones();
+                                PrintParcelsNoDrones();
                                 break;
                             case OptionListView.ListStationsCharge:
-                                DalObject.DalObject.PrintStationsCharge();
+                                PrintStationsCharge();
                                 break;
                             case OptionListView.Exit:
                                 break;
@@ -337,46 +337,52 @@ namespace ConsoleUI
 
         public static void PrintStations()//print the list
         {
-            for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
-                Console.WriteLine(DataSource.Stations[i].ToString());
+            Station[] newStations = DalObject.DalObject.GetStations();
+            for (int i = 0; i < newStations.Length; i++)
+                Console.WriteLine(newStations[i].ToString());
         }
         public static void PrintDrones()//print the list
         {
-            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
-                Console.WriteLine(DataSource.Drones[i].ToString());
+            Drone[] newDrones = DalObject.DalObject.GetDrones();
+            for (int i = 0; i < newDrones.Length; i++)
+                Console.WriteLine(newDrones[i].ToString());
         }
 
         public static void PrintDronesAvailable()//print the list
         {
-            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
-                if (DataSource.Drones[i].Status == DroneStatuses.Available)
-                    Console.WriteLine(DataSource.Drones[i].ToString());
-        }
-
-        public static void PrintParcels()//print the list
-        {
-            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
-                Console.WriteLine(DataSource.Parcels[i].ToString());
+            Drone[] newDrones = DalObject.DalObject.GetDrones();
+            for (int i = 0; i < newDrones.Length; i++)
+                if (newDrones[i].status == DroneStatuses.Available)
+                    Console.WriteLine(newDrones[i].ToString());
         }
 
         public static void PrintCustomers()//print the list
         {
-            for (int i = 0; i < DataSource.Config.VacantIndexC; i++)
-                Console.WriteLine(DataSource.Customers[i].ToString());
+            Customer[] newCustomers = DalObject.DalObject.GetCustomers();
+            for (int i = 0; i < newCustomers.Length; i++)
+                Console.WriteLine(newCustomers[i].ToString());
+        }
+        public static void PrintParcels()//print the list
+        {
+            Parcel[] newParcels = DalObject.DalObject.GetParcels();
+            for (int i = 0; i < newParcels.Length; i++) 
+                Console.WriteLine(newParcels[i].ToString());
         }
 
         public static void PrintParcelsNoDrones()//print the list
         {
-            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
-                if (DataSource.Parcels[i].DroneId == -1)//the id drone is not exist
-                    Console.WriteLine(DataSource.Parcels[i].ToString());
+            Parcel[] newParcels = DalObject.DalObject.GetParcels();
+            for (int i = 0; i < newParcels.Length; i++)
+                if (newParcels[i].droneId == -1)//the id drone is not exist
+                    Console.WriteLine(newParcels[i].ToString());
         }
 
         public static void PrintStationsCharge()//print the list
         {
-            for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
-                if (DataSource.Stations[i].ChargeSlots > 0)
-                    Console.WriteLine(DataSource.Stations[i].ToString());
+            Station[] newStations = DalObject.DalObject.GetStations();
+            for (int i = 0; i < newStations.Length; i++)
+                if (newStations[i].chargeSlots > 0)
+                    Console.WriteLine(newStations[i].ToString());
         }
     }
 }
