@@ -179,28 +179,64 @@ namespace DalObject
 
         public static void CollectionParcelByDrone(Parcel p)//Assign a package to a drone
         {
-            p.pickedUp = DateTime.Now;
+            int index = -1;
+            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
+            {
+                if (DataSource.parcels[i].id == p.id)
+                    index = i; // found the place in array
+            }
+            DataSource.parcels[index].pickedUp = DateTime.Now;
         }
 
         public static void SupplyParcelToCustomer(Parcel p)
         {
-            p.delivered = DateTime.Now;
+            int index = -1;
+            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
+            {
+                if (DataSource.parcels[i].id == p.id)
+                    index = i; // found the place in array
+            }
+            DataSource.parcels[index].delivered = DateTime.Now;
         }
 
         public static void SendDroneToDroneCharge(Drone d,Station s)
         {
-            d.status = DroneStatuses.Maintenance;
-            s.chargeSlots--;
+            int index = -1;
+            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+            {
+                if (DataSource.drones[i].id == d.id)
+                    index = i; // found the place in array
+            }
+            DataSource.drones[index].status = DroneStatuses.Maintenance;
+            DataSource.drones[index].battry = 100;
+            for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
+            {
+                if (DataSource.stations[i].id == s.id)
+                    index = i; // found the place in array
+            }
+            DataSource.stations[index].chargeSlots--;
             DataSource.droneCharges[DataSource.Config.VacantIndexDC].droneId = d.id;
             DataSource.droneCharges[DataSource.Config.VacantIndexDC].stationld = s.id;
             DataSource.Config.VacantIndexDC++;
-            d.battry = 100;
         }
 
         public static void ReleaseDroneFromDroneCharge(Station s,Drone d)
         {
-            s.chargeSlots++;
-            d.status = DroneStatuses.Available;
+            int index = -1;
+            for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
+            {
+                if (DataSource.stations[i].id == s.id)
+                    index = i; // found the place in array
+            }
+            DataSource.stations[index].chargeSlots++;
+
+            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+            {
+                if (DataSource.drones[i].id == d.id)
+                    index = i; // found the place in array
+            }
+            DataSource.drones[index].status = DroneStatuses.Available;
+
             DroneCharge[] newDroneCharges = new DroneCharge[100];
             for (int i = 0; i < DataSource.droneCharges.Length; i++)
             {
@@ -217,7 +253,6 @@ namespace DalObject
             }
             DataSource.droneCharges = newDroneCharges;
             DataSource.Config.VacantIndexDC--;
-            s.chargeSlots++;
         }
     }
 }
