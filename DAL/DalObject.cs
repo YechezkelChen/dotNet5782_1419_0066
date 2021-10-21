@@ -146,7 +146,8 @@ namespace DalObject
         public static void PrintDronesAvailable()//print the list
         {
             for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
-                Console.WriteLine(DataSource.Drones[i].ToString());
+                if (DataSource.Drones[i].Status == DroneStatuses.Available)
+                    Console.WriteLine(DataSource.Drones[i].ToString());
         }
 
         public static void PrintParcels()//print the list
@@ -177,93 +178,160 @@ namespace DalObject
 
         public static void ConnectParcelToDrone()//Assign a package to a skimmer
         {
-            Console.WriteLine("chooce parcel to connect: ");
+            int IdDrone, IdParcel;
+            Console.WriteLine("Enter id of parcel to connect:\n");
             PrintParcelsNoDrones();
-            Console.WriteLine("chooce the drone: ");
-            
-            Parcel P = new Parcel();
-            P = InputParcel();
+            int.TryParse(Console.ReadLine(), out IdParcel);
+            Parcel P = GetParcel(IdParcel);
+            Console.WriteLine("Enter id of drone:\n");
+            PrintDronesAvailable();
+            int.TryParse(Console.ReadLine(), out IdDrone);
+            Drone D = GetDrone(IdDrone);
             P.Requested = DateTime.Now;//The time to create a package for delivery
-            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
-            {
-                if(DataSource.Drones[i].Status==DroneStatuses.Available)
-                {
-                    DataSource.Drones[i].Status = DroneStatuses.Delivery;
-                    P.DroneId = DataSource.Drones[i].Id;//conect
-                    P.Scheduled = DateTime.Now;
-                }
-            }
+            D.Status = DroneStatuses.Delivery;
+            P.DroneId = D.Id;//conect
+            P.Scheduled = DateTime.Now;
+
+            //Parcel P = new Parcel();
+            //P = InputParcel();
+            //P.Requested = DateTime.Now;//The time to create a package for delivery
+            //for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+            //{
+            //if(DataSource.Drones[i].Status == DroneStatuses.Available)
+            //{
+            //DataSource.Drones[i].Status = DroneStatuses.Delivery;
+            //P.DroneId = DataSource.Drones[i].Id;//conect
+            //P.Scheduled = DateTime.Now;
+            //}
+            //}
         }
 
         public static void CollectionParcelByDrone()//Assign a package to a drone
         {
+            int IdParcel;
+            Console.WriteLine("Enter id of parcel to PickedUp:\n");
+            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
+                if (DataSource.Parcels[i].DroneId != -1)//the parcel was connected
+                    Console.WriteLine(DataSource.Parcels[i].ToString());
+            int.TryParse(Console.ReadLine(), out IdParcel);
+            Parcel P = GetParcel(IdParcel);
+            P.PickedUp = DateTime.Now;
 
-            Parcel P = new Parcel();
-            P = InputParcel();
-            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
-            {
-                if (DataSource.Drones[i].Status == DroneStatuses.Delivery)
-                {
-                    if (P.DroneId == DataSource.Drones[i].Id)
-                    {
-                        P.PickedUp = DateTime.Now;
-                        break;
-                    }
-                }
-            }
+            //Parcel P = new Parcel();
+            //P = InputParcel();
+            //for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+            //{
+            //    if (DataSource.Drones[i].Status == DroneStatuses.Delivery)
+            //    {
+            //        if (P.DroneId == DataSource.Drones[i].Id)
+            //        {
+            //            P.PickedUp = DateTime.Now;
+            //            break;
+            //        }
+            //    }
+            //}
         }
 
         public static void SupplyParcelToCustomer()
         {
-            Parcel P = new Parcel();
-            P = InputParcel();
+            int IdParcel;
+            Console.WriteLine("Enter id of parcel to delivered:\n");
+            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
+                if (DataSource.Parcels[i].PickedUp != null)//the parcel was pickup
+                    Console.WriteLine(DataSource.Parcels[i].ToString());
+            int.TryParse(Console.ReadLine(), out IdParcel);
+            Parcel P = GetParcel(IdParcel);
             P.Delivered = DateTime.Now;
+
+            //Parcel P = new Parcel();
+            //P = InputParcel();
+            //P.Delivered = DateTime.Now;
         }
 
-        public static void SendDroneToDroneCharge()
+        public static void SendDroneToDroneCharge(int IdStation)
         {
-            Drone D = new Drone();
-            D = InputDrone();//get the data on the Drone
-
-            Station S = new Station();
-            S = InputStation();//get the data of the station
-
+            int IdDrone;
+            Console.WriteLine("Enter id of drone:\n");
+            PrintDrones();
+            int.TryParse(Console.ReadLine(), out IdDrone);
+            Drone D = GetDrone(IdDrone);
             D.Status = DroneStatuses.Maintenance;
+            Station S = GetStation(IdStation);
             S.ChargeSlots--;
             DataSource.DroneCharges[DataSource.Config.VacantIndexDC].DroneId = D.Id;
             DataSource.DroneCharges[DataSource.Config.VacantIndexDC].Stationld = S.Id;
             DataSource.Config.VacantIndexDC++;
             D.Battry = 100;
+
+            //Drone D = new Drone();
+            //D = InputDrone();//get the data on the Drone
+
+            //Station S = new Station();
+            //S = InputStation();//get the data of the station
+            //D.Status = DroneStatuses.Maintenance;
+            //S.ChargeSlots--;
+            //DataSource.DroneCharges[DataSource.Config.VacantIndexDC].DroneId = D.Id;
+            //DataSource.DroneCharges[DataSource.Config.VacantIndexDC].Stationld = S.Id;
+            //DataSource.Config.VacantIndexDC++;
+            //D.Battry = 100;
         }
 
         public static void ReleaseDroneFromDroneCharge()
         {
-            Drone D = new Drone();
-            D = InputDrone();//get the data on the Drone
-
-            Station S = new Station();
-            S = InputStation();//get the data of the station
-
+            int IdStation, IdDrone;
+            Console.WriteLine("Enter id of Station and Drone to relese:\n");
+            for (int i = 0; i < DataSource.Config.VacantIndexDC; i++)
+                Console.WriteLine(DataSource.DroneCharges[i].ToString());
+            int.TryParse(Console.ReadLine(), out IdStation);
+            Station S = GetStation(IdStation);
+            int.TryParse(Console.ReadLine(), out IdDrone);
+            Drone D = GetDrone(IdDrone);
+            S.ChargeSlots++;
+            D.Status = DroneStatuses.Available;
             DroneCharge[] NewDroneCharges = new DroneCharge[100];
-            if (D.Battry == 100) 
+            for (int i = 0; i < DataSource.DroneCharges.Length; i++)
             {
-                for (int i = 0; i < DataSource.DroneCharges.Length; i++)
+                if (DataSource.DroneCharges[i].DroneId == D.Id && DataSource.DroneCharges[i].Stationld == S.Id)
                 {
-                    if (DataSource.DroneCharges[i].DroneId == D.Id && DataSource.DroneCharges[i].Stationld == S.Id) 
+                    for (int j = 0, k = 0; j < DataSource.DroneCharges.Length; j++, k++)//to remove the elemnt
                     {
-                        for (int j = 0,k=0; j < DataSource.DroneCharges.Length; j++,k++)//to remove the elemnt
-                        {
-                            if (j != i)//copy all the array befor I
-                                NewDroneCharges[k] = DataSource.DroneCharges[j];
-                            else//keep the index of I to remove the elemnt
-                                k--;
-                        }
+                        if (j != i)//copy all the array befor I
+                            NewDroneCharges[k] = DataSource.DroneCharges[j];
+                        else//keep the index of I to remove the elemnt
+                            k--;
                     }
                 }
-                DataSource.DroneCharges = NewDroneCharges;
-                DataSource.Config.VacantIndexDC--;
-                S.ChargeSlots++;
             }
+            DataSource.DroneCharges = NewDroneCharges;
+            DataSource.Config.VacantIndexDC--;
+            S.ChargeSlots++;
+
+
+            //Drone D = new Drone();
+            //D = InputDrone();//get the data on the Drone
+
+            //Station S = new Station();
+            //S = InputStation();//get the data of the station
+
+            //DroneCharge[] NewDroneCharges = new DroneCharge[100];
+            //if (D.Battry == 100) 
+            //{
+            //    for (int i = 0; i < DataSource.DroneCharges.Length; i++)
+            //    {
+            //        if (DataSource.DroneCharges[i].DroneId == D.Id && DataSource.DroneCharges[i].Stationld == S.Id) 
+            //        {
+            //            for (int j = 0,k=0; j < DataSource.DroneCharges.Length; j++,k++)//to remove the elemnt
+            //            {
+            //                if (j != i)//copy all the array befor I
+            //                    NewDroneCharges[k] = DataSource.DroneCharges[j];
+            //                else//keep the index of I to remove the elemnt
+            //                    k--;
+            //            }
+            //        }
+            //    }
+            //    DataSource.DroneCharges = NewDroneCharges;
+            //    DataSource.Config.VacantIndexDC--;
+            //    S.ChargeSlots++;
         }
 
         public static Parcel InputParcel()
@@ -323,7 +391,7 @@ namespace DalObject
             if(DataSource.Config.VacantIndexD!=0)
             {
                 Console.WriteLine("Chooce a Drone forme the list:");
-                PrintDrones();//print all the drones in the data
+                PrintDronesAvailable();//print all the drones in the data
                 Console.WriteLine("Enter Drone Id frome the list to your Parcel: ");
                 int.TryParse(Console.ReadLine(), out num);
                 bool flag = false;
@@ -344,15 +412,15 @@ namespace DalObject
             Console.WriteLine("Enter Requested Time Parcel: ");
             DateTime.TryParse(Console.ReadLine(), out d);
             NewParcel.Requested = d;
-            Console.WriteLine("Enter Scheduled Time Parcel: ");
-            DateTime.TryParse(Console.ReadLine(), out d);
-            NewParcel.Scheduled = d;
-            Console.WriteLine("Enter Picked Up Time Parcel: ");
-            DateTime.TryParse(Console.ReadLine(), out d);
-            NewParcel.PickedUp = d;
-            Console.WriteLine("Enter Delivered Time Parcel: ");
-            DateTime.TryParse(Console.ReadLine(), out d);
-            NewParcel.Delivered = d;
+            //Console.WriteLine("Enter Scheduled Time Parcel: ");
+            //DateTime.TryParse(Console.ReadLine(), out d);
+            //NewParcel.Scheduled = d;
+            //Console.WriteLine("Enter Picked Up Time Parcel: ");
+            //DateTime.TryParse(Console.ReadLine(), out d);
+            //NewParcel.PickedUp = d;
+            //Console.WriteLine("Enter Delivered Time Parcel: ");
+            //DateTime.TryParse(Console.ReadLine(), out d);
+            //NewParcel.Delivered = d;
 
             return NewParcel;
         }
