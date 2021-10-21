@@ -34,19 +34,19 @@ namespace ConsoleUI
 	                    {
 		                    case EntityOption.Station:
                                 Station newStation = InputStation();
-                                DalObject.DalObject.AddStation();
+                                DalObject.DalObject.AddStation(newStation);
                                 break;
                             case EntityOption.Drone:
                                 Drone newDrone = InputDrone();
-                                DalObject.DalObject.AddDrone();
+                                DalObject.DalObject.AddDrone(newDrone);
                                 break;
                             case EntityOption.Customer:
                                 Customer newCustomer = InputCustomer();
-                                DalObject.DalObject.AddCustomer();
+                                DalObject.DalObject.AddCustomer(newCustomer);
                                 break;
                             case EntityOption.Parcel:
                                 Parcel newParcel = InputParcel();
-                                DalObject.DalObject.AddParcel();
+                                DalObject.DalObject.AddParcel(newParcel);
                                 break;
                             case EntityOption.Exit:
                                 break;
