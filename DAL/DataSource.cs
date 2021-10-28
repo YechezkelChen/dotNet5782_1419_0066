@@ -11,7 +11,7 @@ namespace DalObject
         public static Customer[] customers = new Customer[100];
         public static Parcel[] parcels = new Parcel[1000];
         public static DroneCharge[] droneCharges = new DroneCharge[100];
-
+        
         internal class Config
         {
             internal static int VacantIndexD = 0;//for drone

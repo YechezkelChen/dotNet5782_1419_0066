@@ -1,5 +1,6 @@
 ﻿using System;
 using IDAL.DO;
+using System.Collections.Generic;
 
 namespace DalObject
 {
@@ -160,11 +161,9 @@ namespace DalObject
         /// return all the list of the station's
         /// </summary>
         /// <returns></returns>
-        public static Station[] GetStations()
+        public static List<Station> GetStations()
         {
-            Station[] newStations = new Station[DataSource.Config.VacantIndexS];
-            for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
-                newStations[i] = DataSource.stations[i];
+            List<Station> newStations = new List<Station>(DataSource.stations);
             return newStations;
         }
 
@@ -172,11 +171,9 @@ namespace DalObject
         /// return all the drone's list
         /// </summary>
         /// <returns></returns>
-        public static Drone[] GetDrones()
+        public static List<Drone> GetDrones()
         {
-            Drone[] newDrones = new Drone[DataSource.Config.VacantIndexD];
-            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
-                newDrones[i] = DataSource.drones[i];
+            List<Drone> newDrones = new List<Drone>(DataSource.drones);
             return newDrones;
         }
         
@@ -184,11 +181,9 @@ namespace DalObject
         /// return all the list of the drone's that they are in charge sopt 
         /// </summary>
         /// <returns></returns>
-        public static DroneCharge[] GetDronesCharge()
+        public static List<DroneCharge> GetDronesCharge()
         {
-            DroneCharge[] newDronesCharge = new DroneCharge[DataSource.Config.VacantIndexDC];
-            for (int i = 0; i < DataSource.Config.VacantIndexDC; i++)
-                newDronesCharge[i] = DataSource.droneCharges[i];
+            List<DroneCharge> newDronesCharge = new List<DroneCharge>(DataSource.droneCharges);
             return newDronesCharge;
         }
 
@@ -196,7 +191,7 @@ namespace DalObject
         /// return all the parcel in the list
         /// </summary>
         /// <returns></returns>
-        public static Parcel[] GetParcels()
+        public static List<Parcel> GetParcels()
         {
             Parcel[] newParcels = new Parcel[DataSource.Config.VacantIndexP];
             for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
@@ -208,7 +203,7 @@ namespace DalObject
         /// return all the customer list
         /// </summary>
         /// <returns></returns>
-        public static Customer[] GetCustomers()
+        public static List<Customer> GetCustomers()
         {
             Customer[] newCustomers = new Customer[DataSource.Config.VacantIndexC];
             for (int i = 0; i < DataSource.Config.VacantIndexC; i++)

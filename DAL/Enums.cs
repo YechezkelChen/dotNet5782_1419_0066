@@ -14,6 +14,7 @@ namespace IDAL
             Heavy
         }
 
+        /*
         public enum DroneStatuses
         {
             [Description("Available status")]
@@ -23,6 +24,7 @@ namespace IDAL
             [Description("Delivery status")]
             Delivery
         }
+        */
 
         public enum Priorities
         {
