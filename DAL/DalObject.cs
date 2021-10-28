@@ -179,21 +179,23 @@ namespace DalObject
         /// <param name="d"></the drone the user ask to connect with the parcel he ask >
         public static void ConnectParcelToDrone(Parcel p, Drone d)
         {
-            int index = -1;
-            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
+            if (!checkNotExistParcel(p, DataSource.parcels) && !checkNotExistDrone(p, DataSource.drones))
             {
-                if (DataSource.parcels[i].id == p.id)
-                    index = i; // found the place in array
+                Parcel newParcel = new Parcel();
+                foreach (Parcel elementParcel in DataSource.parcels)
+                {
+                    if (elementParcel.id == p.id)
+                    {
+                        newParcel = elementParcel;
+                        DataSource.parcels.Remove(elementParcel);
+                        break;
+                    }
+                }
+                newParcel.requested = DateTime.Now;
+                newParcel.scheduled = DateTime.Now;
+                newParcel.droneId = d.id;
+                DataSource.parcels.Add(newParcel);
             }
-            DataSource.parcels[index].requested = DateTime.Now;//The time to create a package for delivery
-            DataSource.parcels[index].droneId = d.id;//conect
-            DataSource.parcels[index].scheduled = DateTime.Now;
-            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
-            {
-                if (DataSource.drones[i].id == d.id)
-                    index = i; // found the place in array
-            }
-            DataSource.drones[index].status = DroneStatuses.Delivery;
         }
 
         /// <summary>
@@ -202,13 +204,21 @@ namespace DalObject
         /// <param name="p"></the spesific parcel the user ask to update as pick'd up>
         public static void CollectionParcelByDrone(Parcel p)
         {
-            int index = -1;
-            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
+            if (!checkNotExistParcel(p, DataSource.parcels))
             {
-                if (DataSource.parcels[i].id == p.id)
-                    index = i; // found the place in array
+                Parcel newParcel = new Parcel();
+                foreach (Parcel elementParcel in DataSource.parcels)
+                {
+                    if (elementParcel.id == p.id)
+                    {
+                        newParcel = elementParcel;
+                        DataSource.parcels.Remove(elementParcel);
+                        break;
+                    }
+                }
+                newParcel.pickedUp = DateTime.Now;
+                DataSource.parcels.Add(newParcel);
             }
-            DataSource.parcels[index].pickedUp = DateTime.Now;
         }
 
         /// <summary>
@@ -217,13 +227,21 @@ namespace DalObject
         /// <param name="p"></the specific parcel the user ask to pdate as deliver'd >
         public static void SupplyParcelToCustomer(Parcel p)
         {
-            int index = -1;
-            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
+            if (!checkNotExistParcel(p, DataSource.parcels))
             {
-                if (DataSource.parcels[i].id == p.id)
-                    index = i; // found the place in array
+                Parcel newParcel = new Parcel();
+                foreach (Parcel elementParcel in DataSource.parcels)
+                {
+                    if (elementParcel.id == p.id)
+                    {
+                        newParcel = elementParcel;
+                        DataSource.parcels.Remove(elementParcel);
+                        break;
+                    }
+                }
+                newParcel.delivered = DateTime.Now;
+                DataSource.parcels.Add(newParcel);
             }
-            DataSource.parcels[index].delivered = DateTime.Now;
         }
 
         /// <summary>
@@ -231,24 +249,38 @@ namespace DalObject
         /// </summary>
         /// <param name="d"></the spesifice drone the user ask for to charge>
         /// <param name="s"></the spasifice station the user ask to charge the drone in>
-        public static void SendDroneToDroneCharge(Drone d,Station s)
+        public static void SendDroneToDroneCharge(Station s, Drone d)
         {
-            int index = -1;
-            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+            DroneCharge newDroneCharges = new DroneCharge();
+            if (!checkNotExistStation(s, DataSource.stations))
             {
-                if (DataSource.drones[i].id == d.id)
-                    index = i; // found the place in array
+                Station newsStation = new Station();
+                foreach (Station elementStation in DataSource.stations)
+                {
+                    if (elementStation.id == s.id)
+                    {
+                        newsStation = elementStation;
+                        DataSource.stations.Remove(elementStation);
+                        break;
+                    }
+                }
+                newsStation.chargeSlots--;
+                newDroneCharges.stationld = newsStation.id;
+                DataSource.stations.Add(newsStation);
             }
-            DataSource.drones[index].status = DroneStatuses.Maintenance;
-            for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
+
+            if (!checkNotExistDrone(d, DataSource.drones))
             {
-                if (DataSource.stations[i].id == s.id)
-                    index = i; // found the place in array
+                foreach (Drone elementDrone in DataSource.drones)
+                {
+                    if (elementDrone.id == d.id)
+                    {
+                        newDroneCharges.droneId = elementDrone.id;
+                        break;
+                    }
+                }
             }
-            DataSource.stations[index].chargeSlots--;
-            DataSource.droneCharges[DataSource.Config.VacantIndexDC].droneId = d.id;
-            DataSource.droneCharges[DataSource.Config.VacantIndexDC].stationld = s.id;
-            DataSource.Config.VacantIndexDC++;
+            DataSource.droneCharges.Add(newDroneCharges);
         }
 
         /// <summary>
@@ -258,38 +290,41 @@ namespace DalObject
         /// <param name="d"></the spesifice drone the user ask to release frome the station>
         public static void ReleaseDroneFromDroneCharge(Station s,Drone d)
         {
-            int index = -1;
-            for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
+            DroneCharge newDroneCharges = new DroneCharge();
+            if (!checkNotExistStation(s, DataSource.stations))
             {
-                if (DataSource.stations[i].id == s.id)
-                    index = i; // found the place in array
-            }
-            DataSource.stations[index].chargeSlots++;
-
-            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
-            {
-                if (DataSource.drones[i].id == d.id)
-                    index = i; // found the place in array
-            }
-            DataSource.drones[index].status = DroneStatuses.Available;
-            DataSource.drones[index].battry = 100;
-
-            DroneCharge[] newDroneCharges = new DroneCharge[100];
-            for (int i = 0; i < DataSource.droneCharges.Length; i++)
-            {
-                if (DataSource.droneCharges[i].droneId == d.id && DataSource.droneCharges[i].stationld == s.id)
+                Station newsStation = new Station();
+                foreach (Station elementStation in DataSource.stations)
                 {
-                    for (int j = 0, k = 0; j < DataSource.droneCharges.Length; j++, k++)//to remove the elemnt
+                    if (elementStation.id == s.id)
                     {
-                        if (j != i)//copy all the array befor I
-                            newDroneCharges[k] = DataSource.droneCharges[j];
-                        else//keep the index of I to remove the elemnt
-                            k--;
+                        newsStation = elementStation;
+                        DataSource.stations.Remove(elementStation);
+                        break;
+                    }
+                }
+                newsStation.chargeSlots++;
+                newDroneCharges.stationld = newsStation.id;
+                DataSource.stations.Add(newsStation);
+            }
+
+            if (!checkNotExistDrone(d, DataSource.drones))
+            {
+                foreach (Drone elementDrone in DataSource.drones)
+                {
+                    if (elementDrone.id == d.id)
+                    {
+                        newDroneCharges.droneId = elementDrone.id;
+                        break;
                     }
                 }
             }
-            DataSource.droneCharges = newDroneCharges;
-            DataSource.Config.VacantIndexDC--;
+
+            foreach (DroneCharge elementDroneCharge in DataSource.droneCharges)
+            {
+                if (elementDroneCharge.stationld == s.id && elementDroneCharge.droneId == d.id)
+                    DataSource.droneCharges.Remove(newDroneCharges);
+            }
         }
     }
 }
