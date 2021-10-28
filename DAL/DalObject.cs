@@ -17,15 +17,8 @@ namespace DalObject
         /// <param name="newStation"></the new station the user whants to add to the station's list>
         public static void AddStation(Station newStation)
         {
-            if (DataSource.Config.VacantIndexS == DataSource.stations.Length) // if there is no place in array
-            {
-                Station[] newArrayStations = new Station[DataSource.Config.VacantIndexS * 2]; // increse the place in array double 2
-                for (int i = 0; i < DataSource.stations.Length; i++)
-                    newArrayStations[i] = DataSource.stations[i]; // copy the old array to new array
-                DataSource.stations = newArrayStations;
-            }
-            DataSource.stations[DataSource.Config.VacantIndexS] = newStation; // insert to the last place in array
-            DataSource.Config.VacantIndexS++; // the new spote of the empty index in array
+            if(checkNotExistStation(newStation, DataSource.stations))
+                DataSource.stations.Add(newStation);
         }
 
         /// <summary>
@@ -34,15 +27,8 @@ namespace DalObject
         /// <param name="newDrone"></the new drone the user whants to add to the drone's list>
         public static void AddDrone(Drone newDrone)
         {
-            if (DataSource.Config.VacantIndexD == DataSource.drones.Length) // if there is no place in array
-            {
-                Drone[] newArrayDrones = new Drone[DataSource.Config.VacantIndexD * 2]; // increse the place in array double 2
-                for (int i = 0; i < DataSource.drones.Length; i++)
-                    newArrayDrones[i] = DataSource.drones[i]; // copy the old array to new array
-                DataSource.drones = newArrayDrones;
-            }
-            DataSource.drones[DataSource.Config.VacantIndexD] = newDrone; // insert to the last place in array
-            DataSource.Config.VacantIndexD++; // the new spote of the empty index in array
+            if(checkNotExistDrone(newDrone, DataSource.drones))
+                DataSource.drones.Add(newDrone);
         }
 
         /// <summary>
@@ -52,19 +38,13 @@ namespace DalObject
         /// <returns></returns>
         public static int AddParcel(Parcel newParcel)
         {
-            if (DataSource.Config.VacantIndexP == DataSource.parcels.Length) // if there is no place in array
-            {
-                Parcel[] newArrayParcels = new Parcel[DataSource.Config.VacantIndexP * 2]; // increse the place in array double 2
-                for (int i = 0; i < DataSource.parcels.Length; i++)
-                    newArrayParcels[i] = DataSource.parcels[i]; // copy the old array to new array
-                DataSource.parcels = newArrayParcels;
-            }
-
-            DataSource.parcels[DataSource.Config.VacantIndexP] = newParcel; // insert to the last place in array
-            DataSource.Config.VacantIndexP++; // the new spote of the empty index in array
-            newParcel.id = DataSource.Config.ParcelsId; // insert the Parcels new Id
             int tmp = DataSource.Config.ParcelsId;
-            DataSource.Config.ParcelsId++; // new Id for the fautre parce Id
+            if (checkNotExistParcel(newParcel, DataSource.parcels))
+            {
+                newParcel.id = DataSource.Config.ParcelsId; // insert the Parcels new Id
+                DataSource.Config.ParcelsId++; // new Id for the fautre parce Id
+                DataSource.parcels.Add(newParcel);
+            }
             return tmp; // return the new number created
         }
 
@@ -74,15 +54,8 @@ namespace DalObject
         /// <param name="newCustomer"></the new customer the user whants to add to the customer's list>
         public static void AddCustomer(Customer newCustomer)
         {
-            if (DataSource.Config.VacantIndexC == DataSource.customers.Length) // if there is no place in array
-            {
-                Customer[] newArrayCustomers = new Customer[DataSource.Config.VacantIndexC * 2]; // increse the place in array double 2
-                for (int i = 0; i < DataSource.customers.Length; i++)
-                    newArrayCustomers[i] = DataSource.customers[i]; // copy the old array to new array
-                DataSource.customers = newArrayCustomers;
-            }
-            DataSource.customers[DataSource.Config.VacantIndexC] = newCustomer; // insert to the last place in array
-            DataSource.Config.VacantIndexC++;  // the new spote of the empty index in array
+            if (checkNotExistCustomer(newCustomer, DataSource.customers))
+                DataSource.customers.Add(newCustomer);
         }
 
         /// <summary>
@@ -93,12 +66,10 @@ namespace DalObject
         public static Station GetStation(int stationId)
         {
             Station newStation = new Station();
-            for (int i = 0; i < DataSource.Config.VacantIndexS; i++)
+            foreach (Station elementStation in DataSource.stations)
             {
-                if (DataSource.stations[i].id == stationId)
-                {
-                    newStation = DataSource.stations[i];
-                }
+                if (elementStation.id == stationId)
+                    newStation = elementStation;
             }
             return newStation;
         }
@@ -111,12 +82,10 @@ namespace DalObject
         public static Drone GetDrone(int droneId)
         {
             Drone newDrone = new Drone();
-            for (int i = 0; i < DataSource.Config.VacantIndexD; i++)
+            foreach (Drone elementDrone in DataSource.drones)
             {
-                if (DataSource.drones[i].id == droneId)
-                {
-                    newDrone = DataSource.drones[i];
-                }
+                if (elementDrone.id == droneId)
+                    newDrone = elementDrone;
             }
             return newDrone;
         }
@@ -129,12 +98,10 @@ namespace DalObject
         public static Parcel GetParcel(int parcelId)
         {
             Parcel newParcel = new Parcel();
-            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
+            foreach (Parcel elementParcel in DataSource.parcels)
             {
-                if (DataSource.parcels[i].id == parcelId)
-                {
-                    newParcel = DataSource.parcels[i];
-                }
+                if (elementParcel.id == parcelId)
+                    newParcel = elementParcel;
             }
             return newParcel;
         }
@@ -147,12 +114,10 @@ namespace DalObject
         public static Customer GetCustomer(int customerId)
         {
             Customer newCustomer = new Customer();
-            for (int i = 0; i < DataSource.Config.VacantIndexC; i++)
+            foreach (Customer elementCustomer in DataSource.customers)
             {
-                if (DataSource.customers[i].id == customerId)
-                {
-                    newCustomer = DataSource.customers[i];
-                }
+                if (elementCustomer.id == customerId)
+                    newCustomer = elementCustomer;
             }
             return newCustomer;
         }
