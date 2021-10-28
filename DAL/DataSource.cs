@@ -23,19 +23,15 @@ namespace DalObject
             Random rand = new Random(DateTime.Now.Millisecond);
             List<string> names = new List<string>() { "a", "b", "c", "d", "e" };
 
-
             for (int i = 0; i < 5; i++)
             {
                 drones.Add(new Drone
                 {
                     id = rand.Next(100000000, 999999999),
                     model = names[rand.Next(0, 4)],
-                    maxWeight = (WeightCategories)rand.Next(0, 2),
-                    status = (DroneStatuses)rand.Next(0, 2),
-                    battry = rand.Next(0, 100)
+                    maxWeight = (WeightCategories) rand.Next(0, 2),
                 });
             }
-
 
             for (int i = 0; i < 2; i++)
             {
@@ -49,9 +45,6 @@ namespace DalObject
                 });
             }
 
-
-
-
             for (int i = 0; i < 10; i++)
             {
                 customers.Add(new Customer
@@ -63,8 +56,6 @@ namespace DalObject
                     lattitued = rand.Next(10, 1000)
                 });
             }
-
-
 
             for (int i = 0; i < 10; i++)
             {
