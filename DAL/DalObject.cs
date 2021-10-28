@@ -161,7 +161,7 @@ namespace DalObject
         /// return all the list of the station's
         /// </summary>
         /// <returns></returns>
-        public static List<Station> GetStations()
+        public static IEnumerable<Station> GetStations()
         {
             List<Station> newStations = new List<Station>(DataSource.stations);
             return newStations;
@@ -171,7 +171,7 @@ namespace DalObject
         /// return all the drone's list
         /// </summary>
         /// <returns></returns>
-        public static List<Drone> GetDrones()
+        public static IEnumerable<Drone> GetDrones()
         {
             List<Drone> newDrones = new List<Drone>(DataSource.drones);
             return newDrones;
@@ -181,7 +181,7 @@ namespace DalObject
         /// return all the list of the drone's that they are in charge sopt 
         /// </summary>
         /// <returns></returns>
-        public static List<DroneCharge> GetDronesCharge()
+        public static IEnumerable<DroneCharge> GetDronesCharge()
         {
             List<DroneCharge> newDronesCharge = new List<DroneCharge>(DataSource.droneCharges);
             return newDronesCharge;
@@ -191,7 +191,7 @@ namespace DalObject
         /// return all the parcel in the list
         /// </summary>
         /// <returns></returns>
-        public static List<Parcel> GetParcels()
+        public static IEnumerable<Parcel> GetParcels()
         {
             List<Parcel> newParcels = new List<Parcel>(DataSource.parcels);
             return newParcels;
@@ -201,7 +201,7 @@ namespace DalObject
         /// return all the customer list
         /// </summary>
         /// <returns></returns>
-        public static List<Customer> GetCustomers()
+        public static IEnumerable<Customer> GetCustomers()
         {
             List<Customer> newCustomers = new List<Customer>(DataSource.customers);
             return newCustomers;
