@@ -193,9 +193,7 @@ namespace DalObject
         /// <returns></returns>
         public static List<Parcel> GetParcels()
         {
-            Parcel[] newParcels = new Parcel[DataSource.Config.VacantIndexP];
-            for (int i = 0; i < DataSource.Config.VacantIndexP; i++)
-                newParcels[i] = DataSource.parcels[i];
+            List<Parcel> newParcels = new List<Parcel>(DataSource.parcels);
             return newParcels;
         }
   
@@ -205,9 +203,7 @@ namespace DalObject
         /// <returns></returns>
         public static List<Customer> GetCustomers()
         {
-            Customer[] newCustomers = new Customer[DataSource.Config.VacantIndexC];
-            for (int i = 0; i < DataSource.Config.VacantIndexC; i++)
-                newCustomers[i] = DataSource.customers[i];
+            List<Customer> newCustomers = new List<Customer>(DataSource.customers);
             return newCustomers;
         }
 
