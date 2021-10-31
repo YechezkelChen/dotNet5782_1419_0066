@@ -72,6 +72,17 @@ namespace DalObject
             return tmp; // return the new number created
         }
 
+        public static bool checkNotExistParcel(Parcel p, List<Parcel> parcels)
+        {
+            foreach (Parcel elementParcel in parcels)
+            {
+                if (elementParcel.id == p.id)
+                    return false;
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// add a customer to the fustomer list
         /// </summary>
