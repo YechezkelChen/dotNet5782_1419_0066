@@ -1,6 +1,8 @@
 ﻿using System;
 using DalObject;
 using IDAL.DO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleUI
 {
@@ -188,20 +190,38 @@ namespace ConsoleUI
             int num1;
             double num2;
             Station NewStation = new Station();
-            Console.WriteLine("Enter Id Station: ");
-            int.TryParse(Console.ReadLine(), out num1);
+            do
+            {
+                Console.WriteLine("Enter Id Station: ");
+            } while (!int.TryParse(Console.ReadLine(), out num1));
             NewStation.id = num1;
-            Console.WriteLine("Enter Name Station: ");
-            int.TryParse(Console.ReadLine(), out num1);
+
+            do
+            {
+                Console.WriteLine("Enter Name Station: ");
+
+            } while (!int.TryParse(Console.ReadLine(), out num1));
             NewStation.name = num1;
-            Console.WriteLine("Enter Longitude Station: ");
-            double.TryParse(Console.ReadLine(), out num2);
+
+            do
+            {
+                Console.WriteLine("Enter Longitude Station: ");
+
+            } while (!double.TryParse(Console.ReadLine(), out num2));
             NewStation.longitude = num2;
-            Console.WriteLine("Enter Lattitued Station: ");
-            double.TryParse(Console.ReadLine(), out num2);
+
+            do
+            {
+                Console.WriteLine("Enter Lattitued Station: ");
+
+            } while (!double.TryParse(Console.ReadLine(), out num2));
             NewStation.lattitued = num2;
-            Console.WriteLine("Enter ChargeSlots Station: ");
-            int.TryParse(Console.ReadLine(), out num1);
+
+            do
+            {
+                Console.WriteLine("Enter ChargeSlots Station: ");
+
+            } while (!int.TryParse(Console.ReadLine(), out num1));
             NewStation.chargeSlots = num1;
 
             return NewStation;
@@ -276,18 +296,28 @@ namespace ConsoleUI
             int num;
             double d;
             Customer NewCustomer = new Customer();
-            Console.WriteLine("Enter Id Customer: ");
-            int.TryParse(Console.ReadLine(), out num);
+            do
+            {
+                Console.WriteLine("Enter Id Customer: ");
+            } while (!int.TryParse(Console.ReadLine(), out num));
             NewCustomer.id = num;
+
             Console.WriteLine("Enter Name Customer: ");
             NewCustomer.name = Console.ReadLine();
+
             Console.WriteLine("Enter Phone Customer: ");
             NewCustomer.phone = Console.ReadLine();
-            Console.WriteLine("Enter Longitude Customer: ");
-            double.TryParse(Console.ReadLine(), out d);
+
+            do
+            {
+                Console.WriteLine("Enter Longitude Customer: ");
+            } while (!double.TryParse(Console.ReadLine(), out d));
             NewCustomer.longitude = d;
-            Console.WriteLine("Enter Lattitued Customer: ");
-            double.TryParse(Console.ReadLine(), out d);
+
+            do
+            {
+                Console.WriteLine("Enter Lattitued Customer: ");
+            } while (!double.TryParse(Console.ReadLine(), out d));
             NewCustomer.lattitued = d;
 
             return NewCustomer;
@@ -388,9 +418,11 @@ namespace ConsoleUI
         /// <returns></no returns, just print>
         public static void PrintStations()//print the list
         {
-            Station[] newStations = DalObject.DalObject.GetStations();
-            for (int i = 0; i < newStations.Length; i++)
-                Console.WriteLine(newStations[i].ToString());
+            IEnumerable<Station> newStations = DalObject.DalObject.GetStations();
+            foreach (var VARIABLE in COLLECTION)
+            {
+                
+            }
         }
 
         /// <summary>
