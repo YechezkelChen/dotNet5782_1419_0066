@@ -201,21 +201,26 @@ namespace DalObject
         /// <param name="d"></the drone the user ask to connect with the parcel he ask >
         public static void ConnectParcelToDrone(Parcel p, Drone d)
         {
-            if (!checkNotExistParcel(p, DataSource.parcels) && !checkNotExistDrone(d, DataSource.drones))
-            {
-                Parcel newParcel = new Parcel();
-                for (int i = 0; i < DataSource.parcels.Count; i++)
+            if (!checkNotExistParcel(p, DataSource.parcels))
+                if (!checkNotExistDrone(d, DataSource.drones))
                 {
-                    if (DataSource.parcels[i].id == p.id)
+                    Parcel newParcel = new Parcel();
+                    for (int i = 0; i < DataSource.parcels.Count; i++)
                     {
-                        newParcel = DataSource.parcels[i];
-                        newParcel.requested = DateTime.Now;
-                        newParcel.scheduled = DateTime.Now;
-                        newParcel.droneId = d.id;
-                        DataSource.parcels[i] = newParcel;
+                        if (DataSource.parcels[i].id == p.id)
+                        {
+                            newParcel = DataSource.parcels[i];
+                            newParcel.requested = DateTime.Now;
+                            newParcel.scheduled = DateTime.Now;
+                            newParcel.droneId = d.id;
+                            DataSource.parcels[i] = newParcel;
+                        }
                     }
                 }
-            }
+                else
+                    throw new droneExeption("the drone isn't exist");
+            else
+                throw new parcelExeption("the parcel isn't exist");
         }
 
         /// <summary>
@@ -258,6 +263,8 @@ namespace DalObject
                     }
                 }
             }
+            else
+                throw new parcelExeption("the parcel isn't exist");
         }
 
         /// <summary>
@@ -319,6 +326,8 @@ namespace DalObject
                     }
                 }
             }
+            else
+                throw new stationExeption("the station isn't exist");
 
             if (!checkNotExistDrone(d, DataSource.drones))
             {
@@ -331,6 +340,8 @@ namespace DalObject
                     }
                 }
             }
+            else
+                throw new droneExeption("the drone isn't exist");
 
             foreach (DroneCharge elementDroneCharge in DataSource.droneCharges)
             {
