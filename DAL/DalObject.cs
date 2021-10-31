@@ -237,6 +237,8 @@ namespace DalObject
                     }
                 }
             }
+            else
+                throw new parcelExeption("the parcel is not exist!\n");
         }
 
         /// <summary>
@@ -282,6 +284,8 @@ namespace DalObject
                     }
                 }
             }
+            else
+                throw new stationExeption("the station is not exist!\n");
 
             if (!checkNotExistDrone(d, DataSource.drones))
             {
@@ -293,8 +297,10 @@ namespace DalObject
                         break;
                     }
                 }
+                DataSource.droneCharges.Add(newDroneCharges);
             }
-            DataSource.droneCharges.Add(newDroneCharges);
+            else
+                throw new droneExeption("the drone is not exist!\n");
         }
 
         /// <summary>
