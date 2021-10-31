@@ -1,6 +1,7 @@
 ﻿using System;
 using IDAL.DO;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DalObject
 {
@@ -315,6 +316,17 @@ namespace DalObject
                 if (elementDroneCharge.stationld == s.id && elementDroneCharge.droneId == d.id)
                     DataSource.droneCharges.Remove(newDroneCharges);
             }
+        }
+
+        public static double[] GetRequstPowerConsumption()
+        {
+           double[] powerConsumption= new double[5];
+           powerConsumption[0] = DataSource.Config.dAvailable;
+           powerConsumption[1] = DataSource.Config.dLightW;
+           powerConsumption[2] = DataSource.Config.dMediumW;
+           powerConsumption[3] = DataSource.Config.dHeavyW;
+           powerConsumption[4] = DataSource.Config.chargingRateOfDrone;
+           return powerConsumption;
         }
     }
 }

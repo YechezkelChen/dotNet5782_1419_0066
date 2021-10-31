@@ -16,11 +16,11 @@ namespace DalObject
         internal class Config
         {
             internal static int ParcelsId = 0;
-            internal static string dAvailable = "available";
-            internal static string dLightW = "light weight";
-            internal static string dMediumW = "Medium weight";
-            internal static string dHeavyW = "heavy weight";
-            internal static int chargingRateOfDrone = 0;//Percent per hour
+            internal static double dAvailable = 0;
+            internal static double dLightW = 0;
+            internal static double dMediumW = 0;
+            internal static double dHeavyW = 0;
+            internal static double chargingRateOfDrone = 0;//Percent per hour
         }
 
         public static void Initialize()
