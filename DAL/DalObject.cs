@@ -182,19 +182,17 @@ namespace DalObject
             if (!checkNotExistParcel(p, DataSource.parcels) && !checkNotExistDrone(p, DataSource.drones))
             {
                 Parcel newParcel = new Parcel();
-                foreach (Parcel elementParcel in DataSource.parcels)
+                for (int i = 0; i < DataSource.parcels.Count; i++)
                 {
-                    if (elementParcel.id == p.id)
+                    if (DataSource.parcels[i].id == p.id)
                     {
-                        newParcel = elementParcel;
-                        DataSource.parcels.Remove(elementParcel);
-                        break;
+                        newParcel = DataSource.parcels[i];
+                        newParcel.requested = DateTime.Now;
+                        newParcel.scheduled = DateTime.Now;
+                        newParcel.droneId = d.id;
+                        DataSource.parcels[i] = newParcel;
                     }
                 }
-                newParcel.requested = DateTime.Now;
-                newParcel.scheduled = DateTime.Now;
-                newParcel.droneId = d.id;
-                DataSource.parcels.Add(newParcel);
             }
         }
 
@@ -207,6 +205,10 @@ namespace DalObject
             if (!checkNotExistParcel(p, DataSource.parcels))
             {
                 Parcel newParcel = new Parcel();
+                for (int i = 0; i < DataSource.parcels.Count; i++)
+                {
+                    
+                }
                 foreach (Parcel elementParcel in DataSource.parcels)
                 {
                     if (elementParcel.id == p.id)
