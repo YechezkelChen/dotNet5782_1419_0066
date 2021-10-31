@@ -370,6 +370,12 @@ namespace DalObject
             return true;//the drone not exist
         }
 
+        /// <summary>
+        /// the methode not need exeption becuse she use both sids(true and false)
+        /// </summary>
+        /// <param name="d"></the parcel we check if she is exist>
+        /// <param name="drones"></the list of parcels>
+        /// <returns></returns>
         public static bool checkNotExistParcel(Parcel p, List<Parcel> parcels)
         {
             foreach (Parcel elementParcel in parcels)
@@ -378,6 +384,12 @@ namespace DalObject
             return true;//the drone not exist
         }
 
+        /// <summary>
+        /// the methode not need exeption becuse she use both sids(true and false)
+        /// </summary>
+        /// <param name="d"></the customer we check if she is exist>
+        /// <param name="drones"></the list od customers>
+        /// <returns></returns>
         public static bool checkNotExistCustomer(Customer c, List<Customer> customers)
         {
             foreach (Customer elementCustomer in customers)
