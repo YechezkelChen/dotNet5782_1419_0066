@@ -1,6 +1,7 @@
 ﻿using System;
 using IDAL.DO;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
 namespace DalObject
@@ -22,6 +23,17 @@ namespace DalObject
                 DataSource.stations.Add(newStation);
         }
 
+        public static bool checkNotExistStation(Station s, List<Station> stations)
+        {
+            for (int i = 0; i < GetStations().Count(); i++)
+            {
+                if (stations[i].id == s.id)
+                    return true;
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// add a drone to the drone list
         /// </summary>
@@ -30,6 +42,17 @@ namespace DalObject
         {
             if(checkNotExistDrone(newDrone, DataSource.drones))
                 DataSource.drones.Add(newDrone);
+        }
+
+        public static bool checkNotExistDrone(Drone d, List<Drone> drones)
+        {
+            for (int i = 0; i < GetDrones().Count(); i++)
+            {
+                if (drones[i].id == d.id)
+                    return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -66,13 +89,16 @@ namespace DalObject
         /// <returns></returns>
         public static Station GetStation(int stationId)
         {
-            Station newStation = new Station();
+            Station? newStation = null;
             foreach (Station elementStation in DataSource.stations)
             {
                 if (elementStation.id == stationId)
                     newStation = elementStation;
             }
-            return newStation;
+
+            if (newStation == null)
+                throw new stationExeption("Id of station not found\n");
+            return (Station)newStation;
         }
 
         /// <summary>
@@ -82,13 +108,16 @@ namespace DalObject
         /// <returns></returns>
         public static Drone GetDrone(int droneId)
         {
-            Drone newDrone = new Drone();
+            Drone? newDrone = null;
             foreach (Drone elementDrone in DataSource.drones)
             {
                 if (elementDrone.id == droneId)
                     newDrone = elementDrone;
             }
-            return newDrone;
+
+            if (newDrone == null)
+                throw new droneExeption("Id of drone not found\n");
+            return (Drone)newDrone;
         }
 
         /// <summary>
@@ -98,13 +127,16 @@ namespace DalObject
         /// <returns></returns>
         public static Parcel GetParcel(int parcelId)
         {
-            Parcel newParcel = new Parcel();
+            Parcel ?newParcel = null;
             foreach (Parcel elementParcel in DataSource.parcels)
             {
                 if (elementParcel.id == parcelId)
                     newParcel = elementParcel;
             }
-            return newParcel;
+
+            if (newParcel == null)
+                throw new parcelExeption("Id of parcel not found\n");
+            return (Parcel)newParcel;
         }
 
         /// <summary>
@@ -114,13 +146,16 @@ namespace DalObject
         /// <returns></returns>
         public static Customer GetCustomer(int customerId)
         {
-            Customer newCustomer = new Customer();
+            Customer ?newCustomer = null;
             foreach (Customer elementCustomer in DataSource.customers)
             {
                 if (elementCustomer.id == customerId)
                     newCustomer = elementCustomer;
             }
-            return newCustomer;
+
+            if (newCustomer == null)
+                throw new customerExeption("Id of customer not found\n");
+            return (Customer)newCustomer;
         }
 
         /// <summary>
