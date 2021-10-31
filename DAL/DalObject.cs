@@ -31,13 +31,10 @@ namespace DalObject
         /// <returns></returns>
         public static bool checkNotExistStation(Station s, List<Station> stations)
         {
-            for (int i = 0; i < GetStations().Count(); i++)
-            {
-                if (stations[i].id == s.id)
+            foreach (Station elementStation in stations)
+                if (elementStation.id == s.id)
                     return false;
-            }
-
-            return true;//the station not exist
+            return true; //the station not exist
         }
 
         /// <summary>
@@ -58,12 +55,9 @@ namespace DalObject
         /// <returns></returns>
         public static bool checkNotExistDrone(Drone d, List<Drone> drones)
         {
-            for (int i = 0; i < GetDrones().Count(); i++)
-            {
-                if (drones[i].id == d.id)
+            foreach (Drone elementDrone in drones)
+                if (elementDrone.id == d.id)
                     return false;
-            }
-
             return true;//the drone not exist
         }
 
@@ -86,13 +80,10 @@ namespace DalObject
 
         public static bool checkNotExistParcel(Parcel p, List<Parcel> parcels)
         {
-            foreach (Parcel elementParcel in parcels)
-            {
+            foreach (Parcel elementParcel in parcels) 
                 if (elementParcel.id == p.id)
                     return false;
-            }
-
-            return true;
+            return true;//the drone not exist
         }
 
         /// <summary>
