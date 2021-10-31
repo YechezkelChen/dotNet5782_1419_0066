@@ -207,19 +207,13 @@ namespace DalObject
                 Parcel newParcel = new Parcel();
                 for (int i = 0; i < DataSource.parcels.Count; i++)
                 {
-                    
-                }
-                foreach (Parcel elementParcel in DataSource.parcels)
-                {
-                    if (elementParcel.id == p.id)
+                    if (DataSource.parcels[i].id == p.id)
                     {
-                        newParcel = elementParcel;
-                        DataSource.parcels.Remove(elementParcel);
-                        break;
+                        newParcel = DataSource.parcels[i];
+                        newParcel.pickedUp = DateTime.Now;
+                        DataSource.parcels[i] = newParcel;
                     }
                 }
-                newParcel.pickedUp = DateTime.Now;
-                DataSource.parcels.Add(newParcel);
             }
         }
 
@@ -232,17 +226,15 @@ namespace DalObject
             if (!checkNotExistParcel(p, DataSource.parcels))
             {
                 Parcel newParcel = new Parcel();
-                foreach (Parcel elementParcel in DataSource.parcels)
+                for (int i = 0; i < DataSource.parcels.Count; i++)
                 {
-                    if (elementParcel.id == p.id)
+                    if (DataSource.parcels[i].id == p.id)
                     {
-                        newParcel = elementParcel;
-                        DataSource.parcels.Remove(elementParcel);
-                        break;
+                        newParcel = DataSource.parcels[i];
+                        newParcel.delivered = DateTime.Now;
+                        DataSource.parcels[i] = newParcel;
                     }
                 }
-                newParcel.delivered = DateTime.Now;
-                DataSource.parcels.Add(newParcel);
             }
         }
 
@@ -257,18 +249,16 @@ namespace DalObject
             if (!checkNotExistStation(s, DataSource.stations))
             {
                 Station newsStation = new Station();
-                foreach (Station elementStation in DataSource.stations)
+                for (int i = 0; i < DataSource.stations.Count; i++)
                 {
-                    if (elementStation.id == s.id)
+                    if (DataSource.stations[i].id == s.id)
                     {
-                        newsStation = elementStation;
-                        DataSource.stations.Remove(elementStation);
-                        break;
+                        newsStation = DataSource.stations[i];
+                        newsStation.chargeSlots--;
+                        newDroneCharges.stationld = newsStation.id;
+                        DataSource.stations[i] = newsStation;
                     }
                 }
-                newsStation.chargeSlots--;
-                newDroneCharges.stationld = newsStation.id;
-                DataSource.stations.Add(newsStation);
             }
 
             if (!checkNotExistDrone(d, DataSource.drones))
