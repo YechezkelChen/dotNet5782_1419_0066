@@ -296,18 +296,16 @@ namespace DalObject
             if (!checkNotExistStation(s, DataSource.stations))
             {
                 Station newsStation = new Station();
-                foreach (Station elementStation in DataSource.stations)
+                for (int i = 0; i < DataSource.stations.Count; i++) 
                 {
-                    if (elementStation.id == s.id)
+                    if (DataSource.stations[i].id == s.id)
                     {
-                        newsStation = elementStation;
-                        DataSource.stations.Remove(elementStation);
-                        break;
+                        newsStation = DataSource.stations[i];
+                        newsStation.chargeSlots++;
+                        newDroneCharges.stationld = newsStation.id;
+                        DataSource.stations[i] = newsStation;
                     }
                 }
-                newsStation.chargeSlots++;
-                newDroneCharges.stationld = newsStation.id;
-                DataSource.stations.Add(newsStation);
             }
 
             if (!checkNotExistDrone(d, DataSource.drones))
