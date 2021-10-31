@@ -24,6 +24,23 @@ namespace DalObject
         }
 
         /// <summary>
+        /// the methode not need exeption becuse she use both sids(true and false)
+        /// </summary>
+        /// <param name="s"></the station that we chek if she exist>
+        /// <param name="stations"></the list of all stations>
+        /// <returns></returns>
+        public static bool checkNotExistStation(Station s, List<Station> stations)
+        {
+            foreach (Station elementStation in stations)
+                if (elementStation.id == s.id)
+                    return false;
+            return true; //the station not exist
+        }
+
+        /// <summary>
+        }
+
+        /// <summary>
         /// add a drone to the drone list
         /// </summary>
         /// <param name="newDrone"></the new drone the user whants to add to the drone's list>
@@ -31,8 +48,25 @@ namespace DalObject
         {
             if(checkNotExistDrone(newDrone, DataSource.drones))
                 DataSource.drones.Add(newDrone);
+        /// the methode not need exeption becuse she use both sids(true and false)
+        /// </summary>
+        /// <param name="d"></the drone we check if she is exist>
+        /// <param name="drones"></the list od drones>
+        /// <returns></returns>
+        public static bool checkNotExistDrone(Drone d, List<Drone> drones)
+        {
+            foreach (Drone elementDrone in drones)
+                if (elementDrone.id == d.id)
+                    return false;
+            return true;//the drone not exist
         }
-        
+
+        /// <summary>
+            }
+
+            return true;//the drone not exist
+        }
+
         /// <summary>
         /// add a parcel to the parcel list and return the new parcel id that was create
         /// </summary>
@@ -44,10 +78,21 @@ namespace DalObject
             if (checkNotExistParcel(newParcel, DataSource.parcels))
             {
                 newParcel.id = DataSource.Config.ParcelsId; // insert the Parcels new Id
-                DataSource.Config.ParcelsId++; // new Id for the fautre parce Id
-                DataSource.parcels.Add(newParcel);
+        public static bool checkNotExistParcel(Parcel p, List<Parcel> parcels)
+        {
+            foreach (Parcel elementParcel in parcels) 
+                if (elementParcel.id == p.id)
+                    return false;
+            return true;//the drone not exist
+        }
+
+            foreach (Parcel elementParcel in parcels)
+            {
+                if (elementParcel.id == p.id)
+                    return false;
             }
-            return tmp; // return the new number created
+
+            return true;
         }
 
         /// <summary>
