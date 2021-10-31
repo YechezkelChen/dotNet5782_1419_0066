@@ -23,15 +23,21 @@ namespace DalObject
                 DataSource.stations.Add(newStation);
         }
 
+        /// <summary>
+        /// the methode not need exeption becuse she use both sids(true and false)
+        /// </summary>
+        /// <param name="s"></the station that we chek if she exist>
+        /// <param name="stations"></the list of all stations>
+        /// <returns></returns>
         public static bool checkNotExistStation(Station s, List<Station> stations)
         {
             for (int i = 0; i < GetStations().Count(); i++)
             {
                 if (stations[i].id == s.id)
-                    return true;
+                    return false;
             }
 
-            return false;
+            return true;//the station not exist
         }
 
         /// <summary>
@@ -44,15 +50,21 @@ namespace DalObject
                 DataSource.drones.Add(newDrone);
         }
 
+        /// <summary>
+        /// the methode not need exeption becuse she use both sids(true and false)
+        /// </summary>
+        /// <param name="d"></the drone we check if she is exist>
+        /// <param name="drones"></the list od drones>
+        /// <returns></returns>
         public static bool checkNotExistDrone(Drone d, List<Drone> drones)
         {
             for (int i = 0; i < GetDrones().Count(); i++)
             {
                 if (drones[i].id == d.id)
-                    return true;
+                    return false;
             }
 
-            return false;
+            return true;//the drone not exist
         }
 
         /// <summary>
@@ -91,6 +103,11 @@ namespace DalObject
         {
             if (checkNotExistCustomer(newCustomer, DataSource.customers))
                 DataSource.customers.Add(newCustomer);
+        }
+
+        public static bool checkNotExistCustomer(Customer c, List<Customer> customers)
+        {
+
         }
 
         /// <summary>
