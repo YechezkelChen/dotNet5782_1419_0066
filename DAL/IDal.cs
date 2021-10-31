@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using IDAL.DO;
 
-namespace IDal
+namespace DAL
 {
-    class IDal
-    {
-        public static void AddStation(Station newStation);
+    interface IDal
+    { 
+        void AddStation(Station newStation);
+
+
 
     }
 }
