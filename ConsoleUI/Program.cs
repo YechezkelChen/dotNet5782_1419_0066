@@ -417,9 +417,8 @@ namespace ConsoleUI
         /// <returns></no returns, just print>
         public static void PrintDrones()//print the list
         {
-            Drone[] newDrones = DalObject.DalObject.GetDrones();
-            for (int i = 0; i < newDrones.Length; i++)
-                Console.WriteLine(newDrones[i].ToString());
+            foreach (Drone elementDrone in DalObject.DalObject.GetDrones()) 
+                Console.WriteLine(elementDrone.ToString());
         }
 
         /// <summary>
@@ -440,9 +439,8 @@ namespace ConsoleUI
         /// <returns></no returns, just print>
         public static void PrintDronesCharge()//print the list
         {
-            DroneCharge[] newDronesCharge = DalObject.DalObject.GetDronesCharge();
-            for (int i = 0; i < newDronesCharge.Length; i++)
-                Console.WriteLine(newDronesCharge[i].ToString());
+            foreach (DroneCharge elementDroneCharge in DalObject.DalObject.GetDronesCharge())
+                Console.WriteLine(elementDroneCharge.ToString());
         }
 
         /// <summary>
@@ -451,9 +449,8 @@ namespace ConsoleUI
         /// <returns></no returns, just print>
         public static void PrintCustomers()//print the list
         {
-            Customer[] newCustomers = DalObject.DalObject.GetCustomers();
-            for (int i = 0; i < newCustomers.Length; i++)
-                Console.WriteLine(newCustomers[i].ToString());
+            foreach (Customer elementCustomer in DalObject.DalObject.GetCustomers())
+                Console.WriteLine(elementCustomer.ToString());
         }
 
         /// <summary>
@@ -462,9 +459,8 @@ namespace ConsoleUI
         /// <returns></no returns, just print>
         public static void PrintParcels()//print the list
         {
-            Parcel[] newParcels = DalObject.DalObject.GetParcels();
-            for (int i = 0; i < newParcels.Length; i++) 
-                Console.WriteLine(newParcels[i].ToString());
+            foreach (Parcel elementParcel in DalObject.DalObject.GetParcels())
+                Console.WriteLine(elementParcel.ToString());
         }
 
         /// <summary>
@@ -473,10 +469,9 @@ namespace ConsoleUI
         /// <returns></no returns, just print>
         public static void PrintParcelsWithNoAssign()//print the list
         {
-            Parcel[] newParcels = DalObject.DalObject.GetParcels();
-            for (int i = 0; i < newParcels.Length; i++)
-                if (newParcels[i].droneId != -1)//the parcel wasnt connected
-                    Console.WriteLine(newParcels[i].ToString());
+            foreach (Parcel elementParcel in DalObject.DalObject.GetParcels())
+                if (elementParcel.droneId != -1)//the parcel wasnt connected
+                    Console.WriteLine(elementParcel.ToString());
         }
 
         /// <summary>
@@ -485,10 +480,9 @@ namespace ConsoleUI
         /// <returns></no returns, just print>
         public static void PrintParcelsPickedUp()//print the list
         {
-            Parcel[] newParcels = DalObject.DalObject.GetParcels();
-            for (int i = 0; i < newParcels.Length; i++)
-                if (newParcels[i].pickedUp != DateTime.MinValue)//the parcel was pickup
-                    Console.WriteLine(newParcels[i].ToString());
+            foreach (Parcel elementParcel in DalObject.DalObject.GetParcels())
+                if (elementParcel.pickedUp != DateTime.MinValue)//the parcel was pickup
+                    Console.WriteLine(elementParcel.ToString());
         }
 
         /// <summary>
@@ -497,10 +491,9 @@ namespace ConsoleUI
         /// <returns></no returns, just print>
         public static void PrintParcelsNoDrones()//print the list
         {
-            Parcel[] newParcels = DalObject.DalObject.GetParcels();
-            for (int i = 0; i < newParcels.Length; i++)
-                if (newParcels[i].droneId == -1)//the id drone is not exist
-                    Console.WriteLine(newParcels[i].ToString());
+            foreach (Parcel elementParcel in DalObject.DalObject.GetParcels())
+                if (elementParcel.droneId == -1)//the id drone is not exist
+                    Console.WriteLine(elementParcel.ToString());
         }
 
         /// <summary>
@@ -509,10 +502,9 @@ namespace ConsoleUI
         /// <returns></no returns, just print>
         public static void PrintStationsCharge()//print the list
         {
-            Station[] newStations = DalObject.DalObject.GetStations();
-            for (int i = 0; i < newStations.Length; i++)
-                if (newStations[i].chargeSlots > 0)
-                    Console.WriteLine(newStations[i].ToString());
+            foreach (Station elementStation in DalObject.DalObject.GetStations())
+                if (elementStation.chargeSlots > 0)
+                    Console.WriteLine(elementStation.ToString());
         }
     }
 }
