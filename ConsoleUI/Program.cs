@@ -372,33 +372,11 @@ namespace ConsoleUI
                     break;
             }
 
-            IEnumerable<Drone> newDrones = DalObject.DalObject.GetDrones();
-            Drone newDrone = new Drone();
-            bool flag;
-
-            if (newDrones.Count() != 0)
-            {
-                Console.WriteLine("Chooce a Drone forme the list:");
-                PrintDronesAvailable();//print all the drones in the data
-                do
-                {
-                    Console.WriteLine("Enter Drone Id from the list to your Parcel: ");
-                    flag = int.TryParse(Console.ReadLine(), out num);
-                    if (flag)
-                        newDrone.id = num;
-                } while (!flag || !DalObject.DalObject.checkNotExistDrone(newDrone, (List<Drone>)newDrones));
-                NewParcel.droneId = num;
-            }
-            else
-            {
-                NewParcel.droneId = -1;
-            }
-
-            do
-            {
-                Console.WriteLine("Enter Requested Time Parcel: ");
-            } while (!DateTime.TryParse(Console.ReadLine(), out d));
-            NewParcel.requested = d;
+            NewParcel.droneId = 0;
+            NewParcel.requested = DateTime.MinValue;
+            NewParcel.scheduled = DateTime.MinValue;
+            NewParcel.pickedUp = DateTime.MinValue;
+            NewParcel.delivered = DateTime.MinValue;
 
             return NewParcel;
         }
