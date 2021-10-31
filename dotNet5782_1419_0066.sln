@@ -10,9 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{C26E8264-D1D5-405A-A8EE-F1CA3ECD2064}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{C26E8264-D1D5-405A-A8EE-F1CA3ECD2064}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{5627EB25-CC27-4DCB-AC74-E2807DC0ADE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{5627EB25-CC27-4DCB-AC74-E2807DC0ADE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{65D3A127-DAC4-474D-991F-9ADE002FC4F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{5627EB25-CC27-4DCB-AC74-E2807DC0ADE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5627EB25-CC27-4DCB-AC74-E2807DC0ADE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5627EB25-CC27-4DCB-AC74-E2807DC0ADE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65D3A127-DAC4-474D-991F-9ADE002FC4F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D3A127-DAC4-474D-991F-9ADE002FC4F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65D3A127-DAC4-474D-991F-9ADE002FC4F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65D3A127-DAC4-474D-991F-9ADE002FC4F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
