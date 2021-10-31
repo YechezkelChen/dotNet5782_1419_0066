@@ -24,23 +24,6 @@ namespace DalObject
         }
 
         /// <summary>
-        /// the methode not need exeption becuse she use both sids(true and false)
-        /// </summary>
-        /// <param name="s"></the station that we chek if she exist>
-        /// <param name="stations"></the list of all stations>
-        /// <returns></returns>
-        public static bool checkNotExistStation(Station s, List<Station> stations)
-        {
-            for (int i = 0; i < GetStations().Count(); i++)
-            {
-                if (stations[i].id == s.id)
-                    return false;
-            }
-
-            return true;//the station not exist
-        }
-
-        /// <summary>
         /// add a drone to the drone list
         /// </summary>
         /// <param name="newDrone"></the new drone the user whants to add to the drone's list>
@@ -49,24 +32,7 @@ namespace DalObject
             if(checkNotExistDrone(newDrone, DataSource.drones))
                 DataSource.drones.Add(newDrone);
         }
-
-        /// <summary>
-        /// the methode not need exeption becuse she use both sids(true and false)
-        /// </summary>
-        /// <param name="d"></the drone we check if she is exist>
-        /// <param name="drones"></the list od drones>
-        /// <returns></returns>
-        public static bool checkNotExistDrone(Drone d, List<Drone> drones)
-        {
-            for (int i = 0; i < GetDrones().Count(); i++)
-            {
-                if (drones[i].id == d.id)
-                    return false;
-            }
-
-            return true;//the drone not exist
-        }
-
+        
         /// <summary>
         /// add a parcel to the parcel list and return the new parcel id that was create
         /// </summary>
@@ -84,17 +50,6 @@ namespace DalObject
             return tmp; // return the new number created
         }
 
-        public static bool checkNotExistParcel(Parcel p, List<Parcel> parcels)
-        {
-            foreach (Parcel elementParcel in parcels)
-            {
-                if (elementParcel.id == p.id)
-                    return false;
-            }
-
-            return true;
-        }
-
         /// <summary>
         /// add a customer to the fustomer list
         /// </summary>
@@ -103,15 +58,6 @@ namespace DalObject
         {
             if (checkNotExistCustomer(newCustomer, DataSource.customers))
                 DataSource.customers.Add(newCustomer);
-        }
-
-        public static bool checkNotExistCustomer(Customer c, List<Customer> customers)
-        {
-            foreach (Customer elementCustomer in customers)
-                if (elementCustomer.id == c.id)
-                    return false;
-
-            return true; //the customer not exist
         }
 
         /// <summary>
@@ -394,6 +340,72 @@ namespace DalObject
            powerConsumption[3] = DataSource.Config.dHeavyW;
            powerConsumption[4] = DataSource.Config.chargingRateOfDrone;
            return powerConsumption;
+        }
+
+        /// <summary>
+        /// the methode not need exeption becuse she use both sids(true and false)
+        /// </summary>
+        /// <param name="s"></the station that we chek if she exist>
+        /// <param name="stations"></the list of all stations>
+        /// <returns></returns>
+        public static bool checkNotExistStation(Station s, List<Station> stations)
+        {
+            for (int i = 0; i < GetStations().Count(); i++)
+            {
+                if (stations[i].id == s.id)
+                    return false;
+            }
+
+            return true;//the station not exist
+        }
+
+        /// <summary>
+        /// the methode not need exeption becuse she use both sids(true and false)
+        /// </summary>
+        /// <param name="d"></the drone we check if she is exist>
+        /// <param name="drones"></the list od drones>
+        /// <returns></returns>
+        public static bool checkNotExistDrone(Drone d, List<Drone> drones)
+        {
+            for (int i = 0; i < GetDrones().Count(); i++)
+            {
+                if (drones[i].id == d.id)
+                    return false;
+            }
+
+            return true;//the drone not exist
+        }
+
+        /// <summary>
+        /// the methode not need exeption becuse she use both sids(true and false)
+        /// </summary>
+        /// <param name="p"></the parcel we check for>
+        /// <param name="parcels"></the list of parcel>
+        /// <returns></returns>
+        public static bool checkNotExistParcel(Parcel p, List<Parcel> parcels)
+        {
+            foreach (Parcel elementParcel in parcels)
+            {
+                if (elementParcel.id == p.id)
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// the methode not need exeption becuse she use both sids(true and false)
+        /// </summary>
+        /// <param name="c"></the customer we check>
+        /// <param name="customers"></the list of customers>
+        /// <returns></returns>
+        public static bool checkNotExistCustomer(Customer c, List<Customer> customers)
+        {
+            foreach (Customer elementCustomer in customers)
+                if (elementCustomer.id == c.id)
+                    return false;
+
+            return true; //the customer not exist
         }
     }
 }
