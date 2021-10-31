@@ -1,6 +1,7 @@
 ﻿using System;
-using DalObject;
 using IDAL.DO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleUI
 {
@@ -214,13 +215,17 @@ namespace ConsoleUI
         public static Drone InputDrone()
         {
             int num;
-            double b;
             Drone NewDrone = new Drone();
-            Console.WriteLine("Enter Id Drone: ");
-            int.TryParse(Console.ReadLine(), out num);
+
+            do
+            {
+                Console.WriteLine("Enter Id Drone: ");
+            } while (!int.TryParse(Console.ReadLine(), out num));
             NewDrone.id = num;
+
             Console.WriteLine("Enter Model Drone: ");
             NewDrone.model = Console.ReadLine();
+
             do
             {
                 Console.WriteLine("Enter MaxWeight Drone:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
@@ -240,29 +245,6 @@ namespace ConsoleUI
                 default:
                     break;
             }
-
-            do
-            {
-                Console.WriteLine("Enter Status Drone:\n" + "1: Available\n" + "2: Maintenance\n" + "3: Delivery\n");
-                int.TryParse(Console.ReadLine(), out num);
-            } while (num != 1 && num != 2 && num != 3);
-            switch (num)
-            {
-                case 1:
-                    NewDrone.status = DroneStatuses.Available;
-                    break;
-                case 2:
-                    NewDrone.status = DroneStatuses.Maintenance;
-                    break;
-                case 3:
-                    NewDrone.status = DroneStatuses.Delivery;
-                    break;
-                default:
-                    break;
-            }
-            Console.WriteLine("Enter Battry Drone: ");
-            double.TryParse(Console.ReadLine(), out b);
-            NewDrone.battry = b;
 
             return NewDrone;
         }
@@ -302,15 +284,25 @@ namespace ConsoleUI
             int num;
             DateTime d;
             Parcel NewParcel = new Parcel();
-            Console.WriteLine("Enter Id Parcel: ");
-            int.TryParse(Console.ReadLine(), out num);
+            do
+            {
+                Console.WriteLine("Enter Id Parcel: ");
+
+            } while (!int.TryParse(Console.ReadLine(), out num));
             NewParcel.id = num;
-            Console.WriteLine("Enter Sender Id Parcel: ");
-            int.TryParse(Console.ReadLine(), out num);
+
+            do
+            {
+                Console.WriteLine("Enter Sender Id Parcel: ");
+            } while (!int.TryParse(Console.ReadLine(), out num));
             NewParcel.senderId = num;
-            Console.WriteLine("Enter Target Id Parcel: ");
-            int.TryParse(Console.ReadLine(), out num);
+
+            do
+            {
+                Console.WriteLine("Enter Target Id Parcel: ");
+            } while (!int.TryParse(Console.ReadLine(), out num));
             NewParcel.targetId = num;
+
             do
             {
                 Console.WriteLine("Enter Weight Parcel:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
@@ -352,31 +344,27 @@ namespace ConsoleUI
                     break;
             }
 
-            Drone[] newDrones = DalObject.DalObject.GetDrones();
+            IEnumerable<Drone> newDrones = DalObject.DalObject.GetDrones();
 
-            if (newDrones.Length != 0)
+            if (newDrones.Count() != 0)
             {
                 Console.WriteLine("Chooce a Drone forme the list:");
                 PrintDronesAvailable();//print all the drones in the data
-                Console.WriteLine("Enter Drone Id frome the list to your Parcel: ");
-                int.TryParse(Console.ReadLine(), out num);
-                bool flag = false;
-                for (int i = 0; i < newDrones.Length; i++)
+                do
                 {
-                    if (num == newDrones[i].id)
-                        flag = true;
-                }
-                if (!flag)//the drone the user whant is not in the list
-                    NewParcel.droneId = -1;//parcel that not have drone
-                else
-                    NewParcel.droneId = num;
+                    Console.WriteLine("Enter Drone Id frome the list to your Parcel: ");
+                } while (!int.TryParse(Console.ReadLine(), out num) || !checkNotExistParcel(NewParcel, newDrones));
+                NewParcel.droneId = num;
             }
             else
             {
                 NewParcel.droneId = -1;
             }
-            Console.WriteLine("Enter Requested Time Parcel: ");
-            DateTime.TryParse(Console.ReadLine(), out d);
+
+            do
+            {
+                Console.WriteLine("Enter Requested Time Parcel: ");
+            } while (!DateTime.TryParse(Console.ReadLine(), out d));
             NewParcel.requested = d;
 
             return NewParcel;
