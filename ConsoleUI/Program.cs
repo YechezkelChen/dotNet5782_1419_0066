@@ -515,5 +515,3 @@ namespace ConsoleUI
         }
     }
 }
-
-
