@@ -404,11 +404,8 @@ namespace ConsoleUI
         /// <returns></no returns, just print>
         public static void PrintStations()//print the list
         {
-            IEnumerable<Station> newStations = DalObject.DalObject.GetStations();
-            foreach (var VARIABLE in COLLECTION)
-            {
-                
-            }
+            foreach (Station elementStation in DalObject.DalObject.GetStations())
+                Console.WriteLine(elementStation.ToString());
         }
 
         /// <summary>
@@ -428,10 +425,15 @@ namespace ConsoleUI
         /// <returns></no returns, just print>
         public static void PrintDronesAvailable()//print the list
         {
-            Drone[] newDrones = DalObject.DalObject.GetDrones();
-            for (int i = 0; i < newDrones.Length; i++)
-                if (newDrones[i].status == DroneStatuses.Available)
-                    Console.WriteLine(newDrones[i].ToString());
+            IEnumerable<Drone> newDrones = DalObject.DalObject.GetDrones();
+            foreach (Drone elementDrone in newDrones)
+            {
+                
+            }
+
+            //for (int i = 0; i < newDrones.Length; i++)
+            //    if (newDrones[i].status == DroneStatuses.Available)
+            //        Console.WriteLine(newDrones[i].ToString());
         }
 
         /// <summary>
