@@ -12,7 +12,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return $"Id #{id}: Model={model}, MaxWeight={maxWeight},Statuses={status}, Battry={battry}";
+                return $"Id #{id}: Model={model}, MaxWeight={maxWeight}";
             }
         }
     }

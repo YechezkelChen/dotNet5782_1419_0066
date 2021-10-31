@@ -26,6 +26,6 @@ namespace IDal
         IEnumerable<DroneCharge> GetDronesCharge();
         IEnumerable<Parcel> GetParcels();
         IEnumerable<Customer> GetCustomers();
-        double[] GetRequstPowerConsumption();
+        double[] GetRequestPowerConsumption();
     }
 }
