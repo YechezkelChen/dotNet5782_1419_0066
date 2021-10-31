@@ -107,7 +107,11 @@ namespace DalObject
 
         public static bool checkNotExistCustomer(Customer c, List<Customer> customers)
         {
+            foreach (Customer elementCustomer in customers)
+                if (elementCustomer.id == c.id)
+                    return false;
 
+            return true; //the customer not exist
         }
 
         /// <summary>
@@ -243,7 +247,7 @@ namespace DalObject
         /// <param name="d"></the drone the user ask to connect with the parcel he ask >
         public static void ConnectParcelToDrone(Parcel p, Drone d)
         {
-            if (!checkNotExistParcel(p, DataSource.parcels) && !checkNotExistDrone(p, DataSource.drones))
+            if (!checkNotExistParcel(p, DataSource.parcels) && !checkNotExistDrone(d, DataSource.drones))
             {
                 Parcel newParcel = new Parcel();
                 for (int i = 0; i < DataSource.parcels.Count; i++)
