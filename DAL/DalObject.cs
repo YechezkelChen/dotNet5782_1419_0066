@@ -21,6 +21,8 @@ namespace DalObject
         {
             if(checkNotExistStation(newStation, DataSource.stations))
                 DataSource.stations.Add(newStation);
+            else
+                throw new stationExeption("the station exist!\n");
         }
 
         /// <summary>
@@ -29,8 +31,10 @@ namespace DalObject
         /// <param name="newDrone"></the new drone the user whants to add to the drone's list>
         public static void AddDrone(Drone newDrone)
         {
-            if(checkNotExistDrone(newDrone, DataSource.drones))
+            if (checkNotExistDrone(newDrone, DataSource.drones))
                 DataSource.drones.Add(newDrone);
+            else
+                throw new droneExeption("the drone is exist!\n");
         }
 
         /// <summary>
@@ -47,6 +51,8 @@ namespace DalObject
                 DataSource.Config.ParcelsId++; // new Id for the fautre parce Id
                 DataSource.parcels.Add(newParcel);
             }
+            else
+                throw new parcelExeption("the parcel is exist!\n");
             return tmp; // return the new number created
         }
 
@@ -58,6 +64,8 @@ namespace DalObject
         {
             if (checkNotExistCustomer(newCustomer, DataSource.customers))
                 DataSource.customers.Add(newCustomer);
+            else
+                throw new customerExeption("the customer is exist!\n");
         }
 
         /// <summary>
