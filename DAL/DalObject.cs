@@ -7,7 +7,7 @@ using IDAL;
 
 namespace DalObject
 {
-    public class DalObject
+    public class DalObject : IDal
     {
         public DalObject()
         {
@@ -18,7 +18,7 @@ namespace DalObject
         /// add a staion to the list station
         /// </summary>
         /// <param name="newStation"></the new station the user whants to add to the station's list>
-        public static void AddStation(Station newStation)
+        public void AddStation(Station newStation)
         {
             if(checkNotExistStation(newStation, DataSource.stations))
                 DataSource.stations.Add(newStation);
@@ -30,7 +30,7 @@ namespace DalObject
         /// add a drone to the drone list
         /// </summary>
         /// <param name="newDrone"></the new drone the user whants to add to the drone's list>
-        public static void AddDrone(Drone newDrone)
+        public void AddDrone(Drone newDrone)
         {
             if (checkNotExistDrone(newDrone, DataSource.drones))
                 DataSource.drones.Add(newDrone);
@@ -43,7 +43,7 @@ namespace DalObject
         /// </summary>
         /// <param name="newParcel"></the new parcel the user whants to add to the parcel's list>
         /// <returns></returns>
-        public static int AddParcel(Parcel newParcel)
+        public int AddParcel(Parcel newParcel)
         {
             int tmp = DataSource.Config.ParcelsId;
             if (checkNotExistParcel(newParcel, DataSource.parcels))
@@ -61,7 +61,7 @@ namespace DalObject
         /// add a customer to the fustomer list
         /// </summary>
         /// <param name="newCustomer"></the new customer the user whants to add to the customer's list>
-        public static void AddCustomer(Customer newCustomer)
+        public void AddCustomer(Customer newCustomer)
         {
             if (checkNotExistCustomer(newCustomer, DataSource.customers))
                 DataSource.customers.Add(newCustomer);
@@ -74,7 +74,7 @@ namespace DalObject
         /// </summary>
         /// <param name="stationId"></the id of the station the user ask for>
         /// <returns></returns>
-        public static Station GetStation(int stationId)
+        public Station GetStation(int stationId)
         {
             Station? newStation = null;
             foreach (Station elementStation in DataSource.stations)
@@ -93,7 +93,7 @@ namespace DalObject
         /// </summary>
         /// <param name="droneId"></the id of the drone the user ask for>
         /// <returns></returns>
-        public static Drone GetDrone(int droneId)
+        public Drone GetDrone(int droneId)
         {
             Drone? newDrone = null;
             foreach (Drone elementDrone in DataSource.drones)
@@ -112,7 +112,7 @@ namespace DalObject
         /// </summary>
         /// <param name="parcelId"></the id parcel the user ask for>
         /// <returns></returns>
-        public static Parcel GetParcel(int parcelId)
+        public Parcel GetParcel(int parcelId)
         {
             Parcel ?newParcel = null;
             foreach (Parcel elementParcel in DataSource.parcels)
@@ -131,7 +131,7 @@ namespace DalObject
         /// </summary>
         /// <param name="customerId"></the id of the customer the user ask for>
         /// <returns></returns>
-        public static Customer GetCustomer(int customerId)
+        public Customer GetCustomer(int customerId)
         {
             Customer ?newCustomer = null;
             foreach (Customer elementCustomer in DataSource.customers)
@@ -149,7 +149,7 @@ namespace DalObject
         /// return all the list of the station's
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<Station> GetStations()
+        public IEnumerable<Station> GetStations()
         {
             List<Station> newStations = new List<Station>(DataSource.stations);
             return newStations;
@@ -159,7 +159,7 @@ namespace DalObject
         /// return all the drone's list
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<Drone> GetDrones()
+        public IEnumerable<Drone> GetDrones()
         {
             List<Drone> newDrones = new List<Drone>(DataSource.drones);
             return newDrones;
@@ -169,7 +169,7 @@ namespace DalObject
         /// return all the list of the drone's that they are in charge sopt 
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<DroneCharge> GetDronesCharge()
+        public IEnumerable<DroneCharge> GetDronesCharge()
         {
             List<DroneCharge> newDronesCharge = new List<DroneCharge>(DataSource.droneCharges);
             return newDronesCharge;
@@ -179,7 +179,7 @@ namespace DalObject
         /// return all the parcel in the list
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<Parcel> GetParcels()
+        public IEnumerable<Parcel> GetParcels()
         {
             List<Parcel> newParcels = new List<Parcel>(DataSource.parcels);
             return newParcels;
@@ -189,7 +189,7 @@ namespace DalObject
         /// return all the customer list
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<Customer> GetCustomers()
+        public IEnumerable<Customer> GetCustomers()
         {
             List<Customer> newCustomers = new List<Customer>(DataSource.customers);
             return newCustomers;
@@ -200,7 +200,7 @@ namespace DalObject
         /// </summary>
         /// <param name="p"></the parcel the user ask to connect with the drone he ask>
         /// <param name="d"></the drone the user ask to connect with the parcel he ask >
-        public static void ConnectParcelToDrone(Parcel p, Drone d)
+        public void ConnectParcelToDrone(Parcel p, Drone d)
         {
             if (!checkNotExistParcel(p, DataSource.parcels))
                 if (!checkNotExistDrone(d, DataSource.drones))
@@ -228,7 +228,7 @@ namespace DalObject
         /// chenge the pick up statuse of the parcel the user ask for by searching the parcel in the list and update the pick up time statuse of the parcel
         /// </summary>
         /// <param name="p"></the spesific parcel the user ask to update as pick'd up>
-        public static void CollectionParcelByDrone(Parcel p)
+        public void CollectionParcelByDrone(Parcel p)
         {
             if (!checkNotExistParcel(p, DataSource.parcels))
             {
@@ -251,7 +251,7 @@ namespace DalObject
         /// chenge the deliversd statuse of the parcel the user ask for by searching the parcel in the list and update the deliverd time statuse of the parcel
         /// </summary>
         /// <param name="p"></the specific parcel the user ask to pdate as deliver'd >
-        public static void SupplyParcelToCustomer(Parcel p)
+        public void SupplyParcelToCustomer(Parcel p)
         {
             if (!checkNotExistParcel(p, DataSource.parcels))
             {
@@ -275,7 +275,7 @@ namespace DalObject
         /// </summary>
         /// <param name="d"></the spesifice drone the user ask for to charge>
         /// <param name="s"></the spasifice station the user ask to charge the drone in>
-        public static void SendDroneToDroneCharge(Station s, Drone d)
+        public void SendDroneToDroneCharge(Station s, Drone d)
         {
             DroneCharge newDroneCharges = new DroneCharge();
             if (!checkNotExistStation(s, DataSource.stations))
@@ -316,7 +316,7 @@ namespace DalObject
         /// </summary>
         /// <param name="s"></the spesifice station the user ask to release the drone frome>
         /// <param name="d"></the spesifice drone the user ask to release frome the station>
-        public static void ReleaseDroneFromDroneCharge(Station s,Drone d)
+        public void ReleaseDroneFromDroneCharge(Station s,Drone d)
         {
             DroneCharge newDroneCharges = new DroneCharge();
             if (!checkNotExistStation(s, DataSource.stations))
@@ -357,7 +357,7 @@ namespace DalObject
             }
         }
 
-        public static double[] GetRequestPowerConsumption()
+        public double[] GetRequestPowerConsumption()
         {
            double[] powerConsumption= new double[5];
            powerConsumption[0] = DataSource.Config.dAvailable;
@@ -374,7 +374,7 @@ namespace DalObject
         /// <param name="s"></the station that we chek if she exist>
         /// <param name="stations"></the list of all stations>
         /// <returns></returns>
-        public static bool checkNotExistStation(Station s, List<Station> stations)
+        public bool checkNotExistStation(Station s, List<Station> stations)
         {
             foreach (Station elementStation in stations)
                 if (elementStation.id == s.id)
@@ -388,7 +388,7 @@ namespace DalObject
         /// <param name="d"></the drone we check if she is exist>
         /// <param name="drones"></the list od drones>
         /// <returns></returns>
-        public static bool checkNotExistDrone(Drone d, List<Drone> drones)
+        public bool checkNotExistDrone(Drone d, List<Drone> drones)
         {
             foreach (Drone elementDrone in drones)
                 if (elementDrone.id == d.id)
@@ -402,7 +402,7 @@ namespace DalObject
         /// <param name="d"></the parcel we check if she is exist>
         /// <param name="drones"></the list of parcels>
         /// <returns></returns>
-        public static bool checkNotExistParcel(Parcel p, List<Parcel> parcels)
+        public bool checkNotExistParcel(Parcel p, List<Parcel> parcels)
         {
             foreach (Parcel elementParcel in parcels)
                 if (elementParcel.id == p.id)
@@ -416,7 +416,7 @@ namespace DalObject
         /// <param name="d"></the customer we check if she is exist>
         /// <param name="drones"></the list od customers>
         /// <returns></returns>
-        public static bool checkNotExistCustomer(Customer c, List<Customer> customers)
+        public bool checkNotExistCustomer(Customer c, List<Customer> customers)
         {
             foreach (Customer elementCustomer in customers)
                 if (elementCustomer.id == c.id)

@@ -3,6 +3,7 @@ using IDAL.DO;
 using DalObject;
 using System.Collections.Generic;
 using System.Linq;
+using IDAL;
 
 namespace ConsoleUI
 {
@@ -14,8 +15,10 @@ namespace ConsoleUI
         public enum OptionListView { ListStations = 1, ListDrones, ListCustomers, ListParcels, ListParcelsNoDrones, ListStationsCharge, Exit };
 
         public enum OptionUpdate { ConnectParcelToDrone = 1, CollectionParcelByDrone, SupplyParcelToCustomer, SendDroneToDroneCharge, ReleaseDroneFromDroneCharge, Exit };
+
         static void Main(string[] args)
-        {
+        { 
+            //IDal dal = new DalObject.DalObject();
             DalObject.DalObject dal  = new DalObject.DalObject();//for the initialize
             int c, idDrone, idParcel, idStation;
             Option op;
@@ -37,19 +40,19 @@ namespace ConsoleUI
 	                    {
 		                    case EntityOption.Station:
                                 Station newStation = InputStation();
-                                DalObject.DalObject.AddStation(newStation);
+                                dal.AddStation(newStation);
                                 break;
                             case EntityOption.Drone:
                                 Drone newDrone = InputDrone();
-                                DalObject.DalObject.AddDrone(newDrone);
+                                dal.AddDrone(newDrone);
                                 break;
                             case EntityOption.Customer:
                                 Customer newCustomer = InputCustomer();
-                                DalObject.DalObject.AddCustomer(newCustomer);
+                                dal.AddCustomer(newCustomer);
                                 break;
                             case EntityOption.Parcel:
                                 Parcel newParcel = InputParcel();
-                                DalObject.DalObject.AddParcel(newParcel);
+                                dal.AddParcel(newParcel);
                                 break;
                             case EntityOption.Exit:
                                 break;
@@ -65,50 +68,50 @@ namespace ConsoleUI
                         {
                             case OptionUpdate.ConnectParcelToDrone:
                                 Console.WriteLine("Enter id of parcel to connect:\n");
-                                PrintParcelsNoDrones();
+                                PrintParcelsNoDrones(dal);
                                 int.TryParse(Console.ReadLine(), out idParcel);
-                                Parcel parcel = DalObject.DalObject.GetParcel(idParcel);
+                                Parcel parcel = dal.GetParcel(idParcel);
                                 Console.WriteLine("Enter id of drone:\n");
-                                PrintDronesAvailable();
+                                PrintDronesAvailable(dal);
                                 int.TryParse(Console.ReadLine(), out idDrone);
-                                Drone drone = DalObject.DalObject.GetDrone(idDrone);
-                                DalObject.DalObject.ConnectParcelToDrone(parcel, drone);
+                                Drone drone = dal.GetDrone(idDrone);
+                                dal.ConnectParcelToDrone(parcel, drone);
                                 break;
                             case OptionUpdate.CollectionParcelByDrone:
                                 Console.WriteLine("Enter id of parcel to PickedUp:\n");
-                                PrintParcelsWithNoAssign();
+                                PrintParcelsWithNoAssign(dal);
                                 int.TryParse(Console.ReadLine(), out idParcel);
-                                Parcel helpParcel = DalObject.DalObject.GetParcel(idParcel);
-                                DalObject.DalObject.CollectionParcelByDrone(helpParcel);
+                                Parcel helpParcel = dal.GetParcel(idParcel);
+                                dal.CollectionParcelByDrone(helpParcel);
                                 break;
                             case OptionUpdate.SupplyParcelToCustomer:
                                 Console.WriteLine("Enter id of parcel to delivered:\n");
-                                PrintParcelsPickedUp();
+                                PrintParcelsPickedUp(dal);
                                 int.TryParse(Console.ReadLine(), out idParcel);
-                                Parcel p = DalObject.DalObject.GetParcel(idParcel);
-                                DalObject.DalObject.SupplyParcelToCustomer(p);
+                                Parcel p = dal.GetParcel(idParcel);
+                                dal.SupplyParcelToCustomer(p);
                                 break;
                             case OptionUpdate.SendDroneToDroneCharge:
                                 Console.WriteLine("Enter the id station:\n");
-                                PrintStationsCharge();
+                                PrintStationsCharge(dal);
                                 int.TryParse(Console.ReadLine(), out idStation);
-                                Station helpStation = DalObject.DalObject.GetStation(idStation);
+                                Station helpStation = dal.GetStation(idStation);
                                 Console.WriteLine("Enter id of drone:\n");
-                                PrintDrones();
+                                PrintDrones(dal);
                                 int.TryParse(Console.ReadLine(), out idDrone);
-                                Drone helpDrone = DalObject.DalObject.GetDrone(idDrone);
-                                DalObject.DalObject.SendDroneToDroneCharge(helpStation, helpDrone);
+                                Drone helpDrone = dal.GetDrone(idDrone);
+                                dal.SendDroneToDroneCharge(helpStation, helpDrone);
                                 break;
                             case OptionUpdate.ReleaseDroneFromDroneCharge:
                                 Console.WriteLine("Enter id of Station with place to charge:\n");
-                                PrintStationsCharge();
+                                PrintStationsCharge(dal);
                                 int.TryParse(Console.ReadLine(), out idStation);
-                                Station chargeStation = DalObject.DalObject.GetStation(idStation);
+                                Station chargeStation = dal.GetStation(idStation);
                                 Console.WriteLine("Enter id of Drone to relese:\n");
-                                PrintDronesCharge();
+                                PrintDronesCharge(dal);
                                 int.TryParse(Console.ReadLine(), out idDrone);
-                                Drone releaseDrone = DalObject.DalObject.GetDrone(idDrone);
-                                DalObject.DalObject.ReleaseDroneFromDroneCharge(chargeStation, releaseDrone);
+                                Drone releaseDrone = dal.GetDrone(idDrone);
+                                dal.ReleaseDroneFromDroneCharge(chargeStation, releaseDrone);
                                 break;
                             case OptionUpdate.Exit:
                                 break;
@@ -126,16 +129,16 @@ namespace ConsoleUI
                         switch (ep)
                         {
                             case EntityOption.Station:
-                                Console.WriteLine(DalObject.DalObject.GetStation(myId).ToString());
+                                Console.WriteLine(dal.GetStation(myId).ToString());
                                 break;
                             case EntityOption.Drone:
-                                Console.WriteLine(DalObject.DalObject.GetDrone(myId).ToString());
+                                Console.WriteLine(dal.GetDrone(myId).ToString());
                                 break;
                             case EntityOption.Customer:
-                                Console.WriteLine(DalObject.DalObject.GetCustomer(myId).ToString());
+                                Console.WriteLine(dal.GetCustomer(myId).ToString());
                                 break;
                             case EntityOption.Parcel:
-                                Console.WriteLine(DalObject.DalObject.GetParcel(myId).ToString());
+                                Console.WriteLine(dal.GetParcel(myId).ToString());
                                 break;
                             case EntityOption.Exit:
                                 break;
@@ -150,22 +153,22 @@ namespace ConsoleUI
                         switch (olv)
                         {
                             case OptionListView.ListStations:
-                                PrintStations();
+                                PrintStations(dal);
                                 break;
                             case OptionListView.ListDrones:
-                                PrintDrones();
+                                PrintDrones(dal);
                                 break;
                             case OptionListView.ListCustomers:
-                                PrintCustomers();
+                                PrintCustomers(dal);
                                 break;
                             case OptionListView.ListParcels:
-                                PrintParcels();
+                                PrintParcels(dal);
                                 break;
                             case OptionListView.ListParcelsNoDrones:
-                                PrintParcelsNoDrones();
+                                PrintParcelsNoDrones(dal);
                                 break;
                             case OptionListView.ListStationsCharge:
-                                PrintStationsCharge();
+                                PrintStationsCharge(dal);
                                 break;
                             case OptionListView.Exit:
                                 break;
@@ -385,9 +388,9 @@ namespace ConsoleUI
         /// print all the list of stations
         /// </summary>
         /// <returns></no returns, just print>
-        public static void PrintStations()//print the list
+        public static void PrintStations(DalObject.DalObject dal)//print the list
         {
-            foreach (Station elementStation in DalObject.DalObject.GetStations())
+            foreach (Station elementStation in dal.GetStations())
                 Console.WriteLine(elementStation.ToString());
         }
 
@@ -395,9 +398,9 @@ namespace ConsoleUI
         /// print all the list of drones
         /// </summary>
         /// <returns></no returns, just print>
-        public static void PrintDrones()//print the list
+        public static void PrintDrones(DalObject.DalObject dal)//print the list
         {
-            foreach (Drone elementDrone in DalObject.DalObject.GetDrones()) 
+            foreach (Drone elementDrone in dal.GetDrones()) 
                 Console.WriteLine(elementDrone.ToString());
         }
 
@@ -405,9 +408,9 @@ namespace ConsoleUI
         /// print all the list of Drones Available
         /// </summary>
         /// <returns></no returns, just print>
-        public static void PrintDronesAvailable()//print the list
+        public static void PrintDronesAvailable(DalObject.DalObject dal)//print the list
         {
-            IEnumerable<Drone> newDrones = DalObject.DalObject.GetDrones();
+            IEnumerable<Drone> newDrones = dal.GetDrones();
             foreach (Drone elementDrone in newDrones)
             {
                 
@@ -422,9 +425,9 @@ namespace ConsoleUI
         /// print all the list of Drones Charge
         /// </summary>
         /// <returns></no returns, just print>
-        public static void PrintDronesCharge()//print the list
+        public static void PrintDronesCharge(DalObject.DalObject dal)//print the list
         {
-            foreach (DroneCharge elementDroneCharge in DalObject.DalObject.GetDronesCharge())
+            foreach (DroneCharge elementDroneCharge in dal.GetDronesCharge())
                 Console.WriteLine(elementDroneCharge.ToString());
         }
 
@@ -432,9 +435,9 @@ namespace ConsoleUI
         /// print all the list of customers
         /// </summary>
         /// <returns></no returns, just print>
-        public static void PrintCustomers()//print the list
+        public static void PrintCustomers(DalObject.DalObject dal)//print the list
         {
-            foreach (Customer elementCustomer in DalObject.DalObject.GetCustomers())
+            foreach (Customer elementCustomer in dal.GetCustomers())
                 Console.WriteLine(elementCustomer.ToString());
         }
 
@@ -442,9 +445,9 @@ namespace ConsoleUI
         /// print all the list of parcels
         /// </summary>
         /// <returns></no returns, just print>
-        public static void PrintParcels()//print the list
+        public static void PrintParcels(DalObject.DalObject dal)//print the list
         {
-            foreach (Parcel elementParcel in DalObject.DalObject.GetParcels())
+            foreach (Parcel elementParcel in dal.GetParcels())
                 Console.WriteLine(elementParcel.ToString());
         }
 
@@ -452,9 +455,9 @@ namespace ConsoleUI
         /// print all the list of Parcels With No Assign 
         /// </summary>
         /// <returns></no returns, just print>
-        public static void PrintParcelsWithNoAssign()//print the list
+        public static void PrintParcelsWithNoAssign(DalObject.DalObject dal)//print the list
         {
-            foreach (Parcel elementParcel in DalObject.DalObject.GetParcels())
+            foreach (Parcel elementParcel in dal.GetParcels())
                 if (elementParcel.droneId != -1)//the parcel wasnt connected
                     Console.WriteLine(elementParcel.ToString());
         }
@@ -463,9 +466,9 @@ namespace ConsoleUI
         /// print all the list of Parcels Picked Up
         /// </summary>
         /// <returns></no returns, just print>
-        public static void PrintParcelsPickedUp()//print the list
+        public static void PrintParcelsPickedUp(DalObject.DalObject dal)//print the list
         {
-            foreach (Parcel elementParcel in DalObject.DalObject.GetParcels())
+            foreach (Parcel elementParcel in dal.GetParcels())
                 if (elementParcel.pickedUp != DateTime.MinValue)//the parcel was pickup
                     Console.WriteLine(elementParcel.ToString());
         }
@@ -474,9 +477,9 @@ namespace ConsoleUI
         /// print all the list of Parcels No Drones
         /// </summary>
         /// <returns></no returns, just print>
-        public static void PrintParcelsNoDrones()//print the list
+        public static void PrintParcelsNoDrones(DalObject.DalObject dal)//print the list
         {
-            foreach (Parcel elementParcel in DalObject.DalObject.GetParcels())
+            foreach (Parcel elementParcel in dal.GetParcels())
                 if (elementParcel.droneId == -1)//the id drone is not exist
                     Console.WriteLine(elementParcel.ToString());
         }
@@ -485,9 +488,9 @@ namespace ConsoleUI
         /// print all the list of Stations Charge
         /// </summary>
         /// <returns></no returns, just print>
-        public static void PrintStationsCharge()//print the list
+        public static void PrintStationsCharge(DalObject.DalObject dal)//print the list
         {
-            foreach (Station elementStation in DalObject.DalObject.GetStations())
+            foreach (Station elementStation in dal.GetStations())
                 if (elementStation.chargeSlots > 0)
                     Console.WriteLine(elementStation.ToString());
         }

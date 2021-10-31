@@ -8,16 +8,12 @@ using IDAL.DO;
 
 namespace IDAL
 {
-    interface IDal
-    { 
+    public interface IDal
+    {
         void AddStation(Station newStation);
+        void AddDrone(Drone newDrone);
         int AddParcel(Parcel newParcel);
         void AddCustomer(Customer newCustomer);
-        void ConnectParcelToDrone(Parcel p, Drone d);
-        void CollectionParcelByDrone(Parcel p);
-        void SupplyParcelToCustomer(Parcel p);
-        void SendDroneToDroneCharge(Station s, Drone d);
-        void ReleaseDroneFromDroneCharge(Station s, Drone d);
         Station GetStation(int stationId);
         Drone GetDrone(int droneId);
         Parcel GetParcel(int parcelId);
@@ -27,6 +23,15 @@ namespace IDAL
         IEnumerable<DroneCharge> GetDronesCharge();
         IEnumerable<Parcel> GetParcels();
         IEnumerable<Customer> GetCustomers();
+        void ConnectParcelToDrone(Parcel p, Drone d);
+        void CollectionParcelByDrone(Parcel p);
+        void SupplyParcelToCustomer(Parcel p);
+        void SendDroneToDroneCharge(Station s, Drone d);
+        void ReleaseDroneFromDroneCharge(Station s, Drone d);
         double[] GetRequestPowerConsumption();
+        bool checkNotExistStation(Station s, List<Station> stations);
+        bool checkNotExistDrone(Drone d, List<Drone> drones);
+        bool checkNotExistParcel(Parcel p, List<Parcel> parcels);
+        bool checkNotExistCustomer(Customer c, List<Customer> customers);
     }
 }
