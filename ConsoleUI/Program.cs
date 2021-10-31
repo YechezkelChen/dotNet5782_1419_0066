@@ -1,5 +1,6 @@
 ﻿using System;
 using IDAL.DO;
+using DalObject;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,7 +16,7 @@ namespace ConsoleUI
         public enum OptionUpdate { ConnectParcelToDrone = 1, CollectionParcelByDrone, SupplyParcelToCustomer, SendDroneToDroneCharge, ReleaseDroneFromDroneCharge, Exit };
         static void Main(string[] args)
         {
-            DalObject.DalObject d = new DalObject.DalObject();//for the initialize
+            DalObject.DalObject dal  = new DalObject.DalObject();//for the initialize
             int c, idDrone, idParcel, idStation;
             Option op;
             EntityOption ep;
@@ -310,7 +311,6 @@ namespace ConsoleUI
         public static Parcel InputParcel()
         {
             int num;
-            DateTime d;
             Parcel NewParcel = new Parcel();
             do
             {
