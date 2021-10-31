@@ -96,7 +96,7 @@ namespace ConsoleUI
                                 PrintDrones();
                                 int.TryParse(Console.ReadLine(), out idDrone);
                                 Drone helpDrone = DalObject.DalObject.GetDrone(idDrone);
-                                DalObject.DalObject.SendDroneToDroneCharge(helpDrone, helpStation);
+                                DalObject.DalObject.SendDroneToDroneCharge(helpStation, helpDrone);
                                 break;
                             case OptionUpdate.ReleaseDroneFromDroneCharge:
                                 Console.WriteLine("Enter id of Station with place to charge:\n");
@@ -373,6 +373,8 @@ namespace ConsoleUI
             }
 
             IEnumerable<Drone> newDrones = DalObject.DalObject.GetDrones();
+            Drone newDrone = new Drone();
+            bool flag;
 
             if (newDrones.Count() != 0)
             {
@@ -380,8 +382,11 @@ namespace ConsoleUI
                 PrintDronesAvailable();//print all the drones in the data
                 do
                 {
-                    Console.WriteLine("Enter Drone Id frome the list to your Parcel: ");
-                } while (!int.TryParse(Console.ReadLine(), out num) || !checkNotExistParcel(NewParcel, newDrones));
+                    Console.WriteLine("Enter Drone Id from the list to your Parcel: ");
+                    flag = int.TryParse(Console.ReadLine(), out num);
+                    if (flag)
+                        newDrone.id = num;
+                } while (!flag || !DalObject.DalObject.checkNotExistDrone(newDrone, (List<Drone>)newDrones));
                 NewParcel.droneId = num;
             }
             else
