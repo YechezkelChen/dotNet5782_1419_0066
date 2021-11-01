@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace IBL
 {
     namespace BO
-    { 
-        public class Drone
+    {
+        public class DroneInParcel
         {
             public int id { get; set; }
-            public string model { get; set; }
-            public WeightCategories maxWeight { get; set; }
             public double battery { get; set; }
-            public DroneStatuses status { get; set; }
-            public DeliveryByTransfer deliveryByTransfer { get; set; }
             public Location location { get; set; }
         }
     }
+    
 }

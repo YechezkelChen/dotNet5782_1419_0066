@@ -35,5 +35,17 @@ namespace IBL
             [Description("Emergency Priority")]
             Emergency
         }
+
+        public enum ParcelStatuses
+        {
+            [Description("Requested status")]
+            Requested,
+            [Description("Scheduled status")]
+            Scheduled,
+            [Description("PickedUp status")]
+            PickedUp,
+            [Description("Delivered status")]
+            Delivered
+        }
     }
 }
