@@ -26,7 +26,7 @@ namespace DalObject
         /// <summary>
         /// return the spesifice customer the user ask for
         /// </summary>
-        /// <param name="customerId"></the id of the customer the user ask for>
+        /// <param name="customerId"></the Id of the customer the user ask for>
         /// <returns></returns>
         public Customer GetCustomer(int customerId)
         {
@@ -38,7 +38,7 @@ namespace DalObject
             }
 
             if (newCustomer == null)
-                throw new CustomerExeption("ERROR: id of customer not found\n");
+                throw new CustomerExeption("ERROR: Id of customer not found\n");
             return (Customer)newCustomer;
         }
 

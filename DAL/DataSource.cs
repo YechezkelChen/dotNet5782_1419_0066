@@ -32,7 +32,7 @@ namespace DalObject
             {
                 drones.Add(new Drone
                 {
-                    id = rand.Next(100000000, 999999999),
+                    Id = rand.Next(100000000, 999999999),
                     model = names[rand.Next(0, 4)],
                     maxWeight = (WeightCategories) rand.Next(0, 2),
                 });

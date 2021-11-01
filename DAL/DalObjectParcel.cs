@@ -12,7 +12,7 @@ namespace DalObject
     public partial class DalObject : IDal
     {
         /// <summary>
-        /// add a parcel to the parcel list and return the new parcel id that was create
+        /// add a parcel to the parcel list and return the new parcel Id that was create
         /// </summary>
         /// <param name="newParcel"></the new parcel the user whants to add to the parcel's list>
         /// <returns></returns>
@@ -33,7 +33,7 @@ namespace DalObject
         /// <summary>
         /// return the spesifice parcel the user ask for
         /// </summary>
-        /// <param name="parcelId"></the id parcel the user ask for>
+        /// <param name="parcelId"></the Id parcel the user ask for>
         /// <returns></returns>
         public Parcel GetParcel(int parcelId)
         {
@@ -45,7 +45,7 @@ namespace DalObject
             }
 
             if (newParcel == null)
-                throw new ParcelExeption("ERROR: id of parcel not found\n");
+                throw new ParcelExeption("ERROR: Id of parcel not found\n");
             return (Parcel)newParcel;
         }
 
@@ -77,7 +77,7 @@ namespace DalObject
                             newParcel = DataSource.parcels[i];
                             newParcel.requested = DateTime.Now;
                             newParcel.scheduled = DateTime.Now;
-                            newParcel.droneId = d.id;
+                            newParcel.droneId = d.Id;
                             DataSource.parcels[i] = newParcel;
                         }
                     }

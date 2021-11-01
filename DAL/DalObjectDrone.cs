@@ -26,19 +26,19 @@ namespace DalObject
         /// <summary>
         /// return the spesifice drone the user ask for
         /// </summary>
-        /// <param name="droneId"></the id of the drone the user ask for>
+        /// <param name="droneId"></the Id of the drone the user ask for>
         /// <returns></returns>
         public Drone GetDrone(int droneId)
         {
             Drone? newDrone = null;
             foreach (Drone elementDrone in DataSource.drones)
             {
-                if (elementDrone.id == droneId)
+                if (elementDrone.Id == droneId)
                     newDrone = elementDrone;
             }
 
             if (newDrone == null)
-                throw new DroneExeption("ERROR: id of drone not found\n");
+                throw new DroneExeption("ERROR: Id of drone not found\n");
             return (Drone)newDrone;
         }
 
@@ -81,9 +81,9 @@ namespace DalObject
             {
                 foreach (Drone elementDrone in DataSource.drones)
                 {
-                    if (elementDrone.id == d.id)
+                    if (elementDrone.Id == d.Id)
                     {
-                        newDroneCharges.droneId = elementDrone.id;
+                        newDroneCharges.droneId = elementDrone.Id;
                         break;
                     }
                 }
@@ -122,9 +122,9 @@ namespace DalObject
             {
                 foreach (Drone elementDrone in DataSource.drones)
                 {
-                    if (elementDrone.id == d.id)
+                    if (elementDrone.Id == d.Id)
                     {
-                        newDroneCharges.droneId = elementDrone.id;
+                        newDroneCharges.droneId = elementDrone.Id;
                         break;
                     }
                 }
@@ -134,7 +134,7 @@ namespace DalObject
 
             foreach (DroneCharge elementDroneCharge in DataSource.droneCharges)
             {
-                if (elementDroneCharge.stationld == s.id && elementDroneCharge.droneId == d.id)
+                if (elementDroneCharge.stationld == s.id && elementDroneCharge.droneId == d.Id)
                     DataSource.droneCharges.Remove(newDroneCharges);
             }
         }
@@ -159,7 +159,7 @@ namespace DalObject
         public bool checkNotExistDrone(Drone d, List<Drone> drones)
         {
             foreach (Drone elementDrone in drones)
-                if (elementDrone.id == d.id)
+                if (elementDrone.Id == d.Id)
                     return false;
             return true;//the drone not exist
         }

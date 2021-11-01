@@ -69,47 +69,47 @@ namespace ConsoleUI
                             switch (ou)
                             {
                                 case OptionUpdate.ConnectParcelToDrone:
-                                    Console.WriteLine("Enter id of parcel to connect:\n");
+                                    Console.WriteLine("Enter Id of parcel to connect:\n");
                                     PrintParcelsNoDrones(dal);
                                     int.TryParse(Console.ReadLine(), out idParcel);
                                     Parcel parcel = dal.GetParcel(idParcel);
-                                    Console.WriteLine("Enter id of drone:\n");
+                                    Console.WriteLine("Enter Id of drone:\n");
                                     PrintDronesAvailable(dal);
                                     int.TryParse(Console.ReadLine(), out idDrone);
                                     Drone drone = dal.GetDrone(idDrone);
                                     dal.ConnectParcelToDrone(parcel, drone);
                                     break;
                                 case OptionUpdate.CollectionParcelByDrone:
-                                    Console.WriteLine("Enter id of parcel to PickedUp:\n");
+                                    Console.WriteLine("Enter Id of parcel to PickedUp:\n");
                                     PrintParcelsWithNoAssign(dal);
                                     int.TryParse(Console.ReadLine(), out idParcel);
                                     Parcel helpParcel = dal.GetParcel(idParcel);
                                     dal.CollectionParcelByDrone(helpParcel);
                                     break;
                                 case OptionUpdate.SupplyParcelToCustomer:
-                                    Console.WriteLine("Enter id of parcel to delivered:\n");
+                                    Console.WriteLine("Enter Id of parcel to delivered:\n");
                                     PrintParcelsPickedUp(dal);
                                     int.TryParse(Console.ReadLine(), out idParcel);
                                     Parcel p = dal.GetParcel(idParcel);
                                     dal.SupplyParcelToCustomer(p);
                                     break;
                                 case OptionUpdate.SendDroneToDroneCharge:
-                                    Console.WriteLine("Enter the id station:\n");
+                                    Console.WriteLine("Enter the Id station:\n");
                                     PrintStationsCharge(dal);
                                     int.TryParse(Console.ReadLine(), out idStation);
                                     Station helpStation = dal.GetStation(idStation);
-                                    Console.WriteLine("Enter id of drone:\n");
+                                    Console.WriteLine("Enter Id of drone:\n");
                                     PrintDrones(dal);
                                     int.TryParse(Console.ReadLine(), out idDrone);
                                     Drone helpDrone = dal.GetDrone(idDrone);
                                     dal.SendDroneToDroneCharge(helpStation, helpDrone);
                                     break;
                                 case OptionUpdate.ReleaseDroneFromDroneCharge:
-                                    Console.WriteLine("Enter id of Station with place to charge:\n");
+                                    Console.WriteLine("Enter Id of Station with place to charge:\n");
                                     PrintStationsCharge(dal);
                                     int.TryParse(Console.ReadLine(), out idStation);
                                     Station chargeStation = dal.GetStation(idStation);
-                                    Console.WriteLine("Enter id of Drone to relese:\n");
+                                    Console.WriteLine("Enter Id of Drone to relese:\n");
                                     PrintDronesCharge(dal);
                                     int.TryParse(Console.ReadLine(), out idDrone);
                                     Drone releaseDrone = dal.GetDrone(idDrone);
@@ -250,7 +250,7 @@ namespace ConsoleUI
             {
                 Console.WriteLine("Enter Id Drone: ");
             } while (!int.TryParse(Console.ReadLine(), out num));
-            NewDrone.id = num;
+            NewDrone.Id = num;
 
             Console.WriteLine("Enter Model Drone: ");
             NewDrone.model = Console.ReadLine();
@@ -487,7 +487,7 @@ namespace ConsoleUI
         public static void PrintParcelsNoDrones(DalObject.DalObject dal)//print the list
         {
             foreach (Parcel elementParcel in dal.GetParcels())
-                if (elementParcel.droneId == -1)//the id drone is not exist
+                if (elementParcel.droneId == -1)//the Id drone is not exist
                     Console.WriteLine(elementParcel.ToString());
         }
 
