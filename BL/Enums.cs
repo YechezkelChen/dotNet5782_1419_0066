@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-namespace IDAL
+namespace IBL
 {
-    namespace DO
+    namespace BO
     {
         public enum WeightCategories
         {
@@ -13,6 +13,18 @@ namespace IDAL
             [Description("Heavy weight")]
             Heavy
         }
+
+
+        public enum DroneStatuses
+        {
+            [Description("Available status")]
+            Available,
+            [Description("Maintenance status")]
+            Maintenance,
+            [Description("Delivery status")]
+            Delivery
+        }
+
 
         public enum Priorities
         {
