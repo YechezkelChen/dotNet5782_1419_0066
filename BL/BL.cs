@@ -11,13 +11,9 @@ namespace IBL
 {
     public partial class BL : IBL
     {
-        public IEnumerable<IDAL.DO.Drone> listDrones = new List<IDAL.DO.Drone>();
-        public IEnumerable<IDAL.DO.Parcel> ListParcels = new List<IDAL.DO.Parcel>();
+        public IEnumerable<IDAL.DO.Drone> ListDrones = new List<IDAL.DO.Drone>();
 
-        void UpdateDrone(BO.Drone drone)
-        {
-            drone.Status = DroneStatuses.Delivery;
-        }
+      
 
         public BL()
         {
@@ -30,27 +26,74 @@ namespace IBL
             double dHeavyW = powerConsumption[3];
             double chargingRateOfDrone = powerConsumption[4]; //Percent per hour
 
-            listDrones = dal.GetDrones();
-            ListParcels = dal.GetParcels();
-            var r = from d in listDrones
-                from p in ListParcels
-                where d.Id == p.DroneId && p.PickedUp == DateTime.MinValue
+            IEnumerable<IDAL.DO.Parcel> ListParcels = dal.GetParcels();
+            IEnumerable<IDAL.DO.Station> ListStations = dal.GetStations();
+
+            ListDrones = dal.GetDrones();
+            
+
+            var updateDrones = from drone in ListDrones
+                from parcel in ListParcels
+                where drone.Id == parcel.DroneId && parcel.Delivered == DateTime.MinValue &&
+                      parcel.Scheduled != DateTime.MinValue && parcel.PickedUp == DateTime.MinValue
                 select new BO.Drone()
                 {
-                    Id = d.Id,
-                    Model = d.Model,
-                    Weight = Enum.Parse<WeightCategories>(d.Weight.ToString())
+                    Id = drone.Id,
+                    Model = drone.Model,
+                    Weight = Enum.Parse<WeightCategories>(drone.Weight.ToString()),
+                    Location = NearStationToCustomer(dal.GetCustomer(parcel.SenderId),dal.GetStations())
                 };
 
-            r.ToList().ForEach(UpdateDrone);
+                updateDrones = from drone in ListDrones
+                from parcel in ListParcels
+                where drone.Id == parcel.DroneId && parcel.Delivered == DateTime.MinValue &&
+                      parcel.PickedUp != DateTime.MinValue
+                select new BO.Drone()
+                {
+                    Id = drone.Id,
+                    Model = drone.Model,
+                    Weight = Enum.Parse<WeightCategories>(drone.Weight.ToString()),
+                    Location = new Location(){ Longitude = dal.GetCustomer(parcel.SenderId).Longitude,
+                                               Latitude = dal.GetCustomer(parcel.SenderId).Latitude }//the location of the customer
+                };
+            updateDrones.ToList().ForEach(UpdateDrone);
+        }
 
+        void UpdateDrone(BO.Drone drone)
+        {
+            drone.Status = DroneStatuses.Delivery;
+        }
 
+        double Distance(Location location1, Location location2)
+        {
+            return Math.Pow(
+                Math.Pow(location1.Longitude - location2.Longitude, 2) +
+                Math.Pow(location1.Latitude - location2.Latitude, 2), 1 / 2);
+        }
 
-
-
-
-
-
+        Location NearStationToCustomer(IDAL.DO.Customer customer, IEnumerable<IDAL.DO.Station> stations)
+        {
+            var newStation = from station in stations
+                select new BO.Station()
+                {
+                    Id = station.Id,
+                    Name = station.Name,
+                    Location = new Location(){ Longitude = station.Longitude, Latitude = station.Latitude },
+                    ChargeSlots = station.ChargeSlots
+                };
+            double minDistance = 9999999999, tmp;
+            Location nearLocation = new Location(),
+                customerLocation = new Location() {Longitude = customer.Longitude, Latitude = customer.Latitude};
+            foreach (var station in newStation)
+            {
+                tmp = Distance(station.Location, customerLocation);
+                if (tmp < minDistance)
+                {
+                    minDistance = tmp;
+                    nearLocation = station.Location;
+                }
+            }
+            return nearLocation;
         }
     }
 }

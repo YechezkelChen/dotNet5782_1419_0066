@@ -13,13 +13,10 @@ namespace IBL
             public int Id { get; set; }
             public string Name { get; set; }
             public string Phone { get; set; }
-            public TYPE type { get; set; }
-            public TYPE type1 { get; set; }
-            public TYPE type2 { get; set; }
-            public TYPE type3 { get; set; }
-            //public int ParcelScheduledPickedUp { get; set; }
-            //public int ParcelScheduledNotPickedUp { get; set; }
-            //public int ParcelScheduledAndDelivered { get; set; }
+            public int SenderParcelPickedUp { get; set; }
+            public int SenderParcelScheduled { get; set; }
+            public int TargetParcelDelivered { get; set; }
+            public int TargetParcelPickedUp { get; set; }
         }
     }
 }
