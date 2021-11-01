@@ -13,7 +13,6 @@ namespace IBL
     {
         public IEnumerable<IDAL.DO.Drone> listDrones = new List<IDAL.DO.Drone>();
         public IEnumerable<IDAL.DO.Parcel> ListParcels = new List<IDAL.DO.Parcel>();
-        public IEnumerable<BO.Drone> listBoDrones = new List<BO.Drone>();
 
         void UpdateDrone(BO.Drone drone)
         {
@@ -39,8 +38,8 @@ namespace IBL
                 select new BO.Drone()
                 {
                     id = d.Id,
-                    model = d.model,
-                    weight = Enum.Parse<WeightCategories>(d.maxWeight.ToString())
+                    model = d.Model,
+                    weight = Enum.Parse<WeightCategories>(d.Weight.ToString())
                 };
 
             r.ToList().ForEach(UpdateDrone);

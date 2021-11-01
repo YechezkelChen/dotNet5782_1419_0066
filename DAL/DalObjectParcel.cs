@@ -14,12 +14,12 @@ namespace DalObject
         /// <summary>
         /// add a parcel to the parcel list and return the new parcel Id that was create
         /// </summary>
-        /// <param name="newParcel"></the new parcel the user whants to add to the parcel's list>
+        /// <param Name="newParcel"></the new parcel the user whants to add to the parcel's list>
         /// <returns></returns>
         public int AddParcel(Parcel newParcel)
         {
             int tmp = DataSource.Config.ParcelsId;
-            if (checkNotExistParcel(newParcel, DataSource.parcels))
+            if (CheckNotExistParcel(newParcel, DataSource.parcels))
             {
                 newParcel.Id = DataSource.Config.ParcelsId; // insert the Parcels new Id
                 DataSource.Config.ParcelsId++; // new Id for the fautre parce Id
@@ -33,7 +33,7 @@ namespace DalObject
         /// <summary>
         /// return the spesifice parcel the user ask for
         /// </summary>
-        /// <param name="parcelId"></the Id parcel the user ask for>
+        /// <param Name="parcelId"></the Id parcel the user ask for>
         /// <returns></returns>
         public Parcel GetParcel(int parcelId)
         {
@@ -62,12 +62,12 @@ namespace DalObject
         /// <summary>
         /// connecting between parcel and drone and chenge data in the object's according to the function
         /// </summary>
-        /// <param name="p"></the parcel the user ask to connect with the drone he ask>
-        /// <param name="d"></the drone the user ask to connect with the parcel he ask >
+        /// <param Name="p"></the parcel the user ask to connect with the drone he ask>
+        /// <param Name="d"></the drone the user ask to connect with the parcel he ask >
         public void ConnectParcelToDrone(Parcel p, Drone d)
         {
-            if (!checkNotExistParcel(p, DataSource.parcels))
-                if (!checkNotExistDrone(d, DataSource.drones))
+            if (!CheckNotExistParcel(p, DataSource.parcels))
+                if (!CheckNotExistDrone(d, DataSource.drones))
                 {
                     Parcel newParcel = new Parcel();
                     for (int i = 0; i < DataSource.parcels.Count; i++)
@@ -91,10 +91,10 @@ namespace DalObject
         /// <summary>
         /// chenge the pick up statuse of the parcel the user ask for by searching the parcel in the list and update the pick up time statuse of the parcel
         /// </summary>
-        /// <param name="p"></the spesific parcel the user ask to update as pick'd up>
+        /// <param Name="p"></the spesific parcel the user ask to update as pick'd up>
         public void CollectionParcelByDrone(Parcel p)
         {
-            if (!checkNotExistParcel(p, DataSource.parcels))
+            if (!CheckNotExistParcel(p, DataSource.parcels))
             {
                 Parcel newParcel = new Parcel();
                 for (int i = 0; i < DataSource.parcels.Count; i++)
@@ -114,10 +114,10 @@ namespace DalObject
         /// <summary>
         /// chenge the deliversd statuse of the parcel the user ask for by searching the parcel in the list and update the deliverd time statuse of the parcel
         /// </summary>
-        /// <param name="p"></the specific parcel the user ask to pdate as deliver'd >
+        /// <param Name="p"></the specific parcel the user ask to pdate as deliver'd >
         public void SupplyParcelToCustomer(Parcel p)
         {
-            if (!checkNotExistParcel(p, DataSource.parcels))
+            if (!CheckNotExistParcel(p, DataSource.parcels))
             {
                 Parcel newParcel = new Parcel();
                 for (int i = 0; i < DataSource.parcels.Count; i++)
@@ -137,10 +137,10 @@ namespace DalObject
         /// <summary>
         /// the methode not need exeption becuse she use both sids(true and false)
         /// </summary>
-        /// <param name="d"></the parcel we check if she is exist>
-        /// <param name="drones"></the list of parcels>
+        /// <param Name="d"></the parcel we check if she is exist>
+        /// <param Name="drones"></the list of parcels>
         /// <returns></returns>
-        public bool checkNotExistParcel(Parcel p, List<Parcel> parcels)
+        public bool CheckNotExistParcel(Parcel p, List<Parcel> parcels)
         {
             foreach (Parcel elementParcel in parcels)
                 if (elementParcel.Id == p.Id)

@@ -17,10 +17,10 @@ namespace DalObject
         /// <summary>
         /// add a staion to the list station
         /// </summary>
-        /// <param name="newStation"></the new station the user whants to add to the station's list>
+        /// <param Name="newStation"></the new station the user whants to add to the station's list>
         public void AddStation(Station newStation)
         {
-            if(checkNotExistStation(newStation, DataSource.stations))
+            if(CheckNotExistStation(newStation, DataSource.stations))
                 DataSource.stations.Add(newStation);
             else
                 throw new StationExeption("ERROR: the station exist!\n");
@@ -29,14 +29,14 @@ namespace DalObject
         /// <summary>
         /// return the spesifice station the user ask for
         /// </summary>
-        /// <param name="stationId"></the Id of the station the user ask for>
+        /// <param Name="stationId"></the Id of the station the user ask for>
         /// <returns></returns>
         public Station GetStation(int stationId)
         {
             Station? newStation = null;
             foreach (Station elementStation in DataSource.stations)
             {
-                if (elementStation.id == stationId)
+                if (elementStation.Id == stationId)
                     newStation = elementStation;
             }
 
@@ -58,13 +58,13 @@ namespace DalObject
         /// <summary>
         /// the methode not need exeption becuse she use both sids(true and false)
         /// </summary>
-        /// <param name="s"></the station that we chek if she exist>
-        /// <param name="stations"></the list of all stations>
+        /// <param Name="s"></the station that we chek if she exist>
+        /// <param Name="stations"></the list of all stations>
         /// <returns></returns>
-        public bool checkNotExistStation(Station s, List<Station> stations)
+        public bool CheckNotExistStation(Station s, List<Station> stations)
         {
             foreach (Station elementStation in stations)
-                if (elementStation.id == s.id)
+                if (elementStation.Id == s.Id)
                     return false;
             return true; //the station not exist
         }

@@ -14,10 +14,10 @@ namespace DalObject
         /// <summary>
         /// add a customer to the fustomer list
         /// </summary>
-        /// <param name="newCustomer"></the new customer the user whants to add to the customer's list>
+        /// <param Name="newCustomer"></the new customer the user whants to add to the customer's list>
         public void AddCustomer(Customer newCustomer)
         {
-            if (checkNotExistCustomer(newCustomer, DataSource.customers))
+            if (CheckNotExistCustomer(newCustomer, DataSource.customers))
                 DataSource.customers.Add(newCustomer);
             else
                 throw new CustomerExeption("ERROR: the customer is exist!\n");
@@ -26,14 +26,14 @@ namespace DalObject
         /// <summary>
         /// return the spesifice customer the user ask for
         /// </summary>
-        /// <param name="customerId"></the Id of the customer the user ask for>
+        /// <param Name="customerId"></the Id of the customer the user ask for>
         /// <returns></returns>
         public Customer GetCustomer(int customerId)
         {
             Customer? newCustomer = null;
             foreach (Customer elementCustomer in DataSource.customers)
             {
-                if (elementCustomer.id == customerId)
+                if (elementCustomer.Id == customerId)
                     newCustomer = elementCustomer;
             }
 
@@ -55,13 +55,13 @@ namespace DalObject
         /// <summary>
         /// the methode not need exeption becuse she use both sids(true and false)
         /// </summary>
-        /// <param name="d"></the customer we check if she is exist>
-        /// <param name="drones"></the list od customers>
+        /// <param Name="d"></the customer we check if she is exist>
+        /// <param Name="drones"></the list od customers>
         /// <returns></returns>
-        public bool checkNotExistCustomer(Customer c, List<Customer> customers)
+        public bool CheckNotExistCustomer(Customer c, List<Customer> customers)
         {
             foreach (Customer elementCustomer in customers)
-                if (elementCustomer.id == c.id)
+                if (elementCustomer.Id == c.Id)
                     return false;
 
             return true; //the customer not exist

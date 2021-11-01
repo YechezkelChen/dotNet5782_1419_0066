@@ -33,8 +33,8 @@ namespace DalObject
                 drones.Add(new Drone
                 {
                     Id = rand.Next(100000000, 999999999),
-                    model = names[rand.Next(0, 4)],
-                    maxWeight = (WeightCategories) rand.Next(0, 2),
+                    Model = names[rand.Next(0, 4)],
+                    Weight = (WeightCategories) rand.Next(0, 2),
                 });
             }
 
@@ -42,11 +42,11 @@ namespace DalObject
             {
                 stations.Add(new Station
                 {
-                    id = rand.Next(100000000, 999999999),
-                    name = rand.Next(1, 100),
-                    longitude = rand.Next(10, 1000),
-                    lattitued = rand.Next(10, 1000),
-                    chargeSlots = rand.Next(0, 100)
+                    Id = rand.Next(100000000, 999999999),
+                    Name = rand.Next(1, 100),
+                    Longitude = rand.Next(10, 1000),
+                    Latitude = rand.Next(10, 1000),
+                    ChargeSlots = rand.Next(0, 100)
                 });
             }
 
@@ -54,11 +54,11 @@ namespace DalObject
             {
                 customers.Add(new Customer
                 {
-                    id = rand.Next(100000000, 999999999),
-                    name = names[rand.Next(0, 4)],
-                    phone = "05" + rand.Next(10000000, 99999999),
-                    longitude = rand.Next(10, 1000),
-                    lattitued = rand.Next(10, 1000)
+                    Id = rand.Next(100000000, 999999999),
+                    Name = names[rand.Next(0, 4)],
+                    Phone = "05" + rand.Next(10000000, 99999999),
+                    Longitude = rand.Next(10, 1000),
+                    Latitude = rand.Next(10, 1000)
                 });
             }
 

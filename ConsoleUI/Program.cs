@@ -204,35 +204,35 @@ namespace ConsoleUI
             {
                 Console.WriteLine("Enter Id Station: ");
             } while (!int.TryParse(Console.ReadLine(), out num1));
-            NewStation.id = num1;
+            NewStation.Id = num1;
 
             do
             {
                 Console.WriteLine("Enter Name Station: ");
 
             } while (!int.TryParse(Console.ReadLine(), out num1));
-            NewStation.name = num1;
+            NewStation.Name = num1;
 
             do
             {
                 Console.WriteLine("Enter Longitude Station: ");
 
             } while (!double.TryParse(Console.ReadLine(), out num2));
-            NewStation.longitude = num2;
+            NewStation.Longitude = num2;
 
             do
             {
-                Console.WriteLine("Enter Lattitued Station: ");
+                Console.WriteLine("Enter Latitude Station: ");
 
             } while (!double.TryParse(Console.ReadLine(), out num2));
-            NewStation.lattitued = num2;
+            NewStation.Latitude = num2;
 
             do
             {
                 Console.WriteLine("Enter ChargeSlots Station: ");
 
             } while (!int.TryParse(Console.ReadLine(), out num1));
-            NewStation.chargeSlots = num1;
+            NewStation.ChargeSlots = num1;
 
             return NewStation;
         }
@@ -253,23 +253,23 @@ namespace ConsoleUI
             NewDrone.Id = num;
 
             Console.WriteLine("Enter Model Drone: ");
-            NewDrone.model = Console.ReadLine();
+            NewDrone.Model = Console.ReadLine();
 
             do
             {
-                Console.WriteLine("Enter MaxWeight Drone:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
+                Console.WriteLine("Enter Weight Drone:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
                 int.TryParse(Console.ReadLine(), out num);
             } while (num != 1 && num != 2 && num != 3);
             switch (num)
             {
                 case 1:
-                    NewDrone.maxWeight = WeightCategories.Light;
+                    NewDrone.Weight = WeightCategories.Light;
                     break;
                 case 2:
-                    NewDrone.maxWeight = WeightCategories.Medium;
+                    NewDrone.Weight = WeightCategories.Medium;
                     break;
                 case 3:
-                    NewDrone.maxWeight = WeightCategories.Heavy;
+                    NewDrone.Weight = WeightCategories.Heavy;
                     break;
                 default:
                     break;
@@ -291,25 +291,25 @@ namespace ConsoleUI
             {
                 Console.WriteLine("Enter Id Customer: ");
             } while (!int.TryParse(Console.ReadLine(), out num));
-            NewCustomer.id = num;
+            NewCustomer.Id = num;
 
             Console.WriteLine("Enter Name Customer: ");
-            NewCustomer.name = Console.ReadLine();
+            NewCustomer.Name = Console.ReadLine();
 
             Console.WriteLine("Enter Phone Customer: ");
-            NewCustomer.phone = Console.ReadLine();
+            NewCustomer.Phone = Console.ReadLine();
 
             do
             {
                 Console.WriteLine("Enter Longitude Customer: ");
             } while (!double.TryParse(Console.ReadLine(), out d));
-            NewCustomer.longitude = d;
+            NewCustomer.Longitude = d;
 
             do
             {
-                Console.WriteLine("Enter Lattitued Customer: ");
+                Console.WriteLine("Enter Latitude Customer: ");
             } while (!double.TryParse(Console.ReadLine(), out d));
-            NewCustomer.lattitued = d;
+            NewCustomer.Latitude = d;
 
             return NewCustomer;
         }
@@ -498,7 +498,7 @@ namespace ConsoleUI
         public static void PrintStationsCharge(DalObject.DalObject dal)//print the list
         {
             foreach (Station elementStation in dal.GetStations())
-                if (elementStation.chargeSlots > 0)
+                if (elementStation.ChargeSlots > 0)
                     Console.WriteLine(elementStation.ToString());
         }
     }

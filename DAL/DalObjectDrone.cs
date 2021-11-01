@@ -14,10 +14,10 @@ namespace DalObject
         /// <summary>
         /// add a drone to the drone list
         /// </summary>
-        /// <param name="newDrone"></the new drone the user whants to add to the drone's list>
+        /// <param Name="newDrone"></the new drone the user whants to add to the drone's list>
         public void AddDrone(Drone newDrone)
         {
-            if (checkNotExistDrone(newDrone, DataSource.drones))
+            if (CheckNotExistDrone(newDrone, DataSource.drones))
                 DataSource.drones.Add(newDrone);
             else
                 throw new DroneExeption("ERROR: the drone is exist!\n");
@@ -26,7 +26,7 @@ namespace DalObject
         /// <summary>
         /// return the spesifice drone the user ask for
         /// </summary>
-        /// <param name="droneId"></the Id of the drone the user ask for>
+        /// <param Name="DdroneId"></the Id of the drone the user ask for>
         /// <returns></returns>
         public Drone GetDrone(int droneId)
         {
@@ -55,21 +55,21 @@ namespace DalObject
         /// <summary>
         /// send a spesifice drone to a spesifice station that have a availble charge spots, and change the status of the drome to maintenance
         /// </summary>
-        /// <param name="d"></the spesifice drone the user ask for to charge>
-        /// <param name="s"></the spasifice station the user ask to charge the drone in>
+        /// <param Name="d"></the spesifice drone the user ask for to charge>
+        /// <param Name="s"></the spasifice station the user ask to charge the drone in>
         public void SendDroneToDroneCharge(Station s, Drone d)
         {
             DroneCharge newDroneCharges = new DroneCharge();
-            if (!checkNotExistStation(s, DataSource.stations))
+            if (!CheckNotExistStation(s, DataSource.stations))
             {
                 Station newsStation = new Station();
                 for (int i = 0; i < DataSource.stations.Count; i++)
                 {
-                    if (DataSource.stations[i].id == s.id)
+                    if (DataSource.stations[i].Id == s.Id)
                     {
                         newsStation = DataSource.stations[i];
-                        newsStation.chargeSlots--;
-                        newDroneCharges.stationld = newsStation.id;
+                        newsStation.ChargeSlots--;
+                        newDroneCharges.Stationld = newsStation.Id;
                         DataSource.stations[i] = newsStation;
                     }
                 }
@@ -77,13 +77,13 @@ namespace DalObject
             else
                 throw new StationExeption("ERROR: the station is not exist!\n");
 
-            if (!checkNotExistDrone(d, DataSource.drones))
+            if (!CheckNotExistDrone(d, DataSource.drones))
             {
                 foreach (Drone elementDrone in DataSource.drones)
                 {
                     if (elementDrone.Id == d.Id)
                     {
-                        newDroneCharges.droneId = elementDrone.Id;
+                        newDroneCharges.DdroneId = elementDrone.Id;
                         break;
                     }
                 }
@@ -96,21 +96,21 @@ namespace DalObject
         /// <summary>
         /// release the spesifice drone frome the station he located and update the battry and status to 100 and available
         /// </summary>
-        /// <param name="s"></the spesifice station the user ask to release the drone frome>
-        /// <param name="d"></the spesifice drone the user ask to release frome the station>
+        /// <param Name="s"></the spesifice station the user ask to release the drone frome>
+        /// <param Name="d"></the spesifice drone the user ask to release frome the station>
         public void ReleaseDroneFromDroneCharge(Station s, Drone d)
         {
             DroneCharge newDroneCharges = new DroneCharge();
-            if (!checkNotExistStation(s, DataSource.stations))
+            if (!CheckNotExistStation(s, DataSource.stations))
             {
                 Station newsStation = new Station();
                 for (int i = 0; i < DataSource.stations.Count; i++)
                 {
-                    if (DataSource.stations[i].id == s.id)
+                    if (DataSource.stations[i].Id == s.Id)
                     {
                         newsStation = DataSource.stations[i];
-                        newsStation.chargeSlots++;
-                        newDroneCharges.stationld = newsStation.id;
+                        newsStation.ChargeSlots++;
+                        newDroneCharges.Stationld = newsStation.Id;
                         DataSource.stations[i] = newsStation;
                     }
                 }
@@ -118,13 +118,13 @@ namespace DalObject
             else
                 throw new StationExeption("ERROR: the station isn't exist");
 
-            if (!checkNotExistDrone(d, DataSource.drones))
+            if (!CheckNotExistDrone(d, DataSource.drones))
             {
                 foreach (Drone elementDrone in DataSource.drones)
                 {
                     if (elementDrone.Id == d.Id)
                     {
-                        newDroneCharges.droneId = elementDrone.Id;
+                        newDroneCharges.DdroneId = elementDrone.Id;
                         break;
                     }
                 }
@@ -134,7 +134,7 @@ namespace DalObject
 
             foreach (DroneCharge elementDroneCharge in DataSource.droneCharges)
             {
-                if (elementDroneCharge.stationld == s.id && elementDroneCharge.droneId == d.Id)
+                if (elementDroneCharge.Stationld == s.Id && elementDroneCharge.DdroneId == d.Id)
                     DataSource.droneCharges.Remove(newDroneCharges);
             }
         }
@@ -153,10 +153,10 @@ namespace DalObject
         /// <summary>
         /// the methode not need exeption becuse she use both sids(true and false)
         /// </summary>
-        /// <param name="d"></the drone we check if she is exist>
-        /// <param name="drones"></the list od drones>
+        /// <param Name="d"></the drone we check if she is exist>
+        /// <param Name="drones"></the list od drones>
         /// <returns></returns>
-        public bool checkNotExistDrone(Drone d, List<Drone> drones)
+        public bool CheckNotExistDrone(Drone d, List<Drone> drones)
         {
             foreach (Drone elementDrone in drones)
                 if (elementDrone.Id == d.Id)

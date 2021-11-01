@@ -10,12 +10,12 @@ namespace IBL
     {
         public class Customer
         {
-            public int id { get; set; }
-            public string name { get; set; }
-            public string phone { get; set; }
-            public Location location { get; set; }
-            public List<Parcel> fromTheCustomerList { get; set; }
-            public List<Parcel> toTheCustomerList { get; set; }
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Phone { get; set; }
+            public Location Location { get; set; }
+            public List<Parcel> FromTheCustomerList { get; set; }
+            public List<Parcel> ToTheCustomerList { get; set; }
         }
     }
 }
