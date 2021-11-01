@@ -10,7 +10,7 @@ namespace DalObject
         {
         }
 
-        public stationExeption(string message) : base( "station exeption: " +message)
+        public stationExeption(string message) : base(message)
         {
         }
 

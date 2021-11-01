@@ -10,7 +10,7 @@ namespace DalObject
         {
         }
 
-        public droneExeption(string message) : base("drone exeption" +message)
+        public droneExeption(string message) : base(message)
         {
         }
 

@@ -10,7 +10,7 @@ namespace DalObject
         {
         }
 
-        public parcelExeption(string message) : base("parcel exeption" + message)
+        public parcelExeption(string message) : base(message)
         {
         }
 

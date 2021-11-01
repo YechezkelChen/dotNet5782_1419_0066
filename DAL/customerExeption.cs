@@ -10,7 +10,7 @@ namespace DalObject
         {
         }
 
-        public customerExeption(string message) : base("customer exeption" + message)
+        public customerExeption(string message) : base(message)
         {
         }
 
