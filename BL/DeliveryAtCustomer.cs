@@ -10,11 +10,11 @@ namespace IBL
     { 
         public class DeliveryAtCustomer
         {
-            public int id { get; set; }
-            public WeightCategories weight { get; set; }
-            public Priorities priority { get; set; }
-            public ParcelStatuses statuse { get; set; }
-            public CustomerInDelivery customerInDelivery { get; set; }//how is the customer
+            public int Id { get; set; }
+            public WeightCategories Weight { get; set; }
+            public Priorities Priority { get; set; }
+            public ParcelStatuses Status { get; set; }
+            public CustomerInDelivery CustomerInDelivery { get; set; }//how is the customer
         }
     }
 }

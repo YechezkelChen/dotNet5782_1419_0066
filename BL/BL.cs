@@ -16,7 +16,7 @@ namespace IBL
 
         void UpdateDrone(BO.Drone drone)
         {
-            drone.status = DroneStatuses.Delivery;
+            drone.Status = DroneStatuses.Delivery;
         }
 
         public BL()
@@ -37,9 +37,9 @@ namespace IBL
                 where d.Id == p.DroneId && p.PickedUp == DateTime.MinValue
                 select new BO.Drone()
                 {
-                    id = d.Id,
-                    model = d.Model,
-                    weight = Enum.Parse<WeightCategories>(d.Weight.ToString())
+                    Id = d.Id,
+                    Model = d.Model,
+                    Weight = Enum.Parse<WeightCategories>(d.Weight.ToString())
                 };
 
             r.ToList().ForEach(UpdateDrone);

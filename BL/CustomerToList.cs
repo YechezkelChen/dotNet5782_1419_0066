@@ -10,9 +10,9 @@ namespace IBL
     {
         class CustomerToList
         {
-            public int id { get; set; }
-            public string name { get; set; }
-            public string phone { get; set; }
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Phone { get; set; }
             public TYPE type { get; set; }
             public TYPE type1 { get; set; }
             public TYPE type2 { get; set; }

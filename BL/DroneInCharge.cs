@@ -10,8 +10,8 @@ namespace IBL
     {
         public class DroneInCharge
         {
-            public int id { get; set; }
-            public double battery { get; set; }
+            public int Id { get; set; }
+            public double Battery { get; set; }
         }
     }
 }

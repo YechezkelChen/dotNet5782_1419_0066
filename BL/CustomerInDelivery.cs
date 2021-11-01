@@ -10,8 +10,8 @@ namespace IBL
     { 
         public class CustomerInDelivery
         {
-            public int id { get; set; }
-            public string nameCustomer { get; set; }
+            public int Id { get; set; }
+            public string NameCustomer { get; set; }
         }
     }
 }

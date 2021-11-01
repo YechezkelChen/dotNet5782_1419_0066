@@ -10,14 +10,13 @@ namespace IBL
     { 
         public class DeliveryByTransfer
         {
-            public int id { get; set; }
-            public WeightCategories weight { get; set; }
-            public Priorities priority { get; set; }
-            public bool deliveryStatus { get; set; }
-            public Location collectionLocation { get; set; }
-            public Location deliveryDestinationLocation { get; set; }
-            public double transportDistance { get; set; }
-
+            public int Id { get; set; }
+            public WeightCategories Weight { get; set; }
+            public Priorities Priority { get; set; }
+            public bool DeliveryStatus { get; set; }
+            public Location CollectionLocation { get; set; }
+            public Location DeliveryDestinationLocation { get; set; }
+            public double TransportDistance { get; set; }
         }
     }
 }
