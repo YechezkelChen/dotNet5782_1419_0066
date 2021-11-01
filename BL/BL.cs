@@ -10,17 +10,21 @@ namespace BL
 {
     public partial class BL : IBL
     {
-        public IEnumerable<Drone> drones = new List<Drone>();
+        public IEnumerable<IDAL.DO.Drone> listDrones = new List<IDAL.DO.Drone>();
 
         public BL()
         {
             IDal dal = new DalObject.DalObject();
-            double dAvailable = 0;
-            double dLightW = 0;
-            double dMediumW = 0;
-            double dHeavyW = 0;
-            double chargingRateOfDrone = 0; //Percent per hour
-            drones = dal.GetDrones();
+
+            double[] powerConsumption = dal.GetRequestPowerConsumption();
+            double dAvailable = powerConsumption[0];
+            double dLightW = powerConsumption[1];
+            double dMediumW = powerConsumption[2];
+            double dHeavyW = powerConsumption[3];
+            double chargingRateOfDrone = powerConsumption[4]; //Percent per hour
+
+            listDrones = dal.GetDrones();
+
         }
     }
 }
