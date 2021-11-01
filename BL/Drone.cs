@@ -8,7 +8,12 @@ namespace IBL
     { 
         public class Drone
         {
+            public int id { get; set; }
+            public string model { get; set; }
+            public WeightCategories maxWeight { get; set; }
 
+
+            public Location location { get; set; }
         }
     }
 }
