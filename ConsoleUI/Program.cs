@@ -382,11 +382,11 @@ namespace ConsoleUI
                     break;
             }
 
-            NewParcel.droneId = 0;
-            NewParcel.requested = DateTime.MinValue;
-            NewParcel.scheduled = DateTime.MinValue;
-            NewParcel.pickedUp = DateTime.MinValue;
-            NewParcel.delivered = DateTime.MinValue;
+            NewParcel.DroneId = 0;
+            NewParcel.Requested = DateTime.MinValue;
+            NewParcel.Scheduled = DateTime.MinValue;
+            NewParcel.PickedUp = DateTime.MinValue;
+            NewParcel.Delivered = DateTime.MinValue;
 
             return NewParcel;
         }
@@ -465,7 +465,7 @@ namespace ConsoleUI
         public static void PrintParcelsWithNoAssign(DalObject.DalObject dal)//print the list
         {
             foreach (Parcel elementParcel in dal.GetParcels())
-                if (elementParcel.droneId != -1)//the parcel wasnt connected
+                if (elementParcel.DroneId != -1)//the parcel wasnt connected
                     Console.WriteLine(elementParcel.ToString());
         }
 
@@ -476,7 +476,7 @@ namespace ConsoleUI
         public static void PrintParcelsPickedUp(DalObject.DalObject dal)//print the list
         {
             foreach (Parcel elementParcel in dal.GetParcels())
-                if (elementParcel.pickedUp != DateTime.MinValue)//the parcel was pickup
+                if (elementParcel.PickedUp != DateTime.MinValue)//the parcel was pickup
                     Console.WriteLine(elementParcel.ToString());
         }
 
@@ -487,7 +487,7 @@ namespace ConsoleUI
         public static void PrintParcelsNoDrones(DalObject.DalObject dal)//print the list
         {
             foreach (Parcel elementParcel in dal.GetParcels())
-                if (elementParcel.droneId == -1)//the Id drone is not exist
+                if (elementParcel.DroneId == -1)//the Id drone is not exist
                     Console.WriteLine(elementParcel.ToString());
         }
 

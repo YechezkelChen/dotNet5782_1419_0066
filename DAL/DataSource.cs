@@ -71,11 +71,11 @@ namespace DalObject
                     TargetId = rand.Next(100000000, 999999999),
                     Weight = (WeightCategories)rand.Next(0, 2),
                     Priority = (Priorities)rand.Next(0, 2),
-                    droneId = rand.Next(100000000, 999999999),
-                    requested = DateTime.Now,
-                    scheduled = DateTime.Now,
-                    pickedUp = DateTime.Now,
-                    delivered = DateTime.Now
+                    DroneId = rand.Next(100000000, 999999999),
+                    Requested = DateTime.Now,
+                    Scheduled = DateTime.Now,
+                    PickedUp = DateTime.Now,
+                    Delivered = DateTime.Now
                 });
             }
             Config.ParcelsId = 1000000000;//bigger frome all the ID 

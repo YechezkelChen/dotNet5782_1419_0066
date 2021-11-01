@@ -75,9 +75,9 @@ namespace DalObject
                         if (DataSource.parcels[i].Id == p.Id)
                         {
                             newParcel = DataSource.parcels[i];
-                            newParcel.requested = DateTime.Now;
-                            newParcel.scheduled = DateTime.Now;
-                            newParcel.droneId = d.Id;
+                            newParcel.Requested = DateTime.Now;
+                            newParcel.Scheduled = DateTime.Now;
+                            newParcel.DroneId = d.Id;
                             DataSource.parcels[i] = newParcel;
                         }
                     }
@@ -102,7 +102,7 @@ namespace DalObject
                     if (DataSource.parcels[i].Id == p.Id)
                     {
                         newParcel = DataSource.parcels[i];
-                        newParcel.pickedUp = DateTime.Now;
+                        newParcel.PickedUp = DateTime.Now;
                         DataSource.parcels[i] = newParcel;
                     }
                 }
@@ -125,7 +125,7 @@ namespace DalObject
                     if (DataSource.parcels[i].Id == p.Id)
                     {
                         newParcel = DataSource.parcels[i];
-                        newParcel.delivered = DateTime.Now;
+                        newParcel.Delivered = DateTime.Now;
                         DataSource.parcels[i] = newParcel;
                     }
                 }

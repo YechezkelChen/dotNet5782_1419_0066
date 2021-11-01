@@ -35,7 +35,7 @@ namespace IBL
             ListParcels = dal.GetParcels();
             var r = from d in listDrones
                 from p in ListParcels
-                where d.Id == p.droneId && p.pickedUp == DateTime.MinValue
+                where d.Id == p.DroneId && p.PickedUp == DateTime.MinValue
                 select new BO.Drone()
                 {
                     id = d.Id,
