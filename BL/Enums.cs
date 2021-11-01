@@ -17,11 +17,11 @@ namespace IBL
 
         public enum DroneStatuses
         {
-            [Description("Available status")]
+            [Description("Available Status")]
             Available,
-            [Description("Maintenance status")]
+            [Description("Maintenance Status")]
             Maintenance,
-            [Description("Delivery status")]
+            [Description("Delivery Status")]
             Delivery
         }
 
@@ -37,13 +37,13 @@ namespace IBL
 
         public enum ParcelStatuses
         {
-            [Description("Requested status")]
+            [Description("Requested Status")]
             Requested,
-            [Description("Scheduled status")]
+            [Description("Scheduled Status")]
             Scheduled,
-            [Description("PickedUp status")]
+            [Description("PickedUp Status")]
             PickedUp,
-            [Description("Delivered status")]
+            [Description("Delivered Status")]
             Delivered
         }
     }
