@@ -4,21 +4,21 @@ using System.Runtime.Serialization;
 namespace DalObject
 {
     [Serializable]
-    internal class stationExeption : Exception
+    internal class StationExeption : Exception
     {
-        public stationExeption()
+        public StationExeption()
         {
         }
 
-        public stationExeption(string message) : base(message)
+        public StationExeption(string message) : base(message)
         {
         }
 
-        public stationExeption(string message, Exception innerException) : base(message, innerException)
+        public StationExeption(string message, Exception innerException) : base(message, innerException)
         {
         }
 
-        protected stationExeption(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected StationExeption(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

@@ -4,21 +4,21 @@ using System.Runtime.Serialization;
 namespace DalObject
 {
     [Serializable]
-    internal class droneExeption : Exception
+    internal class DroneExeption : Exception
     {
-        public droneExeption()
+        public DroneExeption()
         {
         }
 
-        public droneExeption(string message) : base(message)
+        public DroneExeption(string message) : base(message)
         {
         }
 
-        public droneExeption(string message, Exception innerException) : base(message, innerException)
+        public DroneExeption(string message, Exception innerException) : base(message, innerException)
         {
         }
 
-        protected droneExeption(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected DroneExeption(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }
