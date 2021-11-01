@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+
 namespace IBL
 {
     namespace BO
@@ -14,7 +15,6 @@ namespace IBL
             Heavy
         }
 
-
         public enum DroneStatuses
         {
             [Description("Available status")]
@@ -24,7 +24,6 @@ namespace IBL
             [Description("Delivery status")]
             Delivery
         }
-
 
         public enum Priorities
         {
