@@ -21,7 +21,7 @@ namespace DalObject
             int tmp = DataSource.Config.ParcelsId;
             if (checkNotExistParcel(newParcel, DataSource.parcels))
             {
-                newParcel.id = DataSource.Config.ParcelsId; // insert the Parcels new Id
+                newParcel.Id = DataSource.Config.ParcelsId; // insert the Parcels new Id
                 DataSource.Config.ParcelsId++; // new Id for the fautre parce Id
                 DataSource.parcels.Add(newParcel);
             }
@@ -40,7 +40,7 @@ namespace DalObject
             Parcel? newParcel = null;
             foreach (Parcel elementParcel in DataSource.parcels)
             {
-                if (elementParcel.id == parcelId)
+                if (elementParcel.Id == parcelId)
                     newParcel = elementParcel;
             }
 
@@ -72,7 +72,7 @@ namespace DalObject
                     Parcel newParcel = new Parcel();
                     for (int i = 0; i < DataSource.parcels.Count; i++)
                     {
-                        if (DataSource.parcels[i].id == p.id)
+                        if (DataSource.parcels[i].Id == p.Id)
                         {
                             newParcel = DataSource.parcels[i];
                             newParcel.requested = DateTime.Now;
@@ -99,7 +99,7 @@ namespace DalObject
                 Parcel newParcel = new Parcel();
                 for (int i = 0; i < DataSource.parcels.Count; i++)
                 {
-                    if (DataSource.parcels[i].id == p.id)
+                    if (DataSource.parcels[i].Id == p.Id)
                     {
                         newParcel = DataSource.parcels[i];
                         newParcel.pickedUp = DateTime.Now;
@@ -122,7 +122,7 @@ namespace DalObject
                 Parcel newParcel = new Parcel();
                 for (int i = 0; i < DataSource.parcels.Count; i++)
                 {
-                    if (DataSource.parcels[i].id == p.id)
+                    if (DataSource.parcels[i].Id == p.Id)
                     {
                         newParcel = DataSource.parcels[i];
                         newParcel.delivered = DateTime.Now;
@@ -143,7 +143,7 @@ namespace DalObject
         public bool checkNotExistParcel(Parcel p, List<Parcel> parcels)
         {
             foreach (Parcel elementParcel in parcels)
-                if (elementParcel.id == p.id)
+                if (elementParcel.Id == p.Id)
                     return false;
             return true;//the drone not exist
         }

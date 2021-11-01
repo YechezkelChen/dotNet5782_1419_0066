@@ -66,11 +66,11 @@ namespace DalObject
             {
                 parcels.Add(new Parcel
                 {
-                    id = rand.Next(100000000, 999999999),
-                    senderId = rand.Next(100000000, 999999999),
-                    targetId = rand.Next(100000000, 999999999),
-                    weight = (WeightCategories)rand.Next(0, 2),
-                    priority = (Priorities)rand.Next(0, 2),
+                    Id = rand.Next(100000000, 999999999),
+                    SenderId = rand.Next(100000000, 999999999),
+                    TargetId = rand.Next(100000000, 999999999),
+                    Weight = (WeightCategories)rand.Next(0, 2),
+                    Priority = (Priorities)rand.Next(0, 2),
                     droneId = rand.Next(100000000, 999999999),
                     requested = DateTime.Now,
                     scheduled = DateTime.Now,

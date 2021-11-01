@@ -6,11 +6,11 @@ namespace IDAL
     {
         public struct Parcel
         {
-            public int id { get; set; }
-            public int senderId { get; set; }
-            public int targetId { get; set; }
-            public WeightCategories weight { get; set; }
-            public Priorities priority { get; set; }
+            public int Id { get; set; }
+            public int SenderId { get; set; }
+            public int TargetId { get; set; }
+            public WeightCategories Weight { get; set; }
+            public Priorities Priority { get; set; }
             public int droneId { get; set; }
             public DateTime requested { get; set; }
             public DateTime scheduled { get; set; }
@@ -19,7 +19,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return $"Id #{id}: SenderId = {senderId}, TargetId = {targetId},Weight = {weight}, Priority = {priority}, DroneId = {droneId}, Requested = {requested}, Scheduled = {scheduled}, PickedUp = {pickedUp},Delivered = {delivered}";
+                return $"Id #{Id}: SenderId = {SenderId}, TargetId = {TargetId},Weight = {Weight}, Priority = {Priority}, DroneId = {droneId}, Requested = {requested}, Scheduled = {scheduled}, PickedUp = {pickedUp},Delivered = {delivered}";
             }
 
         }

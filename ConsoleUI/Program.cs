@@ -327,19 +327,19 @@ namespace ConsoleUI
                 Console.WriteLine("Enter Id Parcel: ");
 
             } while (!int.TryParse(Console.ReadLine(), out num));
-            NewParcel.id = num;
+            NewParcel.Id = num;
 
             do
             {
                 Console.WriteLine("Enter Sender Id Parcel: ");
             } while (!int.TryParse(Console.ReadLine(), out num));
-            NewParcel.senderId = num;
+            NewParcel.SenderId = num;
 
             do
             {
                 Console.WriteLine("Enter Target Id Parcel: ");
             } while (!int.TryParse(Console.ReadLine(), out num));
-            NewParcel.targetId = num;
+            NewParcel.TargetId = num;
 
             do
             {
@@ -349,13 +349,13 @@ namespace ConsoleUI
             switch (num)
             {
                 case 1:
-                    NewParcel.weight = WeightCategories.Light;
+                    NewParcel.Weight = WeightCategories.Light;
                     break;
                 case 2:
-                    NewParcel.weight = WeightCategories.Medium;
+                    NewParcel.Weight = WeightCategories.Medium;
                     break;
                 case 3:
-                    NewParcel.weight = WeightCategories.Heavy;
+                    NewParcel.Weight = WeightCategories.Heavy;
                     break;
                 default:
                     break;
@@ -370,13 +370,13 @@ namespace ConsoleUI
             switch (num)
             {
                 case 1:
-                    NewParcel.priority = Priorities.Normal;
+                    NewParcel.Priority = Priorities.Normal;
                     break;
                 case 2:
-                    NewParcel.priority = Priorities.Fast;
+                    NewParcel.Priority = Priorities.Fast;
                     break;
                 case 3:
-                    NewParcel.priority = Priorities.Emergency;
+                    NewParcel.Priority = Priorities.Emergency;
                     break;
                 default:
                     break;

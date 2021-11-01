@@ -45,20 +45,6 @@ namespace IBL
 
             r.ToList().ForEach(UpdateDrone);
 
-            //int id = 0;
-            ////צריך לראות איך אפשר להעתיק את השדות הרלוונטים לרשימה של רחפנים מסוג בו מרחפנים מסוג דו ואז נוכל לבצע השוואה נורמלית ולעדכן את הסטטוס בהתתאם
-            //foreach (var elementDrone in listDrones)
-            //{
-            //    foreach (var elmentParcel in ListParcels)
-            //    {
-            //        if (elmentParcel.pickedUp == DateTime.MinValue &&
-            //            elmentParcel.droneId ==
-            //            elementDrone.Id) //ther are parcel that not pickup but drone that connected to the parcel
-            //            id = elmentParcel.id;
-            //    }
-
-            //}
-            //var drone = 
 
 
 

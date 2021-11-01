@@ -6,11 +6,11 @@ namespace IDAL
     {
         public enum WeightCategories
         {
-            [Description("Light weight")]
+            [Description("Light Weight")]
             Light,
-            [Description("Medium weight")]
+            [Description("Medium Weight")]
             Medium,
-            [Description("Heavy weight")]
+            [Description("Heavy Weight")]
             Heavy
         }
 
