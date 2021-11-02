@@ -58,17 +58,16 @@ namespace IBL
                     Model = drone.Model,
                     Weight = Enum.Parse<WeightCategories>(drone.Weight.ToString()),
                     Location = new Location(){ Longitude = dal.GetCustomer(parcel.SenderId).Longitude,
-                                               Latitude = dal.GetCustomer(parcel.SenderId).Latitude },//the location of the customer
-                    Battery = 
+                                               Latitude = dal.GetCustomer(parcel.SenderId).Latitude }//the location of the customer
                 };
+
             updateDrones.ToList().ForEach(UpdateDrone);
-
-
         }
 
         void UpdateDrone(BO.Drone drone)
         {
             drone.Status = DroneStatuses.Delivery;
+            drone.Battery=GetBettry(drone.Location, )
         }
 
         double Distance(Location location1, Location location2)
@@ -103,7 +102,7 @@ namespace IBL
             return nearLocation;
         }
 
-        Location NearStationToDrone(Drone drone, IEnumerable<IDAL.DO.Station> stations)
+        Location NearStationToDroneToCharge(Drone drone, IEnumerable<IDAL.DO.Station> stations)
         {
             var newStation = from station in stations
                 select new BO.Station()
@@ -128,30 +127,15 @@ namespace IBL
             return nearLocation;
         }
 
-        Location NearStationToDelivery(Location deliveryLocation, IEnumerable<IDAL.DO.Station> stations)
+        double GetBettry(IDAL.DO.Parcel parcel, IDAL.DO.Customer customers, IDAL.DO.Drone drone)
         {
-            var newStation = from station in stations
-                select new BO.Station()
-                {
-                    Id = station.Id,
-                    Name = station.Name,
-                    Location = new Location() { Longitude = station.Longitude, Latitude = station.Latitude },
-                    ChargeSlots = station.ChargeSlots
-                };
-            double minDistance = 9999999999, tmp;
-            Location nearLocation = new Location(),
-                droneLocation = new Location() { Latitude = drone.Location.Latitude, Longitude = drone.Location.Longitude };
-            foreach (var station in newStation)
-            {
-                tmp = Distance(station.Location, droneLocation);
-                if (tmp < minDistance && station.ChargeSlots > 0) //ther are place to charge
-                {
-                    minDistance = tmp;
-                    nearLocation = station.Location;
-                }
-            }
-            return nearLocation;
+
+
+            return 0;
+
         }
+
+      
 
     }
 }
