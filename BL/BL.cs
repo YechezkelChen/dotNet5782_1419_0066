@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using IBL.BO;
 using IDAL;
 
+
 namespace IBL
 {
     public partial class BL : IBL
@@ -44,6 +45,9 @@ namespace IBL
                     Location = NearStationToCustomer(dal.GetCustomer(parcel.SenderId),dal.GetStations())
                 };
 
+                
+
+
                 updateDrones = from drone in ListDrones
                 from parcel in ListParcels
                 where drone.Id == parcel.DroneId && parcel.Delivered == DateTime.MinValue &&
@@ -54,9 +58,12 @@ namespace IBL
                     Model = drone.Model,
                     Weight = Enum.Parse<WeightCategories>(drone.Weight.ToString()),
                     Location = new Location(){ Longitude = dal.GetCustomer(parcel.SenderId).Longitude,
-                                               Latitude = dal.GetCustomer(parcel.SenderId).Latitude }//the location of the customer
+                                               Latitude = dal.GetCustomer(parcel.SenderId).Latitude },//the location of the customer
+                    Battery = 
                 };
             updateDrones.ToList().ForEach(UpdateDrone);
+
+
         }
 
         void UpdateDrone(BO.Drone drone)
@@ -95,5 +102,56 @@ namespace IBL
             }
             return nearLocation;
         }
+
+        Location NearStationToDrone(Drone drone, IEnumerable<IDAL.DO.Station> stations)
+        {
+            var newStation = from station in stations
+                select new BO.Station()
+                {
+                    Id = station.Id,
+                    Name = station.Name,
+                    Location = new Location() { Longitude = station.Longitude, Latitude = station.Latitude },
+                    ChargeSlots = station.ChargeSlots
+                };
+            double minDistance = 9999999999, tmp;
+            Location nearLocation = new Location(),
+                droneLocation = new Location() {Latitude  = drone.Location.Latitude, Longitude = drone.Location.Longitude};
+            foreach (var station in newStation)
+            {
+                tmp = Distance(station.Location, droneLocation);
+                if (tmp < minDistance && station.ChargeSlots > 0) //ther are place to charge
+                {
+                    minDistance = tmp;
+                    nearLocation = station.Location;
+                }
+            }
+            return nearLocation;
+        }
+
+        Location NearStationToDelivery(Location deliveryLocation, IEnumerable<IDAL.DO.Station> stations)
+        {
+            var newStation = from station in stations
+                select new BO.Station()
+                {
+                    Id = station.Id,
+                    Name = station.Name,
+                    Location = new Location() { Longitude = station.Longitude, Latitude = station.Latitude },
+                    ChargeSlots = station.ChargeSlots
+                };
+            double minDistance = 9999999999, tmp;
+            Location nearLocation = new Location(),
+                droneLocation = new Location() { Latitude = drone.Location.Latitude, Longitude = drone.Location.Longitude };
+            foreach (var station in newStation)
+            {
+                tmp = Distance(station.Location, droneLocation);
+                if (tmp < minDistance && station.ChargeSlots > 0) //ther are place to charge
+                {
+                    minDistance = tmp;
+                    nearLocation = station.Location;
+                }
+            }
+            return nearLocation;
+        }
+
     }
 }
