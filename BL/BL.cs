@@ -12,9 +12,7 @@ namespace IBL
 {
     public partial class BL : IBL
     {
-        public IEnumerable<IDAL.DO.Drone> ListDrones = new List<IDAL.DO.Drone>();
-
-      
+        public List<Drone> ListDrones = new List<Drone>();
 
         public BL()
         {
@@ -27,47 +25,116 @@ namespace IBL
             double dHeavyW = powerConsumption[3];
             double chargingRateOfDrone = powerConsumption[4]; //Percent per hour
 
-            IEnumerable<IDAL.DO.Parcel> ListParcels = dal.GetParcels();
-            IEnumerable<IDAL.DO.Station> ListStations = dal.GetStations();
+            IEnumerable<IDAL.DO.Drone> listDronesIdalDo = dal.GetDrones();
+            Drone newDrone = new Drone();
+            foreach (var elementDrone in listDronesIdalDo)
+            {
+                newDrone.Id = elementDrone.Id;
+                newDrone.Model = elementDrone.Model;
+                newDrone.Weight = Enum.Parse<WeightCategories>(elementDrone.Weight.ToString());
+                ListDrones.Add(newDrone);
+            }
 
-            ListDrones = dal.GetDrones();
-            
+            IEnumerable<IDAL.DO.Parcel> ListParcelsIdalDo = dal.GetParcels();
 
-            var updateDrones = from drone in ListDrones
-                from parcel in ListParcels
-                where drone.Id == parcel.DroneId && parcel.Delivered == DateTime.MinValue &&
-                      parcel.Scheduled != DateTime.MinValue && parcel.PickedUp == DateTime.MinValue
-                select new BO.Drone()
+            foreach (var elementDrone in ListDrones)
+            {
+                foreach (var elementParcel in ListParcelsIdalDo)
                 {
-                    Id = drone.Id,
-                    Model = drone.Model,
-                    Weight = Enum.Parse<WeightCategories>(drone.Weight.ToString()),
-                    Location = NearStationToCustomer(dal.GetCustomer(parcel.SenderId),dal.GetStations())
-                };
+                    if (elementDrone.Id == elementParcel.DroneId && elementParcel.Delivered == DateTime.MinValue)
+                    {
+                        elementDrone.Status = DroneStatuses.Delivery;
+                        if (elementParcel.Scheduled != DateTime.MinValue && elementParcel.PickedUp == DateTime.MinValue)
+                            elementDrone.Location = NearStationToCustomer(dal.GetCustomer(elementParcel.SenderId),
+                                dal.GetStations());
+                        if (elementParcel.Delivered == DateTime.MinValue && elementParcel.PickedUp != DateTime.MinValue)
+                            elementDrone.Location = new Location()
+                            {
+                                Longitude = dal.GetCustomer(elementParcel.SenderId).Longitude,
+                                Latitude = dal.GetCustomer(elementParcel.SenderId).Latitude
+                            }; //the location of the customer
 
-                
+                        Location targetLocation = new Location()
+                        {
+                            Longitude = dal.GetCustomer(elementParcel.TargetId).Longitude,
+                            Latitude = dal.GetCustomer(elementParcel.TargetId).Latitude
+                        };
+                        double distanceDelivery =
+                            Distance(elementDrone.Location,
+                                targetLocation); // the distance between the drone and the target
+                        distanceDelivery = distanceDelivery + Distance(targetLocation,
+                            NearStationToCustomer(dal.GetCustomer(elementParcel.TargetId),
+                                dal.GetStations())); // add the distance of the target from the station
+
+                        // צריך לחשב אחוזי טעינה מינימלי... נתון המרחק
 
 
-                updateDrones = from drone in ListDrones
-                from parcel in ListParcels
-                where drone.Id == parcel.DroneId && parcel.Delivered == DateTime.MinValue &&
-                      parcel.PickedUp != DateTime.MinValue
-                select new BO.Drone()
-                {
-                    Id = drone.Id,
-                    Model = drone.Model,
-                    Weight = Enum.Parse<WeightCategories>(drone.Weight.ToString()),
-                    Location = new Location(){ Longitude = dal.GetCustomer(parcel.SenderId).Longitude,
-                                               Latitude = dal.GetCustomer(parcel.SenderId).Latitude }//the location of the customer
-                };
+                        // לעדכן את השדה האחרון שך הרחפן של החבילה....
+                    }
 
-            updateDrones.ToList().ForEach(UpdateDrone);
+                    Random rand = new Random(DateTime.Now.Millisecond);
+                    if (elementDrone.DeliveryByTransfer.Id == 0)
+                        elementDrone.Status = (DroneStatuses) rand.Next(0, 1);
+
+                    if (elementDrone.Status == DroneStatuses.Maintenance)
+                    {
+                        IEnumerable<IDAL.DO.Station> listStationsIdalDo = dal.GetStations();
+                        int index = rand.Next(0, listStationsIdalDo.Count());
+                        elementDrone.Location = new Location()
+                        {
+                            Longitude = listStationsIdalDo.ElementAt(index).Longitude,
+                            Latitude = listStationsIdalDo.ElementAt(index).Latitude
+                        };
+
+                        elementDrone.Battery = rand.Next(0, 20);
+                    }
+
+                    if (elementDrone.Status == DroneStatuses.Available)
+                    {
+                        IEnumerable<IDAL.DO.Customer> customersWithDelivery =
+                            ListCustomersWithDelivery(dal.GetCustomers(), dal.GetParcels());
+                        int index = rand.Next(0, customersWithDelivery.Count());
+                        elementDrone.Location = new Location()
+                        {
+                            Longitude = customersWithDelivery.ElementAt(index).Longitude,
+                            Latitude = customersWithDelivery.ElementAt(index).Latitude
+                        };
+
+                        double distanceStationCharge = Distance(elementDrone.Location,
+                            NearStationToDroneToCharge(elementDrone.Location, dal.GetStations()));
+
+                        // צריך לחשב אחוזי טעינה מינימלי... נתון המרחק
+
+                        // לבדוק עם יאיר שהכל תקין מבחינת הכללים
+                    }
+                }
+            }
         }
 
-        void UpdateDrone(BO.Drone drone)
+        Location NearStationToCustomer(IDAL.DO.Customer customer, IEnumerable<IDAL.DO.Station> stations)
         {
-            drone.Status = DroneStatuses.Delivery;
-            drone.Battery=GetBettry(drone.Location, )
+            List<double> distancesList = new List<double>();
+            List<Location> locationsList = new List<Location>();
+            Location stationLocation = new Location(),
+                customerLocation = new Location() {Longitude = customer.Longitude, Latitude = customer.Latitude};
+
+            foreach (var station in stations)
+            {
+                stationLocation = new Location() {Longitude = station.Longitude, Latitude = station.Latitude};
+                distancesList.Add(Distance(stationLocation, customerLocation));
+                locationsList.Add(stationLocation);
+            }
+
+            double minDistance = distancesList.Min();
+            Location nearLocation = new Location();
+            foreach (var station in stations)
+            {
+                stationLocation = new Location() {Longitude = station.Longitude, Latitude = station.Latitude};
+                if (minDistance == Distance(stationLocation, customerLocation))
+                    nearLocation = stationLocation;
+            }
+
+            return nearLocation;
         }
 
         double Distance(Location location1, Location location2)
@@ -77,65 +144,64 @@ namespace IBL
                 Math.Pow(location1.Latitude - location2.Latitude, 2), 1 / 2);
         }
 
-        Location NearStationToCustomer(IDAL.DO.Customer customer, IEnumerable<IDAL.DO.Station> stations)
+        IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
+            IEnumerable<IDAL.DO.Parcel> Parcels)
         {
-            var newStation = from station in stations
-                select new BO.Station()
-                {
-                    Id = station.Id,
-                    Name = station.Name,
-                    Location = new Location(){ Longitude = station.Longitude, Latitude = station.Latitude },
-                    ChargeSlots = station.ChargeSlots
-                };
-            double minDistance = 9999999999, tmp;
-            Location nearLocation = new Location(),
-                customerLocation = new Location() {Longitude = customer.Longitude, Latitude = customer.Latitude};
-            foreach (var station in newStation)
+            List<IDAL.DO.Customer> newCustomers = new List<IDAL.DO.Customer>();
+            foreach (var elementCustomer in customers)
             {
-                tmp = Distance(station.Location, customerLocation);
-                if (tmp < minDistance)
+                foreach (var elementParcel in Parcels)
                 {
-                    minDistance = tmp;
-                    nearLocation = station.Location;
+                    if (elementParcel.TargetId == elementCustomer.Id && elementParcel.Delivered != DateTime.MinValue)
+                        newCustomers.Add(elementCustomer);
                 }
             }
-            return nearLocation;
+
+            return newCustomers;
         }
 
-        Location NearStationToDroneToCharge(Drone drone, IEnumerable<IDAL.DO.Station> stations)
+        Location NearStationToDroneToCharge(Location droneLocation, IEnumerable<IDAL.DO.Station> stations)
         {
-            var newStation = from station in stations
-                select new BO.Station()
-                {
-                    Id = station.Id,
-                    Name = station.Name,
-                    Location = new Location() { Longitude = station.Longitude, Latitude = station.Latitude },
-                    ChargeSlots = station.ChargeSlots
-                };
-            double minDistance = 9999999999, tmp;
-            Location nearLocation = new Location(),
-                droneLocation = new Location() {Latitude  = drone.Location.Latitude, Longitude = drone.Location.Longitude};
-            foreach (var station in newStation)
+            List<double> distancesList = new List<double>();
+            List<Location> locationsList = new List<Location>();
+            Location stationLocation = new Location();
+
+            foreach (var station in stations)
             {
-                tmp = Distance(station.Location, droneLocation);
-                if (tmp < minDistance && station.ChargeSlots > 0) //ther are place to charge
-                {
-                    minDistance = tmp;
-                    nearLocation = station.Location;
-                }
+                stationLocation = new Location() {Longitude = station.Longitude, Latitude = station.Latitude};
+                distancesList.Add(Distance(stationLocation, droneLocation));
+                locationsList.Add(stationLocation);
             }
+
+            double minDistance = distancesList.Min();
+            Location nearLocation = new Location();
+            foreach (var station in stations)
+            {
+                stationLocation = new Location() {Longitude = station.Longitude, Latitude = station.Latitude};
+                if (minDistance == Distance(stationLocation, droneLocation))
+                    nearLocation = stationLocation;
+            }
+
             return nearLocation;
         }
-
-        double GetBettry(IDAL.DO.Parcel parcel, IDAL.DO.Customer customers, IDAL.DO.Drone drone)
-        {
-
-
-            return 0;
-
-        }
-
-      
-
     }
 }
+
+
+//void f()
+//{
+//    IEnumerable<IDAL.DO.Station> ListStations = dal.GetStations();
+//    var updateDrones = from drone in ListDrones
+//        from parcel in ListParcels
+//        where drone.Id == parcel.DroneId && parcel.Delivered == DateTime.MinValue &&
+//              parcel.Scheduled != DateTime.MinValue && parcel.PickedUp == DateTime.MinValue
+//        select new BO.Drone()
+//        {
+//            Id = drone.Id,
+//            Model = drone.Model,
+//            Weight = Enum.Parse<WeightCategories>(drone.Weight.ToString()),
+//            Location = NearStationToCustomer(dal.GetCustomer(parcel.SenderId), dal.GetStations())
+//        };
+
+//    updateDrones.ToList().ForEach(UpdateDrone);
+//}
