@@ -137,12 +137,22 @@ namespace IBL
             return nearLocation;
         }
 
-        double Distance(Location location1, Location location2)
+        double Distance(Location from, Location to)
         {
-            return Math.Pow(
-                Math.Pow(location1.Longitude - location2.Longitude, 2) +
-                Math.Pow(location1.Latitude - location2.Latitude, 2), 1 / 2);
+            int R = 6371 * 1000; // metres
+            double phi1 = from.Latitude * Math.PI / 180; // φ, λ in radians
+            double phi2 = to.Latitude * Math.PI / 180;
+            double deltaPhi = (to.Latitude - from.Latitude) * Math.PI / 180;
+            double deltaLambda = (to.Longitude - from.Longitude) * Math.PI / 180;
+
+            double a = Math.Sin(deltaPhi / 2) * Math.Sin(deltaPhi / 2) +
+                       Math.Cos(phi1) * Math.Cos(phi2) *
+                       Math.Sin(deltaLambda / 2) * Math.Sin(deltaLambda / 2);
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            double d = R * c / 1000; // in kilometres
+            return d;
         }
+
 
         IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
             IEnumerable<IDAL.DO.Parcel> Parcels)
