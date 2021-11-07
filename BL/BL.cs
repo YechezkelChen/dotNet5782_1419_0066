@@ -116,7 +116,7 @@ namespace IBL
             }
         }
 
-        Location NearStationToCustomer(IDAL.DO.Customer customer, IEnumerable<IDAL.DO.Station> stations)
+        public Location NearStationToCustomer(IDAL.DO.Customer customer, IEnumerable<IDAL.DO.Station> stations)
         {
             List<double> distancesList = new List<double>();
             List<Location> locationsList = new List<Location>();
@@ -142,7 +142,7 @@ namespace IBL
             return nearLocation;
         }
 
-        double Distance(Location from, Location to)
+        public double Distance(Location from, Location to)
         {
             int R = 6371 * 1000; // metres -- radius of the earth
             double phi1 = from.Latitude * Math.PI / 180; // φ, λ in radians
@@ -158,7 +158,7 @@ namespace IBL
             return d;
         }
 
-        IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
+        public IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
             IEnumerable<IDAL.DO.Parcel> Parcels)
         {
             List<IDAL.DO.Customer> newCustomers = new List<IDAL.DO.Customer>();
@@ -174,7 +174,7 @@ namespace IBL
             return newCustomers;
         }
 
-        Location NearStationToDrone(Location droneLocation, IEnumerable<IDAL.DO.Station> stations)
+        public Location NearStationToDrone(Location droneLocation, IEnumerable<IDAL.DO.Station> stations)
         {
             List<double> distancesList = new List<double>();
             List<Location> locationsList = new List<Location>();
