@@ -211,5 +211,51 @@ namespace ConsoleUI_BL
                 }
             } while (op != Option.Exit);
         }
+
+        public static Station InputStation()
+        {
+            int num1;
+            double num2,num3;
+            Location stationLocation=new Location();
+            Station NewStation = new Station();
+            do
+            {
+                Console.WriteLine("Enter Id Station: ");
+            } while (!int.TryParse(Console.ReadLine(), out num1));
+            NewStation.Id = num1;
+
+            do
+            {
+                Console.WriteLine("Enter Name Station: ");
+
+            } while (!int.TryParse(Console.ReadLine(), out num1));
+            NewStation.Name = num1;
+
+            do
+            {
+                Console.WriteLine("Enter longitude Station: ");
+
+            } while (!double.TryParse(Console.ReadLine(), out num2));
+
+            stationLocation.Longitude = num2;
+
+            do
+            {
+                Console.WriteLine("Enter Latitude Station: ");
+
+            } while (!double.TryParse(Console.ReadLine(), out num2));
+            stationLocation.Latitude = num2;
+
+            NewStation.Location = stationLocation;
+
+            do
+            {
+                Console.WriteLine("Enter ChargeSlots Station: ");
+
+            } while (!int.TryParse(Console.ReadLine(), out num1));
+            NewStation.ChargeSlots = num1;
+            
+            return NewStation;
+        }
     }
 }
