@@ -54,9 +54,10 @@ namespace ConsoleUI_BL
             Exit
         };
 
+        IBL.IBL bl = new BL();
+
         static void Main(string[] args)
         {
-            IBL.IBL bl = new BL();
             int c, myId;
             Option op;
             EntityOption ep;
@@ -86,6 +87,7 @@ namespace ConsoleUI_BL
                             switch (ep)
                             {
                                 case EntityOption.Station:
+                                    AddStation();
                                     Station newStation = InputStation();
                                     bl.AddStation(newStation);
                                     break;
@@ -233,7 +235,7 @@ namespace ConsoleUI_BL
         /// read from the user station to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        public static Station InputStation()
+        public static void AddStation()
         {
             int num1;
             double num2;
@@ -280,7 +282,8 @@ namespace ConsoleUI_BL
             NewStation.ChargeSlots = num1;
 
             NewStation.InCharges = new List<DroneCharge>();
-            return NewStation;
+
+            bl.AddStation(newStation);
         }
 
         /// <summary>
