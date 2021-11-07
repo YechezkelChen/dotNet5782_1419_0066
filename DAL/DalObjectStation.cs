@@ -29,6 +29,7 @@ namespace DalObject
         /// <summary>
         /// return the spesifice station the user ask for
         /// </summary>
+        /// <param name="stationId"></param>
         /// <param Name="stationId"></the Id of the station the user ask for>
         /// <returns></returns>
         public Station GetStation(int stationId)

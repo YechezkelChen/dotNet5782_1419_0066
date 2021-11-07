@@ -16,6 +16,8 @@ namespace IBL
 
         IDal dal = new DalObject.DalObject();
 
+        Random rand = new Random(DateTime.Now.Millisecond);
+
         public BL()
         {
             // km per hour
@@ -42,7 +44,6 @@ namespace IBL
             {
                 foreach (var elementParcel in ListParcelsIdalDo)
                 {
-                    Random rand = new Random(DateTime.Now.Millisecond);
                     if (elementDrone.Id == elementParcel.DroneId && elementParcel.Delivered == DateTime.MinValue)
                     {
                         elementDrone.Statuse = DroneStatuses.Delivery;
@@ -214,16 +215,40 @@ namespace IBL
         {
             IDAL.DO.Drone drone = new IDAL.DO.Drone();
             drone.Id = newDrone.Id;
+            drone.Model = newDrone.Model;
+            drone.Weight = (IDAL.DO.WeightCategories)newDrone.Weight;
+            newDrone.Battery = rand.Next(20, 40);
+            newDrone.Status = DroneStatuses.Maintenance;
+            newDrone.Location.Longitude = dal.GetStation(idStation).Longitude;
+            newDrone.Location.Latitude = dal.GetStation(idStation).Latitude;
+            ListDrones.Add(newDrone);//לשאול את יאיר איך ההסופה עצמה מתבצעת
+            dal.AddDrone(drone);
         }
 
         public void AddCustomer(Customer newCustomer)
         {
-
+            IDAL.DO.Customer customer = new IDAL.DO.Customer();
+            customer.Id = newCustomer.Id;
+            customer.Name = newCustomer.Name;
+            customer.Phone = newCustomer.Phone;
+            customer.Longitude = newCustomer.Location.Longitude;
+            customer.Latitude = newCustomer.Location.Latitude;
+            dal.AddCustomer(customer);
         }
 
         public void AddParcel(Parcel newParcel)
         {
-
+            IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
+            parcel.SenderId = newParcel.SenderId;
+            parcel.TargetId = newParcel.TargetId;
+            parcel.Weight = (IDAL.DO.WeightCategories) newParcel.Weight;
+            parcel.Priority = (IDAL.DO.Priorities) newParcel.Priority;
+            parcel.DroneId = 0;
+            parcel.Requested = DateTime.Now;
+            parcel.Scheduled = DateTime.MinValue;
+            parcel.PickedUp = DateTime.MinValue;
+            parcel.Delivered = DateTime.MinValue;
+            dal.AddParcel(parcel);
         }
     }
 }
