@@ -1,6 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using IBL;
 using IBL.BO;
+using IDAL.DO;
+using Customer = IBL.BO.Customer;
+using Drone = IBL.BO.Drone;
+using Parcel = IBL.BO.Parcel;
+using Station = IBL.BO.Station;
 
 namespace ConsoleUI_BL
 {
@@ -254,7 +260,8 @@ namespace ConsoleUI_BL
 
             } while (!int.TryParse(Console.ReadLine(), out num1));
             NewStation.ChargeSlots = num1;
-            
+
+            NewStation.InCharges = new List<DroneCharge>();
             return NewStation;
         }
     }
