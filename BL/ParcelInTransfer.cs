@@ -19,6 +19,13 @@ namespace IBL
             public Location PickUpLocation { get; set; }
             public Location TargetLocation { get; set; }
             public double DistanceOfTransfer { get; set; }
+            public override string ToString()
+            {
+                return $"Id #{Id}: Parcel status = {ParcelStatus},Priority = {Priority}," +
+                       $"Weight = {Weight},  Sender in parcel = {SenderInParcel}, Receiver in parcel = {ReceiverInParcel}," +
+                       $"Pick up location = {PickUpLocation},Target location = {TargetLocation}, " +
+                       $"Distance of transfer = {DistanceOfTransfer}";
+            }
         }
     }
 }

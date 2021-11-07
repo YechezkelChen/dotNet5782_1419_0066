@@ -45,7 +45,7 @@ namespace IBL
                     Random rand = new Random(DateTime.Now.Millisecond);
                     if (elementDrone.Id == elementParcel.DroneId && elementParcel.Delivered == DateTime.MinValue)
                     {
-                        elementDrone.Status = DroneStatuses.Delivery;
+                        elementDrone.Statuse = DroneStatuses.Delivery;
                         if (elementParcel.Scheduled != DateTime.MinValue && elementParcel.PickedUp == DateTime.MinValue)
                             elementDrone.Location = NearStationToCustomer(dal.GetCustomer(elementParcel.SenderId),
                                 dal.GetStations());
@@ -78,10 +78,10 @@ namespace IBL
                         elementDrone.IdParcel = elementParcel.Id;
                     }
 
-                    if ((elementDrone.Status != DroneStatuses.Delivery))
-                        elementDrone.Status = (DroneStatuses) rand.Next(0, 1);
+                    if ((elementDrone.Statuse != DroneStatuses.Delivery))
+                        elementDrone.Statuse = (DroneStatuses) rand.Next(0, 1);
 
-                    if (elementDrone.Status == DroneStatuses.Maintenance)
+                    if (elementDrone.Statuse == DroneStatuses.Maintenance)
                     {
                         IEnumerable<IDAL.DO.Station> listStationsIdalDo = dal.GetStations();
                         int index = rand.Next(0, listStationsIdalDo.Count());
@@ -94,7 +94,7 @@ namespace IBL
                         elementDrone.Battery = rand.Next(0, 20);
                     }
 
-                    if (elementDrone.Status == DroneStatuses.Available)
+                    if (elementDrone.Statuse == DroneStatuses.Available)
                     {
                         IEnumerable<IDAL.DO.Customer> customersWithDelivery =
                             ListCustomersWithDelivery(dal.GetCustomers(), dal.GetParcels());

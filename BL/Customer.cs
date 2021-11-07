@@ -16,6 +16,14 @@ namespace IBL
             public Location Location { get; set; }
             public List<Parcel> FromTheCustomerList { get; set; }
             public List<Parcel> ToTheCustomerList { get; set; }
+
+            public override string ToString()
+            {
+                return
+                    $"Id #{Id}: Name = {Name}, Phone = {Phone},Location = {Location}," +
+                    $"Parcels the customer sent = {FromTheCustomerList.ToString()}, " +
+                    $"Parcels the customer need to receive = {ToTheCustomerList.ToString()}";
+            }
         }
     }
 }

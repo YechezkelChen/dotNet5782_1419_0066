@@ -17,6 +17,16 @@ namespace IBL
             public int SenderParcelScheduled { get; set; }
             public int TargetParcelDelivered { get; set; }
             public int TargetParcelPickedUp { get; set; }
+
+            public override string ToString()
+            {
+                return
+                    $"Id #{Id}: Name = {Name}, Phone = {Phone}," +
+                    $"Sender parcels that was picked up = {SenderParcelPickedUp}," +
+                    $"Sender parcels that was scheduled = {SenderParcelScheduled}," +
+                    $"Target parcels that was delivered = {TargetParcelDelivered}," +
+                    $"Target parcels that was picked up = {TargetParcelPickedUp}";
+            }
         }
     }
 }

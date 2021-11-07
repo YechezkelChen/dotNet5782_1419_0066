@@ -14,9 +14,15 @@ namespace IBL
             public string Model { get; set; }
             public WeightCategories Weight { get; set; }
             public double Battery { get; set; }
-            public DroneStatuses Status { get; set; }
+            public DroneStatuses Statuse { get; set; }
             public Location Location { get; set; }
             public int IdParcel { get; set; }
+            public override string ToString()
+            {
+                return
+                    $"Id #{Id}: Model = {Model}, Weight = {Weight}, Battery = {Battery}, " +
+                    $"Drone Statues = {Statuse}, Location = {Location},Id of the parcel = {IdParcel}";
+            }
         }
     }
 }

@@ -15,6 +15,11 @@ namespace IBL
             public Priorities Priority { get; set; }
             public ParcelStatuses Status { get; set; }
             public CustomerInParcel CustomerInDelivery { get; set; }//how is the customer
+            public override string ToString()
+            {
+                return $"Id #{Id}: Weight = {Weight}, Priority = {Priority},Weight = {Weight}," +
+                       $" Priority = {Priority}, Status = {Status}, Customer in delivery = {CustomerInDelivery}";
+            }
         }
     }
 }

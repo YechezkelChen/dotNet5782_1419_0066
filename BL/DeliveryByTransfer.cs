@@ -17,6 +17,16 @@ namespace IBL
             public Location CollectionLocation { get; set; }
             public Location DeliveryDestinationLocation { get; set; }
             public double TransportDistance { get; set; }
+
+            public override string ToString()
+            {
+                return
+                    $"Id #{Id}: Weight = {Weight}, Priority = {Priority}," +
+                    $"Delivery status = {DeliveryStatus}," +
+                    $"Collection location = {CollectionLocation}," +
+                    $"Delivery destination location = {DeliveryDestinationLocation}," +
+                    $"Transport distance = {TransportDistance}";
+            }
         }
     }
 }

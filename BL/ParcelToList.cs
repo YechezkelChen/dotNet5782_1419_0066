@@ -16,6 +16,11 @@ namespace IBL
             public WeightCategories Weight { get; set; }
             public Priorities Priority { get; set; }
             public ParcelStatuses ParcelStatuses { get; set; }
+            public override string ToString()
+            {
+                return $"Id #{Id}: Sender id = {SenderId},Target id = {TargetId}," +
+                       $"Weight = {Weight},  Priority = {Priority}, Parcel statuses = {ParcelStatuses}";
+            }
         }
     }
 }

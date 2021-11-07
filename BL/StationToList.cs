@@ -10,10 +10,15 @@ namespace IBL
     {
         public class StationToList
         {
-            public int id { get; set; }
-            public int name { get; set; }
-            public int chargeSlotsAvailable { get; set; }
-            public int chargeSlotsNotAvailable { get; set; }
+            public int Id { get; set; }
+            public int Name { get; set; }
+            public int ChargeSlotsAvailable { get; set; }
+            public int ChargeSlotsNotAvailable { get; set; }
+            public override string ToString()
+            {
+                return $"Id #{Id}: Name = {Name},Charge slots available = {ChargeSlotsAvailable}," +
+                       $"charge slots not available = {ChargeSlotsNotAvailable}";
+            }
         }
     }
 }

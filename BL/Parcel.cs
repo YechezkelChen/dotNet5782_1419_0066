@@ -20,6 +20,12 @@ namespace IBL
             public DateTime Scheduled { get; set; }//שיוך
             public DateTime PickedUp { get; set; }//איסוף
             public DateTime Delivered { get; set; }//אספקה
+            public override string ToString()
+            {
+                return $"Id #{Id}: SenderId = {SenderId}, TargetId = {TargetId},Weight = {Weight}," +
+                       $" Priority = {Priority}, Drone in Parcel = {DroneInParcel}, Requested = {Requested}," +
+                       $" Scheduled = {Scheduled}, PickedUp = {PickedUp},Delivered = {Delivered},";
+            }
         }
     }
 }

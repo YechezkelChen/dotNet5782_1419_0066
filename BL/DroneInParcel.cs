@@ -13,6 +13,11 @@ namespace IBL
             public int Id { get; set; }
             public double Battery { get; set; }
             public Location Location { get; set; }
+            public override string ToString()
+            {
+                return
+                    $"Id #{Id}: Battery = {Battery}, Location ={Location}";
+            }
         }
     }
     

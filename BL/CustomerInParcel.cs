@@ -12,6 +12,11 @@ namespace IBL
         {
             public int Id { get; set; }
             public string NameCustomer { get; set; }
+            public override string ToString()
+            {
+                return
+                    $"Id #{Id}: Name = {NameCustomer}";
+            }
         }
     }
 }
