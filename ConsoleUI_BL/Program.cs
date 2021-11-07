@@ -367,7 +367,7 @@ namespace ConsoleUI_BL
             customerLocation.Latitude = num2;
             newCustomer.Location = customerLocation;
 
-            bl.addCustomer(newCustomer);
+            bl.AddCustomer(newCustomer);
         }
 
         /// <summary>

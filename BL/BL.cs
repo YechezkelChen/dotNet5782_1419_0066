@@ -213,7 +213,17 @@ namespace IBL
         public void AddDrone(Drone newDrone, int idStation)
         {
             IDAL.DO.Drone drone = new IDAL.DO.Drone();
-            drone.Id = newDrone.
+            drone.Id = newDrone.Id;
+        }
+
+        public void AddCustomer(Customer newCustomer)
+        {
+
+        }
+
+        public void AddParcel(Parcel newParcel)
+        {
+
         }
     }
 }

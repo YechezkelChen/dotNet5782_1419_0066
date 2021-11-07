@@ -14,7 +14,9 @@ namespace IBL
         IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
             IEnumerable<IDAL.DO.Parcel> Parcels);
         Location NearStationToDrone(Location droneLocation, IEnumerable<IDAL.DO.Station> stations);
-        public void AddStation(Station newStation);
-        public void AddDrone(Drone newDrone, int idStation);
+        void AddStation(Station newStation);
+        void AddDrone(Drone newDrone, int idStation);
+        void AddCustomer(Customer newCustomer);
+        void AddParcel(Parcel newParcel);
     }
 }
