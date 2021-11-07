@@ -12,21 +12,22 @@ namespace IBL
 {
     public partial class BL : IBL
     {
-        public List<Drone> ListDrones = new List<Drone>();
+        public List<DroneToList> ListDrones = new List<DroneToList>();
 
         public BL()
         {
             IDal dal = new DalObject.DalObject();
 
+            // km per hour
             double[] powerConsumption = dal.GetRequestPowerConsumption();
             double dAvailable = powerConsumption[0];
             double dLightW = powerConsumption[1];
             double dMediumW = powerConsumption[2];
             double dHeavyW = powerConsumption[3];
-            double chargingRateOfDrone = powerConsumption[4]; //Percent per hour
+            double chargingRateOfDrone = powerConsumption[4];
 
             IEnumerable<IDAL.DO.Drone> listDronesIdalDo = dal.GetDrones();
-            Drone newDrone = new Drone();
+            DroneToList newDrone = new DroneToList();
             foreach (var elementDrone in listDronesIdalDo)
             {
                 newDrone.Id = elementDrone.Id;
@@ -41,6 +42,7 @@ namespace IBL
             {
                 foreach (var elementParcel in ListParcelsIdalDo)
                 {
+                    Random rand = new Random(DateTime.Now.Millisecond);
                     if (elementDrone.Id == elementParcel.DroneId && elementParcel.Delivered == DateTime.MinValue)
                     {
                         elementDrone.Status = DroneStatuses.Delivery;
@@ -59,21 +61,24 @@ namespace IBL
                             Longitude = dal.GetCustomer(elementParcel.TargetId).Longitude,
                             Latitude = dal.GetCustomer(elementParcel.TargetId).Latitude
                         };
-                        double distanceDelivery =
-                            Distance(elementDrone.Location,
-                                targetLocation); // the distance between the drone and the target
-                        distanceDelivery = distanceDelivery + Distance(targetLocation,
-                            NearStationToCustomer(dal.GetCustomer(elementParcel.TargetId),
-                                dal.GetStations())); // add the distance of the target from the station
 
-                        // צריך לחשב אחוזי טעינה מינימלי... נתון המרחק
+                        double distanceDelivery = Distance(elementDrone.Location, targetLocation); // the distance between the drone and the target
+                        if (elementParcel.Weight == IDAL.DO.WeightCategories.Heavy)
+                            distanceDelivery *= dHeavyW;
+                        if (elementParcel.Weight == IDAL.DO.WeightCategories.Medium)
+                            distanceDelivery *= dMediumW;
+                        if (elementParcel.Weight == IDAL.DO.WeightCategories.Light)
+                            distanceDelivery *= dLightW;
 
+                        distanceDelivery += Distance(targetLocation,
+                            NearStationToCustomer(dal.GetCustomer(elementParcel.TargetId), dal.GetStations())) * dAvailable;
 
-                        // לעדכן את השדה האחרון שך הרחפן של החבילה....
+                        elementDrone.Battery = rand.Next((int)distanceDelivery, 100);
+
+                        elementDrone.IdParcel = elementParcel.Id;
                     }
 
-                    Random rand = new Random(DateTime.Now.Millisecond);
-                    if (elementDrone.DeliveryByTransfer.Id == 0)
+                    if ((elementDrone.Status != DroneStatuses.Delivery))
                         elementDrone.Status = (DroneStatuses) rand.Next(0, 1);
 
                     if (elementDrone.Status == DroneStatuses.Maintenance)
@@ -100,12 +105,12 @@ namespace IBL
                             Latitude = customersWithDelivery.ElementAt(index).Latitude
                         };
 
-                        double distanceStationCharge = Distance(elementDrone.Location,
-                            NearStationToDroneToCharge(elementDrone.Location, dal.GetStations()));
+                        double distanceFromNearStation = Distance(elementDrone.Location,
+                            NearStationToDrone(elementDrone.Location, dal.GetStations()));
 
-                        // צריך לחשב אחוזי טעינה מינימלי... נתון המרחק
+                        distanceFromNearStation *= dAvailable;
 
-                        // לבדוק עם יאיר שהכל תקין מבחינת הכללים
+                        elementDrone.Battery = rand.Next((int) distanceFromNearStation, 100);
                     }
                 }
             }
@@ -139,7 +144,7 @@ namespace IBL
 
         double Distance(Location from, Location to)
         {
-            int R = 6371 * 1000; // metres
+            int R = 6371 * 1000; // metres -- radius of the earth
             double phi1 = from.Latitude * Math.PI / 180; // φ, λ in radians
             double phi2 = to.Latitude * Math.PI / 180;
             double deltaPhi = (to.Latitude - from.Latitude) * Math.PI / 180;
@@ -152,7 +157,6 @@ namespace IBL
             double d = R * c / 1000; // in kilometres
             return d;
         }
-
 
         IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
             IEnumerable<IDAL.DO.Parcel> Parcels)
@@ -170,7 +174,7 @@ namespace IBL
             return newCustomers;
         }
 
-        Location NearStationToDroneToCharge(Location droneLocation, IEnumerable<IDAL.DO.Station> stations)
+        Location NearStationToDrone(Location droneLocation, IEnumerable<IDAL.DO.Station> stations)
         {
             List<double> distancesList = new List<double>();
             List<Location> locationsList = new List<Location>();

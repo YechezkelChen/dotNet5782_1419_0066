@@ -15,7 +15,7 @@ namespace IBL
             public int TargetId { get; set; }
             public WeightCategories Weight { get; set; }
             public Priorities Priority { get; set; }
-            public int DroneId { get; set; }
+            public DroneInParcel DroneInParcel { get; set; }
             public DateTime Requested { get; set; }//יצירה
             public DateTime Scheduled { get; set; }//שיוך
             public DateTime PickedUp { get; set; }//איסוף

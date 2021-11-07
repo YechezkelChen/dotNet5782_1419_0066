@@ -11,9 +11,14 @@ namespace IBL
         public class ParcelInTransfer
         {
             public int Id { get; set; }
+            public bool ParcelStatus { get; set; }
             public Priorities Priority { get; set; }
-            public CustomerInDelivery SenderInDelivery { get; set; }//the sender
-            public CustomerInDelivery ReceiverInDelivery { get; set; }//the receiver
+            public WeightCategories Weight { get; set; }
+            public CustomerInParcel SenderInParcel { get; set; }//the sender
+            public CustomerInParcel ReceiverInParcel { get; set; }//the receiver
+            public Location PickUpLocation { get; set; }
+            public Location TargetLocation { get; set; }
+            public double DistanceOfTransfer { get; set; }
         }
     }
 }
