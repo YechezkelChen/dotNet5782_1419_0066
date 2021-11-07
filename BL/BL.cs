@@ -14,10 +14,10 @@ namespace IBL
     {
         public List<DroneToList> ListDrones = new List<DroneToList>();
 
+        IDal dal = new DalObject.DalObject();
+
         public BL()
         {
-            IDal dal = new DalObject.DalObject();
-
             // km per hour
             double[] powerConsumption = dal.GetRequestPowerConsumption();
             double dAvailable = powerConsumption[0];
@@ -197,6 +197,23 @@ namespace IBL
             }
 
             return nearLocation;
+        }
+
+        public void AddStation(Station newStation)
+        {
+            IDAL.DO.Station station = new IDAL.DO.Station();
+            station.Id = newStation.Id;
+            station.Name = newStation.Name;
+            station.Longitude = newStation.Location.Longitude;
+            station.Latitude = newStation.Location.Latitude;
+            station.ChargeSlots = newStation.ChargeSlots;
+            dal.AddStation(station);
+        }
+
+        public void AddDrone(Drone newDrone, int idStation)
+        {
+            IDAL.DO.Drone drone = new IDAL.DO.Drone();
+            drone.Id = newDrone.
         }
     }
 }

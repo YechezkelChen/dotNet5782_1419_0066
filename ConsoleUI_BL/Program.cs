@@ -54,7 +54,7 @@ namespace ConsoleUI_BL
             Exit
         };
 
-        IBL.IBL bl = new BL();
+        public static IBL.IBL bl = new BL(); // לשאול אם אפשר לעשות סטטיק
 
         static void Main(string[] args)
         {
@@ -88,20 +88,15 @@ namespace ConsoleUI_BL
                             {
                                 case EntityOption.Station:
                                     AddStation();
-                                    Station newStation = InputStation();
-                                    bl.AddStation(newStation);
                                     break;
                                 case EntityOption.Drone:
-                                    Drone newDrone = InputDrone();
-                                    bl.AddDrone(newDrone);
+                                    AddDrone();
                                     break;
                                 case EntityOption.Customer:
-                                    Customer newCustomer = InputCustomer();
-                                    bl.AddCustomer(newCustomer);
+                                    AddCustomer();
                                     break;
                                 case EntityOption.Parcel:
-                                    Parcel newParcel = InputParcel();
-                                    bl.AddParcel(newParcel);
+                                    AddParcel();
                                     break;
                                 case EntityOption.Exit:
                                     break;
@@ -240,13 +235,13 @@ namespace ConsoleUI_BL
             int num1;
             double num2;
             Location stationLocation = new Location();
-            Station NewStation = new Station();
+            Station newStation = new Station();
             do
             {
                 Console.WriteLine("Enter Id Station: ");
             } while (!int.TryParse(Console.ReadLine(), out num1));
 
-            NewStation.Id = num1;
+            newStation.Id = num1;
 
             do
             {
@@ -254,7 +249,7 @@ namespace ConsoleUI_BL
 
             } while (!int.TryParse(Console.ReadLine(), out num1));
 
-            NewStation.Name = num1;
+            newStation.Name = num1;
 
             do
             {
@@ -271,7 +266,7 @@ namespace ConsoleUI_BL
             } while (!double.TryParse(Console.ReadLine(), out num2));
 
             stationLocation.Latitude = num2;
-            NewStation.Location = stationLocation;
+            newStation.Location = stationLocation;
 
             do
             {
@@ -279,9 +274,9 @@ namespace ConsoleUI_BL
 
             } while (!int.TryParse(Console.ReadLine(), out num1));
 
-            NewStation.ChargeSlots = num1;
+            newStation.ChargeSlots = num1;
 
-            NewStation.InCharges = new List<DroneCharge>();
+            newStation.InCharges = new List<DroneCharge>();
 
             bl.AddStation(newStation);
         }
@@ -290,20 +285,20 @@ namespace ConsoleUI_BL
         /// read fron the user drone to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        public static Drone InputDrone()
+        public static void AddDrone()
         {
             int num;
-            Drone NewDrone = new Drone();
+            Drone newDrone = new Drone();
 
             do
             {
                 Console.WriteLine("Enter Id Drone: ");
             } while (!int.TryParse(Console.ReadLine(), out num));
 
-            NewDrone.Id = num;
+            newDrone.Id = num;
 
             Console.WriteLine("Enter Model Drone: ");
-            NewDrone.Model = Console.ReadLine();
+            newDrone.Model = Console.ReadLine();
 
             do
             {
@@ -314,13 +309,13 @@ namespace ConsoleUI_BL
             switch (num)
             {
                 case 1:
-                    NewDrone.Weight = IBL.BO.WeightCategories.Light;
+                    newDrone.Weight = IBL.BO.WeightCategories.Light;
                     break;
                 case 2:
-                    NewDrone.Weight = IBL.BO.WeightCategories.Medium;
+                    newDrone.Weight = IBL.BO.WeightCategories.Medium;
                     break;
                 case 3:
-                    NewDrone.Weight = IBL.BO.WeightCategories.Heavy;
+                    newDrone.Weight = IBL.BO.WeightCategories.Heavy;
                     break;
                 default:
                     break;
@@ -331,34 +326,31 @@ namespace ConsoleUI_BL
                 Console.WriteLine("Enter id of station to put the drone in: ");
             } while (!int.TryParse(Console.ReadLine(), out num));
 
-            //לראות מה עושים עם המספר הזה
-            //להשלים מה שצריך בBL
-
-            return NewDrone;
+            bl.AddDrone(newDrone, num);
         }
 
         /// <summary>
         /// read fron the user customer to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        public static Customer InputCustomer()
+        public static void AddCustomer()
         {
             int num1;
             double num2;
             Location customerLocation = new Location();
-            Customer NewCustomer = new Customer();
+            Customer newCustomer = new Customer();
             do
             {
                 Console.WriteLine("Enter Id Customer: ");
             } while (!int.TryParse(Console.ReadLine(), out num1));
 
-            NewCustomer.Id = num1;
+            newCustomer.Id = num1;
 
             Console.WriteLine("Enter Name Customer: ");
-            NewCustomer.Name = Console.ReadLine();
+            newCustomer.Name = Console.ReadLine();
 
             Console.WriteLine("Enter Phone Customer: ");
-            NewCustomer.Phone = Console.ReadLine();
+            newCustomer.Phone = Console.ReadLine();
 
             do
             {
@@ -373,32 +365,32 @@ namespace ConsoleUI_BL
             } while (!double.TryParse(Console.ReadLine(), out num2));
 
             customerLocation.Latitude = num2;
-            NewCustomer.Location = customerLocation;
+            newCustomer.Location = customerLocation;
 
-            return NewCustomer;
+            bl.addCustomer(newCustomer);
         }
 
         /// <summary>
         /// read from the user parcel to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        public static Parcel InputParcel()
+        public static void AddParcel()
         {
             int num;
-            Parcel NewParcel = new Parcel();
+            Parcel newParcel = new Parcel();
             do
             {
                 Console.WriteLine("Enter Sender Id Parcel: ");
             } while (!int.TryParse(Console.ReadLine(), out num));
 
-            NewParcel.SenderId = num;
+            newParcel.SenderId = num;
 
             do
             {
                 Console.WriteLine("Enter Target Id Parcel: ");
             } while (!int.TryParse(Console.ReadLine(), out num));
 
-            NewParcel.TargetId = num;
+            newParcel.TargetId = num;
 
             do
             {
@@ -409,13 +401,13 @@ namespace ConsoleUI_BL
             switch (num)
             {
                 case 1:
-                    NewParcel.Weight = IBL.BO.WeightCategories.Light;
+                    newParcel.Weight = IBL.BO.WeightCategories.Light;
                     break;
                 case 2:
-                    NewParcel.Weight = IBL.BO.WeightCategories.Medium;
+                    newParcel.Weight = IBL.BO.WeightCategories.Medium;
                     break;
                 case 3:
-                    NewParcel.Weight = IBL.BO.WeightCategories.Heavy;
+                    newParcel.Weight = IBL.BO.WeightCategories.Heavy;
                     break;
                 default:
                     break;
@@ -431,19 +423,19 @@ namespace ConsoleUI_BL
             switch (num)
             {
                 case 1:
-                    NewParcel.Priority = IBL.BO.Priorities.Normal;
+                    newParcel.Priority = IBL.BO.Priorities.Normal;
                     break;
                 case 2:
-                    NewParcel.Priority = IBL.BO.Priorities.Fast;
+                    newParcel.Priority = IBL.BO.Priorities.Fast;
                     break;
                 case 3:
-                    NewParcel.Priority = IBL.BO.Priorities.Emergency;
+                    newParcel.Priority = IBL.BO.Priorities.Emergency;
                     break;
                 default:
                     break;
             }
 
-            return NewParcel;
+            bl.AddParcel(newParcel);
         }
     }
 }
