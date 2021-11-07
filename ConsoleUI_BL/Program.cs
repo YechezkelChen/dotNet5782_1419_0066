@@ -7,10 +7,7 @@ namespace ConsoleUI_BL
     {
         static void Main(string[] args)
         {
-            IBL bl = new BL();hdiu
-
-            IBL.BL bl = new IBL.BL();
-
+            IBL.IBL bl = new BL();
         }
     }
 }
