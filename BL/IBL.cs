@@ -19,10 +19,10 @@ namespace IBL
         void AddCustomer(Customer newCustomer);
         void AddParcel(Parcel newParcel);
         public int CheckDroneAndParcel(int droneId, IEnumerable<IDAL.DO.Parcel> parcels);
-        IDAL.DO.Station GetStation(int Id);
-        IDAL.DO.Drone GetDrone(int Id);
-        IDAL.DO.Customer GetCustomer(int id);
-        IDAL.DO.Parcel GetParcel(int id);
+        Station GetStation(int Id);
+        Drone GetDrone(int Id);
+        Customer GetCustomer(int id);
+        Parcel GetParcel(int id);
         void PrintStations();
         void PrintDrones();
         void PrintCustomers();
