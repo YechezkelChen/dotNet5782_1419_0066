@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -250,6 +251,107 @@ namespace IBL
             parcel.Delivered = DateTime.MinValue;
             dal.AddParcel(parcel);
         }
+
+        public IDAL.DO.Station GetStation(int id)
+        {
+            IDAL.DO.Station idalStation = new IDAL.DO.Station();
+            try
+            {
+                idalStation = dal.GetStation(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return idalStation;
+        }
+
+        public IDAL.DO.Drone GetDrone(int id)
+        {
+            IDAL.DO.Drone idalDrone = new IDAL.DO.Drone();
+            try
+            {
+                idalDrone = dal.GetDrone(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return idalDrone;
+        }
+
+        public IDAL.DO.Customer GetCustomer(int id)
+        {
+            IDAL.DO.Customer idalCustomer = new IDAL.DO.Customer();
+            try
+            {
+                idalCustomer = dal.GetCustomer(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return idalCustomer;
+        }
+
+        public IDAL.DO.Parcel GetParcel(int id)
+        {
+            IDAL.DO.Parcel idalParcel = new IDAL.DO.Parcel();
+            try
+            {
+                idalParcel = dal.GetParcel(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return idalParcel;
+        }
+
+        public void PrintStations()
+        {
+            foreach (IDAL.DO.Station elementStation in dal.GetStations())
+                Console.WriteLine(elementStation.ToString());
+        }
+
+        public void PrintDrones()
+        {
+            foreach (IDAL.DO.Drone elementDrone in dal.GetDrones())
+                Console.WriteLine(elementDrone.ToString());
+        }
+
+        public void PrintCustomers()
+        {
+            foreach (IDAL.DO.Customer elementCustomer in dal.GetCustomers())
+                Console.WriteLine(elementCustomer.ToString());
+        }
+
+        public void PrintParcels()
+        {
+            foreach (IDAL.DO.Parcel elementParcel in dal.GetParcels())
+                Console.WriteLine(elementParcel.ToString());
+        }
+
+        public void PrintParcelsNoDrones()
+        {
+            foreach (IDAL.DO.Parcel elementParcel in dal.GetParcels())
+                if (elementParcel.DroneId == -1)//the Id drone is not exist
+                    Console.WriteLine(elementParcel.ToString());
+        }
+
+        public void PrintStationsCharge()
+        {
+            foreach (IDAL.DO.Station elementStation in dal.GetStations())
+                if (elementStation.ChargeSlots > 0)
+                    Console.WriteLine(elementStation.ToString());
+        }
+
+
+
     }
 }
 
