@@ -29,6 +29,6 @@ namespace IBL
         void PrintParcels();
         void PrintParcelsNoDrones();
         void PrintStationsCharge();
-        void UpdateDrone(int dronId, string newModel);
+        void UpdateDrone(int droneId, string newModel);
     }
 }

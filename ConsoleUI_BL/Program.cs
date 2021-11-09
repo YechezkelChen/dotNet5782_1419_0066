@@ -469,16 +469,16 @@ namespace ConsoleUI_BL
 
         public static void UpdateDroneModel()
         {
-            int id, num;
+            int id;
             string model;
             do
             {
                 Console.WriteLine("Enter Id Drone: ");
-            } while (!int.TryParse(Console.ReadLine(), out num));
+            } while (!int.TryParse(Console.ReadLine(), out id));
 
-            id = num;
             Console.WriteLine("Enter Model Drone: ");
             model = Console.ReadLine();
+
             try
             {
                 bl.UpdateDrone(id, model);

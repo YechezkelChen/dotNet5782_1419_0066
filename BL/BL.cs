@@ -430,26 +430,20 @@ namespace IBL
                     Console.WriteLine(elementStation.ToString());
         }
 
-        public void UpdateDrone(int dronId,string newModel)
+        public void UpdateDrone(int droneId, string newModel)
         {
             try
             {
-                if (dal.CheckNotExistDrone(dal.GetDrone(dronId), dal.GetDrones()))
+                if (dal.CheckNotExistDrone(dal.GetDrone(droneId), dal.GetDrones()))
                     throw new DroneException("ERROR: the drone not exist:");
 
             }
             catch (DroneException e)
             {
-                throw new DroneException(""+e);
+                throw new DroneException("" + e);
             }
 
-            Drone tempDrone = new Drone();
-            foreach (var elementDrone in dal.GetDrones())
-            {
-                if (elementDrone.Id == dronId)
-                    dal.UpdateDroneName(dronId,newModel);
-            }
-
+            dal.UpdateDroneName(droneId, newModel);
         }
 
         public void CheckStation(Station station)
