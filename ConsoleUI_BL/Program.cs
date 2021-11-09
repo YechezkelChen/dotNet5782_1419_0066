@@ -43,7 +43,7 @@ namespace ConsoleUI_BL
 
         public enum OptionUpdate
         {
-            NameDrone = 1,
+            ModelDrone = 1,
             DataStation,
             DataCustomer,
             SendDroneToDroneCharge,
@@ -108,7 +108,7 @@ namespace ConsoleUI_BL
                         case Option.Update:
                             do
                             {
-                                Console.WriteLine("Choose one of to update:\n" + "1: NameDrone:\n" +
+                                Console.WriteLine("Choose one of to update:\n" + "1: ModelDrone:\n" +
                                                   "2: DataStation\n" + "3: DataCustomer\n" +
                                                   "4: Send Drone To Drone Charge\n" +
                                                   "5: Release Drone From Drone Charge\n" + "6: ConnectParcelToDrone\n" +
@@ -119,7 +119,7 @@ namespace ConsoleUI_BL
                             ou = (OptionUpdate) c;
                             switch (ou)
                             {
-                                case OptionUpdate.NameDrone:
+                                case OptionUpdate.ModelDrone:
                                     UpdateDroneModel();
                                     break;
                                 case OptionUpdate.DataStation:
