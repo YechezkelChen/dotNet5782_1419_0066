@@ -148,19 +148,5 @@ namespace DalObject
                     return false;
             return true;//the drone not exist
         }
-
-        /// <summary>
-        /// check if the drone have parcel for the DroneToList in bl
-        /// </summary>
-        /// <param name="droneId"></the drone we search for>
-        /// <param name="parcels"></all the parcels in dal>
-        /// <returns></return the parcel id if the drone coneccted to some parcel else -1 (not conected)>
-        public int CheckDroneAndParcel(int droneId, IEnumerable<Parcel> parcels)
-        {
-            foreach (Parcel elementParcel in parcels)
-                if (elementParcel.Id == droneId)
-                    return elementParcel.Id;
-            return -1;//the drone not exist
-        }
     }
 }

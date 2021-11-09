@@ -47,7 +47,7 @@ namespace IBL
                 {
                     if (elementDrone.Id == elementParcel.DroneId && elementParcel.Delivered == DateTime.MinValue)
                     {
-                        elementDrone.Statuse = DroneStatuses.Delivery;
+                        elementDrone.Status = DroneStatuses.Delivery;
                         if (elementParcel.Scheduled != DateTime.MinValue && elementParcel.PickedUp == DateTime.MinValue)
                             elementDrone.Location = NearStationToCustomer(dal.GetCustomer(elementParcel.SenderId),
                                 dal.GetStations());
@@ -80,10 +80,10 @@ namespace IBL
                         elementDrone.IdParcel = elementParcel.Id;
                     }
 
-                    if ((elementDrone.Statuse != DroneStatuses.Delivery))
-                        elementDrone.Statuse = (DroneStatuses) rand.Next(0, 1);
+                    if ((elementDrone.Status != DroneStatuses.Delivery))
+                        elementDrone.Status = (DroneStatuses) rand.Next(0, 1);
 
-                    if (elementDrone.Statuse == DroneStatuses.Maintenance)
+                    if (elementDrone.Status == DroneStatuses.Maintenance)
                     {
                         IEnumerable<IDAL.DO.Station> listStationsIdalDo = dal.GetStations();
                         int index = rand.Next(0, listStationsIdalDo.Count());
@@ -96,7 +96,7 @@ namespace IBL
                         elementDrone.Battery = rand.Next(0, 20);
                     }
 
-                    if (elementDrone.Statuse == DroneStatuses.Available)
+                    if (elementDrone.Status == DroneStatuses.Available)
                     {
                         IEnumerable<IDAL.DO.Customer> customersWithDelivery =
                             ListCustomersWithDelivery(dal.GetCustomers(), dal.GetParcels());
@@ -222,20 +222,34 @@ namespace IBL
             drone.Weight = (IDAL.DO.WeightCategories)newDrone.Weight;
             newDrone.Battery = rand.Next(20, 40);
             newDrone.Status = DroneStatuses.Maintenance;
-            newDrone.Location.Longitude = dal.GetStation(idStation).Longitude;
-            newDrone.Location.Latitude = dal.GetStation(idStation).Latitude;
+            try
+            {
+                newDrone.Location.Longitude = dal.GetStation(idStation).Longitude;
+                newDrone.Location.Latitude = dal.GetStation(idStation).Latitude;
+            }
+            catch (DalObject.StationExeption e)
+            {
+                throw new DroneException("Try again you make a " + e);
+            }
 
             newDroneToList.Id = newDrone.Id;
             newDroneToList.Model = newDrone.Model;
             newDroneToList.Weight= newDrone.Weight;
             newDroneToList.Battery= rand.Next(20, 40);
-            newDroneToList.Statuse= DroneStatuses.Maintenance;
-            newDroneToList.Location.Longitude= dal.GetStation(idStation).Longitude;
-            newDroneToList.Location.Latitude = dal.GetStation(idStation).Latitude;
-            int foundDrone = dal.CheckDroneAndParcel(newDroneToList.Id, dal.GetParcels());
+            newDroneToList.Status= DroneStatuses.Maintenance;
+            try
+            {
+                newDroneToList.Location.Longitude = dal.GetStation(idStation).Longitude;
+                newDroneToList.Location.Latitude = dal.GetStation(idStation).Latitude;
+            }
+            catch (DalObject.StationExeption e)
+            {
+                throw new DroneException("Try again you make a " + e);
+            }
+            int foundDrone = CheckDroneAndParcel(newDroneToList.Id, dal.GetParcels());
             if (foundDrone != -1)//else we not initialized 
                 newDroneToList.IdParcel = foundDrone;
-            
+
             ListDrones.Add(newDroneToList);//לשאול את יאיר איך ההסופה עצמה מתבצעת
             dal.AddDrone(drone);
         }
@@ -266,6 +280,19 @@ namespace IBL
             dal.AddParcel(parcel);
         }
 
+        /// <summary>
+        /// check if the drone have parcel for the DroneToList in bl
+        /// </summary>
+        /// <param name="droneId"></the drone we search for>
+        /// <param name="parcels"></all the parcels in dal>
+        /// <returns></return the parcel id if the drone coneccted to some parcel else -1 (not conected)>
+        public int CheckDroneAndParcel(int droneId, IEnumerable<IDAL.DO.Parcel> parcels)
+        {
+            foreach (IDAL.DO.Parcel elementParcel in parcels)
+                if (elementParcel.DroneId == droneId)
+                    return elementParcel.Id;
+            return -1;//the drone not exist
+        }
         public IDAL.DO.Station GetStation(int id)
         {
             IDAL.DO.Station idalStation = new IDAL.DO.Station();
@@ -364,6 +391,49 @@ namespace IBL
                     Console.WriteLine(elementStation.ToString());
         }
 
+        public void UpdateDrone(int dronId,string newModel)
+        {
+
+        }
+
+        public void CheckStation(Station station)
+        {
+            if (station.Id < 0)
+                throw new StationException("ERROR: the ID is illegal! ");
+
+            if (station.ChargeSlots < 0)
+                throw new StationException("ERROR: the charge slots must have positive or 0 value! ");
+
+            if (station.Location.Latitude < 0 || station.Location.Longitude < 0)
+                throw new StationException("ERROR: the location is not exist! ");
+
+            foreach (var elementStation in dal.GetStations())
+                if (elementStation.Latitude == station.Location.Latitude &&
+                    elementStation.Longitude == station.Location.Longitude)
+                    throw new StationException("ERROR: the location is catch! ");
+        }
+
+        public void CheckDrone(Drone drone)
+        {
+            if (drone.Id < 0)
+                throw new DroneException("ERROR: the ID is illegal! ");
+        }
+
+        public void CheckCustomer(Customer customer)
+        {
+            if (customer.Id < 0)
+                throw new CustomerException("ERROR: the ID is illegal! ");
+        }
+        public void CheckParcel(Parcel parcel)
+        {
+            if (parcel.SenderId < 0) 
+                throw  new ParcelException("ERROR: the Sender ID is illegal! ");
+            if(parcel.TargetId < 0 )
+                throw new ParcelException("ERROR: the Target ID is illegal! ");
+            if (parcel.SenderId == parcel.TargetId)
+                throw new ParcelException("ERROR: the Target ID and the Sender ID are equals! ");
+
+        }
 
 
     }

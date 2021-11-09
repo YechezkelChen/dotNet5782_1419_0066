@@ -18,6 +18,7 @@ namespace IBL
         void AddDrone(Drone newDrone, int idStation);
         void AddCustomer(Customer newCustomer);
         void AddParcel(Parcel newParcel);
+        public int CheckDroneAndParcel(int droneId, IEnumerable<IDAL.DO.Parcel> parcels);
         IDAL.DO.Station GetStation(int Id);
         IDAL.DO.Drone GetDrone(int Id);
         IDAL.DO.Customer GetCustomer(int id);
@@ -28,5 +29,6 @@ namespace IBL
         void PrintParcels();
         void PrintParcelsNoDrones();
         void PrintStationsCharge();
+        void UpdateDrone(int dronId, string newModel);
     }
 }

@@ -21,7 +21,7 @@ namespace IBL
                 return
                     $"Id #{Id}: Model = {Model}, Weight = {Weight}," +
                     $"Battery = {Battery}," +
-                    $"Statuse = {Status}," +
+                    $"Status = {Status}," +
                     $"DeliveryByTransfer = {DeliveryByTransfer}," +
                     $"Location = {Location}";
             }

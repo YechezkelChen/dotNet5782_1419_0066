@@ -120,6 +120,7 @@ namespace ConsoleUI_BL
                             switch (ou)
                             {
                                 case OptionUpdate.NameDrone:
+                                    UpdateDroneModel();
                                     break;
                                 case OptionUpdate.DataStation:
                                     break;
@@ -437,5 +438,23 @@ namespace ConsoleUI_BL
 
             bl.AddParcel(newParcel);
         }
+
+        public static void UpdateDroneModel()
+        {
+            int id, num;
+            string model;
+            do
+            {
+                Console.WriteLine("Enter Id Drone: ");
+            } while (!int.TryParse(Console.ReadLine(), out num));
+
+            id = num;
+            Console.WriteLine("Enter Model Drone: ");
+            model = Console.ReadLine();
+            bl.UpdateDrone(id,model);
+        }
+
+
+
     }
 }
