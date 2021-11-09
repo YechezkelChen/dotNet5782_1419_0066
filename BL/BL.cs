@@ -203,6 +203,14 @@ namespace IBL
 
         public void AddStation(Station newStation)
         {
+            try
+            {
+                CheckStation(newStation);
+            }
+            catch (StationException e)
+            {
+                throw;
+            }
             IDAL.DO.Station station = new IDAL.DO.Station();
             station.Id = newStation.Id;
             station.Name = newStation.Name;
@@ -214,6 +222,14 @@ namespace IBL
 
         public void AddDrone(Drone newDrone, int idStation)
         {
+            try
+            {
+                CheckDrone(newDrone);
+            }
+            catch (DroneException e)
+            {
+                throw;
+            }
             IDAL.DO.Drone drone = new IDAL.DO.Drone();
             DroneToList newDroneToList = new DroneToList();
 
@@ -246,9 +262,16 @@ namespace IBL
             {
                 throw new DroneException("Try again you make a " + e);
             }
-            int foundDrone = CheckDroneAndParcel(newDroneToList.Id, dal.GetParcels());
-            if (foundDrone != -1)//else we not initialized 
+
+            try
+            {
+                int foundDrone = CheckDroneAndParcel(newDroneToList.Id, dal.GetParcels());
                 newDroneToList.IdParcel = foundDrone;
+            }
+            catch (DroneException e)
+            {
+                throw;
+            }
 
             ListDrones.Add(newDroneToList);//לשאול את יאיר איך ההסופה עצמה מתבצעת
             dal.AddDrone(drone);
@@ -256,6 +279,14 @@ namespace IBL
 
         public void AddCustomer(Customer newCustomer)
         {
+            try
+            {
+                CheckCustomer(newCustomer);
+            }
+            catch (CustomerException e)
+            {
+                throw;
+            }
             IDAL.DO.Customer customer = new IDAL.DO.Customer();
             customer.Id = newCustomer.Id;
             customer.Name = newCustomer.Name;
@@ -267,6 +298,14 @@ namespace IBL
 
         public void AddParcel(Parcel newParcel)
         {
+            try
+            {
+                CheckParcel(newParcel);
+            }
+            catch (ParcelException e)
+            {
+                throw;
+            }
             IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
             parcel.SenderId = newParcel.SenderId;
             parcel.TargetId = newParcel.TargetId;
@@ -291,7 +330,7 @@ namespace IBL
             foreach (IDAL.DO.Parcel elementParcel in parcels)
                 if (elementParcel.DroneId == droneId)
                     return elementParcel.Id;
-            return -1;//the drone not exist
+            throw new DroneException("ERROR: the drone not exist! ");
         }
         public IDAL.DO.Station GetStation(int id)
         {
@@ -432,7 +471,6 @@ namespace IBL
                 throw new ParcelException("ERROR: the Target ID is illegal! ");
             if (parcel.SenderId == parcel.TargetId)
                 throw new ParcelException("ERROR: the Target ID and the Sender ID are equals! ");
-
         }
 
 
