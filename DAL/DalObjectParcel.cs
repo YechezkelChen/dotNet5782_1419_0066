@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL.DO;
@@ -146,6 +147,14 @@ namespace DalObject
                 if (elementParcel.Id == p.Id)
                     return false;
             return true;//the drone not exist
+        }
+
+        public int CheckDroneAndParcel(int droneId, IEnumerable<Parcel> parcels)
+        {
+            foreach (Parcel elementParcel in parcels)
+                if (elementParcel.Id == droneId)
+                    return elementParcel.Id;
+            return -1;//the drone not exist
         }
     }
 }

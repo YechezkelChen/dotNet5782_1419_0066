@@ -215,6 +215,8 @@ namespace IBL
         public void AddDrone(Drone newDrone, int idStation)
         {
             IDAL.DO.Drone drone = new IDAL.DO.Drone();
+            DroneToList newDroneToList = new DroneToList();
+
             drone.Id = newDrone.Id;
             drone.Model = newDrone.Model;
             drone.Weight = (IDAL.DO.WeightCategories)newDrone.Weight;
@@ -222,7 +224,19 @@ namespace IBL
             newDrone.Status = DroneStatuses.Maintenance;
             newDrone.Location.Longitude = dal.GetStation(idStation).Longitude;
             newDrone.Location.Latitude = dal.GetStation(idStation).Latitude;
-            ListDrones.Add(newDrone);//לשאול את יאיר איך ההסופה עצמה מתבצעת
+
+            newDroneToList.Id = newDrone.Id;
+            newDroneToList.Model = newDrone.Model;
+            newDroneToList.Weight= newDrone.Weight;
+            newDroneToList.Battery= rand.Next(20, 40);
+            newDroneToList.Statuse= DroneStatuses.Maintenance;
+            newDroneToList.Location.Longitude= dal.GetStation(idStation).Longitude;
+            newDroneToList.Location.Latitude = dal.GetStation(idStation).Latitude;
+            int foundDrone = dal.CheckDroneAndParcel(newDroneToList.Id, dal.GetParcels());
+            if (foundDrone != -1)//else we not initialized 
+                newDroneToList.IdParcel = foundDrone;
+            
+            ListDrones.Add(newDroneToList);//לשאול את יאיר איך ההסופה עצמה מתבצעת
             dal.AddDrone(drone);
         }
 

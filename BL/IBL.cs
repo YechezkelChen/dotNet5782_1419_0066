@@ -22,12 +22,11 @@ namespace IBL
         IDAL.DO.Drone GetDrone(int Id);
         IDAL.DO.Customer GetCustomer(int id);
         IDAL.DO.Parcel GetParcel(int id);
-        public void PrintStations();
-        public void PrintDrones();
-        public void PrintCustomers();
-        public void PrintParcels();
-        public void PrintParcelsNoDrones();
-        public void PrintStationsCharge();
-
+        void PrintStations();
+        void PrintDrones();
+        void PrintCustomers();
+        void PrintParcels();
+        void PrintParcelsNoDrones();
+        void PrintStationsCharge();
     }
 }
