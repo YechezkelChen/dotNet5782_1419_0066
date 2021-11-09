@@ -156,7 +156,7 @@ namespace DalObject
         /// <param Name="d"></the drone we check if she is exist>
         /// <param Name="drones"></the list od drones>
         /// <returns></returns>
-        public bool CheckNotExistDrone(Drone d, List<Drone> drones)
+        public bool CheckNotExistDrone(Drone d, IEnumerable<Drone> drones)
         {
             foreach (Drone elementDrone in drones)
                 if (elementDrone.Id == d.Id)
@@ -164,14 +164,16 @@ namespace DalObject
             return true;//the drone not exist
         }
 
-        public void UpdateDroneName(int dronId, string newModel)
+        public void UpdateDroneName(int droneId, string newModel)
         {
-            Drone tempDrone = new Drone();
-            tempDrone = GetDrone(dronId);
             for (int i = 0; i < DataSource.drones.Count(); i++)
             {
-                if (DataSource.drones[i].Id == dronId)
-                    tempDrone.Model = newModel;
+                if (DataSource.drones[i].Id == droneId)
+                {
+                    Drone newDrone = DataSource.drones[i];
+                    newDrone.Model = newModel;
+                    DataSource.drones[i] = newDrone;
+                }
             }
         }
     }

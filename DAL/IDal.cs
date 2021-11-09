@@ -29,10 +29,10 @@ namespace IDAL
         void SendDroneToDroneCharge(Station s, Drone d);
         void ReleaseDroneFromDroneCharge(Station s, Drone d);
         double[] GetRequestPowerConsumption();
-        bool CheckNotExistStation(Station s, List<Station> stations);
-        bool CheckNotExistDrone(Drone d, List<Drone> drones);
-        bool CheckNotExistParcel(Parcel p, List<Parcel> parcels);
-        bool CheckNotExistCustomer(Customer c, List<Customer> customers);
+        bool CheckNotExistStation(Station s, IEnumerable<Station> stations);
+        bool CheckNotExistDrone(Drone d, IEnumerable<Drone> drones);
+        bool CheckNotExistParcel(Parcel p, IEnumerable<Parcel> parcels);
+        bool CheckNotExistCustomer(Customer c, IEnumerable<Customer> customers);
         void UpdateDroneName(int dronId, string newModel);
     }
 }

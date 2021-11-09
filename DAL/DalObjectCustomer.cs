@@ -58,7 +58,7 @@ namespace DalObject
         /// <param Name="d"></the customer we check if she is exist>
         /// <param Name="drones"></the list od customers>
         /// <returns></returns>
-        public bool CheckNotExistCustomer(Customer c, List<Customer> customers)
+        public bool CheckNotExistCustomer(Customer c, IEnumerable<Customer> customers)
         {
             foreach (Customer elementCustomer in customers)
                 if (elementCustomer.Id == c.Id)

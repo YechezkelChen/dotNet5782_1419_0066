@@ -62,7 +62,7 @@ namespace DalObject
         /// <param Name="s"></the station that we chek if she exist>
         /// <param Name="stations"></the list of all stations>
         /// <returns></returns>
-        public bool CheckNotExistStation(Station s, List<Station> stations)
+        public bool CheckNotExistStation(Station s, IEnumerable<Station> stations)
         {
             foreach (Station elementStation in stations)
                 if (elementStation.Id == s.Id)

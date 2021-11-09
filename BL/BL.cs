@@ -434,7 +434,9 @@ namespace IBL
         {
             try
             {
-                FindDrone(dronId);
+                if (dal.CheckNotExistDrone(dal.GetDrone(dronId), dal.GetDrones()))
+                    throw new DroneException("ERROR: the drone not exist:");
+
             }
             catch (DroneException e)
             {
