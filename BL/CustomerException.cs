@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace IBL
 {
     [Serializable]
-    internal class CustomerException : Exception
+    public class CustomerException : Exception
     {
         public CustomerException()
         {

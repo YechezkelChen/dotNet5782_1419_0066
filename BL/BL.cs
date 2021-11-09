@@ -209,7 +209,7 @@ namespace IBL
             }
             catch (StationException e)
             {
-                throw;
+                throw new StationException("" + e);
             }
             IDAL.DO.Station station = new IDAL.DO.Station();
             station.Id = newStation.Id;
@@ -228,7 +228,7 @@ namespace IBL
             }
             catch (DroneException e)
             {
-                throw;
+                throw new DroneException("" + e);
             }
             IDAL.DO.Drone drone = new IDAL.DO.Drone();
             DroneToList newDroneToList = new DroneToList();
@@ -270,7 +270,7 @@ namespace IBL
             }
             catch (DroneException e)
             {
-                throw;
+                throw new DroneException("" + e);
             }
 
             ListDrones.Add(newDroneToList);//לשאול את יאיר איך ההסופה עצמה מתבצעת
@@ -285,7 +285,7 @@ namespace IBL
             }
             catch (CustomerException e)
             {
-                throw;
+                throw new CustomerException("" + e);
             }
             IDAL.DO.Customer customer = new IDAL.DO.Customer();
             customer.Id = newCustomer.Id;
@@ -304,7 +304,7 @@ namespace IBL
             }
             catch (ParcelException e)
             {
-                throw;
+                throw new ParcelException("" + e);
             }
             IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
             parcel.SenderId = newParcel.SenderId;
@@ -432,6 +432,21 @@ namespace IBL
 
         public void UpdateDrone(int dronId,string newModel)
         {
+            try
+            {
+                FindDrone(dronId);
+            }
+            catch (DroneException e)
+            {
+                throw new DroneException(""+e);
+            }
+
+            Drone tempDrone = new Drone();
+            foreach (var elementDrone in dal.GetDrones())
+            {
+                if (elementDrone.Id == dronId)
+                    dal.UpdateDroneName(dronId,newModel);
+            }
 
         }
 
@@ -471,6 +486,16 @@ namespace IBL
                 throw new ParcelException("ERROR: the Target ID is illegal! ");
             if (parcel.SenderId == parcel.TargetId)
                 throw new ParcelException("ERROR: the Target ID and the Sender ID are equals! ");
+        }
+
+        public bool FindDrone(int droneID)
+        {
+            foreach (IDAL.DO.Drone elementdDrone in dal.GetDrones())
+            {
+                if (elementdDrone.Id == droneID)
+                    return true;
+            }
+            throw new DroneException("the drone not in the list! ");
         }
 
 

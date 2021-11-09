@@ -279,7 +279,14 @@ namespace ConsoleUI_BL
 
             newStation.InCharges = new List<DroneCharge>();
 
-            bl.AddStation(newStation);
+            try
+            {
+                bl.AddStation(newStation);
+            }
+            catch (StationException e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         /// <summary>
@@ -327,7 +334,14 @@ namespace ConsoleUI_BL
                 Console.WriteLine("Enter id of station to put the drone in: ");
             } while (!int.TryParse(Console.ReadLine(), out num));
 
-            bl.AddDrone(newDrone, num);
+            try
+            {
+                bl.AddDrone(newDrone, num);
+            }
+            catch (DroneException e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         /// <summary>
@@ -368,7 +382,14 @@ namespace ConsoleUI_BL
             customerLocation.Latitude = num2;
             newCustomer.Location = customerLocation;
 
-            bl.AddCustomer(newCustomer);
+            try
+            {
+                bl.AddCustomer(newCustomer);
+            }
+            catch (CustomerException e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         /// <summary>
@@ -436,7 +457,14 @@ namespace ConsoleUI_BL
                     break;
             }
 
-            bl.AddParcel(newParcel);
+            try
+            {
+                bl.AddParcel(newParcel);
+            }
+            catch (ParcelException e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         public static void UpdateDroneModel()
@@ -451,7 +479,15 @@ namespace ConsoleUI_BL
             id = num;
             Console.WriteLine("Enter Model Drone: ");
             model = Console.ReadLine();
-            bl.UpdateDrone(id,model);
+            try
+            {
+                bl.UpdateDrone(id, model);
+            }
+            catch (DroneException e)
+            {
+                Console.WriteLine(e);
+            }
+            
         }
 
 

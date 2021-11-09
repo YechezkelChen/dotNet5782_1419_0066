@@ -33,5 +33,6 @@ namespace IDAL
         bool CheckNotExistDrone(Drone d, List<Drone> drones);
         bool CheckNotExistParcel(Parcel p, List<Parcel> parcels);
         bool CheckNotExistCustomer(Customer c, List<Customer> customers);
+        void UpdateDroneName(int dronId, string newModel);
     }
 }

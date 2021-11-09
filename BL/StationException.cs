@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace IBL
 {
     [Serializable]
-    internal class StationException : Exception
+    public class StationException : Exception
     {
         public StationException()
         {

@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace IBL
 {
     [Serializable]
-    internal class ParcelException : Exception
+    public class ParcelException : Exception
     {
         public ParcelException()
         {
