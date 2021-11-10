@@ -9,11 +9,6 @@ namespace DalObject
 {
     public partial class DalObject : IDal
     {
-        public DalObject()
-        {
-            DataSource.Initialize();
-        }
-
         /// <summary>
         /// add a staion to the list station
         /// </summary>

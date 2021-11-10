@@ -332,22 +332,32 @@ namespace IBL
                     return elementParcel.Id;
             throw new DroneException("ERROR: the drone not exist! ");
         }
-        public IDAL.DO.Station GetStation(int id)
+
+        public Station GetStation(int id)
         {
             IDAL.DO.Station idalStation = new IDAL.DO.Station();
             try
             {
                 idalStation = dal.GetStation(id);
             }
-            catch (Exception e)
+            catch (DalObject.StationExeption e)
             {
-                Console.WriteLine(e);
+                throw new StationException("" + e);
             }
 
-            return idalStation;
+            Station station = new Station();
+            station.Id = idalStation.Id;
+            station.Name = idalStation.Name;
+            station.Location.Longitude = idalStation.Longitude;
+            station.Location.Latitude = idalStation.Latitude;
+            station.ChargeSlots = idalStation.ChargeSlots;
+            foreach (var elementDroneCharge in dal.GetDronesCharge())
+                station.InCharges.Add(elementDroneCharge);
+
+            return station;
         }
 
-        public IDAL.DO.Drone GetDrone(int id)
+        public Drone GetDrone(int id)
         {
             IDAL.DO.Drone idalDrone = new IDAL.DO.Drone();
             try
@@ -359,10 +369,12 @@ namespace IBL
                 Console.WriteLine(e);
             }
 
-            return idalDrone;
+            Drone drone = new Drone();
+
+            return drone;
         }
 
-        public IDAL.DO.Customer GetCustomer(int id)
+        public Customer GetCustomer(int id)
         {
             IDAL.DO.Customer idalCustomer = new IDAL.DO.Customer();
             try
@@ -374,10 +386,12 @@ namespace IBL
                 Console.WriteLine(e);
             }
 
-            return idalCustomer;
+            Customer customer = new Customer();
+
+            return customer;
         }
 
-        public IDAL.DO.Parcel GetParcel(int id)
+        public Parcel GetParcel(int id)
         {
             IDAL.DO.Parcel idalParcel = new IDAL.DO.Parcel();
             try
@@ -389,7 +403,9 @@ namespace IBL
                 Console.WriteLine(e);
             }
 
-            return idalParcel;
+            Parcel parcel = new Parcel();
+
+            return parcel;
         }
 
         public void PrintStations()
