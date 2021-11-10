@@ -585,9 +585,16 @@ namespace ConsoleUI_BL
                 Console.WriteLine("Enter Id Drone: ");
             } while (!int.TryParse(Console.ReadLine(), out id));
 
-            bl.SendDroneToDroneCharge(id);
+            try
+            {
+                bl.SendDroneToDroneCharge(id);
+            }
+            catch (DroneException e)
+            {
+                Console.WriteLine(e);
+            }
         }
-
+        
         public static void ReleaseDroneFromCharge()
         {
             int id, chargeTime;
@@ -601,7 +608,14 @@ namespace ConsoleUI_BL
                 Console.WriteLine("Enter the time the drone was in charge:\n ");
             } while (!int.TryParse(Console.ReadLine(), out chargeTime));
 
-            bl.ReleaseDroneFromDroneCharge(id, chargeTime);
+            try
+            {
+                bl.ReleaseDroneFromDroneCharge(id, chargeTime);
+            }
+            catch (DroneException e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         public static void ConnectParcelToDrone()

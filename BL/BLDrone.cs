@@ -174,5 +174,27 @@ namespace IBL
                     return elementParcel.Id;
             throw new DroneException("ERROR: the drone not exist! ");
         }
+
+        public void ReleaseDroneFromDroneCharge(int id, int chargeTime)
+        {
+            try
+            {
+                GetDrone(id);
+            }
+            catch (DroneException e)
+            {
+                throw new DroneException("" + e);
+            }
+            if (chargeTime < 0)
+                throw new DroneException("ERROR: the charge time must a positive value! ");
+
+            if (GetDrone(id).Status != DroneStatuses.Maintenance)
+                throw new DroneException("The drone can not release because he is in maintenance statuses:\n ");
+            else
+            {
+                
+            }
+
+        }
     }
 }
