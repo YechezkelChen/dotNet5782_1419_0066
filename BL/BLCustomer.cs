@@ -39,14 +39,21 @@ namespace IBL
             {
                 idalCustomer = dal.GetCustomer(id);
             }
-            catch (Exception e)
+            catch (DalObject. e)
             {
-                Console.WriteLine(e);
+                throw new StationException("" + e);
             }
 
-            Customer customer = new Customer();
+            Station station = new Station();
+            station.Id = idalStation.Id;
+            station.Name = idalStation.Name;
+            station.Location.Longitude = idalStation.Longitude;
+            station.Location.Latitude = idalStation.Latitude;
+            station.ChargeSlots = idalStation.ChargeSlots;
+            foreach (var elementDroneCharge in dal.GetDronesCharge())
+                station.InCharges.Add(elementDroneCharge);
 
-            return customer;
+            return station;
         }
 
         public void PrintCustomers()
