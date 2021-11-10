@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace DalObject
 {
     [Serializable]
-    internal class DroneExeption : Exception
+    public class DroneExeption : Exception
     {
         public DroneExeption()
         {
