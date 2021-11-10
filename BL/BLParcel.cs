@@ -102,9 +102,10 @@ namespace IBL
 
         public IEnumerable<ParcelToList> GetParcelsNoDrones()
         {
-            foreach (IDAL.DO.Parcel elementParcel in dal.GetParcels())
-                if (elementParcel.DroneId == -1)//the Id drone is not exist
-                    Console.WriteLine(elementParcel.ToString());
+            IEnumerable<IDAL.DO.Parcel> idalParcels = dal.GetParcels();
+            List<ParcelToList> parcelToLists = new List<ParcelToList>();
+            ParcelToList newParcel = new ParcelToList();
+
         }
 
         public void CheckParcel(Parcel parcel)
