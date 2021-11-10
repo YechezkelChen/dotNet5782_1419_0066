@@ -21,6 +21,7 @@ namespace IBL
         Station GetStation(int id);
         IEnumerable<StationToList> GetStations();
         IEnumerable<StationToList> GetStationsCharge();
+        void UpdateStation(int id, int name, int chargeSlots);
         void CheckStation(Station station);
 
         // Drone
@@ -35,6 +36,7 @@ namespace IBL
         void AddCustomer(Customer newCustomer);
         Customer GetCustomer(int id);
         IEnumerable<CustomerToList> GetCustomers();
+        void UpdateCustomer(int id, string name, string phone);
         void CheckCustomer(Customer customer);
 
         // Parcel

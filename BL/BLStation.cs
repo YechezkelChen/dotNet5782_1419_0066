@@ -94,6 +94,11 @@ namespace IBL
             return stationChargeSlotsAvailable;
         }
 
+        public void UpdateStation(int id, int name, int chargeSlots)
+        {
+
+        }
+
         public void CheckStation(Station station)
         {
             if (station.Id < 0)

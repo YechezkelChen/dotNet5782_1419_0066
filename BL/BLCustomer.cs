@@ -134,6 +134,11 @@ namespace IBL
             return customerToLists;
         }
 
+        public void UpdateCustomer(int id, string name, string phone)
+        {
+
+        }
+
         public void CheckCustomer(Customer customer)
         {
             if (customer.Id < 0)

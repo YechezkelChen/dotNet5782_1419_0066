@@ -54,7 +54,7 @@ namespace ConsoleUI_BL
             Exit
         };
 
-        public static IBL.IBL bl = new BL(); // לשאול אם אפשר לעשות סטטיק
+        public static IBL.IBL bl = new BL();
 
         static void Main(string[] args)
         {
@@ -72,159 +72,185 @@ namespace ConsoleUI_BL
                 } while (!int.TryParse(Console.ReadLine(), out c));
 
                 op = (Option) c;
-                try
+                switch (op)
                 {
-                    switch (op)
-                    {
-                        case Option.Add:
-                            do
-                            {
-                                Console.WriteLine("Choose one of the entity:\n" + "1: Station\n" + "2: Drone\n" +
-                                                  "3: Customer\n" + "4: Parcel\n" + "5: Exit\n");
-                            } while (!int.TryParse(Console.ReadLine(), out c));
+                    case Option.Add:
+                        do
+                        {
+                            Console.WriteLine("Choose one of the entity:\n" + "1: Station\n" + "2: Drone\n" +
+                                              "3: Customer\n" + "4: Parcel\n" + "5: Exit\n");
+                        } while (!int.TryParse(Console.ReadLine(), out c));
 
-                            ep = (EntityOption) c;
-                            switch (ep)
-                            {
-                                case EntityOption.Station:
-                                    AddStation();
-                                    break;
-                                case EntityOption.Drone:
-                                    AddDrone();
-                                    break;
-                                case EntityOption.Customer:
-                                    AddCustomer();
-                                    break;
-                                case EntityOption.Parcel:
-                                    AddParcel();
-                                    break;
-                                case EntityOption.Exit:
-                                    break;
-                                default:
-                                    break;
-                            }
+                        ep = (EntityOption) c;
+                        switch (ep)
+                        {
+                            case EntityOption.Station:
+                                AddStation();
+                                break;
+                            case EntityOption.Drone:
+                                AddDrone();
+                                break;
+                            case EntityOption.Customer:
+                                AddCustomer();
+                                break;
+                            case EntityOption.Parcel:
+                                AddParcel();
+                                break;
+                            case EntityOption.Exit:
+                                break;
+                            default:
+                                break;
+                        }
 
-                            break;
-                        case Option.Update:
-                            do
-                            {
-                                Console.WriteLine("Choose one of to update:\n" + "1: ModelDrone:\n" +
-                                                  "2: DataStation\n" + "3: DataCustomer\n" +
-                                                  "4: Send Drone To Drone Charge\n" +
-                                                  "5: Release Drone From Drone Charge\n" + "6: ConnectParcelToDrone\n" +
-                                                  "7: CollectionParcelByDrone\n" + "8: SupplyParcelByDrone\n" +
-                                                  "9: Exit\n");
-                            } while (!int.TryParse(Console.ReadLine(), out c));
+                        break;
+                    case Option.Update:
+                        do
+                        {
+                            Console.WriteLine("Choose one of to update:\n" + "1: ModelDrone:\n" +
+                                              "2: DataStation\n" + "3: DataCustomer\n" +
+                                              "4: Send Drone To Drone Charge\n" +
+                                              "5: Release Drone From Drone Charge\n" + "6: ConnectParcelToDrone\n" +
+                                              "7: CollectionParcelByDrone\n" + "8: SupplyParcelByDrone\n" +
+                                              "9: Exit\n");
+                        } while (!int.TryParse(Console.ReadLine(), out c));
 
-                            ou = (OptionUpdate) c;
-                            switch (ou)
-                            {
-                                case OptionUpdate.ModelDrone:
-                                    UpdateDroneModel();
-                                    break;
-                                case OptionUpdate.DataStation:
-                                    break;
-                                case OptionUpdate.DataCustomer:
-                                    break;
-                                case OptionUpdate.SendDroneToDroneCharge:
-                                    break;
-                                case OptionUpdate.ReleaseDroneFromDroneCharge:
-                                    break;
-                                case OptionUpdate.ConnectParcelToDrone:
-                                    break;
-                                case OptionUpdate.CollectionParcelByDrone:
-                                    break;
-                                case OptionUpdate.SupplyParcelByDrone:
-                                    break;
-                                case OptionUpdate.Exit:
-                                    break;
-                                default:
-                                    break;
-                            }
+                        ou = (OptionUpdate) c;
+                        switch (ou)
+                        {
+                            case OptionUpdate.ModelDrone:
+                                UpdateDroneModel();
+                                break;
+                            case OptionUpdate.DataStation:
+                                UpdateDataStation();
+                                break;
+                            case OptionUpdate.DataCustomer:
+                                UpdateDataCustomer();
+                                break;
+                            case OptionUpdate.SendDroneToDroneCharge:
+                                break;
+                            case OptionUpdate.ReleaseDroneFromDroneCharge:
+                                break;
+                            case OptionUpdate.ConnectParcelToDrone:
+                                break;
+                            case OptionUpdate.CollectionParcelByDrone:
+                                break;
+                            case OptionUpdate.SupplyParcelByDrone:
+                                break;
+                            case OptionUpdate.Exit:
+                                break;
+                            default:
+                                break;
+                        }
 
-                            break;
-                        case Option.View:
-                            do
-                            {
-                                Console.WriteLine("Choose one of the entity:\n" + "1: Station\n" + "2: Drone\n" +
-                                                  "3: Customer\n" + "4: Parcel\n" + "5: Exit\n");
-                            } while (!int.TryParse(Console.ReadLine(), out c));
+                        break;
+                    case Option.View:
+                        do
+                        {
+                            Console.WriteLine("Choose one of the entity:\n" + "1: Station\n" + "2: Drone\n" +
+                                              "3: Customer\n" + "4: Parcel\n" + "5: Exit\n");
+                        } while (!int.TryParse(Console.ReadLine(), out c));
 
-                            ep = (EntityOption) c;
-                            do
-                            {
-                                Console.WriteLine("Enter Id of the entity:\n");
-                            } while (!int.TryParse(Console.ReadLine(), out myId));
+                        ep = (EntityOption) c;
+                        do
+                        {
+                            Console.WriteLine("Enter Id of the entity:\n");
+                        } while (!int.TryParse(Console.ReadLine(), out myId));
 
-                            switch (ep)
-                            {
-                                case EntityOption.Station:
+                        switch (ep)
+                        {
+                            case EntityOption.Station:
+                                try
+                                {
                                     Console.WriteLine(bl.GetStation(myId).ToString());
-                                    break;
-                                case EntityOption.Drone:
+
+                                }
+                                catch (StationException e)
+                                {
+                                    Console.WriteLine(e);
+                                }
+                                break;
+                            case EntityOption.Drone:
+                                try
+                                {
                                     Console.WriteLine(bl.GetDrone(myId).ToString());
-                                    break;
-                                case EntityOption.Customer:
+                                }
+                                catch (DroneException e)
+                                {
+                                    Console.WriteLine(e);
+                                }
+                                break;
+                            case EntityOption.Customer:
+                                try
+                                {
                                     Console.WriteLine(bl.GetCustomer(myId).ToString());
-                                    break;
-                                case EntityOption.Parcel:
+                                }
+                                catch (CustomerException e)
+                                {
+                                    Console.WriteLine(e);
+
+                                }
+                                break;
+                            case EntityOption.Parcel:
+                                try
+                                {
                                     Console.WriteLine(bl.GetParcel(myId).ToString());
-                                    break;
-                                case EntityOption.Exit:
-                                    break;
-                                default:
-                                    break;
-                            }
+                                }
+                                catch (ParcelException e)
+                                {
+                                    Console.WriteLine(e);
+                                }
+                                break;
+                            case EntityOption.Exit:
+                                break;
+                            default:
+                                break;
+                        }
 
-                            break;
-                        case Option.ListView:
-                            do
-                            {
-                                Console.WriteLine("Choose one of the entity:\n" + "1: List Stations\n" +
-                                                  "2: List Drones\n" + "3: List Customers\n" + "4: List Parcels\n" +
-                                                  "5: List Parcels No Drones\n" + "6: List Stations Charge\n" +
-                                                  "7:Exit\n");
-                            } while (!int.TryParse(Console.ReadLine(), out c));
+                        break;
+                    case Option.ListView:
+                        do
+                        {
+                            Console.WriteLine("Choose one of the entity:\n" + "1: List Stations\n" +
+                                              "2: List Drones\n" + "3: List Customers\n" + "4: List Parcels\n" +
+                                              "5: List Parcels No Drones\n" + "6: List Stations Charge\n" +
+                                              "7:Exit\n");
+                        } while (!int.TryParse(Console.ReadLine(), out c));
 
-                            olv = (OptionListView) c;
-                            switch (olv)
-                            {
-                                case OptionListView.ListStations:
-                                    Console.WriteLine(bl.GetStations().ToString());
-                                    break;
-                                case OptionListView.ListDrones:
-                                    Console.WriteLine(bl.GetDrones().ToString());
-                                    break;
-                                case OptionListView.ListCustomers:
-                                    Console.WriteLine(bl.GetCustomers().ToString());
-                                    break;
-                                case OptionListView.ListParcels:
-                                    Console.WriteLine(bl.GetParcels().ToString());
-                                    break;
-                                case OptionListView.ListParcelsNoDrones:
-                                    Console.WriteLine(bl.GetParcelsNoDrones().ToString());
-                                    break;
-                                case OptionListView.ListStationsCharge:
-                                    Console.WriteLine(bl.GetStationsCharge().ToString());
-                                    break;
-                                case OptionListView.Exit:
-                                    break;
-                                default:
-                                    break;
-                            }
+                        olv = (OptionListView) c;
+                        switch (olv)
+                        {
+                            case OptionListView.ListStations:
+                                Console.WriteLine(bl.GetStations().ToString());
+                                break;
+                            case OptionListView.ListDrones:
+                                Console.WriteLine(bl.GetDrones().ToString());
+                                break;
+                            case OptionListView.ListCustomers:
+                                Console.WriteLine(bl.GetCustomers().ToString());
+                                break;
+                            case OptionListView.ListParcels:
+                                Console.WriteLine(bl.GetParcels().ToString());
+                                break;
+                            case OptionListView.ListParcelsNoDrones:
+                                Console.WriteLine(bl.GetParcelsNoDrones().ToString());
+                                break;
+                            case OptionListView.ListStationsCharge:
+                                Console.WriteLine(bl.GetStationsCharge().ToString());
+                                break;
+                            case OptionListView.Exit:
+                                break;
+                            default:
+                                break;
+                        }
 
-                            break;
-                        case Option.Exit:
-                            break;
-                        default:
-                            break;
-                    }
+                        break;
+                    case Option.Exit:
+                        break;
+                    default:
+                        break;
                 }
-                catch (Exception ex) //generally exception for all the options
-                {
-                    Console.WriteLine(ex);
-                }
-            } while (op != Option.Exit);
+            } 
+            while (op != Option.Exit);
         }
 
         /// <summary>
@@ -484,6 +510,59 @@ namespace ConsoleUI_BL
                 bl.UpdateDrone(id, model);
             }
             catch (DroneException e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+        public static void UpdateDataStation()
+        {
+            int id, name, chargeSlots;
+            do
+            {
+                Console.WriteLine("Enter Id Station: ");
+            } while (!int.TryParse(Console.ReadLine(), out id));
+
+            do
+            {
+                Console.WriteLine("If you want to update the name of the station, Enter name:\n if you don't want, Enter -1: \n");
+            } while (!int.TryParse(Console.ReadLine(), out name));
+
+            do
+            {
+                Console.WriteLine("If you want to update the number of charge Slots in the station, Enter the amount:\n if you don't want, Enter -1: \n");
+            } while (!int.TryParse(Console.ReadLine(), out chargeSlots));
+
+            try
+            {
+                bl.UpdateStation(id, name, chargeSlots);
+            }
+            catch (StationException e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+        public static void UpdateDataCustomer()
+        {
+            int id;
+            string name, phone;
+            do
+            {
+                Console.WriteLine("Enter Id Customer: ");
+            } while (!int.TryParse(Console.ReadLine(), out id));
+
+            Console.WriteLine("If you want to update the name of the customer, Enter name:\n if you don't want, press Enter: \n");
+            name = Console.ReadLine();
+
+            Console.WriteLine("If you want to update the phone of the customer, Enter phone:\n if you don't want, press Enter: \n");
+            phone = Console.ReadLine();
+
+            try
+            {
+                bl.UpdateCustomer(id, name, phone);
+            }
+            catch (CustomerException e)
             {
                 Console.WriteLine(e);
             }
