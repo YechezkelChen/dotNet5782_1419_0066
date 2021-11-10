@@ -141,17 +141,15 @@ namespace IBL
 
         public void UpdateDrone(int droneId, string newModel)
         {
-            try
-            {
-                if (dal.CheckNotExistDrone(dal.GetDrone(droneId), dal.GetDrones()))
-                    throw new DroneException("ERROR: the drone not exist:");
+            if (droneId < 0)
+                throw new DroneException("ERROR: the ID is illegal! ");
 
-            }
-            catch (DroneException e)
-            {
-                throw new DroneException("" + e);
-            }
+            if(newModel == "")
+                throw new DroneException("ERROR: Model must have value");
 
+            if (dal.CheckNotExistDrone(dal.GetDrone(droneId), dal.GetDrones()))
+                throw new DroneException("ERROR: the drone not exist:"); 
+            
             dal.UpdateDroneModel(droneId, newModel);
         }
 
@@ -159,6 +157,8 @@ namespace IBL
         {
             if (drone.Id < 0)
                 throw new DroneException("ERROR: the ID is illegal! ");
+            if (drone.Model == "")
+                throw new DroneException("ERROR: Model must have value");
         }
 
         /// <summary>
