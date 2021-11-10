@@ -7,18 +7,19 @@ using System.Threading.Tasks;
 namespace IBL
 {
     namespace BO
-    {
-        public class ParcelInTransfer
+    { 
+        public class ParcelByTransfer
         {
             public int Id { get; set; }
             public bool ParcelStatus { get; set; }
             public Priorities Priority { get; set; }
             public WeightCategories Weight { get; set; }
             public CustomerInParcel SenderInParcel { get; set; }//the sender
-            public CustomerInParcel ReceiverInParcel { get; set; }//the receiver
             public Location PickUpLocation { get; set; }
+            public CustomerInParcel ReceiverInParcel { get; set; }//the receiver}
             public Location TargetLocation { get; set; }
             public double DistanceOfTransfer { get; set; }
+
             public override string ToString()
             {
                 return $"Id #{Id}: Parcel status = {ParcelStatus},Priority = {Priority}," +

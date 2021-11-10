@@ -7,6 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
 using IDAL;
+using IDAL.DO;
+using Customer = IBL.BO.Customer;
+using Drone = IBL.BO.Drone;
+using Priorities = IBL.BO.Priorities;
+using WeightCategories = IBL.BO.WeightCategories;
 
 
 namespace IBL
@@ -72,29 +77,64 @@ namespace IBL
 
         public Drone GetDrone(int id)
         {
-            IDAL.DO.Drone idaldDrone = new IDAL.DO.Drone();
+            IDAL.DO.Drone idalDrone = new IDAL.DO.Drone();
             try
             {
-                idaldDrone = dal.GetDrone(id);
+                idalDrone = dal.GetDrone(id);
             }
-            catch (DalObject.StationExeption e)
+            catch (DalObject.DroneExeption e)
             {
-                throw new StationException("" + e);
+                throw new DroneException("" + e);
             }
 
-            Station station = new Station();
-            station.Id = idalStation.Id;
-            station.Name = idalStation.Name;
-            station.Location.Longitude = idalStation.Longitude;
-            station.Location.Latitude = idalStation.Latitude;
-            station.ChargeSlots = idalStation.ChargeSlots;
-            foreach (var elementDroneCharge in dal.GetDronesCharge())
-                station.InCharges.Add(elementDroneCharge);
+            Drone drone = new Drone();
+            drone.Id = idalDrone.Id;
+            drone.Model = idalDrone.Model;
+            drone.Weight = Enum.Parse<WeightCategories>(idalDrone.Weight.ToString());
 
-            return station;
+            foreach (var eleDroneToList in ListDrones)
+            {
+                if (eleDroneToList.Id == drone.Id)
+                {
+                    drone.Battery = eleDroneToList.Battery;
+                    drone.Status = eleDroneToList.Status;
+                    drone.Location = eleDroneToList.Location;
+
+                    IDAL.DO.Parcel parcel = dal.GetParcel(eleDroneToList.IdParcel);
+                    if (parcel.DroneId == drone.Id)
+                    {
+                        drone.ParcelByTransfer.Id = parcel.Id;
+                        drone.ParcelByTransfer.Weight= Enum.Parse<WeightCategories>(parcel.Weight.ToString());
+
+                        if (parcel.Scheduled != DateTime.MinValue && parcel.PickedUp == DateTime.MinValue)
+                            drone.ParcelByTransfer.ParcelStatus = false;
+
+                        if (parcel.PickedUp != DateTime.MinValue && parcel.Delivered == DateTime.MinValue)
+                            drone.ParcelByTransfer.ParcelStatus = true;
+
+                        drone.ParcelByTransfer.Priority= Enum.Parse<Priorities>(parcel.Priority.ToString());
+
+                        IDAL.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
+                        drone.ParcelByTransfer.SenderInParcel.Id = customer.Id;
+                        drone.ParcelByTransfer.SenderInParcel.NameCustomer = customer.Name;
+                        drone.ParcelByTransfer.PickUpLocation.Longitude = customer.Longitude;
+                        drone.ParcelByTransfer.PickUpLocation.Latitude = customer.Latitude;
+
+                        customer = dal.GetCustomer(parcel.TargetId);
+                        drone.ParcelByTransfer.ReceiverInParcel.Id = customer.Id;
+                        drone.ParcelByTransfer.ReceiverInParcel.NameCustomer = customer.Name;
+                        drone.ParcelByTransfer.TargetLocation.Longitude = customer.Longitude;
+                        drone.ParcelByTransfer.TargetLocation.Latitude = customer.Latitude;
+
+                        drone.ParcelByTransfer.DistanceOfTransfer = Distance(drone.ParcelByTransfer.PickUpLocation,
+                            drone.ParcelByTransfer.TargetLocation);
+                    }
+                }
+            }
+            return drone;
         }
 
-        public void PrintDrones()
+        IEnumerable<DroneToList> GetDrones();
         {
             foreach (IDAL.DO.Drone elementDrone in dal.GetDrones())
                 Console.WriteLine(elementDrone.ToString());
