@@ -73,7 +73,7 @@ namespace IBL
 
         public IEnumerable<ParcelToList> GetParcels()
         {
-            IEnumerable<IDAL.DO.Parcel> idalParcels = idalParcels = dal.GetParcels();
+            IEnumerable<IDAL.DO.Parcel> idalParcels = dal.GetParcels();
             List<ParcelToList> parcelToLists = new List<ParcelToList>();
             ParcelToList newParcel = new ParcelToList();
 

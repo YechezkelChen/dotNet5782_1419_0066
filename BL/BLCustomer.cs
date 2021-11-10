@@ -100,8 +100,38 @@ namespace IBL
 
         public IEnumerable<CustomerToList> GetCustomers()
         {
-            foreach (IDAL.DO.Customer elementCustomer in dal.GetCustomers())
-                Console.WriteLine(elementCustomer.ToString());
+            IEnumerable<IDAL.DO.Customer> idalcCustomers = dal.GetCustomers();
+            List<CustomerToList> customerToLists = new List<CustomerToList>();
+            CustomerToList newCustomer = new CustomerToList();
+
+            foreach (var idalCustomer in idalcCustomers)
+            {
+                newCustomer.Id = idalCustomer.Id;
+                newCustomer.Name = idalCustomer.Name;
+                newCustomer.Phone = idalCustomer.Phone;
+
+                // zero the variables
+                newCustomer.SenderParcelDelivered = 0;
+                newCustomer.SenderParcelPickedUp = 0;
+                newCustomer.TargetParcelDelivered = 0;
+                newCustomer.TargetParcelPickedUp = 0;
+
+                foreach (var elementParcel in dal.GetParcels())
+                {
+                    if (elementParcel.SenderId == idalCustomer.Id && elementParcel.Delivered != DateTime.MinValue)
+                        newCustomer.SenderParcelDelivered++;
+                    else if (elementParcel.SenderId == idalCustomer.Id && elementParcel.PickedUp != DateTime.MinValue)
+                        newCustomer.SenderParcelPickedUp++;
+                    if (elementParcel.TargetId == idalCustomer.Id && elementParcel.Delivered != DateTime.MinValue)
+                        newCustomer.TargetParcelDelivered++;
+                    else if (elementParcel.TargetId == idalCustomer.Id && elementParcel.PickedUp != DateTime.MinValue)
+                        newCustomer.TargetParcelPickedUp++;
+                }
+
+                customerToLists.Add(newCustomer);
+            }
+
+            return customerToLists;
         }
 
         public void CheckCustomer(Customer customer)

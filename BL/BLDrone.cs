@@ -136,8 +136,7 @@ namespace IBL
 
         public IEnumerable<DroneToList> GetDrones()
         {
-            foreach (IDAL.DO.Drone elementDrone in dal.GetDrones())
-                Console.WriteLine(elementDrone.ToString());
+            return ListDrones;
         }
 
         public void UpdateDrone(int droneId, string newModel)
