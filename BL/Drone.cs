@@ -13,7 +13,7 @@ namespace IBL
             public WeightCategories Weight { get; set; }
             public double Battery { get; set; }
             public DroneStatuses Status { get; set; }
-            public DeliveryByTransfer DeliveryByTransfer { get; set; }
+            public ParcelByTransfer ParcelByTransfer { get; set; }
             public Location Location { get; set; }
 
             public override string ToString()
@@ -22,7 +22,7 @@ namespace IBL
                     $"Id #{Id}: Model = {Model}, Weight = {Weight}," +
                     $"Battery = {Battery}," +
                     $"Status = {Status}," +
-                    $"DeliveryByTransfer = {DeliveryByTransfer}," +
+                    $"DeliveryByTransfer = {ParcelByTransfer}," +
                     $"Location = {Location}";
             }
         }
