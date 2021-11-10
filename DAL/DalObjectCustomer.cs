@@ -65,5 +65,27 @@ namespace DalObject
 
             return true; //the customer not exist
         }
+
+        public void UpdateDataCustomer(int id, string name, string phone)
+        {
+            for (int i = 0; i < DataSource.customers.Count(); i++)
+            {
+                if (DataSource.customers[i].Id == id)
+                {
+                    if (name != "")
+                    {
+                        Customer newCustomer = DataSource.customers[i];
+                        newCustomer.Name = name;
+                        DataSource.customers[i] = newCustomer;
+                    }
+                    if (phone != "")
+                    {
+                        Customer newCustomer = DataSource.customers[i];
+                        newCustomer.Phone = phone;
+                        DataSource.customers[i] = newCustomer;
+                    }
+                }
+            }
+        }
     }
 }
