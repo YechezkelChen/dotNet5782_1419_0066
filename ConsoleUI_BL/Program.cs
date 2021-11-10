@@ -190,16 +190,16 @@ namespace ConsoleUI_BL
                             switch (olv)
                             {
                                 case OptionListView.ListStations:
-                                    bl.PrintStations();
+                                    Console.WriteLine(bl.GetStations().ToString());
                                     break;
                                 case OptionListView.ListDrones:
-                                    bl.PrintDrones();
+                                    Console.WriteLine(bl.GetDrones().ToString());
                                     break;
                                 case OptionListView.ListCustomers:
-                                    bl.PrintCustomers();
+                                    Console.WriteLine(bl.GetCustomers().ToString());
                                     break;
                                 case OptionListView.ListParcels:
-                                    bl.PrintParcels();
+                                    Console.WriteLine(bl.GetParcels().ToString());
                                     break;
                                 case OptionListView.ListParcelsNoDrones:
                                     bl.PrintParcelsNoDrones();
