@@ -80,7 +80,7 @@ namespace IBL
             return stationsToList;
         }
 
-        public void PrintStationsCharge()
+        public IEnumerable<StationToList> GetStationsCharge()
         {
             foreach (IDAL.DO.Station elementStation in dal.GetStations())
                 if (elementStation.ChargeSlots > 0)

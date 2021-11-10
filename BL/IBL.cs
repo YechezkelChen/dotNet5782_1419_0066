@@ -20,7 +20,7 @@ namespace IBL
         void AddStation(Station newStation);
         Station GetStation(int id);
         IEnumerable<StationToList> GetStations();
-        void PrintStationsCharge();
+        IEnumerable<StationToList> GetStationsCharge();
         void CheckStation(Station station);
 
         // Drone
@@ -41,7 +41,7 @@ namespace IBL
         void AddParcel(Parcel newParcel);
         Parcel GetParcel(int id);
         IEnumerable<ParcelToList> GetParcels();
-        void PrintParcelsNoDrones();
+        IEnumerable<ParcelToList> GetParcelsNoDrones();
         void CheckParcel(Parcel parcel);
     }
 }

@@ -202,10 +202,10 @@ namespace ConsoleUI_BL
                                     Console.WriteLine(bl.GetParcels().ToString());
                                     break;
                                 case OptionListView.ListParcelsNoDrones:
-                                    bl.PrintParcelsNoDrones();
+                                    bl.GetParcelsNoDrones();
                                     break;
                                 case OptionListView.ListStationsCharge:
-                                    bl.PrintStationsCharge();
+                                    bl.GetStationsCharge();
                                     break;
                                 case OptionListView.Exit:
                                     break;

@@ -100,7 +100,7 @@ namespace IBL
             return parcelToLists;
         }
 
-        public void PrintParcelsNoDrones()
+        public IEnumerable<ParcelToList> GetParcelsNoDrones()
         {
             foreach (IDAL.DO.Parcel elementParcel in dal.GetParcels())
                 if (elementParcel.DroneId == -1)//the Id drone is not exist
