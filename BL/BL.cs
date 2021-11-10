@@ -17,17 +17,19 @@ namespace IBL
 
         IDal dal = new DalObject.DalObject();
 
+        double dAvailable, dLightW, dMediumW, dHeavyW, chargingRateOfDrone;
+
         Random rand = new Random(DateTime.Now.Millisecond);
 
         public BL()
         {
             // km per hour
             double[] powerConsumption = dal.GetRequestPowerConsumption();
-            double dAvailable = powerConsumption[0];
-            double dLightW = powerConsumption[1];
-            double dMediumW = powerConsumption[2];
-            double dHeavyW = powerConsumption[3];
-            double chargingRateOfDrone = powerConsumption[4];
+            dAvailable = powerConsumption[0];
+            dLightW = powerConsumption[1];
+            dMediumW = powerConsumption[2];
+            dHeavyW = powerConsumption[3];
+            chargingRateOfDrone = powerConsumption[4];
 
             IEnumerable<IDAL.DO.Drone> listDronesIdalDo = dal.GetDrones();
             DroneToList newDrone = new DroneToList();

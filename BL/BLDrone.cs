@@ -175,6 +175,38 @@ namespace IBL
             throw new DroneException("ERROR: the drone not exist! ");
         }
 
+        public void SendDroneToDroneCharge(int id)
+        {
+            Drone drone = new Drone();
+            try
+            {
+                drone = GetDrone(id);
+            }
+            catch (DroneException e)
+            {
+                throw new DroneException("" + e);
+            }
+            if (drone.Status != DroneStatuses.Available)
+                throw new DroneException("ERROR: the drone not available to charge ");
+
+            Location nearStation = NearStationToDrone(drone.Location, dal.GetStations());
+            double distance = Distance(drone.Location, nearStation);
+            if (distance * dAvailable < drone.Battery)
+                throw new DroneException("ERROR: the drone not have battery to go to station charge ");
+
+            for (int i = 0; i < ListDrones.Count; i++)
+                if (ListDrones[i].Id == drone.Id)
+                {
+                    DroneToList newDrone = ListDrones[i];
+                    newDrone.Battery -= distance * dAvailable;
+                    newDrone.Location = nearStation;
+                    newDrone.Status = DroneStatuses.Maintenance;
+                    ListDrones[i] = newDrone;
+                }
+
+            UpdateStation(nearStation.);
+        }
+
         public void ReleaseDroneFromDroneCharge(int id, int chargeTime)
         {
             try
