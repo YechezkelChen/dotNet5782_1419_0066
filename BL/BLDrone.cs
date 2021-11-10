@@ -72,10 +72,10 @@ namespace IBL
 
         public Drone GetDrone(int id)
         {
-            IDAL.DO.Station idalStation = new IDAL.DO.Station();
+            IDAL.DO.Drone idaldDrone = new IDAL.DO.Drone();
             try
             {
-                idalStation = dal.GetStation(id);
+                idaldDrone = dal.GetDrone(id);
             }
             catch (DalObject.StationExeption e)
             {
