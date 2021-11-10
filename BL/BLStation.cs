@@ -82,9 +82,16 @@ namespace IBL
 
         public IEnumerable<StationToList> GetStationsCharge()
         {
-            foreach (IDAL.DO.Station elementStation in dal.GetStations())
-                if (elementStation.ChargeSlots > 0)
-                    Console.WriteLine(elementStation.ToString());
+            IEnumerable<StationToList> stationsToList = GetStations();
+            List<StationToList> stationChargeSlotsAvailable= new List<StationToList>();
+
+            foreach (var elementStationToList in stationsToList)
+            {
+                if (elementStationToList.ChargeSlotsAvailable > 0)
+                    stationChargeSlotsAvailable.Add(elementStationToList);
+            }
+
+            return stationChargeSlotsAvailable;
         }
 
         public void CheckStation(Station station)
