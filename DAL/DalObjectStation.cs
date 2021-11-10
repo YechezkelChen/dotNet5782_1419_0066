@@ -66,7 +66,17 @@ namespace DalObject
 
         public void UpdateDataStation(int id, int name, int chargeSlots)
         {
-            Station station = GetStation(id);
+            for (int i = 0; i < DataSource.stations.Count(); i++)
+            {
+                if (DataSource.stations[i].Id == id)
+                {
+                    Station station = DataSource.stations[i];
+                    if (name != -1)
+                        station.Name = name;
+                    if (chargeSlots != -1)
+                        station.ChargeSlots = chargeSlots;
+                }
+            }
         }
     }
 }
