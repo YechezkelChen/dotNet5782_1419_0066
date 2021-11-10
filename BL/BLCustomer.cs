@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using DalObject;
 using IBL.BO;
 using IDAL;
 
@@ -136,13 +137,26 @@ namespace IBL
 
         public void UpdateCustomer(int id, string name, string phone)
         {
+            if(id <= 0) 
+                throw new CustomerException("ERROR: the ID is illegal! ");
 
+            if (name == "" && phone == "")
+                throw new CustomerExeption("ERROR: need one thing at least to change");
+
+            if (dal.CheckNotExistCustomer(dal.GetCustomer(id), dal.GetCustomers()))
+                throw new CustomerExeption("ERROR: the customer not exist:");
+
+            dal.UpdateDataCustomer(id, name, phone);
         }
 
         public void CheckCustomer(Customer customer)
         {
             if (customer.Id < 0)
                 throw new CustomerException("ERROR: the ID is illegal! ");
+            if (customer.Name == "")
+                throw new CustomerExeption("ERROR: Name must have value");
+            if (customer.Phone == "")
+                throw new CustomerExeption("ERROR: Phone must have value");
         }
     }
 }
