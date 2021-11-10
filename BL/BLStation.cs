@@ -63,6 +63,7 @@ namespace IBL
             List<StationToList> stationsToList = new List<StationToList>();
             StationToList newStationToList = new StationToList();
             Station station = new Station();
+
             foreach (var idalStation in idalStations)
             {
                 station = GetStation(idalStation.Id);
@@ -70,8 +71,8 @@ namespace IBL
                 newStationToList.Id = idalStation.Id;
                 newStationToList.Name = idalStation.Name;
                 newStationToList.ChargeSlotsAvailable = idalStation.ChargeSlots - station.InCharges.Count();
-                newStationToList.ChargeSlotsNotAvailable =
-                    newStationToList.ChargeSlotsAvailable - idalStation.ChargeSlots;
+                newStationToList.ChargeSlotsNotAvailable = idalStation.ChargeSlots -
+                                                           newStationToList.ChargeSlotsAvailable;
 
                 stationsToList.Add(newStationToList);
             }
