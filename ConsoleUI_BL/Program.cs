@@ -127,14 +127,19 @@ namespace ConsoleUI_BL
                                 UpdateDataCustomer();
                                 break;
                             case OptionUpdate.SendDroneToDroneCharge:
+                                SendDroneToCharge();
                                 break;
                             case OptionUpdate.ReleaseDroneFromDroneCharge:
+                                ReleaseDroneFromCharge();
                                 break;
                             case OptionUpdate.ConnectParcelToDrone:
+                                ConnectParcelToDrone();
                                 break;
                             case OptionUpdate.CollectionParcelByDrone:
+                                CollectionParcelByDrone();
                                 break;
                             case OptionUpdate.SupplyParcelByDrone:
+                                SupplyParcelByDrone();
                                 break;
                             case OptionUpdate.Exit:
                                 break;
@@ -253,6 +258,7 @@ namespace ConsoleUI_BL
             while (op != Option.Exit);
         }
 
+        
         /// <summary>
         /// read from the user station to insert to list
         /// </summary>
@@ -569,6 +575,48 @@ namespace ConsoleUI_BL
             {
                 Console.WriteLine(e);
             }
+        }
+
+        public static void SendDroneToCharge()
+        {
+            int id;
+            do
+            {
+                Console.WriteLine("Enter Id Drone: ");
+            } while (!int.TryParse(Console.ReadLine(), out id));
+
+            bl.SendDroneToDroneCharge(id);
+        }
+
+        public static void ReleaseDroneFromCharge()
+        {
+            int id, chargeTime;
+            do
+            {
+                Console.WriteLine("Enter Id Drone: ");
+            } while (!int.TryParse(Console.ReadLine(), out id));
+
+            do
+            {
+                Console.WriteLine("Enter the time the drone was in charge:\n ");
+            } while (!int.TryParse(Console.ReadLine(), out chargeTime));
+
+            bl.ReleaseDroneFromDroneCharge(id, chargeTime);
+        }
+
+        public static void ConnectParcelToDrone()
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void CollectionParcelByDrone()
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void SupplyParcelByDrone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

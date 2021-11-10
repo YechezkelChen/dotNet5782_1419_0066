@@ -31,6 +31,8 @@ namespace IBL
         void UpdateDrone(int droneId, string newModel);
         void CheckDrone(Drone drone);
         int CheckDroneAndParcel(int droneId, IEnumerable<IDAL.DO.Parcel> parcels);
+        void SendDroneToDroneCharge(int id);
+        void ReleaseDroneFromDroneCharge(int id, int chargeTime);
 
         // Customer
         void AddCustomer(Customer newCustomer);
