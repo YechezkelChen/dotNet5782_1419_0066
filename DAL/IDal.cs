@@ -34,5 +34,7 @@ namespace IDAL
         bool CheckNotExistParcel(Parcel p, IEnumerable<Parcel> parcels);
         bool CheckNotExistCustomer(Customer c, IEnumerable<Customer> customers);
         void UpdateDroneModel(int droneId, string newModel);
+        void UpdateDataStation(int id, int name, int chargeSlots);
+        void UpdateDataCustomer(int id, string name, string phone);
     }
 }

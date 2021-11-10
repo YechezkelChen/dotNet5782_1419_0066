@@ -63,5 +63,10 @@ namespace DalObject
                     return false;
             return true; //the station not exist
         }
+
+        public void UpdateDataStation(int id, int name, int chargeSlots)
+        {
+            Station station = GetStation(id);
+        }
     }
 }

@@ -523,6 +523,7 @@ namespace ConsoleUI_BL
                 Console.WriteLine("Enter Id Station: ");
             } while (!int.TryParse(Console.ReadLine(), out id));
 
+            Console.WriteLine("Note! Enter at least one of the following data:\n");
             do
             {
                 Console.WriteLine("If you want to update the name of the station, Enter name:\n if you don't want, Enter -1: \n");
@@ -551,6 +552,8 @@ namespace ConsoleUI_BL
             {
                 Console.WriteLine("Enter Id Customer: ");
             } while (!int.TryParse(Console.ReadLine(), out id));
+
+            Console.WriteLine("Note! Enter at least one of the following data:\n");
 
             Console.WriteLine("If you want to update the name of the customer, Enter name:\n if you don't want, press Enter: \n");
             name = Console.ReadLine();
