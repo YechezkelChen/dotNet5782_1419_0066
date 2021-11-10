@@ -59,8 +59,25 @@ namespace IBL
 
         public IEnumerable<StationToList> GetStations()
         {
-            foreach (IDAL.DO.Station elementStation in dal.GetStations())
-                Console.WriteLine(elementStation.ToString());
+            IEnumerable<IDAL.DO.Station> idalStations = dal.GetStations();
+            List<StationToList> stationsToList = new List<StationToList>();
+            StationToList newStationToList = new StationToList();
+            Station station = new Station();
+
+            foreach (var idalStation in idalStations)
+            {
+                station = GetStation(idalStation.Id);
+
+                newStationToList.Id = idalStation.Id;
+                newStationToList.Name = idalStation.Name;
+                newStationToList.ChargeSlotsAvailable = idalStation.ChargeSlots - station.InCharges.Count();
+                newStationToList.ChargeSlotsNotAvailable = idalStation.ChargeSlots -
+                                                           newStationToList.ChargeSlotsAvailable;
+
+                stationsToList.Add(newStationToList);
+            }
+
+            return stationsToList;
         }
 
         public void PrintStationsCharge()
