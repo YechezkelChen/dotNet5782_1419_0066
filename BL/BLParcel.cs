@@ -43,20 +43,61 @@ namespace IBL
             {
                 idalParcel = dal.GetParcel(id);
             }
-            catch (Exception e)
+            catch (DalObject.ParcelExeption e)
             {
-                Console.WriteLine(e);
+                throw new ParcelException("" + e);
             }
 
             Parcel parcel = new Parcel();
+            parcel.Id = idalParcel.Id;
+            parcel.SenderId = idalParcel.SenderId;
+            parcel.TargetId = idalParcel.TargetId;
+            parcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
+            parcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
+
+            foreach (var elementDrone in ListDrones)
+                if (elementDrone.Id == idalParcel.DroneId)
+                {
+                    parcel.DroneInParcel.Id = elementDrone.Id;
+                    parcel.DroneInParcel.Battery = elementDrone.Battery;
+                    parcel.DroneInParcel.Location = elementDrone.Location;
+                }
+
+            parcel.Requested = idalParcel.Requested;
+            parcel.Scheduled = idalParcel.Scheduled;
+            parcel.PickedUp = idalParcel.PickedUp;
+            parcel.Delivered = idalParcel.Delivered;
 
             return parcel;
         }
 
-        public void PrintParcels()
+        public IEnumerable<ParcelToList> GetParcels()
         {
-            foreach (IDAL.DO.Parcel elementParcel in dal.GetParcels())
-                Console.WriteLine(elementParcel.ToString());
+            IEnumerable<IDAL.DO.Parcel> idalParcels = idalParcels = dal.GetParcels();
+            List<ParcelToList> parcelToLists = new List<ParcelToList>();
+            ParcelToList newParcel = new ParcelToList();
+
+            foreach (var idalParcel in idalParcels)
+            {
+                newParcel.Id = idalParcel.Id;
+                newParcel.SenderId = idalParcel.SenderId;
+                newParcel.TargetId = idalParcel.TargetId;
+                newParcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
+                newParcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
+
+                if (idalParcel.Requested != DateTime.MinValue)
+                    newParcel.ParcelStatuses = ParcelStatuses.Requested;
+                if (idalParcel.Scheduled != DateTime.MinValue)
+                    newParcel.ParcelStatuses = ParcelStatuses.Scheduled;
+                if (idalParcel.PickedUp != DateTime.MinValue)
+                    newParcel.ParcelStatuses = ParcelStatuses.PickedUp;
+                if (idalParcel.Delivered != DateTime.MinValue)
+                    newParcel.ParcelStatuses = ParcelStatuses.Delivered;
+
+                parcelToLists.Add(newParcel);
+            }
+
+            return parcelToLists;
         }
 
         public void PrintParcelsNoDrones()

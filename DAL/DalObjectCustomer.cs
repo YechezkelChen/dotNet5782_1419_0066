@@ -48,8 +48,7 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Customer> GetCustomers()
         {
-            List<Customer> newCustomers = new List<Customer>(DataSource.customers);
-            return newCustomers;
+            return DataSource.customers;
         }
 
         /// <summary>

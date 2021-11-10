@@ -17,8 +17,7 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<DroneCharge> GetDronesCharge()
         {
-            List<DroneCharge> newDronesCharge = new List<DroneCharge>(DataSource.droneCharges);
-            return newDronesCharge;
+            return DataSource.droneCharges;
         }
     }
 }

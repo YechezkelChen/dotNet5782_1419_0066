@@ -48,8 +48,7 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Drone> GetDrones()
         {
-            List<Drone> newDrones = new List<Drone>(DataSource.drones);
-            return newDrones;
+            return DataSource.drones;
         }
 
         /// <summary>

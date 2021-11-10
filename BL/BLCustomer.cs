@@ -39,24 +39,66 @@ namespace IBL
             {
                 idalCustomer = dal.GetCustomer(id);
             }
-            catch (DalObject. e)
+            catch (DalObject.CustomerExeption e)
             {
-                throw new StationException("" + e);
+                throw new CustomerException("" + e);
             }
 
-            Station station = new Station();
-            station.Id = idalStation.Id;
-            station.Name = idalStation.Name;
-            station.Location.Longitude = idalStation.Longitude;
-            station.Location.Latitude = idalStation.Latitude;
-            station.ChargeSlots = idalStation.ChargeSlots;
-            foreach (var elementDroneCharge in dal.GetDronesCharge())
-                station.InCharges.Add(elementDroneCharge);
+            Customer customer = new Customer();
+            customer.Id = idalCustomer.Id;
+            customer.Name = idalCustomer.Name;
+            customer.Phone = idalCustomer.Phone;
+            customer.Location.Longitude = idalCustomer.Longitude;
+            customer.Location.Latitude = idalCustomer.Latitude;
 
-            return station;
+            ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
+            foreach (var elementParcel in dal.GetParcels())
+                if (customer.Id == elementParcel.SenderId)
+                {
+                    parcelInCustomer.Id = elementParcel.Id;
+                    parcelInCustomer.Weight = Enum.Parse<WeightCategories>(elementParcel.Weight.ToString());
+                    parcelInCustomer.Priority = Enum.Parse<Priorities>(elementParcel.Priority.ToString());
+
+                    if (elementParcel.Requested != DateTime.MinValue)
+                        parcelInCustomer.Status = ParcelStatuses.Requested;
+                    if (elementParcel.Scheduled != DateTime.MinValue)
+                        parcelInCustomer.Status = ParcelStatuses.Scheduled;
+                    if (elementParcel.PickedUp != DateTime.MinValue)
+                        parcelInCustomer.Status = ParcelStatuses.PickedUp;
+                    if (elementParcel.Delivered != DateTime.MinValue)
+                        parcelInCustomer.Status = ParcelStatuses.Delivered;
+
+                    parcelInCustomer.CustomerInDelivery.Id = customer.Id;
+                    parcelInCustomer.CustomerInDelivery.NameCustomer = customer.Name;
+
+                    customer.FromTheCustomerList.Add(parcelInCustomer);
+                }
+
+            foreach (var elementParcel in dal.GetParcels())
+                if (customer.Id == elementParcel.TargetId)
+                {
+                    parcelInCustomer.Id = elementParcel.Id;
+                    parcelInCustomer.Weight = Enum.Parse<WeightCategories>(elementParcel.Weight.ToString());
+                    parcelInCustomer.Priority = Enum.Parse<Priorities>(elementParcel.Priority.ToString());
+                    if (elementParcel.Delivered != DateTime.MinValue)
+                        parcelInCustomer.Status = ParcelStatuses.Delivered;
+                    if (elementParcel.PickedUp != DateTime.MinValue)
+                        parcelInCustomer.Status = ParcelStatuses.PickedUp;
+                    if (elementParcel.Scheduled != DateTime.MinValue)
+                        parcelInCustomer.Status = ParcelStatuses.Scheduled;
+                    if (elementParcel.Requested != DateTime.MinValue)
+                        parcelInCustomer.Status = ParcelStatuses.Requested;
+
+                    parcelInCustomer.CustomerInDelivery.Id = customer.Id;
+                    parcelInCustomer.CustomerInDelivery.NameCustomer = customer.Name;
+
+                    customer.ToTheCustomerList.Add(parcelInCustomer);
+                }
+
+            return customer;
         }
 
-        public void PrintCustomers()
+        public IEnumerable<CustomerToList> GetCustomers()
         {
             foreach (IDAL.DO.Customer elementCustomer in dal.GetCustomers())
                 Console.WriteLine(elementCustomer.ToString());

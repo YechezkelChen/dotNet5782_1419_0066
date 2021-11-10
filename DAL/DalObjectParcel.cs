@@ -56,8 +56,7 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Parcel> GetParcels()
         {
-            List<Parcel> newParcels = new List<Parcel>(DataSource.parcels);
-            return newParcels;
+            return DataSource.parcels;
         }
 
         /// <summary>

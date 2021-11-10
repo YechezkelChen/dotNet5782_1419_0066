@@ -51,12 +51,13 @@ namespace IBL
             station.Location.Latitude = idalStation.Latitude;
             station.ChargeSlots = idalStation.ChargeSlots;
             foreach (var elementDroneCharge in dal.GetDronesCharge())
-                station.InCharges.Add(elementDroneCharge);
+                if(elementDroneCharge.Stationld == station.Id)
+                    station.InCharges.Add(elementDroneCharge);
 
             return station;
         }
 
-        public void PrintStations()
+        public IEnumerable<StationToList> GetStations()
         {
             foreach (IDAL.DO.Station elementStation in dal.GetStations())
                 Console.WriteLine(elementStation.ToString());

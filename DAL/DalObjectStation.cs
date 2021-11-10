@@ -47,8 +47,7 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Station> GetStations()
         {
-            List<Station> newStations = new List<Station>(DataSource.stations);
-            return newStations;
+            return DataSource.stations;
         }
 
         /// <summary>
