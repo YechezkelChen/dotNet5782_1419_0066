@@ -103,9 +103,24 @@ namespace IBL
         public IEnumerable<ParcelToList> GetParcelsNoDrones()
         {
             IEnumerable<IDAL.DO.Parcel> idalParcels = dal.GetParcels();
-            List<ParcelToList> parcelToLists = new List<ParcelToList>();
+            List<ParcelToList> parcelNoDrones = new List<ParcelToList>();
             ParcelToList newParcel = new ParcelToList();
 
+            foreach (var idalParcel in idalParcels)
+                if (idalParcel.Scheduled == DateTime.MinValue)
+                {
+                    newParcel.Id = idalParcel.Id;
+                    newParcel.SenderId = idalParcel.SenderId;
+                    newParcel.TargetId = idalParcel.TargetId;
+                    newParcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
+                    newParcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
+
+                    newParcel.ParcelStatuses = ParcelStatuses.Requested;
+
+                    parcelNoDrones.Add(newParcel);
+                }
+            
+            return parcelNoDrones;
         }
 
         public void CheckParcel(Parcel parcel)
