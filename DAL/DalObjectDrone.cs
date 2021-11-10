@@ -164,7 +164,7 @@ namespace DalObject
             return true;//the drone not exist
         }
 
-        public void UpdateDroneName(int droneId, string newModel)
+        public void UpdateDroneModel(int droneId, string newModel)
         {
             for (int i = 0; i < DataSource.drones.Count(); i++)
             {

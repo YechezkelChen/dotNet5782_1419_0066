@@ -487,10 +487,6 @@ namespace ConsoleUI_BL
             {
                 Console.WriteLine(e);
             }
-            
         }
-
-
-
     }
 }
