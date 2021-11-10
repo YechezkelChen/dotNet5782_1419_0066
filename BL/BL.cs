@@ -273,7 +273,7 @@ namespace IBL
                 throw new DroneException("" + e);
             }
 
-            ListDrones.Add(newDroneToList);//לשאול את יאיר איך ההסופה עצמה מתבצעת
+            ListDrones.Add(newDroneToList);
             dal.AddDrone(drone);
         }
 
