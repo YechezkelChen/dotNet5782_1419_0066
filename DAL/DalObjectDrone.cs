@@ -51,6 +51,34 @@ namespace DalObject
             return DataSource.drones;
         }
 
+        public void UpdateDrone(Drone drone)
+        {
+            for (int i = 0; i < DataSource.drones.Count(); i++)
+                if (DataSource.drones[i].Id == drone.Id)
+                    DataSource.drones[i] = drone;
+        }
+
+        /// <summary>
+        /// the methode not need exeption becuse she use both sids(true and false)
+        /// </summary>
+        /// <param Name="d"></the drone we check if she is exist>
+        /// <param Name="drones"></the list od drones>
+        /// <returns></returns>
+        public bool CheckNotExistDrone(Drone d, IEnumerable<Drone> drones)
+        {
+            foreach (Drone elementDrone in drones)
+                if (elementDrone.Id == d.Id)
+                    return false;
+            return true;//the drone not exist
+        }
+
+
+
+
+
+
+
+
         /// <summary>
         /// send a spesifice drone to a spesifice station that have a availble charge spots, and change the status of the drome to maintenance
         /// </summary>
@@ -147,33 +175,6 @@ namespace DalObject
             powerConsumption[3] = DataSource.Config.dHeavyW;
             powerConsumption[4] = DataSource.Config.chargingRateOfDrone;
             return powerConsumption;
-        }
-
-        /// <summary>
-        /// the methode not need exeption becuse she use both sids(true and false)
-        /// </summary>
-        /// <param Name="d"></the drone we check if she is exist>
-        /// <param Name="drones"></the list od drones>
-        /// <returns></returns>
-        public bool CheckNotExistDrone(Drone d, IEnumerable<Drone> drones)
-        {
-            foreach (Drone elementDrone in drones)
-                if (elementDrone.Id == d.Id)
-                    return false;
-            return true;//the drone not exist
-        }
-
-        public void UpdateDroneModel(int droneId, string newModel)
-        {
-            for (int i = 0; i < DataSource.drones.Count(); i++)
-            {
-                if (DataSource.drones[i].Id == droneId)
-                {
-                    Drone newDrone = DataSource.drones[i];
-                    newDrone.Model = newModel;
-                    DataSource.drones[i] = newDrone;
-                }
-            }
         }
     }
 }

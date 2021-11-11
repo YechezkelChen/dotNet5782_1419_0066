@@ -10,31 +10,62 @@ namespace IDAL
 {
     public interface IDal
     {
+
+        // Station
         void AddStation(Station newStation);
-        void AddDrone(Drone newDrone);
-        int AddParcel(Parcel newParcel);
-        void AddCustomer(Customer newCustomer);
         Station GetStation(int stationId);
-        Drone GetDrone(int droneId);
-        Parcel GetParcel(int parcelId);
-        Customer GetCustomer(int customerId);
         IEnumerable<Station> GetStations();
+        void UpdateStation(Station station);
+        bool CheckNotExistStation(Station s, IEnumerable<Station> stations);
+
+
+
+        // Drone
+        void AddDrone(Drone newDrone);
+        Drone GetDrone(int droneId);
         IEnumerable<Drone> GetDrones();
-        IEnumerable<DroneCharge> GetDronesCharge();
-        IEnumerable<Parcel> GetParcels();
+        void UpdateDrone(Drone drone);
+        bool CheckNotExistDrone(Drone d, IEnumerable<Drone> drones);
+
+
+        // Customer
+        void AddCustomer(Customer newCustomer);
+        Customer GetCustomer(int customerId);
         IEnumerable<Customer> GetCustomers();
+        void UpdateCustomer(Customer customer);
+        bool CheckNotExistCustomer(Customer c, IEnumerable<Customer> customers);
+
+
+        // Parcel
+        int AddParcel(Parcel newParcel);
+        Parcel GetParcel(int parcelId);
+        IEnumerable<Parcel> GetParcels();
+        bool CheckNotExistParcel(Parcel p, IEnumerable<Parcel> parcels);
+
+
+
+        // DroneCharge
+        void AddDroneCharge(DroneCharge newDroneCharge);
+        void RemoveDroneCharge(DroneCharge DroneCharge);
+        IEnumerable<DroneCharge> GetDronesCharge();
+        bool CheckNotExistDroneCharge(DroneCharge droneCharge, IEnumerable<DroneCharge> droneCharges);
+
+
+
+
+
         void ConnectParcelToDrone(Parcel p, Drone d);
         void CollectionParcelByDrone(Parcel p);
         void SupplyParcelToCustomer(Parcel p);
         void SendDroneToDroneCharge(Station s, Drone d);
         void ReleaseDroneFromDroneCharge(Station s, Drone d);
         double[] GetRequestPowerConsumption();
-        bool CheckNotExistStation(Station s, IEnumerable<Station> stations);
-        bool CheckNotExistDrone(Drone d, IEnumerable<Drone> drones);
-        bool CheckNotExistParcel(Parcel p, IEnumerable<Parcel> parcels);
-        bool CheckNotExistCustomer(Customer c, IEnumerable<Customer> customers);
-        void UpdateDroneModel(int droneId, string newModel);
-        void UpdateDataStation(int id, int name, int chargeSlots);
-        void UpdateDataCustomer(int id, string name, string phone);
+
+
+
+
+
+
+ 
     }
 }

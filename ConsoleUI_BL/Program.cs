@@ -542,7 +542,7 @@ namespace ConsoleUI_BL
 
             try
             {
-                bl.UpdateStation(id, name, chargeSlots);
+                bl.UpdateDataStation(id, name, chargeSlots);
             }
             catch (StationException e)
             {

@@ -50,6 +50,13 @@ namespace DalObject
             return DataSource.stations;
         }
 
+        public void UpdateStation(Station station)
+        {
+            for (int i = 0; i < DataSource.stations.Count(); i++)
+                if (DataSource.stations[i].Id == station.Id)
+                    DataSource.stations[i] = station;
+        }
+
         /// <summary>
         /// the methode not need exeption becuse she use both sids(true and false)
         /// </summary>
@@ -62,21 +69,6 @@ namespace DalObject
                 if (elementStation.Id == s.Id)
                     return false;
             return true; //the station not exist
-        }
-
-        public void UpdateDataStation(int id, int name, int chargeSlots)
-        {
-            for (int i = 0; i < DataSource.stations.Count(); i++)
-            {
-                if (DataSource.stations[i].Id == id)
-                {
-                    Station station = DataSource.stations[i];
-                    if (name != -1)
-                        station.Name = name;
-                    if (chargeSlots != -1)
-                        station.ChargeSlots = chargeSlots;
-                }
-            }
         }
     }
 }
