@@ -21,7 +21,7 @@ namespace IBL
         Station NearStationToDrone(IDAL.DO.Drone drone);
         Station NearStationToCustomer(IDAL.DO.Customer customer);
         IEnumerable<StationToList> GetStationsCharge();
-        void UpdateStation(int id, int name, int chargeSlots);
+        void UpdateDataStation(int id, int name, int chargeSlots);
         void CheckStation(Station station);
 
         // Drone

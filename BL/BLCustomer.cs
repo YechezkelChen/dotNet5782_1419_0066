@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 using DalObject;
 using IBL.BO;
 using IDAL;
+using IDAL.DO;
+using Customer = IBL.BO.Customer;
+using Drone = IBL.BO.Drone;
+using Priorities = IBL.BO.Priorities;
+using Station = IBL.BO.Station;
+using WeightCategories = IBL.BO.WeightCategories;
 
 
 namespace IBL
@@ -173,8 +179,8 @@ namespace IBL
             if (drone.Status != DroneStatuses.Available)
                 throw new DroneException("ERROR: the drone not available to charge ");
 
-            Location nearStation = NearStationToDrone(drone.Location, dal.GetStations());
-            double distance = Distance(drone.Location, nearStation);
+            Station nearStation = NearStationToDrone(dal.GetDrone(drone.Id));
+            double distance = Distance(drone.Location, nearStation.Location);
             if (distance * dAvailable < drone.Battery)
                 throw new DroneException("ERROR: the drone not have battery to go to station charge ");
 
@@ -183,12 +189,19 @@ namespace IBL
                 {
                     DroneToList newDrone = ListDrones[i];
                     newDrone.Battery -= distance * dAvailable;
-                    newDrone.Location = nearStation;
+                    newDrone.Location = nearStation.Location;
                     newDrone.Status = DroneStatuses.Maintenance;
                     ListDrones[i] = newDrone;
                 }
 
-            UpdateStation(nearStation.);
+            IDAL.DO.Station Station = dal.GetStation(nearStation.Id);
+            Station.ChargeSlots--;
+            UpdateStation(Station);
+
+            IDAL.DO.DroneCharge newDroneCharge = new DroneCharge();
+            newDroneCharge.Stationld = nearStation.Id;
+            newDroneCharge.DdroneId = drone.Id;
+            dal.AddDroneCharge(newDroneCharge);
         }
     }
 }
