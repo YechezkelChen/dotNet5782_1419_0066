@@ -82,7 +82,7 @@ namespace DalObject
                 {
                     if (elementDrone.Id == d.Id)
                     {
-                        newDroneCharges.DdroneId = elementDrone.Id;
+                        newDroneCharges.DroneId = elementDrone.Id;
                         break;
                     }
                 }
@@ -123,7 +123,7 @@ namespace DalObject
                 {
                     if (elementDrone.Id == d.Id)
                     {
-                        newDroneCharges.DdroneId = elementDrone.Id;
+                        newDroneCharges.DroneId = elementDrone.Id;
                         break;
                     }
                 }
@@ -133,7 +133,7 @@ namespace DalObject
 
             foreach (DroneCharge elementDroneCharge in DataSource.droneCharges)
             {
-                if (elementDroneCharge.Stationld == s.Id && elementDroneCharge.DdroneId == d.Id)
+                if (elementDroneCharge.Stationld == s.Id && elementDroneCharge.DroneId == d.Id)
                     DataSource.droneCharges.Remove(newDroneCharges);
             }
         }

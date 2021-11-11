@@ -11,6 +11,7 @@ using IDAL.DO;
 using Customer = IBL.BO.Customer;
 using Drone = IBL.BO.Drone;
 using Priorities = IBL.BO.Priorities;
+using Station = IBL.BO.Station;
 using WeightCategories = IBL.BO.WeightCategories;
 
 
@@ -175,13 +176,13 @@ namespace IBL
             throw new DroneException("ERROR: the drone not exist! ");
         }
 
-
+       
 
         public void ReleaseDroneFromDroneCharge(int id, int chargeTime)
         {
             try
             {
-                GetDrone(id);
+               GetDrone(id);
             }
             catch (DroneException e)
             {
@@ -192,9 +193,30 @@ namespace IBL
 
             if (GetDrone(id).Status != DroneStatuses.Maintenance)
                 throw new DroneException("The drone can not release because he is in maintenance statuses:\n ");
-            else
+            
+            foreach (var elementDroneCharge in dal.GetDronesCharge())
             {
-                
+                if (id == elementDroneCharge.DroneId)
+                {
+                    foreach (var elementListDrone in ListDrones)
+                    {
+                        if (elementDroneCharge.DroneId == elementListDrone.Id)
+                        {
+                            elementListDrone.Battery += chargeTime * chargingRateOfDrone;
+                            elementListDrone.Status = DroneStatuses.Available;
+                            RemoveDroneCharge(elementDroneCharge);
+                            foreach (var elementStationToList in GetStations())
+                            {
+                                if (elementDroneCharge.Stationld == elementStationToList.Id)
+                                {
+                                    IDAL.DO.Station updateStation = dal.GetStation(elementDroneCharge.Stationld);
+                                    updateStation.ChargeSlots++;
+                                    UpdateStation(updateStation);
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
         }
