@@ -27,10 +27,10 @@ namespace IBL
 
         public enum Priorities
         {
-            [Description("Normal Priority")]
-            Normal,
             [Description("Fast Priority")]
             Fast,
+            [Description("Normal Priority")]
+            Normal,
             [Description("Emergency Priority")]
             Emergency
         }
