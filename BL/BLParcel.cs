@@ -132,5 +132,26 @@ namespace IBL
             if (parcel.SenderId == parcel.TargetId)
                 throw new ParcelException("ERROR: the Target ID and the Sender ID are equals! ");
         }
+
+        public void ConnectParcelToDrone(int droneId)
+        {
+            IDAL.DO.Drone connectDrone = new IDAL.DO.Drone();
+            try
+            {
+                connectDrone = dal.GetDrone(droneId);
+            }
+            catch (DroneException e)
+            {
+                throw new DroneException(""+e);
+            }
+
+            drone
+            foreach (var elementListDrone in ListDrones)
+            {
+                if (droneId == elementListDrone.Id) 
+
+            }
+
+        }
     }
 }

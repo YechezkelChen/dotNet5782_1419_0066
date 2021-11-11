@@ -47,5 +47,6 @@ namespace IBL
         IEnumerable<ParcelToList> GetParcels();
         IEnumerable<ParcelToList> GetParcelsNoDrones();
         void CheckParcel(Parcel parcel);
+        void ConnectParcelToDrone(int idDrone);
     }
 }

@@ -620,7 +620,21 @@ namespace ConsoleUI_BL
 
         public static void ConnectParcelToDrone()
         {
-            throw new NotImplementedException();
+            int droneId;
+            do
+            {
+                Console.WriteLine("Enter Id Drone: ");
+            } while (!int.TryParse(Console.ReadLine(), out droneId));
+
+            try
+            {
+                bl.ConnectParcelToDrone(droneId);
+            }
+            catch (DroneException e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public static void CollectionParcelByDrone()
