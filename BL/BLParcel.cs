@@ -150,10 +150,116 @@ namespace IBL
             if (connectDrone.Status != DroneStatuses.Available)
                 throw new DataException("ERROR: The drone is not available:\n ");
 
+            ParcelToList parcel = new ParcelToList();
+
+            IEnumerable<ParcelToList> parcelNoDrones = GetParcelsNoDrones();
+            List<ParcelToList> prioritiesParcel = new List<ParcelToList>();
+            List<ParcelToList> weightParcel = new List<ParcelToList>();
+
+            for (int i = (int)Priorities.Emergency; i > (int)Priorities.Fast; i--)
+            {
+                prioritiesParcel = parcelNoDrones.ToList().FindAll(parcel => parcel.Priority == (Priorities) i);
+                for (int j = (int) WeightCategories.Heavy; j > (int) WeightCategories.Light; j--)
+                    weightParcel = prioritiesParcel.ToList().FindAll(parcel => parcel.Weight == (WeightCategories) j);
+
+
+            }
+
+            IEnumerable<DroneToList> dronesWithBattery = new List<DroneToList>();
+            foreach (var parcelNoDrones in GetParcelsNoDrones())
+            {
+                Customer senderCustomer = GetCustomer(parcelNoDrones.SenderId);
+                IDAL.DO.Customer targetCustomer = dal.GetCustomer(parcelNoDrones.TargetId);
+
+                Location targetLocation = new Location()
+                    { Longitude = targetCustomer.Longitude, Latitude = targetCustomer.Latitude };
+
+                double distanceDelivery = Distance(connectDrone.Location, senderCustomer.Location);
+                double batteryDelivery = distanceDelivery * dAvailable;
+
+                distanceDelivery = Distance(senderCustomer.Location, targetLocation); // the distance between the drone and the target
+                if (parcelNoDrones.Weight == WeightCategories.Heavy)
+                    batteryDelivery += distanceDelivery * dHeavyW;
+                if (parcelNoDrones.Weight == WeightCategories.Medium)
+                    batteryDelivery += distanceDelivery * dMediumW;
+                if (parcelNoDrones.Weight == WeightCategories.Light)
+                    batteryDelivery += distanceDelivery * dLightW;
+
+                distanceDelivery = Distance(targetLocation, NearStationToCustomer(targetCustomer).Location);
+                batteryDelivery += distanceDelivery * dAvailable;
+
+
+                dronesWithBattery = dronesWithBattery.ToList().FindAll(parcel => connectDrone.Battery < batteryDelivery);
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            bool flagParcel = new bool();
+            flagParcel = false;
+            while (!flagParcel)
+            {
+                foreach (var elementParcelsNoDrone in GetParcelsNoDrones())
+                    if (elementParcelsNoDrone.Priority == Priorities.Emergency)
+                        parcel = elementParcelsNoDrone;
+
+                if (parcel.Id == 0)
+                    foreach (var elementParcelsNoDrone in GetParcelsNoDrones())
+                        if (elementParcelsNoDrone.Priority == Priorities.Normal)
+                            parcel = elementParcelsNoDrone;
+
+                if (parcel.Id == 0)
+                    foreach (var elementParcelsNoDrone in GetParcelsNoDrones())
+                        if (elementParcelsNoDrone.Priority == Priorities.Fast)
+                            parcel = elementParcelsNoDrone;
+
+                if (parcel.Id == 0)
+                    throw new ParcelException("ERROR: There is no parcels to send! ");
+
+            }
+           
+            
+
+            bool flagWeight = new bool();
+            flagWeight = false;
+
+            if (connectDrone.Weight == WeightCategories.Heavy)
+                flagWeight = true;
+
+            if (connectDrone.Weight == WeightCategories.Medium &&
+                (parcel.Weight == WeightCategories.Medium ||
+                 parcel.Weight == WeightCategories.Light))
+                flagWeight = true;
+
+            if (connectDrone.Weight == WeightCategories.Light &&
+                parcel.Weight == WeightCategories.Light)
+                flagWeight = true;
+
+            if (!flagWeight)
+                throw new DataException(
+                    "ERROR: The maximum weight that the drone can carry is less than the weight of the parcel :(\n ");
+
             foreach (var elementParcelsNoDrone in GetParcelsNoDrones())
             {
                 if (elementParcelsNoDrone.Priority == Priorities.Emergency)
                 {
+                    
                     bool flag = new bool();
                     flag = false;
 
@@ -250,6 +356,40 @@ namespace IBL
         public void SupplyParcelByDrone(int idDrone)
         {
 
+        }
+
+        public Station NearParcelToDrone(IDAL.DO.Drone drone, List<ParcelToList> parcels)
+        {
+            List<double> distancesList = new List<double>();
+            IDAL.DO.Parcel tmpParcel = new IDAL.DO.Parcel();
+
+            Location parcelLocation = new Location();
+            Location droneLocation = GetDrone(drone.Id).Location;
+
+
+            foreach (var parcel in parcels)
+            {
+                parcelLocation.Longitude = dal.GetParcel(parcel.Id)
+                if (stationCharge.Id == station.Id)
+                    {
+                        stationLocation = new Location() { Longitude = station.Longitude, Latitude = station.Latitude };
+                        distancesList.Add(Distance(parcel, droneLocation));
+                    }
+                }
+            }
+
+            double minDistance = distancesList.Min();
+            Station nearStation = new Station();
+            foreach (var station in dal.GetStations())
+            {
+                stationLocation.Longitude = station.Longitude;
+                stationLocation.Latitude = station.Latitude;
+
+                if (minDistance == Distance(stationLocation, droneLocation))
+                    nearStation = GetStation(station.Id);
+            }
+
+            return nearStation;
         }
     }
 }
