@@ -59,6 +59,29 @@ namespace DalObject
             return DataSource.parcels;
         }
 
+        public void UpdateParcel(Parcel parcel)
+        {
+            for (int i = 0; i < DataSource.parcels.Count(); i++)
+                if (DataSource.parcels[i].Id == parcel.Id)
+                    DataSource.parcels[i] = parcel;
+        }
+
+        /// <summary>
+        /// the methode not need exeption becuse she use both sids(true and false)
+        /// </summary>
+        /// <param Name="d"></the parcel we check if she is exist>
+        /// <param Name="drones"></the list of parcels>
+        /// <returns></returns>
+        public bool CheckNotExistParcel(Parcel p, IEnumerable<Parcel> parcels)
+        {
+            foreach (Parcel elementParcel in parcels)
+                if (elementParcel.Id == p.Id)
+                    return false;
+            return true;//the drone not exist
+        }
+
+
+
         /// <summary>
         /// connecting between parcel and drone and chenge data in the object's according to the function
         /// </summary>
@@ -132,20 +155,6 @@ namespace DalObject
             }
             else
                 throw new ParcelExeption("ERROR: the parcel isn't exist");
-        }
-
-        /// <summary>
-        /// the methode not need exeption becuse she use both sids(true and false)
-        /// </summary>
-        /// <param Name="d"></the parcel we check if she is exist>
-        /// <param Name="drones"></the list of parcels>
-        /// <returns></returns>
-        public bool CheckNotExistParcel(Parcel p, IEnumerable<Parcel> parcels)
-        {
-            foreach (Parcel elementParcel in parcels)
-                if (elementParcel.Id == p.Id)
-                    return false;
-            return true;//the drone not exist
         }
     }
 }

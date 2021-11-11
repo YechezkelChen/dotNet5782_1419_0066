@@ -633,18 +633,43 @@ namespace ConsoleUI_BL
             catch (DroneException e)
             {
                 Console.WriteLine(e);
-                throw;
             }
         }
 
         public static void CollectionParcelByDrone()
         {
-            throw new NotImplementedException();
+            int droneId;
+            do
+            {
+                Console.WriteLine("Enter Id Drone: ");
+            } while (!int.TryParse(Console.ReadLine(), out droneId));
+
+            try
+            {
+                bl.CollectionParcelByDrone(droneId);
+            }
+            catch (DroneException e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         public static void SupplyParcelByDrone()
         {
-            throw new NotImplementedException();
+            int droneId;
+            do
+            {
+                Console.WriteLine("Enter Id Drone: ");
+            } while (!int.TryParse(Console.ReadLine(), out droneId));
+
+            try
+            {
+                bl.SupplyParcelByDrone(droneId);
+            }
+            catch (DroneException e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }

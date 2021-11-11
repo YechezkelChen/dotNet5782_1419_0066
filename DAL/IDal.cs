@@ -40,6 +40,7 @@ namespace IDAL
         int AddParcel(Parcel newParcel);
         Parcel GetParcel(int parcelId);
         IEnumerable<Parcel> GetParcels();
+        void UpdateParcel(Parcel parcel);
         bool CheckNotExistParcel(Parcel p, IEnumerable<Parcel> parcels);
 
 

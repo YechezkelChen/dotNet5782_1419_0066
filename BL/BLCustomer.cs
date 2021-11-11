@@ -174,5 +174,29 @@ namespace IBL
             if (customer.Phone == "")
                 throw new CustomerExeption("ERROR: Phone must have value");
         }
+
+        public void CollectionParcelByDrone(int idDrone)
+        {
+            Drone drone = new Drone();
+            try
+            {
+                drone = GetDrone(idDrone);
+            }
+            catch (DroneException e)
+            {
+                throw new DroneException("" + e);
+            }
+
+            if (drone.Status != DroneStatuses.Delivery || drone.ParcelByTransfer.ParcelStatus == true)
+                throw new ParcelException("ERROR: The parcel early in delivery ");
+
+            DroneToList updateDrone = new DroneToList();
+            IFormatProvider......;
+
+
+            IDAL.DO.Parcel updateparcel = dal.GetParcel(drone.ParcelByTransfer.Id);
+            updateparcel.PickedUp = DateTime.Now;
+            dal.UpdateParcel(updateparcel);
+        }
     }
 }
