@@ -137,18 +137,18 @@ namespace IBL
 
         public void ConnectParcelToDrone(int droneId)
         {
+            Drone connectDrone = new Drone();
             try
             {
-                dal.GetDrone(droneId);
+                connectDrone = GetDrone(droneId);
             }
             catch (DroneException e)
             {
-                throw new DroneException(""+e);
+                throw new DroneException("" + e);
             }
 
-            Drone connectDrone = GetDrone(droneId);
             if (connectDrone.Status != DroneStatuses.Available)
-                throw new DataException("The drone is not available:\n ");
+                throw new DataException("ERROR: The drone is not available:\n ");
 
             foreach (var elementParcelsNoDrone in GetParcelsNoDrones())
             {
@@ -212,18 +212,43 @@ namespace IBL
 
 
                 }
-                  
+            }
+        }
 
-                }
-                    
-                    
-
-
-
-
+        public void CollectionParcelByDrone(int idDrone)
+        {
+            Drone collectionDrone = new Drone();
+            try
+            {
+                collectionDrone = GetDrone(idDrone);
+            }
+            catch (DroneException e)
+            {
+                throw new DroneException("" + e);
             }
 
+            if (collectionDrone.Status != DroneStatuses.Delivery || collectionDrone.ParcelByTransfer.ParcelStatus == true)
+                throw new ParcelException("ERROR: The parcel early in delivery ");
 
+            for (int i = 0; i < ListDrones.Count(); i++)
+            {
+                if (ListDrones[i].Id == collectionDrone.Id)
+                {
+                    DroneToList updateDrone = ListDrones[i];
+                    updateDrone.Battery = Distance(collectionDrone.Location,
+                        collectionDrone.ParcelByTransfer.PickUpLocation) * dAvailable;
+                    updateDrone.Location = collectionDrone.ParcelByTransfer.PickUpLocation;
+                    ListDrones[i] = updateDrone;
+                }
+            }
+
+            IDAL.DO.Parcel updateparcel = dal.GetParcel(collectionDrone.ParcelByTransfer.Id);
+            updateparcel.PickedUp = DateTime.Now;
+            dal.UpdateParcel(updateparcel);
+        }
+
+        public void SupplyParcelByDrone(int idDrone)
+        {
 
         }
     }
