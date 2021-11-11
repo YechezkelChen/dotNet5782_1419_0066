@@ -80,6 +80,70 @@ namespace IBL
             return stationsToList;
         }
 
+        public Station NearStationToDrone(IDAL.DO.Drone drone)
+        {
+            List<double> distancesList = new List<double>();
+            Location stationLocation = new Location();
+            Location droneLocation = GetDrone(drone.Id).Location;
+
+            foreach (var stationCharge in GetStationsCharge())
+            {
+                foreach (var station in dal.GetStations())
+                {
+                    if (stationCharge.Id == station.Id)
+                    {
+                        stationLocation = new Location() { Longitude = station.Longitude, Latitude = station.Latitude };
+                        distancesList.Add(Distance(stationLocation, droneLocation));
+                    }
+                }
+            }
+
+            double minDistance = distancesList.Min();
+            Station nearStation = new Station();
+            foreach (var station in dal.GetStations())
+            {
+                stationLocation.Longitude = station.Longitude;
+                stationLocation.Latitude = station.Latitude;
+
+                if (minDistance == Distance(stationLocation, droneLocation))
+                    nearStation = GetStation(station.Id);
+            }
+
+            return nearStation;
+        }
+
+        public Station NearStationToCustomer(IDAL.DO.Customer customer)
+        {
+            List<double> distancesList = new List<double>();
+            Location stationLocation = new Location();
+            Location customerLocation = new Location() { Longitude = customer.Longitude, Latitude = customer.Latitude };
+
+            foreach (var stationCharge in GetStationsCharge())
+            {
+                foreach (var station in dal.GetStations())
+                {
+                    if (stationCharge.Id == station.Id)
+                    {
+                        stationLocation = new Location() { Longitude = station.Longitude, Latitude = station.Latitude };
+                        distancesList.Add(Distance(stationLocation, customerLocation));
+                    }
+                }
+            }
+
+            double minDistance = distancesList.Min();
+            Station nearStation = new Station();
+            foreach (var station in dal.GetStations())
+            {
+                stationLocation.Longitude = station.Longitude;
+                stationLocation.Latitude = station.Latitude;
+
+                if (minDistance == Distance(stationLocation, customerLocation))
+                    nearStation = GetStation(station.Id);
+            }
+
+            return nearStation;
+        }
+
         public IEnumerable<StationToList> GetStationsCharge()
         {
             IEnumerable<StationToList> stationsToList = GetStations();

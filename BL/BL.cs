@@ -51,8 +51,8 @@ namespace IBL
                     {
                         elementDrone.Status = DroneStatuses.Delivery;
                         if (elementParcel.Scheduled != DateTime.MinValue && elementParcel.PickedUp == DateTime.MinValue)
-                            elementDrone.Location = NearStationToCustomer(dal.GetCustomer(elementParcel.SenderId),
-                                dal.GetStations());
+                            elementDrone.Location =
+                                NearStationToCustomer(dal.GetCustomer(elementParcel.SenderId)).Location;
                         if (elementParcel.Delivered == DateTime.MinValue && elementParcel.PickedUp != DateTime.MinValue)
                             elementDrone.Location = new Location()
                             {
@@ -75,7 +75,7 @@ namespace IBL
                             distanceDelivery *= dLightW;
 
                         distanceDelivery += Distance(targetLocation,
-                            NearStationToCustomer(dal.GetCustomer(elementParcel.TargetId), dal.GetStations())) * dAvailable;
+                            NearStationToCustomer(dal.GetCustomer(elementParcel.TargetId)).Location) * dAvailable;
 
                         elementDrone.Battery = rand.Next((int)distanceDelivery, 100);
 
@@ -110,7 +110,7 @@ namespace IBL
                         };
 
                         double distanceFromNearStation = Distance(elementDrone.Location,
-                            NearStationToDrone(elementDrone.Location, dal.GetStations()));
+                            NearStationToDrone(dal.GetDrone(elementDrone.Id)).Location);
 
                         distanceFromNearStation *= dAvailable;
 
@@ -119,33 +119,7 @@ namespace IBL
                 }
             }
         }
-
-        public Location NearStationToCustomer(IDAL.DO.Customer customer, IEnumerable<IDAL.DO.Station> stations)
-        {
-            List<double> distancesList = new List<double>();
-            List<Location> locationsList = new List<Location>();
-            Location stationLocation = new Location(),
-                customerLocation = new Location() {Longitude = customer.Longitude, Latitude = customer.Latitude};
-
-            foreach (var station in stations)
-            {
-                stationLocation = new Location() {Longitude = station.Longitude, Latitude = station.Latitude};
-                distancesList.Add(Distance(stationLocation, customerLocation));
-                locationsList.Add(stationLocation);
-            }
-
-            double minDistance = distancesList.Min();
-            Location nearLocation = new Location();
-            foreach (var station in stations)
-            {
-                stationLocation = new Location() {Longitude = station.Longitude, Latitude = station.Latitude};
-                if (minDistance == Distance(stationLocation, customerLocation))
-                    nearLocation = stationLocation;
-            }
-
-            return nearLocation;
-        }
-
+        
         public double Distance(Location from, Location to)
         {
             int R = 6371 * 1000; // metres -- radius of the earth
@@ -178,30 +152,7 @@ namespace IBL
             return newCustomers;
         }
 
-        public Location NearStationToDrone(Location droneLocation, IEnumerable<IDAL.DO.Station> stations)
-        {
-            List<double> distancesList = new List<double>();
-            List<Location> locationsList = new List<Location>();
-            Location stationLocation = new Location();
-
-            foreach (var station in stations)
-            {
-                stationLocation = new Location() {Longitude = station.Longitude, Latitude = station.Latitude};
-                distancesList.Add(Distance(stationLocation, droneLocation));
-                locationsList.Add(stationLocation);
-            }
-
-            double minDistance = distancesList.Min();
-            Location nearLocation = new Location();
-            foreach (var station in stations)
-            {
-                stationLocation = new Location() {Longitude = station.Longitude, Latitude = station.Latitude};
-                if (minDistance == Distance(stationLocation, droneLocation))
-                    nearLocation = stationLocation;
-            }
-
-            return nearLocation;
-        }
+       
     }
 }
 

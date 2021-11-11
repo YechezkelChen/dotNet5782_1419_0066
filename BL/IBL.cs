@@ -10,16 +10,16 @@ namespace IBL
     public interface IBL
     {
         //constructor functions
-        Location NearStationToCustomer(IDAL.DO.Customer customer, IEnumerable<IDAL.DO.Station> stations);
         double Distance(Location from, Location to);
         IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
             IEnumerable<IDAL.DO.Parcel> Parcels);
-        Location NearStationToDrone(Location droneLocation, IEnumerable<IDAL.DO.Station> stations);
         
         // Station
         void AddStation(Station newStation);
         Station GetStation(int id);
         IEnumerable<StationToList> GetStations();
+        Station NearStationToDrone(IDAL.DO.Drone drone);
+        Station NearStationToCustomer(IDAL.DO.Customer customer);
         IEnumerable<StationToList> GetStationsCharge();
         void UpdateStation(int id, int name, int chargeSlots);
         void CheckStation(Station station);
