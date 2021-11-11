@@ -42,9 +42,6 @@ namespace DalObject
             return (Drone)newDrone;
         }
 
-
-
-
         /// <summary>
         /// return all the drone's list
         /// </summary>
@@ -74,6 +71,9 @@ namespace DalObject
                     return false;
             return true;//the drone not exist
         }
+
+
+
 
 
 
