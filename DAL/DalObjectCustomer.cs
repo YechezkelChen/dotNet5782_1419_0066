@@ -53,9 +53,9 @@ namespace DalObject
 
         public void UpdateCustomer(Customer customer)
         {
-            for (int i = 0; i < DataSource.drones.Count(); i++)
-                if (DataSource.drones[i].Id == drone.Id)
-                    DataSource.drones[i] = drone;
+            for (int i = 0; i < DataSource.customers.Count(); i++)
+                if (DataSource.customers[i].Id == customer.Id)
+                    DataSource.customers[i] = customer;
         }
 
         /// <summary>
