@@ -11,6 +11,7 @@ using IDAL;
 using IDAL.DO;
 using Customer = IBL.BO.Customer;
 using Drone = IBL.BO.Drone;
+using Parcel = IBL.BO.Parcel;
 using Priorities = IBL.BO.Priorities;
 using Station = IBL.BO.Station;
 using WeightCategories = IBL.BO.WeightCategories;
@@ -173,6 +174,64 @@ namespace IBL
                 throw new CustomerExeption("ERROR: Name must have value");
             if (customer.Phone == "")
                 throw new CustomerExeption("ERROR: Phone must have value");
+        }
+
+        public void SupplyParcelByDrone(int idDrone)
+        {
+            DroneToList dronToList = new DroneToList();
+            Drone drone = new Drone();
+            try
+            {
+                drone = GetDrone(idDrone);
+            }
+            catch (DroneException e)
+            {
+                throw new DroneException(""+e);
+            }
+
+            foreach (var elementDroneToList in ListDrones)
+            {
+                if (elementDroneToList.Id == idDrone)
+                    dronToList = elementDroneToList;
+            }
+
+            ParcelToList parcelToList = new ParcelToList();
+            Parcel parcel = new Parcel();
+            foreach (var elementParcelToList in GetParcels())
+            {
+                parcel = GetParcel(elementParcelToList.Id);
+
+                if (elementParcelToList.ParcelStatuses != ParcelStatuses.PickedUp ||
+                    parcel.DroneInParcel.Id == idDrone)
+                    throw new ParcelException("ERROR: the parcel not pickup:\n");
+
+                double distance = Distance(drone.Location, GetCustomer(parcel.TargetId).Location);
+
+                if (parcel.Weight == WeightCategories.Heavy)
+                    drone.Battery = distance * dHeavyW;
+                if (parcel.Weight == WeightCategories.Medium)
+                    drone.Battery = distance * dMediumW;
+                if (parcel.Weight == WeightCategories.Light)
+                    drone.Battery = distance * dLightW;
+                drone.Location = GetCustomer(parcel.TargetId).Location;
+                drone.Status = DroneStatuses.Available;
+                for (int i = 0; i < ListDrones.Count(); i++)
+                {
+                    if (ListDrones[i].Id == drone.Id)
+                    {
+                        DroneToList updateDrone = ListDrones[i];
+                        updateDrone.Battery = drone.Battery;
+                        updateDrone.Location = drone.Location;
+                        updateDrone.Status = drone.Status;
+                        ListDrones[i] = updateDrone;
+                    }
+                }
+
+                parcel.PickedUp = DateTime.Now;
+                IDAL.DO.Parcel updateParcel = new IDAL.DO.Parcel();
+                updateParcel.PickedUp = parcel.PickedUp;
+                dal.UpdateParcel(updateParcel);
+            }
         }
     }
 }
