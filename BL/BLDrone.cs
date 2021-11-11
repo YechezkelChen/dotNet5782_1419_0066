@@ -140,18 +140,24 @@ namespace IBL
             return ListDrones;
         }
 
-        public void UpdateDrone(int droneId, string newModel)
+        public void UpdateDroneModel(int droneId, string newModel)
         {
-            if (droneId < 0)
-                throw new DroneException("ERROR: the ID is illegal! ");
-
-            if(newModel == "")
-                throw new DroneException("ERROR: Model must have value");
-
-            if (dal.CheckNotExistDrone(dal.GetDrone(droneId), dal.GetDrones()))
-                throw new DroneException("ERROR: the drone not exist:"); 
+            IDAL.DO.Drone updateDrone = new IDAL.DO.Drone();
+            try
+            {
+                dal.GetDrone(droneId);
+            }
+            catch (DalObject.DroneExeption e)
+            {
+                throw new DroneException("" + e);
+            }
             
-            dal.UpdateDroneModel(droneId, newModel);
+            if (newModel == "")
+                throw new DroneException("ERROR: Model must have value");
+            else
+                updateDrone.Model = newModel;
+            
+            dal.UpdateDrone(updateDrone);
         }
 
         public void CheckDrone(Drone drone)
@@ -176,7 +182,44 @@ namespace IBL
             throw new DroneException("ERROR: the drone not exist! ");
         }
 
-       
+        public void SendDroneToDroneCharge(int id)
+        {
+            Drone drone = new Drone();
+            try
+            {
+                drone = GetDrone(id);
+            }
+            catch (DroneException e)
+            {
+                throw new DroneException("" + e);
+            }
+            if (drone.Status != DroneStatuses.Available)
+                throw new DroneException("ERROR: the drone not available to charge ");
+
+            Station nearStation = NearStationToDrone(dal.GetDrone(drone.Id));
+            double distance = Distance(drone.Location, nearStation.Location);
+            if (distance * dAvailable < drone.Battery)
+                throw new DroneException("ERROR: the drone not have battery to go to station charge ");
+
+            for (int i = 0; i < ListDrones.Count; i++)
+                if (ListDrones[i].Id == drone.Id)
+                {
+                    DroneToList newDrone = ListDrones[i];
+                    newDrone.Battery -= distance * dAvailable;
+                    newDrone.Location = nearStation.Location;
+                    newDrone.Status = DroneStatuses.Maintenance;
+                    ListDrones[i] = newDrone;
+                }
+
+            IDAL.DO.Station Station = dal.GetStation(nearStation.Id);
+            Station.ChargeSlots--;
+            dal.UpdateStation(Station);
+
+            IDAL.DO.DroneCharge newDroneCharge = new DroneCharge();
+            newDroneCharge.Stationld = nearStation.Id;
+            newDroneCharge.DroneId = drone.Id;
+            dal.AddDroneCharge(newDroneCharge);
+        }
 
         public void ReleaseDroneFromDroneCharge(int id, int chargeTime)
         {
@@ -204,14 +247,14 @@ namespace IBL
                         {
                             elementListDrone.Battery += chargeTime * chargingRateOfDrone;
                             elementListDrone.Status = DroneStatuses.Available;
-                            RemoveDroneCharge(elementDroneCharge);
+                            dal.RemoveDroneCharge(elementDroneCharge);
                             foreach (var elementStationToList in GetStations())
                             {
                                 if (elementDroneCharge.Stationld == elementStationToList.Id)
                                 {
                                     IDAL.DO.Station updateStation = dal.GetStation(elementDroneCharge.Stationld);
                                     updateStation.ChargeSlots++;
-                                    UpdateStation(updateStation);
+                                    dal.UpdateStation(updateStation);
                                 }
                             }
                         }

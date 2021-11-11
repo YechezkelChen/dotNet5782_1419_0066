@@ -160,16 +160,19 @@ namespace IBL
 
         public void UpdateDataStation(int id, int name, int chargeSlots)
         {
-            if (id < 0)
-                throw new StationException("ERROR: the ID is illegal!");
-
-            if (dal.CheckNotExistStation(dal.GetStation(id), dal.GetStations()))
-                throw new StationException("ERROR: the drone not exist:");
+            IDAL.DO.Station station = new IDAL.DO.Station();
+            try
+            {
+                station = dal.GetStation(id);
+            }
+            catch (DalObject.StationExeption e)
+            {
+                throw new StationException("" + e);
+            }
 
             if (name == -1 && chargeSlots == -1)
                 throw new StationException("ERROR: you must Enter at least one of the following data!\n");
 
-            IDAL.DO.Station station = dal.GetStation(id);
             if (name != -1)
                 station.Name = name;
             if (chargeSlots != -1)
@@ -177,7 +180,6 @@ namespace IBL
 
             dal.UpdateStation(station);
         }
-
 
         public void CheckStation(Station station)
         {

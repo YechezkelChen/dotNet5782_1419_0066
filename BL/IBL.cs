@@ -28,7 +28,7 @@ namespace IBL
         void AddDrone(Drone newDrone, int idStation);
         Drone GetDrone(int id);
         IEnumerable<DroneToList> GetDrones();
-        void UpdateDrone(int droneId, string newModel);
+        void UpdateDroneModel(int droneId, string newModel);
         void CheckDrone(Drone drone);
         int CheckDroneAndParcel(int droneId, IEnumerable<IDAL.DO.Parcel> parcels);
         void SendDroneToDroneCharge(int id);
@@ -38,7 +38,7 @@ namespace IBL
         void AddCustomer(Customer newCustomer);
         Customer GetCustomer(int id);
         IEnumerable<CustomerToList> GetCustomers();
-        void UpdateCustomer(int id, string name, string phone);
+        void UpdateDataCustomer(int id, string name, string phone);
         void CheckCustomer(Customer customer);
 
         // Parcel

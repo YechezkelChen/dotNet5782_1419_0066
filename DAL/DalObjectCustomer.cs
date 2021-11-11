@@ -51,6 +51,13 @@ namespace DalObject
             return DataSource.customers;
         }
 
+        public void UpdateCustomer(Customer customer)
+        {
+            for (int i = 0; i < DataSource.drones.Count(); i++)
+                if (DataSource.drones[i].Id == drone.Id)
+                    DataSource.drones[i] = drone;
+        }
+
         /// <summary>
         /// the methode not need exeption becuse she use both sids(true and false)
         /// </summary>
@@ -64,28 +71,6 @@ namespace DalObject
                     return false;
 
             return true; //the customer not exist
-        }
-
-        public void UpdateDataCustomer(int id, string name, string phone)
-        {
-            for (int i = 0; i < DataSource.customers.Count(); i++)
-            {
-                if (DataSource.customers[i].Id == id)
-                {
-                    if (name != "")
-                    {
-                        Customer newCustomer = DataSource.customers[i];
-                        newCustomer.Name = name;
-                        DataSource.customers[i] = newCustomer;
-                    }
-                    if (phone != "")
-                    {
-                        Customer newCustomer = DataSource.customers[i];
-                        newCustomer.Phone = phone;
-                        DataSource.customers[i] = newCustomer;
-                    }
-                }
-            }
         }
     }
 }

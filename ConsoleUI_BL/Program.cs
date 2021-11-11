@@ -513,7 +513,7 @@ namespace ConsoleUI_BL
 
             try
             {
-                bl.UpdateDrone(id, model);
+                bl.UpdateDroneModel(id, model);
             }
             catch (DroneException e)
             {
@@ -569,7 +569,7 @@ namespace ConsoleUI_BL
 
             try
             {
-                bl.UpdateCustomer(id, name, phone);
+                bl.UpdateDataCustomer(id, name, phone);
             }
             catch (CustomerException e)
             {

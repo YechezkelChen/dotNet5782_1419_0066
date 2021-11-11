@@ -141,18 +141,28 @@ namespace IBL
             return customerToLists;
         }
 
-        public void UpdateCustomer(int id, string name, string phone)
+        public void UpdateDataCustomer(int id, string name, string phone)
         {
-            if(id <= 0) 
-                throw new CustomerException("ERROR: the ID is illegal! ");
+            IDAL.DO.Customer updateCustomer = new IDAL.DO.Customer();
+            try
+            {
+                updateCustomer = dal.GetCustomer(id);
+            }
+            catch (DalObject.CustomerExeption e)
+            {
+                throw new CustomerExeption("" + e);
+            }
 
             if (name == "" && phone == "")
                 throw new CustomerExeption("ERROR: need one thing at least to change");
 
-            if (dal.CheckNotExistCustomer(dal.GetCustomer(id), dal.GetCustomers()))
-                throw new CustomerExeption("ERROR: the customer not exist:");
+            if (name != "")
+                updateCustomer.Name = name;
 
-            dal.UpdateDataCustomer(id, name, phone);
+            if (phone != "")
+                updateCustomer.Phone = phone;
+
+            dal.UpdateCustomer(updateCustomer);
         }
 
         public void CheckCustomer(Customer customer)
@@ -163,45 +173,6 @@ namespace IBL
                 throw new CustomerExeption("ERROR: Name must have value");
             if (customer.Phone == "")
                 throw new CustomerExeption("ERROR: Phone must have value");
-        }
-
-        public void SendDroneToDroneCharge(int id)
-        {
-            Drone drone = new Drone();
-            try
-            {
-                drone = GetDrone(id);
-            }
-            catch (DroneException e)
-            {
-                throw new DroneException("" + e);
-            }
-            if (drone.Status != DroneStatuses.Available)
-                throw new DroneException("ERROR: the drone not available to charge ");
-
-            Station nearStation = NearStationToDrone(dal.GetDrone(drone.Id));
-            double distance = Distance(drone.Location, nearStation.Location);
-            if (distance * dAvailable < drone.Battery)
-                throw new DroneException("ERROR: the drone not have battery to go to station charge ");
-
-            for (int i = 0; i < ListDrones.Count; i++)
-                if (ListDrones[i].Id == drone.Id)
-                {
-                    DroneToList newDrone = ListDrones[i];
-                    newDrone.Battery -= distance * dAvailable;
-                    newDrone.Location = nearStation.Location;
-                    newDrone.Status = DroneStatuses.Maintenance;
-                    ListDrones[i] = newDrone;
-                }
-
-            IDAL.DO.Station Station = dal.GetStation(nearStation.Id);
-            Station.ChargeSlots--;
-            UpdateStation(Station);
-
-            IDAL.DO.DroneCharge newDroneCharge = new DroneCharge();
-            newDroneCharge.Stationld = nearStation.Id;
-            newDroneCharge.DdroneId = drone.Id;
-            dal.AddDroneCharge(newDroneCharge);
         }
     }
 }
