@@ -10,15 +10,15 @@ namespace IBL
     {
         public class ParcelToList
         {
-            public string Id { get; set; }
-            public string SenderId { get; set; }
-            public int TargetId { get; set; }
+            public int Id { get; set; }
+            public string SenderName { get; set; }
+            public string TargetName { get; set; }
             public WeightCategories Weight { get; set; }
             public Priorities Priority { get; set; }
             public ParcelStatuses ParcelStatuses { get; set; }
             public override string ToString()
             {
-                return $"Id #{Id}: Sender id = {SenderId},Target id = {TargetId}," +
+                return $"Id #{Id}: Sender id = {SenderName},Target id = {TargetName}," +
                        $"Weight = {Weight},  Priority = {Priority}, Parcel statuses = {ParcelStatuses}";
             }
         }

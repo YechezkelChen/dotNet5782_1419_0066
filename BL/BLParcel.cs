@@ -82,8 +82,8 @@ namespace IBL
             foreach (var idalParcel in idalParcels)
             {
                 newParcel.Id = idalParcel.Id;
-                newParcel.SenderId = idalParcel.SenderId;
-                newParcel.TargetId = idalParcel.TargetId;
+                newParcel.SenderName = GetCustomer(idalParcel.SenderId).Name;
+                newParcel.TargetName = GetCustomer(idalParcel.TargetId).Name;
                 newParcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
                 newParcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
 
@@ -112,8 +112,8 @@ namespace IBL
                 if (idalParcel.Scheduled == DateTime.MinValue)
                 {
                     newParcel.Id = idalParcel.Id;
-                    newParcel.SenderId = idalParcel.SenderId;
-                    newParcel.TargetId = idalParcel.TargetId;
+                    newParcel.SenderName = idalParcel.SenderId;
+                    newParcel.TargetName = idalParcel.TargetId;
                     newParcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
                     newParcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
 
