@@ -213,7 +213,7 @@ namespace IBL
                 throw new DroneException("" + e);
             }
 
-            if (collectionDrone.Status != DroneStatuses.Delivery || collectionDrone.ParcelByTransfer.ParcelStatus == true)
+            if (collectionDrone.Status != DroneStatuses.Delivery || collectionDrone.ParcelByTransfer.Status == true)
                 throw new ParcelException("ERROR: The parcel early in delivery ");
 
             for (int i = 0; i < ListDrones.Count(); i++)

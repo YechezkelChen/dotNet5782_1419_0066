@@ -11,7 +11,7 @@ namespace IBL
         public class ParcelByTransfer
         {
             public int Id { get; set; }
-            public bool ParcelStatus { get; set; }
+            public bool Status { get; set; }
             public Priorities Priority { get; set; }
             public WeightCategories Weight { get; set; }
             public CustomerInParcel SenderInParcel { get; set; }//the sender
@@ -22,7 +22,7 @@ namespace IBL
 
             public override string ToString()
             {
-                return $"Id #{Id}: Parcel status = {ParcelStatus},Priority = {Priority}," +
+                return $"Id #{Id}: Parcel status = {Status},Priority = {Priority}," +
                        $"Weight = {Weight},  Sender in parcel = {SenderInParcel}, Receiver in parcel = {ReceiverInParcel}," +
                        $"Pick up location = {PickUpLocation},Target location = {TargetLocation}, " +
                        $"Distance of transfer = {DistanceOfTransfer}";
