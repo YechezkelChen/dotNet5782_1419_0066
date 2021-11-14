@@ -15,8 +15,8 @@ namespace DalObject
         /// <param Name="newStation"></the new station the user whants to add to the station's list>
         public void AddStation(Station newStation)
         {
-            if(!IsExistStation(newStation, DataSource.stations))
-                DataSource.stations.Add(newStation);
+            if(!IsExistStation(newStation, DataSource.Stations))
+                DataSource.Stations.Add(newStation);
             else
                 throw new StationExeption("ERROR: the station exist!\n");
         }
@@ -30,7 +30,7 @@ namespace DalObject
         public Station GetStation(int stationId)
         {
             Station? newStation = null;
-            foreach (Station elementStation in DataSource.stations)
+            foreach (Station elementStation in DataSource.Stations)
             {
                 if (elementStation.Id == stationId)
                     newStation = elementStation;
@@ -47,21 +47,21 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Station> GetStations()
         {
-            return DataSource.stations;
+            return DataSource.Stations;
         }
 
         public void UpdateStation(Station station)
         {
-            for (int i = 0; i < DataSource.stations.Count(); i++)
-                if (DataSource.stations[i].Id == station.Id)
-                    DataSource.stations[i] = station;
+            for (int i = 0; i < DataSource.Stations.Count(); i++)
+                if (DataSource.Stations[i].Id == station.Id)
+                    DataSource.Stations[i] = station;
         }
 
         /// <summary>
         /// the methode not need exeption becuse she use both sids(true and false)
         /// </summary>
         /// <param Name="s"></the station that we chek if she exist>
-        /// <param Name="stations"></the list of all stations>
+        /// <param Name="Stations"></the list of all Stations>
         /// <returns></returns>
         public bool IsExistStation(Station s, IEnumerable<Station> stations)
         {

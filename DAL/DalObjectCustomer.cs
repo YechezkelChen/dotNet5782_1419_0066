@@ -17,8 +17,8 @@ namespace DalObject
         /// <param Name="newCustomer"></the new customer the user whants to add to the customer's list>
         public void AddCustomer(Customer newCustomer)
         {
-            if (!IsExistCustomer(newCustomer, DataSource.customers))
-                DataSource.customers.Add(newCustomer);
+            if (!IsExistCustomer(newCustomer, DataSource.Customers))
+                DataSource.Customers.Add(newCustomer);
             else
                 throw new CustomerExeption("ERROR: the customer is exist!\n");
         }
@@ -31,7 +31,7 @@ namespace DalObject
         public Customer GetCustomer(int customerId)
         {
             Customer? newCustomer = null;
-            foreach (Customer elementCustomer in DataSource.customers)
+            foreach (Customer elementCustomer in DataSource.Customers)
             {
                 if (elementCustomer.Id == customerId)
                     newCustomer = elementCustomer;
@@ -48,21 +48,21 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Customer> GetCustomers()
         {
-            return DataSource.customers;
+            return DataSource.Customers;
         }
 
         public void UpdateCustomer(Customer customer)
         {
-            for (int i = 0; i < DataSource.customers.Count(); i++)
-                if (DataSource.customers[i].Id == customer.Id)
-                    DataSource.customers[i] = customer;
+            for (int i = 0; i < DataSource.Customers.Count(); i++)
+                if (DataSource.Customers[i].Id == customer.Id)
+                    DataSource.Customers[i] = customer;
         }
 
         /// <summary>
         /// the methode not need exeption becuse she use both sids(true and false)
         /// </summary>
         /// <param Name="d"></the customer we check if she is exist>
-        /// <param Name="drones"></the list od customers>
+        /// <param Name="Drones"></the list od Customers>
         /// <returns></returns>
         public bool IsExistCustomer(Customer c, IEnumerable<Customer> customers)
         {

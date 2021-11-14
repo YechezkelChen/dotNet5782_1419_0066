@@ -17,8 +17,8 @@ namespace DalObject
         /// <param Name="newDrone"></the new drone the user whants to add to the drone's list>
         public void AddDrone(Drone newDrone)
         {
-            if (!IsExistDrone(newDrone, DataSource.drones))
-                DataSource.drones.Add(newDrone);
+            if (!IsExistDrone(newDrone, DataSource.Drones))
+                DataSource.Drones.Add(newDrone);
             else
                 throw new DroneExeption("ERROR: the drone is exist!\n");
         }
@@ -31,7 +31,7 @@ namespace DalObject
         public Drone GetDrone(int droneId)
         {
             Drone? newDrone = null;
-            foreach (Drone elementDrone in DataSource.drones)
+            foreach (Drone elementDrone in DataSource.Drones)
             {
                 if (elementDrone.Id == droneId)
                     newDrone = elementDrone;
@@ -48,21 +48,21 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Drone> GetDrones()
         {
-            return DataSource.drones;
+            return DataSource.Drones;
         }
 
         public void UpdateDrone(Drone drone)
         {
-            for (int i = 0; i < DataSource.drones.Count(); i++)
-                if (DataSource.drones[i].Id == drone.Id)
-                    DataSource.drones[i] = drone;
+            for (int i = 0; i < DataSource.Drones.Count(); i++)
+                if (DataSource.Drones[i].Id == drone.Id)
+                    DataSource.Drones[i] = drone;
         }
 
         /// <summary>
         /// the methode not need exeption becuse she use both sids(true and false)
         /// </summary>
         /// <param Name="d"></the drone we check if she is exist>
-        /// <param Name="drones"></the list od drones>
+        /// <param Name="Drones"></the list od Drones>
         /// <returns></returns>
         public bool IsExistDrone(Drone d, IEnumerable<Drone> drones)
         {
@@ -87,26 +87,26 @@ namespace DalObject
         public void SendDroneToDroneCharge(Station s, Drone d)
         {
             DroneCharge newDroneCharges = new DroneCharge();
-            if (IsExistStation(s, DataSource.stations))
+            if (IsExistStation(s, DataSource.Stations))
             {
                 Station newsStation = new Station();
-                for (int i = 0; i < DataSource.stations.Count; i++)
+                for (int i = 0; i < DataSource.Stations.Count; i++)
                 {
-                    if (DataSource.stations[i].Id == s.Id)
+                    if (DataSource.Stations[i].Id == s.Id)
                     {
-                        newsStation = DataSource.stations[i];
+                        newsStation = DataSource.Stations[i];
                         newsStation.ChargeSlots--;
                         newDroneCharges.Stationld = newsStation.Id;
-                        DataSource.stations[i] = newsStation;
+                        DataSource.Stations[i] = newsStation;
                     }
                 }
             }
             else
                 throw new StationExeption("ERROR: the station is not exist!\n");
 
-            if (IsExistDrone(d, DataSource.drones))
+            if (IsExistDrone(d, DataSource.Drones))
             {
-                foreach (Drone elementDrone in DataSource.drones)
+                foreach (Drone elementDrone in DataSource.Drones)
                 {
                     if (elementDrone.Id == d.Id)
                     {
@@ -114,7 +114,7 @@ namespace DalObject
                         break;
                     }
                 }
-                DataSource.droneCharges.Add(newDroneCharges);
+                DataSource.DroneCharges.Add(newDroneCharges);
             }
             else
                 throw new DroneExeption("the drone is not exist!\n");
@@ -128,26 +128,26 @@ namespace DalObject
         public void ReleaseDroneFromDroneCharge(Station s, Drone d)
         {
             DroneCharge newDroneCharges = new DroneCharge();
-            if (IsExistStation(s, DataSource.stations))
+            if (IsExistStation(s, DataSource.Stations))
             {
                 Station newsStation = new Station();
-                for (int i = 0; i < DataSource.stations.Count; i++)
+                for (int i = 0; i < DataSource.Stations.Count; i++)
                 {
-                    if (DataSource.stations[i].Id == s.Id)
+                    if (DataSource.Stations[i].Id == s.Id)
                     {
-                        newsStation = DataSource.stations[i];
+                        newsStation = DataSource.Stations[i];
                         newsStation.ChargeSlots++;
                         newDroneCharges.Stationld = newsStation.Id;
-                        DataSource.stations[i] = newsStation;
+                        DataSource.Stations[i] = newsStation;
                     }
                 }
             }
             else
                 throw new StationExeption("ERROR: the station isn't exist");
 
-            if (IsExistDrone(d, DataSource.drones))
+            if (IsExistDrone(d, DataSource.Drones))
             {
-                foreach (Drone elementDrone in DataSource.drones)
+                foreach (Drone elementDrone in DataSource.Drones)
                 {
                     if (elementDrone.Id == d.Id)
                     {
@@ -159,10 +159,10 @@ namespace DalObject
             else
                 throw new DroneExeption("the drone isn't exist");
 
-            foreach (DroneCharge elementDroneCharge in DataSource.droneCharges)
+            foreach (DroneCharge elementDroneCharge in DataSource.DroneCharges)
             {
                 if (elementDroneCharge.Stationld == s.Id && elementDroneCharge.DroneId == d.Id)
-                    DataSource.droneCharges.Remove(newDroneCharges);
+                    DataSource.DroneCharges.Remove(newDroneCharges);
             }
         }
     }

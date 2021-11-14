@@ -7,22 +7,22 @@ namespace DalObject
 {
     internal class DataSource
     {
-        public static List<Drone> drones = new List<Drone>();
-        public static List<Station> stations = new List<Station>();
-        public static List<Customer> customers = new List<Customer>();
-        public static List<Parcel> parcels = new List<Parcel>();
-        public static List<DroneCharge> droneCharges = new List<DroneCharge>();
+        public static List<Drone> Drones = new List<Drone>();
+        public static List<Station> Stations = new List<Station>();
+        public static List<Customer> Customers = new List<Customer>();
+        public static List<Parcel> Parcels = new List<Parcel>();
+        public static List<DroneCharge> DroneCharges = new List<DroneCharge>();
 
         internal class Config
         {
             internal static int ParcelsId = 0;
 
             // km per hour
-            internal static double dAvailable = 5;
-            internal static double dLightW = 10;
-            internal static double dMediumW = 15;
-            internal static double dHeavyW = 20;
-            internal static double chargingRateOfDrone = 10;
+            internal static double BatteryAvailable = 5;
+            internal static double BatteryLightWeight = 10;
+            internal static double BatteryMediumWeight = 15;
+            internal static double BatteryHeavyWeight = 20;
+            internal static double ChargingRateOfDrone = 10;
         }
 
         public static void Initialize()
@@ -32,7 +32,7 @@ namespace DalObject
 
             for (int i = 0; i < 5; i++)
             {
-                drones.Add(new Drone
+                Drones.Add(new Drone
                 {
                     Id = rand.Next(100000000, 999999999),
                     Model = names[rand.Next(0, 4)],
@@ -42,7 +42,7 @@ namespace DalObject
 
             for (int i = 0; i < 2; i++)
             {
-                stations.Add(new Station
+                Stations.Add(new Station
                 {
                     Id = rand.Next(100000000, 999999999),
                     Name = rand.Next(1, 100),
@@ -54,7 +54,7 @@ namespace DalObject
 
             for (int i = 0; i < 10; i++)
             {
-                customers.Add(new Customer
+                Customers.Add(new Customer
                 {
                     Id = rand.Next(100000000, 999999999),
                     Name = names[rand.Next(0, 4)],
@@ -66,7 +66,7 @@ namespace DalObject
 
             for (int i = 0; i < 10; i++)
             {
-                parcels.Add(new Parcel
+                Parcels.Add(new Parcel
                 {
                     Id = rand.Next(100000000, 999999999),
                     SenderId = rand.Next(100000000, 999999999),
