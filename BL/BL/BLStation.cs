@@ -29,7 +29,14 @@ namespace IBL
             station.Longitude = newStation.Location.Longitude;
             station.Latitude = newStation.Location.Latitude;
             station.ChargeSlots = newStation.ChargeSlots;
-            dal.AddStation(station);
+            try
+            {
+                dal.AddStation(station);
+            }
+            catch (DalObject.DroneException e)
+            {
+                throw new DalObject.DroneException("" + e);
+            }
         }
 
         public Station GetStation(int id)
