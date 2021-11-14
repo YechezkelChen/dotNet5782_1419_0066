@@ -176,32 +176,5 @@ namespace IBL
             if (customer.Phone == "")
                 throw new CustomerExeption("ERROR: Phone must have value");
         }
-
-        public Parcel NearParcelToDrone(IDAL.DO.Drone drone)
-        {
-            List<double> distancesList = new List<double>();
-            Location parcelLocation = new Location();
-            Location droneLocation = GetDrone(drone.Id).Location;
-
-            foreach (var parcel in GetParcels())
-                if (parcel.ParcelStatuses == ParcelStatuses.Requested)
-                {
-                    var senderParcel = GetCustomer(GetParcel(parcel.Id).Sender.Id);
-                    distancesList.Add(Distance(senderParcel.Location, droneLocation));
-                }
-
-            double minDistance = distancesList.Min();
-
-            Parcel nearparcel = new Parcel();
-            foreach (var parcel in GetParcels())
-                if (parcel.ParcelStatuses == ParcelStatuses.Requested)
-                {
-                    var senderParcel = GetCustomer(GetParcel(parcel.Id).Sender.Id);
-                    if (minDistance == Distance(senderParcel.Location, droneLocation))
-                        nearparcel = GetParcel(parcel.Id);
-                }
-
-            return nearparcel;
-        }
     }
 }
