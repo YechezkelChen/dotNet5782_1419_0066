@@ -205,7 +205,7 @@ namespace IBL
                     parcel.DroneInParcel.Id == idDrone)
                     throw new ParcelException("ERROR: the parcel not pickup:\n");
 
-                double distance = Distance(drone.Location, GetCustomer(parcel.TargetId).Location);
+                double distance = Distance(drone.Location, GetCustomer(parcel.Target).Location);
 
                 if (parcel.Weight == WeightCategories.Heavy)
                     drone.Battery = distance * dHeavyW;
@@ -213,7 +213,7 @@ namespace IBL
                     drone.Battery = distance * dMediumW;
                 if (parcel.Weight == WeightCategories.Light)
                     drone.Battery = distance * dLightW;
-                drone.Location = GetCustomer(parcel.TargetId).Location;
+                drone.Location = GetCustomer(parcel.Target).Location;
                 drone.Status = DroneStatuses.Available;
                 for (int i = 0; i < ListDrones.Count(); i++)
                 {

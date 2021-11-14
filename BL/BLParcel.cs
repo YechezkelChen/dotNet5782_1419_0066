@@ -26,8 +26,8 @@ namespace IBL
                 throw new ParcelException("" + e);
             }
             IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
-            parcel.SenderId = newParcel.SenderId.Id;
-            parcel.TargetId = newParcel.TargetId.Id;
+            parcel.SenderId = newParcel.Sender.Id;
+            parcel.TargetId = newParcel.Target.Id;
             parcel.Weight = (IDAL.DO.WeightCategories)newParcel.Weight;
             parcel.Priority = (IDAL.DO.Priorities)newParcel.Priority;
             parcel.DroneId = 0;
@@ -52,8 +52,8 @@ namespace IBL
 
             Parcel parcel = new Parcel();
             parcel.Id = idalParcel.Id;
-            parcel.SenderId = idalParcel.SenderId;
-            parcel.TargetId = idalParcel.TargetId;
+            parcel.Sender = idalParcel.SenderId;
+            parcel.Target = idalParcel.TargetId;
             parcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
             parcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
 
@@ -127,11 +127,11 @@ namespace IBL
 
         public void CheckParcel(Parcel parcel)
         {
-            if (parcel.SenderId.Id < 0)
+            if (parcel.Sender.Id < 0)
                 throw new ParcelException("ERROR: the Sender ID is illegal! ");
-            if (parcel.TargetId.Id < 0)
+            if (parcel.Target.Id < 0)
                 throw new ParcelException("ERROR: the Target ID is illegal! ");
-            if (parcel.SenderId.Id == parcel.TargetId.Id)
+            if (parcel.Sender.Id == parcel.Target.Id)
                 throw new ParcelException("ERROR: the Target ID and the Sender ID are equals! ");
         }
 

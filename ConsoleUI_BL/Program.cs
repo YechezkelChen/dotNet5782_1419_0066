@@ -437,14 +437,14 @@ namespace ConsoleUI_BL
                 Console.WriteLine("Enter Sender Id Parcel: ");
             } while (!int.TryParse(Console.ReadLine(), out num));
 
-            newParcel.SenderId.Id = num;
+            newParcel.Sender.Id = num;
 
             do
             {
                 Console.WriteLine("Enter Target Id Parcel: ");
             } while (!int.TryParse(Console.ReadLine(), out num));
 
-            newParcel.TargetId.Id = num;
+            newParcel.Target.Id = num;
 
             do
             {
