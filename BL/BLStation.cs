@@ -29,7 +29,7 @@ namespace IBL
             station.Longitude = newStation.Location.Longitude;
             station.Latitude = newStation.Location.Latitude;
             station.ChargeSlots = newStation.ChargeSlots;
-            Dal.AddStation(station);
+            dal.AddStation(station);
         }
 
         public Station GetStation(int id)
@@ -37,7 +37,7 @@ namespace IBL
             IDAL.DO.Station idalStation = new IDAL.DO.Station();
             try
             {
-                idalStation = Dal.GetStation(id);
+                idalStation = dal.GetStation(id);
             }
             catch (DalObject.StationExeption e)
             {
@@ -50,7 +50,7 @@ namespace IBL
             station.Location.Longitude = idalStation.Longitude;
             station.Location.Latitude = idalStation.Latitude;
             station.ChargeSlots = idalStation.ChargeSlots;
-            foreach (var elementDroneCharge in Dal.GetDronesCharge())
+            foreach (var elementDroneCharge in dal.GetDronesCharge())
                 if(elementDroneCharge.Stationld == station.Id)
                     station.InCharges.Add(elementDroneCharge);
 
@@ -59,7 +59,7 @@ namespace IBL
 
         public IEnumerable<StationToList> GetStations()
         {
-            IEnumerable<IDAL.DO.Station> idalStations = Dal.GetStations();
+            IEnumerable<IDAL.DO.Station> idalStations = dal.GetStations();
             List<StationToList> stationsToList = new List<StationToList>();
             StationToList newStationToList = new StationToList();
             Station station = new Station();
@@ -88,7 +88,7 @@ namespace IBL
 
             foreach (var stationCharge in GetStationsCharge())
             {
-                foreach (var station in Dal.GetStations())
+                foreach (var station in dal.GetStations())
                 {
                     if (stationCharge.Id == station.Id)
                     {
@@ -100,7 +100,7 @@ namespace IBL
 
             double minDistance = distancesList.Min();
             Station nearStation = new Station();
-            foreach (var station in Dal.GetStations())
+            foreach (var station in dal.GetStations())
             {
                 stationLocation.Longitude = station.Longitude;
                 stationLocation.Latitude = station.Latitude;
@@ -120,7 +120,7 @@ namespace IBL
 
             foreach (var stationCharge in GetStationsCharge())
             {
-                foreach (var station in Dal.GetStations())
+                foreach (var station in dal.GetStations())
                 {
                     if (stationCharge.Id == station.Id)
                     {
@@ -132,7 +132,7 @@ namespace IBL
 
             double minDistance = distancesList.Min();
             Station nearStation = new Station();
-            foreach (var station in Dal.GetStations())
+            foreach (var station in dal.GetStations())
             {
                 stationLocation.Longitude = station.Longitude;
                 stationLocation.Latitude = station.Latitude;
@@ -163,7 +163,7 @@ namespace IBL
             IDAL.DO.Station station = new IDAL.DO.Station();
             try
             {
-                station = Dal.GetStation(id);
+                station = dal.GetStation(id);
             }
             catch (DalObject.StationExeption e)
             {
@@ -178,7 +178,7 @@ namespace IBL
             if (chargeSlots != -1)
                 station.ChargeSlots = chargeSlots;
 
-            Dal.UpdateStation(station);
+            dal.UpdateStation(station);
         }
 
         public void CheckStation(Station station)
@@ -192,7 +192,7 @@ namespace IBL
             if (station.Location.Latitude < 0 || station.Location.Longitude < 0)
                 throw new StationException("ERROR: the location is not exist! ");
 
-            foreach (var elementStation in Dal.GetStations())
+            foreach (var elementStation in dal.GetStations())
                 if (elementStation.Latitude == station.Location.Latitude &&
                     elementStation.Longitude == station.Location.Longitude)
                     throw new StationException("ERROR: the location is catch! ");
