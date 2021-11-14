@@ -198,14 +198,14 @@ namespace IBL
 
             Station nearStation = NearStationToDrone(dal.GetDrone(drone.Id));
             double distance = Distance(drone.Location, nearStation.Location);
-            if (distance * dAvailable < drone.Battery)
+            if (distance * BatteryAvailable < drone.Battery)
                 throw new DroneException("ERROR: the drone not have battery to go to station charge ");
 
             for (int i = 0; i < ListDrones.Count; i++)
                 if (ListDrones[i].Id == drone.Id)
                 {
                     DroneToList newDrone = ListDrones[i];
-                    newDrone.Battery -= distance * dAvailable;
+                    newDrone.Battery -= distance * BatteryAvailable;
                     newDrone.Location = nearStation.Location;
                     newDrone.Status = DroneStatuses.Maintenance;
                     ListDrones[i] = newDrone;
@@ -245,7 +245,7 @@ namespace IBL
                     {
                         if (elementDroneCharge.DroneId == elementListDrone.Id)
                         {
-                            elementListDrone.Battery += chargeTime * chargingRateOfDrone;
+                            elementListDrone.Battery += chargeTime * ChargingRateOfDrone;
                             elementListDrone.Status = DroneStatuses.Available;
                             dal.RemoveDroneCharge(elementDroneCharge);
                             foreach (var elementStationToList in GetStations())

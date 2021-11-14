@@ -176,5 +176,21 @@ namespace IBL
             if (customer.Phone == "")
                 throw new CustomerExeption("ERROR: Phone must have value");
         }
+
+        public IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
+            IEnumerable<IDAL.DO.Parcel> Parcels)
+        {
+            List<IDAL.DO.Customer> newCustomers = new List<IDAL.DO.Customer>();
+            foreach (var elementCustomer in customers)
+            {
+                foreach (var elementParcel in Parcels)
+                {
+                    if (elementParcel.TargetId == elementCustomer.Id && elementParcel.Delivered != DateTime.MinValue)
+                        newCustomers.Add(elementCustomer);
+                }
+            }
+
+            return newCustomers;
+        }
     }
 }

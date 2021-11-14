@@ -17,7 +17,7 @@ namespace IBL
 
         IDal dal = new DalObject.DalObject();
 
-        double dAvailable, dLightW, dMediumW, dHeavyW, chargingRateOfDrone;
+        double BatteryAvailable, BatteryLightWeight, BatteryMediumWeight, BatteryHeavyWeight, ChargingRateOfDrone;
 
         Random rand = new Random(DateTime.Now.Millisecond);
 
@@ -25,11 +25,11 @@ namespace IBL
         {
             // km per hour
             double[] powerConsumption = dal.GetRequestPowerConsumption();
-            dAvailable = powerConsumption[0];
-            dLightW = powerConsumption[1];
-            dMediumW = powerConsumption[2];
-            dHeavyW = powerConsumption[3];
-            chargingRateOfDrone = powerConsumption[4];
+            BatteryAvailable = powerConsumption[0];
+            BatteryLightWeight = powerConsumption[1];
+            BatteryMediumWeight = powerConsumption[2];
+            BatteryHeavyWeight = powerConsumption[3];
+            ChargingRateOfDrone = powerConsumption[4];
 
             IEnumerable<IDAL.DO.Drone> listDronesIdalDo = dal.GetDrones();
             DroneToList newDrone = new DroneToList();
@@ -68,14 +68,14 @@ namespace IBL
 
                         double distanceDelivery = Distance(elementDrone.Location, targetLocation); // the distance between the drone and the target
                         if (elementParcel.Weight == IDAL.DO.WeightCategories.Heavy)
-                            distanceDelivery *= dHeavyW;
+                            distanceDelivery *= BatteryHeavyWeight;
                         if (elementParcel.Weight == IDAL.DO.WeightCategories.Medium)
-                            distanceDelivery *= dMediumW;
+                            distanceDelivery *= BatteryMediumWeight;
                         if (elementParcel.Weight == IDAL.DO.WeightCategories.Light)
-                            distanceDelivery *= dLightW;
+                            distanceDelivery *= BatteryLightWeight;
 
                         distanceDelivery += Distance(targetLocation,
-                            NearStationToCustomer(dal.GetCustomer(elementParcel.TargetId)).Location) * dAvailable;
+                            NearStationToCustomer(dal.GetCustomer(elementParcel.TargetId)).Location) * BatteryAvailable;
 
                         elementDrone.Battery = rand.Next((int)distanceDelivery, 100);
 
@@ -112,7 +112,7 @@ namespace IBL
                         double distanceFromNearStation = Distance(elementDrone.Location,
                             NearStationToDrone(dal.GetDrone(elementDrone.Id)).Location);
 
-                        distanceFromNearStation *= dAvailable;
+                        distanceFromNearStation *= BatteryAvailable;
 
                         elementDrone.Battery = rand.Next((int) distanceFromNearStation, 100);
                     }
@@ -135,24 +135,6 @@ namespace IBL
             double d = R * c / 1000; // in kilometres
             return d;
         }
-
-        public IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
-            IEnumerable<IDAL.DO.Parcel> Parcels)
-        {
-            List<IDAL.DO.Customer> newCustomers = new List<IDAL.DO.Customer>();
-            foreach (var elementCustomer in customers)
-            {
-                foreach (var elementParcel in Parcels)
-                {
-                    if (elementParcel.TargetId == elementCustomer.Id && elementParcel.Delivered != DateTime.MinValue)
-                        newCustomers.Add(elementCustomer);
-                }
-            }
-
-            return newCustomers;
-        }
-
-       
     }
 }
 

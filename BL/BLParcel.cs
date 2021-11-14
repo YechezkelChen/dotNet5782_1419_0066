@@ -169,20 +169,20 @@ namespace IBL
 
                         double distanceDelivery = Distance(connectDrone.Location,
                             GetCustomer(GetParcel(parcelToConnect.Id).Sender.Id).Location);
-                        double batteryDelivery = distanceDelivery * dAvailable;
+                        double batteryDelivery = distanceDelivery * BatteryAvailable;
 
                         distanceDelivery = Distance(GetCustomer(GetParcel(parcelToConnect.Id).Sender.Id).Location,
                             GetCustomer(GetParcel(parcelToConnect.Id).Target.Id).Location); // the distance between the drone and the target
                         if (parcelToConnect.Weight == WeightCategories.Heavy)
-                            batteryDelivery += distanceDelivery * dHeavyW;
+                            batteryDelivery += distanceDelivery * BatteryHeavyWeight;
                         if (parcelToConnect.Weight == WeightCategories.Medium)
-                            batteryDelivery += distanceDelivery * dMediumW;
+                            batteryDelivery += distanceDelivery * BatteryMediumWeight;
                         if (parcelToConnect.Weight == WeightCategories.Light)
-                            batteryDelivery += distanceDelivery * dLightW;
+                            batteryDelivery += distanceDelivery * BatteryLightWeight;
 
                         distanceDelivery = Distance(GetCustomer(GetParcel(parcelToConnect.Id).Target.Id).Location,
                             NearStationToCustomer(dal.GetCustomer(GetParcel(parcelToConnect.Id).Target.Id)).Location);
-                        batteryDelivery += distanceDelivery * dAvailable;
+                        batteryDelivery += distanceDelivery * BatteryAvailable;
 
                         if (connectDrone.Battery >= batteryDelivery)
                             break;
@@ -222,7 +222,7 @@ namespace IBL
                 {
                     DroneToList updateDrone = ListDrones[i];
                     updateDrone.Battery = Distance(collectionDrone.Location,
-                        collectionDrone.ParcelByTransfer.PickUpLocation) * dAvailable;
+                        collectionDrone.ParcelByTransfer.PickUpLocation) * BatteryAvailable;
                     updateDrone.Location = collectionDrone.ParcelByTransfer.PickUpLocation;
                     ListDrones[i] = updateDrone;
                 }
@@ -265,11 +265,11 @@ namespace IBL
                 double distance = Distance(drone.Location, GetCustomer(parcel.Target.Id).Location);
 
                 if (parcel.Weight == WeightCategories.Heavy)
-                    drone.Battery = distance * dHeavyW;
+                    drone.Battery = distance * BatteryHeavyWeight;
                 if (parcel.Weight == WeightCategories.Medium)
-                    drone.Battery = distance * dMediumW;
+                    drone.Battery = distance * BatteryMediumWeight;
                 if (parcel.Weight == WeightCategories.Light)
-                    drone.Battery = distance * dLightW;
+                    drone.Battery = distance * BatteryLightWeight;
                 drone.Location = GetCustomer(parcel.Target.Id).Location;
                 drone.Status = DroneStatuses.Available;
                 for (int i = 0; i < ListDrones.Count(); i++)

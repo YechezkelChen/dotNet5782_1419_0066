@@ -9,11 +9,11 @@ namespace IBL
 {
     public interface IBL
     {
-        //constructor functions
+        // General
         double Distance(Location from, Location to);
-        IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
-            IEnumerable<IDAL.DO.Parcel> Parcels);
-        
+       
+
+
         // Station
         void AddStation(Station newStation);
         Station GetStation(int id);
@@ -40,6 +40,9 @@ namespace IBL
         IEnumerable<CustomerToList> GetCustomers();
         void UpdateDataCustomer(int id, string name, string phone);
         void CheckCustomer(Customer customer);
+        IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
+            IEnumerable<IDAL.DO.Parcel> Parcels);
+
 
         // Parcel
         void AddParcel(Parcel newParcel);
