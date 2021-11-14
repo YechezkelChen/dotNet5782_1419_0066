@@ -54,7 +54,7 @@ namespace ConsoleUI_BL
             Exit
         };
 
-        public static IBL.IBL bl = new BL();
+        public IBL.IBL bl = new BL();
 
         static void Main(string[] args)
         {
