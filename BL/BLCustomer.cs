@@ -177,48 +177,31 @@ namespace IBL
                 throw new CustomerExeption("ERROR: Phone must have value");
         }
 
-
-        public Station NearParcelToDrone(IDAL.DO.Drone drone)
+        public Parcel NearParcelToDrone(IDAL.DO.Drone drone)
         {
             List<double> distancesList = new List<double>();
             Location parcelLocation = new Location();
             Location droneLocation = GetDrone(drone.Id).Location;
 
             foreach (var parcel in GetParcels())
-            {
-                var x = GetParcel(parcel.Id);
-
-                
-                var y = GetCustomer(x.Sender.Id);
-                y.Location
-
-
-            }
-
-            foreach (var station in dal.GetStations())
-            {
-                if (parcel.Id == station.Id)
+                if (parcel.ParcelStatuses == ParcelStatuses.Requested)
                 {
-                    stationLocation = new Location() {Longitude = station.Longitude, Latitude = station.Latitude};
-                    distancesList.Add(Distance(stationLocation, droneLocation));
+                    var senderParcel = GetCustomer(GetParcel(parcel.Id).Sender.Id);
+                    distancesList.Add(Distance(senderParcel.Location, droneLocation));
                 }
-            }
+
+            double minDistance = distancesList.Min();
+
+            Parcel nearparcel = new Parcel();
+            foreach (var parcel in GetParcels())
+                if (parcel.ParcelStatuses == ParcelStatuses.Requested)
+                {
+                    var senderParcel = GetCustomer(GetParcel(parcel.Id).Sender.Id);
+                    if (minDistance == Distance(senderParcel.Location, droneLocation))
+                        nearparcel = GetParcel(parcel.Id);
+                }
+
+            return nearparcel;
         }
-
-        double minDistance = distancesList.Min();
-
-        Station nearStation = new Station();
-            foreach (var station in dal.GetStations())
-        {
-            stationLocation.Longitude = station.Longitude;
-            stationLocation.Latitude = station.Latitude;
-
-            if (minDistance == Distance(stationLocation, droneLocation))
-                nearStation = GetStation(station.Id);
-        }
-
-    return nearStation;
-}
-
-}
+    }
 }

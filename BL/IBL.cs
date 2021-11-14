@@ -50,5 +50,6 @@ namespace IBL
         void ConnectParcelToDrone(int idDrone);
         void CollectionParcelByDrone(int idDrone);
         void SupplyParcelByDrone(int idDrone);
+        Parcel NearParcelToDrone(IDAL.DO.Drone drone)
     }
 }
