@@ -38,7 +38,7 @@ namespace IBL
             customer.Phone = newCustomer.Phone;
             customer.Longitude = newCustomer.Location.Longitude;
             customer.Latitude = newCustomer.Location.Latitude;
-            dal.AddCustomer(customer);
+            Dal.AddCustomer(customer);
         }
 
         public Customer GetCustomer(int id)
@@ -46,7 +46,7 @@ namespace IBL
             IDAL.DO.Customer idalCustomer = new IDAL.DO.Customer();
             try
             {
-                idalCustomer = dal.GetCustomer(id);
+                idalCustomer = Dal.GetCustomer(id);
             }
             catch (DalObject.CustomerExeption e)
             {
@@ -61,7 +61,7 @@ namespace IBL
             customer.Location.Latitude = idalCustomer.Latitude;
 
             ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
-            foreach (var elementParcel in dal.GetParcels())
+            foreach (var elementParcel in Dal.GetParcels())
                 if (customer.Id == elementParcel.SenderId)
                 {
                     parcelInCustomer.Id = elementParcel.Id;
@@ -83,7 +83,7 @@ namespace IBL
                     customer.FromTheCustomerList.Add(parcelInCustomer);
                 }
 
-            foreach (var elementParcel in dal.GetParcels())
+            foreach (var elementParcel in Dal.GetParcels())
                 if (customer.Id == elementParcel.TargetId)
                 {
                     parcelInCustomer.Id = elementParcel.Id;
@@ -109,7 +109,7 @@ namespace IBL
 
         public IEnumerable<CustomerToList> GetCustomers()
         {
-            IEnumerable<IDAL.DO.Customer> idalcCustomers = dal.GetCustomers();
+            IEnumerable<IDAL.DO.Customer> idalcCustomers = Dal.GetCustomers();
             List<CustomerToList> customerToLists = new List<CustomerToList>();
             CustomerToList newCustomer = new CustomerToList();
 
@@ -125,7 +125,7 @@ namespace IBL
                 newCustomer.TargetParcelDelivered = 0;
                 newCustomer.TargetParcelPickedUp = 0;
 
-                foreach (var elementParcel in dal.GetParcels())
+                foreach (var elementParcel in Dal.GetParcels())
                 {
                     if (elementParcel.SenderId == idalCustomer.Id && elementParcel.Delivered != DateTime.MinValue)
                         newCustomer.SenderParcelDelivered++;
@@ -148,7 +148,7 @@ namespace IBL
             IDAL.DO.Customer updateCustomer = new IDAL.DO.Customer();
             try
             {
-                updateCustomer = dal.GetCustomer(id);
+                updateCustomer = Dal.GetCustomer(id);
             }
             catch (DalObject.CustomerExeption e)
             {
@@ -164,7 +164,7 @@ namespace IBL
             if (phone != "")
                 updateCustomer.Phone = phone;
 
-            dal.UpdateCustomer(updateCustomer);
+            Dal.UpdateCustomer(updateCustomer);
         }
 
         public void CheckCustomer(Customer customer)
