@@ -31,6 +31,7 @@ namespace IBL
             {
                 throw new CustomerException("" + e);
             }
+
             IDAL.DO.Customer customer = new IDAL.DO.Customer();
             customer.Id = newCustomer.Id;
             customer.Name = newCustomer.Name;
@@ -177,43 +178,47 @@ namespace IBL
         }
 
 
-        //public Station NearParcelToDrone(IDAL.DO.Drone drone)
-        //{
-//            List<double> distancesList = new List<double>();
-//            Location parcelLocation = new Location();
-//            Location droneLocation = GetDrone(drone.Id).Location;
+        public Station NearParcelToDrone(IDAL.DO.Drone drone)
+        {
+            List<double> distancesList = new List<double>();
+            Location parcelLocation = new Location();
+            Location droneLocation = GetDrone(drone.Id).Location;
 
-//            foreach (var parcel in GetParcels())
-//            {
-//                var x = GetParcel(parcel.SenderId);
-//                var y = GetCustomer(x.Sender.Id);
-//                y.Location
+            foreach (var parcel in GetParcels())
+            {
+                var x = GetParcel(parcel.Id);
+
+                
+                var y = GetCustomer(x.Sender.Id);
+                y.Location
 
 
-//            }
+            }
 
-//            foreach (var station in dal.GetStations())
-//            {
-//                if (parcel.Id == station.Id)
-//                {
-//                    stationLocation = new Location() { Longitude = station.Longitude, Latitude = station.Latitude };
-//                    distancesList.Add(Distance(stationLocation, droneLocation));
-//                }
-//            }
-//        }
+            foreach (var station in dal.GetStations())
+            {
+                if (parcel.Id == station.Id)
+                {
+                    stationLocation = new Location() {Longitude = station.Longitude, Latitude = station.Latitude};
+                    distancesList.Add(Distance(stationLocation, droneLocation));
+                }
+            }
+        }
 
-//        double minDistance = distancesList.Min();
-//        Station nearStation = new Station();
-//            foreach (var station in dal.GetStations())
-//        {
-//            stationLocation.Longitude = station.Longitude;
-//            stationLocation.Latitude = station.Latitude;
+        double minDistance = distancesList.Min();
 
-//            if (minDistance == Distance(stationLocation, droneLocation))
-//                nearStation = GetStation(station.Id);
-//        }
+        Station nearStation = new Station();
+            foreach (var station in dal.GetStations())
+        {
+            stationLocation.Longitude = station.Longitude;
+            stationLocation.Latitude = station.Latitude;
 
-//    return nearStation;
-//}
-    }
+            if (minDistance == Distance(stationLocation, droneLocation))
+                nearStation = GetStation(station.Id);
+        }
+
+    return nearStation;
+}
+
+}
 }
