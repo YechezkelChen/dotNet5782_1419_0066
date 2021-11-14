@@ -21,7 +21,7 @@ namespace IBL
 
         Random rand = new Random(DateTime.Now.Millisecond);
 
-        private BL()
+        public BL()
         {
             // km per hour
             double[] powerConsumption = dal.GetRequestPowerConsumption();
