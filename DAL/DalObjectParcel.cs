@@ -90,7 +90,7 @@ namespace DalObject
         public void ConnectParcelToDrone(Parcel p, Drone d)
         {
             if (!CheckNotExistParcel(p, DataSource.parcels))
-                if (!CheckNotExistDrone(d, DataSource.drones))
+                if (IsExistDrone(d, DataSource.drones))
                 {
                     Parcel newParcel = new Parcel();
                     for (int i = 0; i < DataSource.parcels.Count; i++)
