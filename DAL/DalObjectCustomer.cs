@@ -17,7 +17,7 @@ namespace DalObject
         /// <param Name="newCustomer"></the new customer the user whants to add to the customer's list>
         public void AddCustomer(Customer newCustomer)
         {
-            if (CheckNotExistCustomer(newCustomer, DataSource.customers))
+            if (!IsExistCustomer(newCustomer, DataSource.customers))
                 DataSource.customers.Add(newCustomer);
             else
                 throw new CustomerExeption("ERROR: the customer is exist!\n");
@@ -64,7 +64,7 @@ namespace DalObject
         /// <param Name="d"></the customer we check if she is exist>
         /// <param Name="drones"></the list od customers>
         /// <returns></returns>
-        public bool CheckNotExistCustomer(Customer c, IEnumerable<Customer> customers)
+        public bool IsExistCustomer(Customer c, IEnumerable<Customer> customers)
         {
             foreach (Customer elementCustomer in customers)
                 if (elementCustomer.Id == c.Id)

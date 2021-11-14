@@ -15,7 +15,7 @@ namespace DalObject
         /// <param Name="newStation"></the new station the user whants to add to the station's list>
         public void AddStation(Station newStation)
         {
-            if(CheckNotExistStation(newStation, DataSource.stations))
+            if(!IsExistStation(newStation, DataSource.stations))
                 DataSource.stations.Add(newStation);
             else
                 throw new StationExeption("ERROR: the station exist!\n");
@@ -63,7 +63,7 @@ namespace DalObject
         /// <param Name="s"></the station that we chek if she exist>
         /// <param Name="stations"></the list of all stations>
         /// <returns></returns>
-        public bool CheckNotExistStation(Station s, IEnumerable<Station> stations)
+        public bool IsExistStation(Station s, IEnumerable<Station> stations)
         {
             foreach (Station elementStation in stations)
                 if (elementStation.Id == s.Id)

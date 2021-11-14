@@ -18,11 +18,11 @@ namespace DalObject
             internal static int ParcelsId = 0;
 
             // km per hour
-            internal static double dAvailable = 0;
-            internal static double dLightW = 0;
-            internal static double dMediumW = 0;
-            internal static double dHeavyW = 0;
-            internal static double chargingRateOfDrone = 0;
+            internal static double dAvailable = 5;
+            internal static double dLightW = 10;
+            internal static double dMediumW = 15;
+            internal static double dHeavyW = 20;
+            internal static double chargingRateOfDrone = 10;
         }
 
         public static void Initialize()

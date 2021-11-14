@@ -16,5 +16,16 @@ namespace DalObject
         {
             DataSource.Initialize();
         }
+
+        public double[] GetRequestPowerConsumption()
+        {
+            double[] powerConsumption = new double[5];
+            powerConsumption[0] = DataSource.Config.dAvailable;
+            powerConsumption[1] = DataSource.Config.dLightW;
+            powerConsumption[2] = DataSource.Config.dMediumW;
+            powerConsumption[3] = DataSource.Config.dHeavyW;
+            powerConsumption[4] = DataSource.Config.chargingRateOfDrone;
+            return powerConsumption;
+        }
     }
 }

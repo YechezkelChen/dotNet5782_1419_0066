@@ -10,13 +10,16 @@ namespace IDAL
 {
     public interface IDal
     {
+        // General
+        double[] GetRequestPowerConsumption();
+
 
         // Station
         void AddStation(Station newStation);
         Station GetStation(int stationId);
         IEnumerable<Station> GetStations();
         void UpdateStation(Station station);
-        bool CheckNotExistStation(Station s, IEnumerable<Station> stations);
+        bool IsExistStation(Station s, IEnumerable<Station> stations);
 
 
 
@@ -33,7 +36,7 @@ namespace IDAL
         Customer GetCustomer(int customerId);
         IEnumerable<Customer> GetCustomers();
         void UpdateCustomer(Customer customer);
-        bool CheckNotExistCustomer(Customer c, IEnumerable<Customer> customers);
+        bool IsExistCustomer(Customer c, IEnumerable<Customer> customers);
 
 
         // Parcel
@@ -41,7 +44,7 @@ namespace IDAL
         Parcel GetParcel(int parcelId);
         IEnumerable<Parcel> GetParcels();
         void UpdateParcel(Parcel parcel);
-        bool CheckNotExistParcel(Parcel p, IEnumerable<Parcel> parcels);
+        bool IsExistParcel(Parcel p, IEnumerable<Parcel> parcels);
 
 
 
@@ -60,7 +63,6 @@ namespace IDAL
         void SupplyParcelToCustomer(Parcel p);
         void SendDroneToDroneCharge(Station s, Drone d);
         void ReleaseDroneFromDroneCharge(Station s, Drone d);
-        double[] GetRequestPowerConsumption();
 
 
 

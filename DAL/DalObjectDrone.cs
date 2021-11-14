@@ -87,7 +87,7 @@ namespace DalObject
         public void SendDroneToDroneCharge(Station s, Drone d)
         {
             DroneCharge newDroneCharges = new DroneCharge();
-            if (!CheckNotExistStation(s, DataSource.stations))
+            if (IsExistStation(s, DataSource.stations))
             {
                 Station newsStation = new Station();
                 for (int i = 0; i < DataSource.stations.Count; i++)
@@ -128,7 +128,7 @@ namespace DalObject
         public void ReleaseDroneFromDroneCharge(Station s, Drone d)
         {
             DroneCharge newDroneCharges = new DroneCharge();
-            if (!CheckNotExistStation(s, DataSource.stations))
+            if (IsExistStation(s, DataSource.stations))
             {
                 Station newsStation = new Station();
                 for (int i = 0; i < DataSource.stations.Count; i++)
@@ -164,17 +164,6 @@ namespace DalObject
                 if (elementDroneCharge.Stationld == s.Id && elementDroneCharge.DroneId == d.Id)
                     DataSource.droneCharges.Remove(newDroneCharges);
             }
-        }
-
-        public double[] GetRequestPowerConsumption()
-        {
-            double[] powerConsumption = new double[5];
-            powerConsumption[0] = DataSource.Config.dAvailable;
-            powerConsumption[1] = DataSource.Config.dLightW;
-            powerConsumption[2] = DataSource.Config.dMediumW;
-            powerConsumption[3] = DataSource.Config.dHeavyW;
-            powerConsumption[4] = DataSource.Config.chargingRateOfDrone;
-            return powerConsumption;
         }
     }
 }

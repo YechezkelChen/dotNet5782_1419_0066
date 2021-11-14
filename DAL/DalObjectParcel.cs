@@ -20,7 +20,7 @@ namespace DalObject
         public int AddParcel(Parcel newParcel)
         {
             int tmp = DataSource.Config.ParcelsId;
-            if (CheckNotExistParcel(newParcel, DataSource.parcels))
+            if (!IsExistParcel(newParcel, DataSource.parcels))
             {
                 newParcel.Id = DataSource.Config.ParcelsId; // insert the Parcels new Id
                 DataSource.Config.ParcelsId++; // new Id for the fautre parce Id
@@ -72,7 +72,7 @@ namespace DalObject
         /// <param Name="d"></the parcel we check if she is exist>
         /// <param Name="drones"></the list of parcels>
         /// <returns></returns>
-        public bool CheckNotExistParcel(Parcel p, IEnumerable<Parcel> parcels)
+        public bool IsExistParcel(Parcel p, IEnumerable<Parcel> parcels)
         {
             foreach (Parcel elementParcel in parcels)
                 if (elementParcel.Id == p.Id)
@@ -89,7 +89,7 @@ namespace DalObject
         /// <param Name="d"></the drone the user ask to connect with the parcel he ask >
         public void ConnectParcelToDrone(Parcel p, Drone d)
         {
-            if (!CheckNotExistParcel(p, DataSource.parcels))
+            if (IsExistParcel(p, DataSource.parcels))
                 if (!CheckNotExistDrone(d, DataSource.drones))
                 {
                     Parcel newParcel = new Parcel();
@@ -117,7 +117,7 @@ namespace DalObject
         /// <param Name="p"></the spesific parcel the user ask to update as pick'd up>
         public void CollectionParcelByDrone(Parcel p)
         {
-            if (!CheckNotExistParcel(p, DataSource.parcels))
+            if (IsExistParcel(p, DataSource.parcels))
             {
                 Parcel newParcel = new Parcel();
                 for (int i = 0; i < DataSource.parcels.Count; i++)
@@ -140,7 +140,7 @@ namespace DalObject
         /// <param Name="p"></the specific parcel the user ask to pdate as deliver'd >
         public void SupplyParcelToCustomer(Parcel p)
         {
-            if (!CheckNotExistParcel(p, DataSource.parcels))
+            if (IsExistParcel(p, DataSource.parcels))
             {
                 Parcel newParcel = new Parcel();
                 for (int i = 0; i < DataSource.parcels.Count; i++)
