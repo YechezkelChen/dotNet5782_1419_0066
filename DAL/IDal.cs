@@ -28,7 +28,7 @@ namespace IDAL
         Drone GetDrone(int droneId);
         IEnumerable<Drone> GetDrones();
         void UpdateDrone(Drone drone);
-        bool CheckNotExistDrone(Drone d, IEnumerable<Drone> drones);
+        bool IsExistDrone(Drone d, IEnumerable<Drone> drones);
 
 
         // Customer
@@ -52,7 +52,7 @@ namespace IDAL
         void AddDroneCharge(DroneCharge newDroneCharge);
         void RemoveDroneCharge(DroneCharge DroneCharge);
         IEnumerable<DroneCharge> GetDronesCharge();
-        bool CheckNotExistDroneCharge(DroneCharge droneCharge, IEnumerable<DroneCharge> droneCharges);
+        bool IsExistDroneCharge(DroneCharge droneCharge, IEnumerable<DroneCharge> droneCharges);
 
 
 

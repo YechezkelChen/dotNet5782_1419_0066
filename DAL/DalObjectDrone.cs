@@ -17,7 +17,7 @@ namespace DalObject
         /// <param Name="newDrone"></the new drone the user whants to add to the drone's list>
         public void AddDrone(Drone newDrone)
         {
-            if (CheckNotExistDrone(newDrone, DataSource.drones))
+            if (!IsExistDrone(newDrone, DataSource.drones))
                 DataSource.drones.Add(newDrone);
             else
                 throw new DroneExeption("ERROR: the drone is exist!\n");
@@ -64,12 +64,12 @@ namespace DalObject
         /// <param Name="d"></the drone we check if she is exist>
         /// <param Name="drones"></the list od drones>
         /// <returns></returns>
-        public bool CheckNotExistDrone(Drone d, IEnumerable<Drone> drones)
+        public bool IsExistDrone(Drone d, IEnumerable<Drone> drones)
         {
             foreach (Drone elementDrone in drones)
                 if (elementDrone.Id == d.Id)
-                    return false;
-            return true;//the drone not exist
+                    return true;
+            return false;//the drone not exist
         }
 
 
@@ -104,7 +104,7 @@ namespace DalObject
             else
                 throw new StationExeption("ERROR: the station is not exist!\n");
 
-            if (!CheckNotExistDrone(d, DataSource.drones))
+            if (IsExistDrone(d, DataSource.drones))
             {
                 foreach (Drone elementDrone in DataSource.drones)
                 {
@@ -145,7 +145,7 @@ namespace DalObject
             else
                 throw new StationExeption("ERROR: the station isn't exist");
 
-            if (!CheckNotExistDrone(d, DataSource.drones))
+            if (IsExistDrone(d, DataSource.drones))
             {
                 foreach (Drone elementDrone in DataSource.drones)
                 {
