@@ -393,13 +393,13 @@ namespace IBL
             }
         }
 
-        public Station NearParcelToDrone(IDAL.DO.Drone drone, List<ParcelToList> parcels)
+        public Station NearParcelToDrone(IDAL.DO.Drone drone)
         {
             List<double> distancesList = new List<double>();
             Location parcelLocation = new Location();
             Location droneLocation = GetDrone(drone.Id).Location;
 
-            foreach (var stationCharge in GetStationsCharge())
+            foreach (var stationCharge in GetParcels())
             {
                 foreach (var station in dal.GetStations())
                 {
