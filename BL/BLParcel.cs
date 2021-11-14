@@ -35,7 +35,7 @@ namespace IBL
             parcel.Scheduled = DateTime.MinValue;
             parcel.PickedUp = DateTime.MinValue;
             parcel.Delivered = DateTime.MinValue;
-            Dal.AddParcel(parcel);
+            dal.AddParcel(parcel);
         }
 
         public Parcel GetParcel(int id)
@@ -43,7 +43,7 @@ namespace IBL
             IDAL.DO.Parcel idalParcel = new IDAL.DO.Parcel();
             try
             {
-                idalParcel = Dal.GetParcel(id);
+                idalParcel = dal.GetParcel(id);
             }
             catch (DalObject.ParcelExeption e)
             {
@@ -75,7 +75,7 @@ namespace IBL
 
         public IEnumerable<ParcelToList> GetParcels()
         {
-            IEnumerable<IDAL.DO.Parcel> idalParcels = Dal.GetParcels();
+            IEnumerable<IDAL.DO.Parcel> idalParcels = dal.GetParcels();
             List<ParcelToList> parcelToLists = new List<ParcelToList>();
             ParcelToList newParcel = new ParcelToList();
 
@@ -104,7 +104,7 @@ namespace IBL
 
         public IEnumerable<ParcelToList> GetParcelsNoDrones()
         {
-            IEnumerable<IDAL.DO.Parcel> idalParcels = Dal.GetParcels();
+            IEnumerable<IDAL.DO.Parcel> idalParcels = dal.GetParcels();
             List<ParcelToList> parcelNoDrones = new List<ParcelToList>();
             ParcelToList newParcel = new ParcelToList();
 
@@ -181,7 +181,7 @@ namespace IBL
                             batteryDelivery += distanceDelivery * dLightW;
 
                         distanceDelivery = Distance(GetCustomer(GetParcel(parcelToConnect.Id).Target.Id).Location,
-                            NearStationToCustomer(Dal.GetCustomer(GetParcel(parcelToConnect.Id).Target.Id)).Location);
+                            NearStationToCustomer(dal.GetCustomer(GetParcel(parcelToConnect.Id).Target.Id)).Location);
                         batteryDelivery += distanceDelivery * dAvailable;
 
                         if (connectDrone.Battery >= batteryDelivery)
@@ -194,11 +194,11 @@ namespace IBL
                 if (drone.Id == connectDrone.Id)
                     drone.Status = DroneStatuses.Delivery;
 
-            IDAL.DO.Parcel updateParcel = Dal.GetParcel(parcelToConnect.Id);
+            IDAL.DO.Parcel updateParcel = dal.GetParcel(parcelToConnect.Id);
             updateParcel.DroneId = connectDrone.Id;
             updateParcel.Scheduled = DateTime.Now;
              
-            Dal.UpdateParcel(updateParcel);
+            dal.UpdateParcel(updateParcel);
         }
 
         public void CollectionParcelByDrone(int idDrone)
@@ -228,9 +228,9 @@ namespace IBL
                 }
             }
 
-            IDAL.DO.Parcel updateparcel = Dal.GetParcel(collectionDrone.ParcelByTransfer.Id);
+            IDAL.DO.Parcel updateparcel = dal.GetParcel(collectionDrone.ParcelByTransfer.Id);
             updateparcel.PickedUp = DateTime.Now;
-            Dal.UpdateParcel(updateparcel);
+            dal.UpdateParcel(updateparcel);
         }
 
         public void SupplyParcelByDrone(int idDrone)
@@ -287,7 +287,7 @@ namespace IBL
                 parcel.PickedUp = DateTime.Now;
                 IDAL.DO.Parcel updateParcel = new IDAL.DO.Parcel();
                 updateParcel.PickedUp = parcel.PickedUp;
-                Dal.UpdateParcel(updateParcel);
+                dal.UpdateParcel(updateParcel);
             }
         }
 

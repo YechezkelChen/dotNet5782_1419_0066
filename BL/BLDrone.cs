@@ -39,8 +39,8 @@ namespace IBL
             newDrone.Status = DroneStatuses.Maintenance;
             try
             {
-                newDrone.Location.Longitude = Dal.GetStation(idStation).Longitude;
-                newDrone.Location.Latitude = Dal.GetStation(idStation).Latitude;
+                newDrone.Location.Longitude = dal.GetStation(idStation).Longitude;
+                newDrone.Location.Latitude = dal.GetStation(idStation).Latitude;
             }
             catch (DalObject.StationExeption e)
             {
@@ -54,8 +54,8 @@ namespace IBL
             newDroneToList.Status = DroneStatuses.Maintenance;
             try
             {
-                newDroneToList.Location.Longitude = Dal.GetStation(idStation).Longitude;
-                newDroneToList.Location.Latitude = Dal.GetStation(idStation).Latitude;
+                newDroneToList.Location.Longitude = dal.GetStation(idStation).Longitude;
+                newDroneToList.Location.Latitude = dal.GetStation(idStation).Latitude;
             }
             catch (DalObject.StationExeption e)
             {
@@ -64,7 +64,7 @@ namespace IBL
 
             try
             {
-                int foundDrone = CheckDroneAndParcel(newDroneToList.Id, Dal.GetParcels());
+                int foundDrone = CheckDroneAndParcel(newDroneToList.Id, dal.GetParcels());
                 newDroneToList.IdParcel = foundDrone;
             }
             catch (DroneException e)
@@ -73,7 +73,7 @@ namespace IBL
             }
 
             ListDrones.Add(newDroneToList);
-            Dal.AddDrone(drone);
+            dal.AddDrone(drone);
         }
 
         public Drone GetDrone(int id)
@@ -81,7 +81,7 @@ namespace IBL
             IDAL.DO.Drone idalDrone = new IDAL.DO.Drone();
             try
             {
-                idalDrone = Dal.GetDrone(id);
+                idalDrone = dal.GetDrone(id);
             }
             catch (DalObject.DroneExeption e)
             {
@@ -101,7 +101,7 @@ namespace IBL
                     drone.Status = eleDroneToList.Status;
                     drone.Location = eleDroneToList.Location;
 
-                    IDAL.DO.Parcel parcel = Dal.GetParcel(eleDroneToList.IdParcel);
+                    IDAL.DO.Parcel parcel = dal.GetParcel(eleDroneToList.IdParcel);
                     if (parcel.DroneId == drone.Id)
                     {
                         drone.ParcelByTransfer.Id = parcel.Id;
@@ -115,13 +115,13 @@ namespace IBL
 
                         drone.ParcelByTransfer.Priority= Enum.Parse<Priorities>(parcel.Priority.ToString());
 
-                        IDAL.DO.Customer customer = Dal.GetCustomer(parcel.SenderId);
+                        IDAL.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
                         drone.ParcelByTransfer.SenderInParcel.Id = customer.Id;
                         drone.ParcelByTransfer.SenderInParcel.NameCustomer = customer.Name;
                         drone.ParcelByTransfer.PickUpLocation.Longitude = customer.Longitude;
                         drone.ParcelByTransfer.PickUpLocation.Latitude = customer.Latitude;
 
-                        customer = Dal.GetCustomer(parcel.TargetId);
+                        customer = dal.GetCustomer(parcel.TargetId);
                         drone.ParcelByTransfer.ReceiverInParcel.Id = customer.Id;
                         drone.ParcelByTransfer.ReceiverInParcel.NameCustomer = customer.Name;
                         drone.ParcelByTransfer.TargetLocation.Longitude = customer.Longitude;
@@ -145,7 +145,7 @@ namespace IBL
             IDAL.DO.Drone updateDrone = new IDAL.DO.Drone();
             try
             {
-                Dal.GetDrone(droneId);
+                dal.GetDrone(droneId);
             }
             catch (DalObject.DroneExeption e)
             {
@@ -157,7 +157,7 @@ namespace IBL
             else
                 updateDrone.Model = newModel;
             
-            Dal.UpdateDrone(updateDrone);
+            dal.UpdateDrone(updateDrone);
         }
 
         public void CheckDrone(Drone drone)
@@ -196,7 +196,7 @@ namespace IBL
             if (drone.Status != DroneStatuses.Available)
                 throw new DroneException("ERROR: the drone not available to charge ");
 
-            Station nearStation = NearStationToDrone(Dal.GetDrone(drone.Id));
+            Station nearStation = NearStationToDrone(dal.GetDrone(drone.Id));
             double distance = Distance(drone.Location, nearStation.Location);
             if (distance * dAvailable < drone.Battery)
                 throw new DroneException("ERROR: the drone not have battery to go to station charge ");
@@ -211,14 +211,14 @@ namespace IBL
                     ListDrones[i] = newDrone;
                 }
 
-            IDAL.DO.Station Station = Dal.GetStation(nearStation.Id);
+            IDAL.DO.Station Station = dal.GetStation(nearStation.Id);
             Station.ChargeSlots--;
-            Dal.UpdateStation(Station);
+            dal.UpdateStation(Station);
 
             IDAL.DO.DroneCharge newDroneCharge = new DroneCharge();
             newDroneCharge.Stationld = nearStation.Id;
             newDroneCharge.DroneId = drone.Id;
-            Dal.AddDroneCharge(newDroneCharge);
+            dal.AddDroneCharge(newDroneCharge);
         }
 
         public void ReleaseDroneFromDroneCharge(int id, int chargeTime)
@@ -237,7 +237,7 @@ namespace IBL
             if (GetDrone(id).Status != DroneStatuses.Maintenance)
                 throw new DroneException("The drone can not release because he is in maintenance statuses:\n ");
             
-            foreach (var elementDroneCharge in Dal.GetDronesCharge())
+            foreach (var elementDroneCharge in dal.GetDronesCharge())
             {
                 if (id == elementDroneCharge.DroneId)
                 {
@@ -247,14 +247,14 @@ namespace IBL
                         {
                             elementListDrone.Battery += chargeTime * chargingRateOfDrone;
                             elementListDrone.Status = DroneStatuses.Available;
-                            Dal.RemoveDroneCharge(elementDroneCharge);
+                            dal.RemoveDroneCharge(elementDroneCharge);
                             foreach (var elementStationToList in GetStations())
                             {
                                 if (elementDroneCharge.Stationld == elementStationToList.Id)
                                 {
-                                    IDAL.DO.Station updateStation = Dal.GetStation(elementDroneCharge.Stationld);
+                                    IDAL.DO.Station updateStation = dal.GetStation(elementDroneCharge.Stationld);
                                     updateStation.ChargeSlots++;
-                                    Dal.UpdateStation(updateStation);
+                                    dal.UpdateStation(updateStation);
                                 }
                             }
                         }
