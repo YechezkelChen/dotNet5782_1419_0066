@@ -58,17 +58,14 @@ namespace IDAL
 
 
 
+
+
+
+
         void ConnectParcelToDrone(Parcel p, Drone d);
         void CollectionParcelByDrone(Parcel p);
         void SupplyParcelToCustomer(Parcel p);
         void SendDroneToDroneCharge(Station s, Drone d);
         void ReleaseDroneFromDroneCharge(Station s, Drone d);
-
-
-
-
-
-
- 
     }
 }

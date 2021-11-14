@@ -17,16 +17,16 @@ namespace DalObject
         /// <param Name="newDroneCharge"></the new drone charge the user whants to add to the drone's list>
         public void AddDroneCharge(DroneCharge newDroneCharge)
         {
-            if (!IsExistDroneCharge(newDroneCharge, DataSource.droneCharges))
-                DataSource.droneCharges.Add(newDroneCharge);
+            if (!IsExistDroneCharge(newDroneCharge, DataSource.DroneCharges))
+                DataSource.DroneCharges.Add(newDroneCharge);
             else
                 throw new DroneChargeExeption("ERROR: the drone charge is exist!\n");
         }
 
         public void RemoveDroneCharge(DroneCharge DroneCharge)
         {
-            if (IsExistDroneCharge(DroneCharge, DataSource.droneCharges))
-                DataSource.droneCharges.Remove(DroneCharge);
+            if (IsExistDroneCharge(DroneCharge, DataSource.DroneCharges))
+                DataSource.DroneCharges.Remove(DroneCharge);
             else
                 throw new DroneChargeExeption("ERROR: the drone charge is not exist!\n");
         }
@@ -38,7 +38,7 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<DroneCharge> GetDronesCharge()
         {
-            return DataSource.droneCharges;
+            return DataSource.DroneCharges;
         }
 
         public bool IsExistDroneCharge(DroneCharge droneCharge, IEnumerable<DroneCharge> droneCharges)
