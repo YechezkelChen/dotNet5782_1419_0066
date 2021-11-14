@@ -337,25 +337,18 @@ namespace IBL
 
         public void SupplyParcelByDrone(int idDrone)
         {
-
-        }
-
-        public Station NearParcelToDrone(IDAL.DO.Drone drone, List<ParcelToList> parcels)
-        {
             List<double> distancesList = new List<double>();
-            IDAL.DO.Parcel tmpParcel = new IDAL.DO.Parcel();
-
-            Location parcelLocation = new Location();
+            Location stationLocation = new Location();
             Location droneLocation = GetDrone(drone.Id).Location;
 
-
-            foreach (var parcel in parcels)
+            foreach (var stationCharge in GetStationsCharge())
             {
-                parcelLocation.Longitude = dal.GetParcel(parcel.Id).Id;
-                if (stationCharge.Id == station.Id)
+                foreach (var station in dal.GetStations())
+                {
+                    if (stationCharge.Id == station.Id)
                     {
                         stationLocation = new Location() { Longitude = station.Longitude, Latitude = station.Latitude };
-                        distancesList.Add(Distance(parcel, droneLocation));
+                        distancesList.Add(Distance(stationLocation, droneLocation));
                     }
                 }
             }
@@ -372,6 +365,11 @@ namespace IBL
             }
 
             return nearStation;
+        }
+
+        public Station NearParcelToDrone(IDAL.DO.Drone drone, List<ParcelToList> parcels)
+        {
+            
         }
     }
 }
