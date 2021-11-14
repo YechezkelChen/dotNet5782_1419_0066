@@ -10,9 +10,9 @@ using Station = IBL.BO.Station;
 
 namespace ConsoleUI_BL
 {
-    class Program
+    internal class Program
     {
-        public enum Option
+        private enum Option
         {
             Add = 1,
             Update,
@@ -21,7 +21,7 @@ namespace ConsoleUI_BL
             Exit
         };
 
-        public enum EntityOption
+        private enum EntityOption
         {
             Station = 1,
             Drone,
@@ -30,7 +30,7 @@ namespace ConsoleUI_BL
             Exit
         };
 
-        public enum OptionListView
+        private enum OptionListView
         {
             ListStations = 1,
             ListDrones,
@@ -41,7 +41,7 @@ namespace ConsoleUI_BL
             Exit
         };
 
-        public enum OptionUpdate
+        private enum OptionUpdate
         {
             ModelDrone = 1,
             DataStation,
@@ -54,10 +54,9 @@ namespace ConsoleUI_BL
             Exit
         };
 
-        public IBL.IBL bl = new BL();
-
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
+            IBL.IBL bl = new BL();
             int c, myId;
             Option op;
             EntityOption ep;
@@ -263,7 +262,7 @@ namespace ConsoleUI_BL
         /// read from the user station to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        public static void AddStation()
+        private static void AddStation()
         {
             int num1;
             double num2;
@@ -326,7 +325,7 @@ namespace ConsoleUI_BL
         /// read fron the user drone to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        public static void AddDrone()
+        private static void AddDrone()
         {
             int num;
             Drone newDrone = new Drone();
@@ -382,7 +381,7 @@ namespace ConsoleUI_BL
         /// read fron the user customer to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        public static void AddCustomer()
+        private static void AddCustomer()
         {
             int num1;
             double num2;
@@ -431,7 +430,7 @@ namespace ConsoleUI_BL
         /// read from the user parcel to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        public static void AddParcel()
+        private static void AddParcel()
         {
             int num;
             Parcel newParcel = new Parcel();
@@ -503,7 +502,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        public static void UpdateDroneModel()
+        private static void UpdateDroneModel()
         {
             int id;
             string model;
@@ -526,7 +525,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        public static void UpdateDataStation()
+        private static void UpdateDataStation()
         {
             int id, name, chargeSlots;
             do
@@ -556,7 +555,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        public static void UpdateDataCustomer()
+        private static void UpdateDataCustomer()
         {
             int id;
             string name, phone;
@@ -584,7 +583,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        public static void SendDroneToCharge()
+        private static void SendDroneToCharge()
         {
             int id;
             do
@@ -603,7 +602,7 @@ namespace ConsoleUI_BL
             }
         }
         
-        public static void ReleaseDroneFromCharge()
+        private static void ReleaseDroneFromCharge()
         {
             int id, chargeTime;
             do
@@ -627,7 +626,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        public static void ConnectParcelToDrone()
+        private static void ConnectParcelToDrone()
         {
             int droneId;
             do
@@ -646,7 +645,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        public static void CollectionParcelByDrone()
+        private static void CollectionParcelByDrone()
         {
             int droneId;
             do
@@ -665,7 +664,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        public static void SupplyParcelByDrone()
+        private static void SupplyParcelByDrone()
         {
             int droneId;
             do
