@@ -47,7 +47,7 @@ namespace IBL
             {
                 foreach (var elementParcel in ListParcelsIdalDo)
                 {
-                    if (elementDrone.Id == elementParcel.DroneId && elementParcel.Delivered == DateTime.MinValue)
+                    if (elementDrone.Id == elementParcel.DroneId && elementParcel.Scheduled != DateTime.MinValue && elementParcel.Delivered == DateTime.MinValue)
                     {
                         elementDrone.Status = DroneStatuses.Delivery;
                         if (elementParcel.Scheduled != DateTime.MinValue && elementParcel.PickedUp == DateTime.MinValue)
@@ -77,7 +77,7 @@ namespace IBL
                         distanceDelivery += Distance(targetLocation,
                             NearStationToCustomer(dal.GetCustomer(elementParcel.TargetId)).Location) * BatteryAvailable;
 
-                        elementDrone.Battery = rand.Next((int)distanceDelivery, 100);
+                        elementDrone.Battery = (100 - distanceDelivery) * rand.NextDouble() + distanceDelivery;
 
                         elementDrone.IdParcel = elementParcel.Id;
                     }
@@ -95,7 +95,7 @@ namespace IBL
                             Latitude = listStationsIdalDo.ElementAt(index).Latitude
                         };
 
-                        elementDrone.Battery = rand.Next(0, 20);
+                        elementDrone.Battery = 20 * rand.NextDouble();
                     }
 
                     if (elementDrone.Status == DroneStatuses.Available)
@@ -114,7 +114,7 @@ namespace IBL
 
                         distanceFromNearStation *= BatteryAvailable;
 
-                        elementDrone.Battery = rand.Next((int) distanceFromNearStation, 100);
+                        elementDrone.Battery = (100 - distanceFromNearStation) * rand.NextDouble() + distanceFromNearStation;
                     }
                 }
             }

@@ -65,7 +65,7 @@ namespace IBL
             Station station = new Station();
 
             foreach (var idalStation in idalStations)
-            {
+            { 
                 station = GetStation(idalStation.Id);
 
                 newStationToList.Id = idalStation.Id;
