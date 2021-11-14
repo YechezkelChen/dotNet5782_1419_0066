@@ -52,8 +52,8 @@ namespace IBL
 
             Parcel parcel = new Parcel();
             parcel.Id = idalParcel.Id;
-            parcel.Sender = idalParcel.SenderId;
-            parcel.Target = idalParcel.TargetId;
+            parcel.Sender.Id = idalParcel.SenderId;
+            parcel.Target.Id = idalParcel.TargetId;
             parcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
             parcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
 
@@ -337,7 +337,60 @@ namespace IBL
 
         public void SupplyParcelByDrone(int idDrone)
         {
+            DroneToList dronToList = new DroneToList();
+            Drone drone = new Drone();
+            try
+            {
+                drone = GetDrone(idDrone);
+            }
+            catch (DroneException e)
+            {
+                throw new DroneException("" + e);
+            }
 
+            foreach (var elementDroneToList in ListDrones)
+            {
+                if (elementDroneToList.Id == idDrone)
+                    dronToList = elementDroneToList;
+            }
+
+            ParcelToList parcelToList = new ParcelToList();
+            Parcel parcel = new Parcel();
+            foreach (var elementParcelToList in GetParcels())
+            {
+                parcel = GetParcel(elementParcelToList.Id);
+
+                if (elementParcelToList.ParcelStatuses != ParcelStatuses.PickedUp ||
+                    parcel.DroneInParcel.Id == idDrone)
+                    throw new ParcelException("ERROR: the parcel not pickup:\n");
+
+                double distance = Distance(drone.Location, GetCustomer(parcel.Target.Id).Location);
+
+                if (parcel.Weight == WeightCategories.Heavy)
+                    drone.Battery = distance * dHeavyW;
+                if (parcel.Weight == WeightCategories.Medium)
+                    drone.Battery = distance * dMediumW;
+                if (parcel.Weight == WeightCategories.Light)
+                    drone.Battery = distance * dLightW;
+                drone.Location = GetCustomer(parcel.Target.Id).Location;
+                drone.Status = DroneStatuses.Available;
+                for (int i = 0; i < ListDrones.Count(); i++)
+                {
+                    if (ListDrones[i].Id == drone.Id)
+                    {
+                        DroneToList updateDrone = ListDrones[i];
+                        updateDrone.Battery = drone.Battery;
+                        updateDrone.Location = drone.Location;
+                        updateDrone.Status = drone.Status;
+                        ListDrones[i] = updateDrone;
+                    }
+                }
+
+                parcel.PickedUp = DateTime.Now;
+                IDAL.DO.Parcel updateParcel = new IDAL.DO.Parcel();
+                updateParcel.PickedUp = parcel.PickedUp;
+                dal.UpdateParcel(updateParcel);
+            }
         }
 
         public Station NearParcelToDrone(IDAL.DO.Drone drone, List<ParcelToList> parcels)
