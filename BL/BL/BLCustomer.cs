@@ -48,7 +48,7 @@ namespace IBL
             {
                 idalCustomer = dal.GetCustomer(id);
             }
-            catch (DalObject.CustomerExeption e)
+            catch (DalObject.CustomerException e)
             {
                 throw new CustomerException("" + e);
             }
@@ -150,13 +150,13 @@ namespace IBL
             {
                 updateCustomer = dal.GetCustomer(id);
             }
-            catch (DalObject.CustomerExeption e)
+            catch (DalObject.CustomerException e)
             {
-                throw new CustomerExeption("" + e);
+                throw new DalObject.CustomerException("" + e);
             }
 
             if (name == "" && phone == "")
-                throw new CustomerExeption("ERROR: need one thing at least to change");
+                throw new DalObject.CustomerException("ERROR: need one thing at least to change");
 
             if (name != "")
                 updateCustomer.Name = name;
@@ -172,9 +172,9 @@ namespace IBL
             if (customer.Id < 0)
                 throw new CustomerException("ERROR: the ID is illegal! ");
             if (customer.Name == "")
-                throw new CustomerExeption("ERROR: Name must have value");
+                throw new DalObject.CustomerException("ERROR: Name must have value");
             if (customer.Phone == "")
-                throw new CustomerExeption("ERROR: Phone must have value");
+                throw new DalObject.CustomerException("ERROR: Phone must have value");
         }
 
         public IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,

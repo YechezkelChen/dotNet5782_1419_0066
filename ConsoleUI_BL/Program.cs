@@ -166,7 +166,7 @@ namespace ConsoleUI_BL
                             case EntityOption.Station:
                                 try
                                 {
-                                    Console.WriteLine(bl.GetStation(myId).ToString());
+                                    Console.WriteLine(bl.GetStation(myId));
 
                                 }
                                 catch (StationException e)
@@ -177,7 +177,7 @@ namespace ConsoleUI_BL
                             case EntityOption.Drone:
                                 try
                                 {
-                                    Console.WriteLine(bl.GetDrone(myId).ToString());
+                                    Console.WriteLine(bl.GetDrone(myId));
                                 }
                                 catch (DroneException e)
                                 {
@@ -187,7 +187,7 @@ namespace ConsoleUI_BL
                             case EntityOption.Customer:
                                 try
                                 {
-                                    Console.WriteLine(bl.GetCustomer(myId).ToString());
+                                    Console.WriteLine(bl.GetCustomer(myId));
                                 }
                                 catch (CustomerException e)
                                 {
@@ -198,7 +198,7 @@ namespace ConsoleUI_BL
                             case EntityOption.Parcel:
                                 try
                                 {
-                                    Console.WriteLine(bl.GetParcel(myId).ToString());
+                                    Console.WriteLine(bl.GetParcel(myId));
                                 }
                                 catch (ParcelException e)
                                 {
@@ -225,22 +225,22 @@ namespace ConsoleUI_BL
                         switch (olv)
                         {
                             case OptionListView.ListStations:
-                                Console.WriteLine(bl.GetStations().ToString());
+                                Console.WriteLine(bl.GetStations());
                                 break;
                             case OptionListView.ListDrones:
-                                Console.WriteLine(bl.GetDrones().ToString());
+                                Console.WriteLine(bl.GetDrones());
                                 break;
                             case OptionListView.ListCustomers:
-                                Console.WriteLine(bl.GetCustomers().ToString());
+                                Console.WriteLine(bl.GetCustomers());
                                 break;
                             case OptionListView.ListParcels:
-                                Console.WriteLine(bl.GetParcels().ToString());
+                                Console.WriteLine(bl.GetParcels());
                                 break;
                             case OptionListView.ListParcelsNoDrones:
-                                Console.WriteLine(bl.GetParcelsNoDrones().ToString());
+                                Console.WriteLine(bl.GetParcelsNoDrones());
                                 break;
                             case OptionListView.ListStationsCharge:
-                                Console.WriteLine(bl.GetStationsCharge().ToString());
+                                Console.WriteLine(bl.GetStationsCharge());
                                 break;
                             case OptionListView.Exit:
                                 break;
@@ -303,7 +303,7 @@ namespace ConsoleUI_BL
 
             do
             {
-                Console.WriteLine("Enter ChargeSlots Station: ");
+                Console.WriteLine("Enter Available Charge Slots  Station: ");
 
             } while (!int.TryParse(Console.ReadLine(), out num1));
 
@@ -314,6 +314,7 @@ namespace ConsoleUI_BL
             try
             {
                 bl.AddStation(newStation);
+                Console.WriteLine("Success! :)\n");
             }
             catch (StationException e)
             {
@@ -369,6 +370,7 @@ namespace ConsoleUI_BL
             try
             {
                 bl.AddDrone(newDrone, num);
+                Console.WriteLine("Success! :)\n");
             }
             catch (DroneException e)
             {
@@ -417,6 +419,7 @@ namespace ConsoleUI_BL
             try
             {
                 bl.AddCustomer(newCustomer);
+                Console.WriteLine("Success! :)\n");
             }
             catch (CustomerException e)
             {
@@ -492,6 +495,7 @@ namespace ConsoleUI_BL
             try
             {
                 bl.AddParcel(newParcel);
+                Console.WriteLine("Success! :)\n");
             }
             catch (ParcelException e)
             {
@@ -514,6 +518,7 @@ namespace ConsoleUI_BL
             try
             {
                 bl.UpdateDroneModel(id, model);
+                Console.WriteLine("Success! :)\n");
             }
             catch (DroneException e)
             {
@@ -543,6 +548,7 @@ namespace ConsoleUI_BL
             try
             {
                 bl.UpdateDataStation(id, name, chargeSlots);
+                Console.WriteLine("Success! :)\n");
             }
             catch (StationException e)
             {
@@ -570,6 +576,7 @@ namespace ConsoleUI_BL
             try
             {
                 bl.UpdateDataCustomer(id, name, phone);
+                Console.WriteLine("Success! :)\n");
             }
             catch (CustomerException e)
             {
@@ -588,6 +595,7 @@ namespace ConsoleUI_BL
             try
             {
                 bl.SendDroneToDroneCharge(id);
+                Console.WriteLine("Success! :)\n");
             }
             catch (DroneException e)
             {
@@ -611,6 +619,7 @@ namespace ConsoleUI_BL
             try
             {
                 bl.ReleaseDroneFromDroneCharge(id, chargeTime);
+                Console.WriteLine("Success! :)\n");
             }
             catch (DroneException e)
             {
@@ -629,6 +638,7 @@ namespace ConsoleUI_BL
             try
             {
                 bl.ConnectParcelToDrone(droneId);
+                Console.WriteLine("Success! :)\n");
             }
             catch (DroneException e)
             {
@@ -647,6 +657,7 @@ namespace ConsoleUI_BL
             try
             {
                 bl.CollectionParcelByDrone(droneId);
+                Console.WriteLine("Success! :)\n");
             }
             catch (DroneException e)
             {
@@ -665,6 +676,7 @@ namespace ConsoleUI_BL
             try
             {
                 bl.SupplyParcelByDrone(droneId);
+                Console.WriteLine("Success! :)\n");
             }
             catch (DroneException e)
             {

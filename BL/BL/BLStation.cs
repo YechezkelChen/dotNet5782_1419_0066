@@ -39,7 +39,7 @@ namespace IBL
             {
                 idalStation = dal.GetStation(id);
             }
-            catch (DalObject.StationExeption e)
+            catch (DalObject.stationException e)
             {
                 throw new StationException("" + e);
             }
@@ -165,7 +165,7 @@ namespace IBL
             {
                 station = dal.GetStation(id);
             }
-            catch (DalObject.StationExeption e)
+            catch (DalObject.stationException e)
             {
                 throw new StationException("" + e);
             }

@@ -35,31 +35,21 @@ namespace IBL
             drone.Id = newDrone.Id;
             drone.Model = newDrone.Model;
             drone.Weight = (IDAL.DO.WeightCategories)newDrone.Weight;
-            newDrone.Battery = rand.Next(20, 40);
-            newDrone.Status = DroneStatuses.Maintenance;
-            try
-            {
-                newDrone.Location.Longitude = dal.GetStation(idStation).Longitude;
-                newDrone.Location.Latitude = dal.GetStation(idStation).Latitude;
-            }
-            catch (DalObject.StationExeption e)
-            {
-                throw new DroneException("Try again you make a " + e);
-            }
+
 
             newDroneToList.Id = newDrone.Id;
             newDroneToList.Model = newDrone.Model;
             newDroneToList.Weight = newDrone.Weight;
-            newDroneToList.Battery = rand.Next(20, 40);
+            newDroneToList.Battery = 20 * rand.NextDouble() + 20;
             newDroneToList.Status = DroneStatuses.Maintenance;
             try
             {
                 newDroneToList.Location.Longitude = dal.GetStation(idStation).Longitude;
                 newDroneToList.Location.Latitude = dal.GetStation(idStation).Latitude;
             }
-            catch (DalObject.StationExeption e)
+            catch (DalObject.stationException e)
             {
-                throw new DroneException("Try again you make a " + e);
+                throw new DroneException("" + e);
             }
 
             try
@@ -83,7 +73,7 @@ namespace IBL
             {
                 idalDrone = dal.GetDrone(id);
             }
-            catch (DalObject.DroneExeption e)
+            catch (DalObject.DroneException e)
             {
                 throw new DroneException("" + e);
             }
@@ -142,12 +132,12 @@ namespace IBL
 
         public void UpdateDroneModel(int droneId, string newModel)
         {
-            IDAL.DO.Drone updateDrone = new IDAL.DO.Drone();
+            IDAL.DO.Drone updateDrone = dal.GetDrone(droneId);
             try
             {
                 dal.GetDrone(droneId);
             }
-            catch (DalObject.DroneExeption e)
+            catch (DalObject.DroneException e)
             {
                 throw new DroneException("" + e);
             }

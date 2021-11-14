@@ -19,7 +19,6 @@ namespace IDAL
         Station GetStation(int stationId);
         IEnumerable<Station> GetStations();
         void UpdateStation(Station station);
-        bool IsExistStation(Station s, IEnumerable<Station> stations);
 
 
 
@@ -28,7 +27,6 @@ namespace IDAL
         Drone GetDrone(int droneId);
         IEnumerable<Drone> GetDrones();
         void UpdateDrone(Drone drone);
-        bool IsExistDrone(Drone d, IEnumerable<Drone> drones);
 
 
         // Customer
@@ -36,7 +34,6 @@ namespace IDAL
         Customer GetCustomer(int customerId);
         IEnumerable<Customer> GetCustomers();
         void UpdateCustomer(Customer customer);
-        bool IsExistCustomer(Customer c, IEnumerable<Customer> customers);
 
 
         // Parcel
@@ -44,7 +41,6 @@ namespace IDAL
         Parcel GetParcel(int parcelId);
         IEnumerable<Parcel> GetParcels();
         void UpdateParcel(Parcel parcel);
-        bool IsExistParcel(Parcel p, IEnumerable<Parcel> parcels);
 
 
 
@@ -52,7 +48,6 @@ namespace IDAL
         void AddDroneCharge(DroneCharge newDroneCharge);
         void RemoveDroneCharge(DroneCharge DroneCharge);
         IEnumerable<DroneCharge> GetDronesCharge();
-        bool IsExistDroneCharge(DroneCharge droneCharge, IEnumerable<DroneCharge> droneCharges);
 
 
 

@@ -45,7 +45,7 @@ namespace IBL
             {
                 idalParcel = dal.GetParcel(id);
             }
-            catch (DalObject.ParcelExeption e)
+            catch (DalObject.ParcelException e)
             {
                 throw new ParcelException("" + e);
             }

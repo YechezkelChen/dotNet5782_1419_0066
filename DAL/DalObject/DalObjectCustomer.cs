@@ -20,7 +20,7 @@ namespace DalObject
             if (!IsExistCustomer(newCustomer, DataSource.Customers))
                 DataSource.Customers.Add(newCustomer);
             else
-                throw new CustomerExeption("ERROR: the customer is exist!\n");
+                throw new CustomerException("ERROR: the customer is exist!\n");
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace DalObject
             }
 
             if (newCustomer == null)
-                throw new CustomerExeption("ERROR: Id of customer not found\n");
+                throw new CustomerException("ERROR: Id of customer not found\n");
             return (Customer)newCustomer;
         }
 

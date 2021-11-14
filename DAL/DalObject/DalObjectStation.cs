@@ -18,7 +18,7 @@ namespace DalObject
             if(!IsExistStation(newStation, DataSource.Stations))
                 DataSource.Stations.Add(newStation);
             else
-                throw new StationExeption("ERROR: the station exist!\n");
+                throw new stationException("ERROR: the station exist!\n");
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace DalObject
             }
 
             if (newStation == null)
-                throw new StationExeption("ERROR: Id of station not found\n");
+                throw new stationException("ERROR: Id of station not found\n");
             return (Station)newStation;
         }
 

@@ -20,7 +20,7 @@ namespace DalObject
             if (!IsExistDrone(newDrone, DataSource.Drones))
                 DataSource.Drones.Add(newDrone);
             else
-                throw new DroneExeption("ERROR: the drone is exist!\n");
+                throw new DroneException("ERROR: the drone is exist!\n");
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace DalObject
             }
 
             if (newDrone == null)
-                throw new DroneExeption("ERROR: Id of drone not found\n");
+                throw new DroneException("ERROR: Id of drone not found\n");
             return (Drone)newDrone;
         }
 
@@ -102,7 +102,7 @@ namespace DalObject
                 }
             }
             else
-                throw new StationExeption("ERROR: the station is not exist!\n");
+                throw new stationException("ERROR: the station is not exist!\n");
 
             if (IsExistDrone(d, DataSource.Drones))
             {
@@ -117,7 +117,7 @@ namespace DalObject
                 DataSource.DroneCharges.Add(newDroneCharges);
             }
             else
-                throw new DroneExeption("the drone is not exist!\n");
+                throw new DroneException("the drone is not exist!\n");
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace DalObject
                 }
             }
             else
-                throw new StationExeption("ERROR: the station isn't exist");
+                throw new stationException("ERROR: the station isn't exist");
 
             if (IsExistDrone(d, DataSource.Drones))
             {
@@ -157,7 +157,7 @@ namespace DalObject
                 }
             }
             else
-                throw new DroneExeption("the drone isn't exist");
+                throw new DroneException("the drone isn't exist");
 
             foreach (DroneCharge elementDroneCharge in DataSource.DroneCharges)
             {

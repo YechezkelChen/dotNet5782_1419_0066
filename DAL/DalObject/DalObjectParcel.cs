@@ -27,7 +27,7 @@ namespace DalObject
                 DataSource.Parcels.Add(newParcel);
             }
             else
-                throw new ParcelExeption("ERROR: the parcel is exist!\n");
+                throw new ParcelException("ERROR: the parcel is exist!\n");
             return tmp; // return the new number created
         }
 
@@ -46,7 +46,7 @@ namespace DalObject
             }
 
             if (newParcel == null)
-                throw new ParcelExeption("ERROR: Id of parcel not found\n");
+                throw new ParcelException("ERROR: Id of parcel not found\n");
             return (Parcel)newParcel;
         }
 
@@ -106,9 +106,9 @@ namespace DalObject
                     }
                 }
                 else
-                    throw new DroneExeption("ERROR: the drone isn't exist");
+                    throw new DroneException("ERROR: the drone isn't exist");
             else
-                throw new ParcelExeption("ERROR: the parcel isn't exist");
+                throw new ParcelException("ERROR: the parcel isn't exist");
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace DalObject
                 }
             }
             else
-                throw new ParcelExeption("ERROR: the parcel is not exist!\n");
+                throw new ParcelException("ERROR: the parcel is not exist!\n");
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace DalObject
                 }
             }
             else
-                throw new ParcelExeption("ERROR: the parcel isn't exist");
+                throw new ParcelException("ERROR: the parcel isn't exist");
         }
     }
 }

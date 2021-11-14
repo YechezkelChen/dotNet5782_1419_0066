@@ -9,28 +9,19 @@ namespace IBL
 {
     public interface IBL
     {
-        // General
-        double Distance(Location from, Location to);
-       
-
-
         // Station
         void AddStation(Station newStation);
         Station GetStation(int id);
         IEnumerable<StationToList> GetStations();
-        Station NearStationToDrone(IDAL.DO.Drone drone);
-        Station NearStationToCustomer(IDAL.DO.Customer customer);
         IEnumerable<StationToList> GetStationsCharge();
         void UpdateDataStation(int id, int name, int chargeSlots);
-        void CheckStation(Station station);
+
 
         // Drone
         void AddDrone(Drone newDrone, int idStation);
         Drone GetDrone(int id);
         IEnumerable<DroneToList> GetDrones();
         void UpdateDroneModel(int droneId, string newModel);
-        void CheckDrone(Drone drone);
-        int CheckDroneAndParcel(int droneId, IEnumerable<IDAL.DO.Parcel> parcels);
         void SendDroneToDroneCharge(int id);
         void ReleaseDroneFromDroneCharge(int id, int chargeTime);
 
@@ -39,9 +30,6 @@ namespace IBL
         Customer GetCustomer(int id);
         IEnumerable<CustomerToList> GetCustomers();
         void UpdateDataCustomer(int id, string name, string phone);
-        void CheckCustomer(Customer customer);
-        IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
-            IEnumerable<IDAL.DO.Parcel> Parcels);
 
 
         // Parcel
@@ -49,10 +37,8 @@ namespace IBL
         Parcel GetParcel(int id);
         IEnumerable<ParcelToList> GetParcels();
         IEnumerable<ParcelToList> GetParcelsNoDrones();
-        void CheckParcel(Parcel parcel);
         void ConnectParcelToDrone(int idDrone);
         void CollectionParcelByDrone(int idDrone);
         void SupplyParcelByDrone(int idDrone);
-        Parcel NearParcelToDrone(Drone drone, IEnumerable<ParcelToList> parcels);
     }
 }
