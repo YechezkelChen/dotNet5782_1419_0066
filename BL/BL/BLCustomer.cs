@@ -167,7 +167,7 @@ namespace IBL
             dal.UpdateCustomer(updateCustomer);
         }
 
-        public void CheckCustomer(Customer customer)
+        private void CheckCustomer(Customer customer)
         {
             if (customer.Id < 0)
                 throw new CustomerException("ERROR: the ID is illegal! ");
@@ -177,7 +177,7 @@ namespace IBL
                 throw new DalObject.CustomerException("ERROR: Phone must have value");
         }
 
-        public IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
+        private IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
             IEnumerable<IDAL.DO.Parcel> Parcels)
         {
             List<IDAL.DO.Customer> newCustomers = new List<IDAL.DO.Customer>();

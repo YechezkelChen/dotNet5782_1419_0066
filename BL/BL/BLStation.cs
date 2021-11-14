@@ -87,7 +87,43 @@ namespace IBL
             return stationsToList;
         }
 
-        public Station NearStationToDrone(IDAL.DO.Drone drone)
+        public IEnumerable<StationToList> GetStationsCharge()
+        {
+            IEnumerable<StationToList> stationsToList = GetStations();
+            List<StationToList> stationChargeSlotsAvailable = new List<StationToList>();
+
+            foreach (var elementStationToList in stationsToList)
+            {
+                if (elementStationToList.ChargeSlotsAvailable > 0)
+                    stationChargeSlotsAvailable.Add(elementStationToList);
+            }
+
+            return stationChargeSlotsAvailable;
+        }
+        public void UpdateDataStation(int id, int name, int chargeSlots)
+        {
+            IDAL.DO.Station station = new IDAL.DO.Station();
+            try
+            {
+                station = dal.GetStation(id);
+            }
+            catch (DalObject.stationException e)
+            {
+                throw new StationException("" + e);
+            }
+
+            if (name == -1 && chargeSlots == -1)
+                throw new StationException("ERROR: you must Enter at least one of the following data!\n");
+
+            if (name != -1)
+                station.Name = name;
+            if (chargeSlots != -1)
+                station.ChargeSlots = chargeSlots;
+
+            dal.UpdateStation(station);
+        }
+
+        private Station NearStationToDrone(IDAL.DO.Drone drone)
         {
             List<double> distancesList = new List<double>();
             Location stationLocation = new Location();
@@ -119,7 +155,7 @@ namespace IBL
             return nearStation;
         }
 
-        public Station NearStationToCustomer(IDAL.DO.Customer customer)
+        private Station NearStationToCustomer(IDAL.DO.Customer customer)
         {
             List<double> distancesList = new List<double>();
             Location stationLocation = new Location();
@@ -151,44 +187,7 @@ namespace IBL
             return nearStation;
         }
 
-        public IEnumerable<StationToList> GetStationsCharge()
-        {
-            IEnumerable<StationToList> stationsToList = GetStations();
-            List<StationToList> stationChargeSlotsAvailable= new List<StationToList>();
-
-            foreach (var elementStationToList in stationsToList)
-            {
-                if (elementStationToList.ChargeSlotsAvailable > 0)
-                    stationChargeSlotsAvailable.Add(elementStationToList);
-            }
-
-            return stationChargeSlotsAvailable;
-        }
-
-        public void UpdateDataStation(int id, int name, int chargeSlots)
-        {
-            IDAL.DO.Station station = new IDAL.DO.Station();
-            try
-            {
-                station = dal.GetStation(id);
-            }
-            catch (DalObject.stationException e)
-            {
-                throw new StationException("" + e);
-            }
-
-            if (name == -1 && chargeSlots == -1)
-                throw new StationException("ERROR: you must Enter at least one of the following data!\n");
-
-            if (name != -1)
-                station.Name = name;
-            if (chargeSlots != -1)
-                station.ChargeSlots = chargeSlots;
-
-            dal.UpdateStation(station);
-        }
-
-        public void CheckStation(Station station)
+        private void CheckStation(Station station)
         {
             if (station.Id < 0)
                 throw new StationException("ERROR: the ID is illegal! ");

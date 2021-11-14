@@ -125,16 +125,6 @@ namespace IBL
             return parcelNoDrones;
         }
 
-        public void CheckParcel(Parcel parcel)
-        {
-            if (parcel.Sender.Id < 0)
-                throw new ParcelException("ERROR: the Sender ID is illegal! ");
-            if (parcel.Target.Id < 0)
-                throw new ParcelException("ERROR: the Target ID is illegal! ");
-            if (parcel.Sender.Id == parcel.Target.Id)
-                throw new ParcelException("ERROR: the Target ID and the Sender ID are equals! ");
-        }
-
         public void ConnectParcelToDrone(int droneId)
         {
             Drone connectDrone = new Drone();
@@ -291,7 +281,17 @@ namespace IBL
             }
         }
 
-        public Parcel NearParcelToDrone(Drone drone, IEnumerable<ParcelToList> parcels)
+        private void CheckParcel(Parcel parcel)
+        {
+            if (parcel.Sender.Id < 0)
+                throw new ParcelException("ERROR: the Sender ID is illegal! ");
+            if (parcel.Target.Id < 0)
+                throw new ParcelException("ERROR: the Target ID is illegal! ");
+            if (parcel.Sender.Id == parcel.Target.Id)
+                throw new ParcelException("ERROR: the Target ID and the Sender ID are equals! ");
+        }
+
+        private Parcel NearParcelToDrone(Drone drone, IEnumerable<ParcelToList> parcels)
         {
             List<double> distancesList = new List<double>();
             Location parcelLocation = new Location();

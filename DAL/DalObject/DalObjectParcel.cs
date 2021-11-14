@@ -82,6 +82,12 @@ namespace DalObject
 
 
 
+
+
+
+
+
+
         /// <summary>
         /// connecting between parcel and drone and change data in the object's according to the function
         /// </summary>

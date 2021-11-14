@@ -31,7 +31,6 @@ namespace DalObject
                 throw new DroneChargeException("ERROR: the drone charge is not exist!\n");
         }
 
-
         /// <summary>
         /// return all the list of the drone's that they are in charge sopt 
         /// </summary>

@@ -21,7 +21,7 @@ namespace IBL
 
         Random rand = new Random(DateTime.Now.Millisecond);
 
-        public BL()
+        private BL()
         {
             // km per hour
             double[] powerConsumption = dal.GetRequestPowerConsumption();
@@ -120,7 +120,7 @@ namespace IBL
             }
         }
         
-        public double Distance(Location from, Location to)
+        private double Distance(Location from, Location to)
         {
             int R = 6371 * 1000; // metres -- radius of the earth
             double phi1 = from.Latitude * Math.PI / 180; // φ, λ in radians
