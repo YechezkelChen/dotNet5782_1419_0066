@@ -27,7 +27,7 @@ namespace IBL
                     builderToTheCustomerList.Append(parcelToCustomer).Append(", ");
 
                 return
-                    $"Id #{Id}: Name = {Name}, Phone = {Phone},Location = {Location}," +
+                    $"Id #{Id}: Name = {Name}, Phone = {Phone}, Location = {Location}, " +
                     $"Parcels the customer sent = {builderFromTheCustomerList.ToString()}" +
                     $"Parcels the customer need to receive = {builderToTheCustomerList.ToString()}.";
             }
