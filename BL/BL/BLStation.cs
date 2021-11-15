@@ -37,7 +37,7 @@ namespace IBL
             }
             catch (DalObject.stationException e)
             {
-                throw new DalObject.stationException("" + e);
+                throw new StationException("" + e);
             }
         }
 
