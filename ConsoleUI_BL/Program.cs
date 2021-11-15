@@ -84,16 +84,16 @@ namespace ConsoleUI_BL
                         switch (ep)
                         {
                             case EntityOption.Station:
-                                AddStation();
+                                AddStation(bl);
                                 break;
                             case EntityOption.Drone:
-                                AddDrone();
+                                AddDrone(bl);
                                 break;
                             case EntityOption.Customer:
-                                AddCustomer();
+                                AddCustomer(bl);
                                 break;
                             case EntityOption.Parcel:
-                                AddParcel();
+                                AddParcel(bl);
                                 break;
                             case EntityOption.Exit:
                                 break;
@@ -117,28 +117,28 @@ namespace ConsoleUI_BL
                         switch (ou)
                         {
                             case OptionUpdate.ModelDrone:
-                                UpdateDroneModel();
+                                UpdateDroneModel(bl);
                                 break;
                             case OptionUpdate.DataStation:
-                                UpdateDataStation();
+                                UpdateDataStation(bl);
                                 break;
                             case OptionUpdate.DataCustomer:
-                                UpdateDataCustomer();
+                                UpdateDataCustomer(bl);
                                 break;
                             case OptionUpdate.SendDroneToDroneCharge:
-                                SendDroneToCharge();
+                                SendDroneToCharge(bl);
                                 break;
                             case OptionUpdate.ReleaseDroneFromDroneCharge:
-                                ReleaseDroneFromCharge();
+                                ReleaseDroneFromCharge(bl);
                                 break;
                             case OptionUpdate.ConnectParcelToDrone:
-                                ConnectParcelToDrone();
+                                ConnectParcelToDrone(bl);
                                 break;
                             case OptionUpdate.CollectionParcelByDrone:
-                                CollectionParcelByDrone();
+                                CollectionParcelByDrone(bl);
                                 break;
                             case OptionUpdate.SupplyParcelByDrone:
-                                SupplyParcelByDrone();
+                                SupplyParcelByDrone(bl);
                                 break;
                             case OptionUpdate.Exit:
                                 break;
@@ -262,7 +262,7 @@ namespace ConsoleUI_BL
         /// read from the user station to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        private static void AddStation()
+        private static void AddStation(IBL.IBL bl)
         {
             int num1;
             double num2;
@@ -325,7 +325,7 @@ namespace ConsoleUI_BL
         /// read fron the user drone to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        private static void AddDrone()
+        private static void AddDrone(IBL.IBL bl)
         {
             int num;
             Drone newDrone = new Drone();
@@ -381,7 +381,7 @@ namespace ConsoleUI_BL
         /// read fron the user customer to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        private static void AddCustomer()
+        private static void AddCustomer(IBL.IBL bl)
         {
             int num1;
             double num2;
@@ -430,7 +430,7 @@ namespace ConsoleUI_BL
         /// read from the user parcel to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        private static void AddParcel()
+        private static void AddParcel(IBL.IBL bl)
         {
             int num;
             Parcel newParcel = new Parcel();
@@ -502,7 +502,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        private static void UpdateDroneModel()
+        private static void UpdateDroneModel(IBL.IBL bl)
         {
             int id;
             string model;
@@ -525,7 +525,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        private static void UpdateDataStation()
+        private static void UpdateDataStation(IBL.IBL bl)
         {
             int id, name, chargeSlots;
             do
@@ -555,7 +555,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        private static void UpdateDataCustomer()
+        private static void UpdateDataCustomer(IBL.IBL bl)
         {
             int id;
             string name, phone;
@@ -583,7 +583,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        private static void SendDroneToCharge()
+        private static void SendDroneToCharge(IBL.IBL bl)
         {
             int id;
             do
@@ -602,7 +602,7 @@ namespace ConsoleUI_BL
             }
         }
         
-        private static void ReleaseDroneFromCharge()
+        private static void ReleaseDroneFromCharge(IBL.IBL bl)
         {
             int id, chargeTime;
             do
@@ -626,7 +626,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        private static void ConnectParcelToDrone()
+        private static void ConnectParcelToDrone(IBL.IBL bl)
         {
             int droneId;
             do
@@ -645,7 +645,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        private static void CollectionParcelByDrone()
+        private static void CollectionParcelByDrone(IBL.IBL bl)
         {
             int droneId;
             do
@@ -664,7 +664,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        private static void SupplyParcelByDrone()
+        private static void SupplyParcelByDrone(IBL.IBL bl)
         {
             int droneId;
             do
