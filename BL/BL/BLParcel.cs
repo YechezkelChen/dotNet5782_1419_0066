@@ -78,10 +78,11 @@ namespace IBL
         {
             IEnumerable<IDAL.DO.Parcel> idalParcels = dal.GetParcels();
             List<ParcelToList> parcelToLists = new List<ParcelToList>();
-            ParcelToList newParcel = new ParcelToList();
+            
 
             foreach (var idalParcel in idalParcels)
             {
+                ParcelToList newParcel = new ParcelToList();
                 newParcel.Id = idalParcel.Id;
                 newParcel.SenderName = GetCustomer(idalParcel.SenderId).Name;
                 newParcel.TargetName = GetCustomer(idalParcel.TargetId).Name;
@@ -107,11 +108,12 @@ namespace IBL
         {
             IEnumerable<IDAL.DO.Parcel> idalParcels = dal.GetParcels();
             List<ParcelToList> parcelNoDrones = new List<ParcelToList>();
-            ParcelToList newParcel = new ParcelToList();
+           
 
             foreach (var idalParcel in idalParcels)
                 if (idalParcel.Scheduled == DateTime.MinValue)
                 {
+                    ParcelToList newParcel = new ParcelToList();
                     newParcel.Id = idalParcel.Id;
                     newParcel.SenderName = GetCustomer(idalParcel.SenderId).Name;
                     newParcel.TargetName = GetCustomer(idalParcel.TargetId).Name;

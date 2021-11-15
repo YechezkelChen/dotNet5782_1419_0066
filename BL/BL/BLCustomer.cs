@@ -113,10 +113,11 @@ namespace IBL
         {
             IEnumerable<IDAL.DO.Customer> idalcCustomers = dal.GetCustomers();
             List<CustomerToList> customerToLists = new List<CustomerToList>();
-            CustomerToList newCustomer = new CustomerToList();
+            
 
             foreach (var idalCustomer in idalcCustomers)
             {
+                CustomerToList newCustomer = new CustomerToList();
                 newCustomer.Id = idalCustomer.Id;
                 newCustomer.Name = idalCustomer.Name;
                 newCustomer.Phone = idalCustomer.Phone;

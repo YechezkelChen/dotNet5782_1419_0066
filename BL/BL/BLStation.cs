@@ -67,13 +67,12 @@ namespace IBL
         {
             IEnumerable<IDAL.DO.Station> idalStations = dal.GetStations();
             List<StationToList> stationsToList = new List<StationToList>();
-            StationToList newStationToList = new StationToList();
-            Station station = new Station();
 
             foreach (var idalStation in idalStations)
-            { 
+            {
+                Station station = new Station();
                 station = GetStation(idalStation.Id);
-
+                StationToList newStationToList = new StationToList();
                 newStationToList.Id = idalStation.Id;
                 newStationToList.Name = idalStation.Name;
                 newStationToList.ChargeSlotsAvailable = idalStation.ChargeSlots;
