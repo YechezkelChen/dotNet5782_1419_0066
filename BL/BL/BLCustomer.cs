@@ -60,10 +60,10 @@ namespace IBL
             customer.Location.Longitude = idalCustomer.Longitude;
             customer.Location.Latitude = idalCustomer.Latitude;
 
-            ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
             foreach (var elementParcel in dal.GetParcels())
                 if (customer.Id == elementParcel.SenderId)
                 {
+                    ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
                     parcelInCustomer.Id = elementParcel.Id;
                     parcelInCustomer.Weight = Enum.Parse<WeightCategories>(elementParcel.Weight.ToString());
                     parcelInCustomer.Priority = Enum.Parse<Priorities>(elementParcel.Priority.ToString());
@@ -86,6 +86,7 @@ namespace IBL
             foreach (var elementParcel in dal.GetParcels())
                 if (customer.Id == elementParcel.TargetId)
                 {
+                    ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
                     parcelInCustomer.Id = elementParcel.Id;
                     parcelInCustomer.Weight = Enum.Parse<WeightCategories>(elementParcel.Weight.ToString());
                     parcelInCustomer.Priority = Enum.Parse<Priorities>(elementParcel.Priority.ToString());
@@ -111,10 +112,11 @@ namespace IBL
         {
             IEnumerable<IDAL.DO.Customer> idalcCustomers = dal.GetCustomers();
             List<CustomerToList> customerToLists = new List<CustomerToList>();
-            CustomerToList newCustomer = new CustomerToList();
+            
 
             foreach (var idalCustomer in idalcCustomers)
             {
+                CustomerToList newCustomer = new CustomerToList();
                 newCustomer.Id = idalCustomer.Id;
                 newCustomer.Name = idalCustomer.Name;
                 newCustomer.Phone = idalCustomer.Phone;
