@@ -64,10 +64,10 @@ namespace DalObject
         /// <param Name="d"></the drone we check if she is exist>
         /// <param Name="Drones"></the list od Drones>
         /// <returns></returns>
-        public bool IsExistDrone(Drone d, IEnumerable<Drone> drones)
+        public bool IsExistDrone(Drone drone, IEnumerable<Drone> drones)
         {
             foreach (Drone elementDrone in drones)
-                if (elementDrone.Id == d.Id)
+                if (elementDrone.Id == drone.Id)
                     return true;
             return false;//the drone not exist
         }

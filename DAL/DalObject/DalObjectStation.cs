@@ -63,12 +63,12 @@ namespace DalObject
         /// <param Name="s"></the station that we chek if she exist>
         /// <param Name="Stations"></the list of all Stations>
         /// <returns></returns>
-        public bool IsExistStation(Station s, IEnumerable<Station> stations)
+        public bool IsExistStation(Station station, IEnumerable<Station> stations)
         {
             foreach (Station elementStation in stations)
-                if (elementStation.Id == s.Id)
-                    return false;
-            return true; //the station not exist
+                if (elementStation.Id == station.Id)
+                    return true;
+            return false; //the station not exist
         }
     }
 }

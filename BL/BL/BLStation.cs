@@ -35,9 +35,9 @@ namespace IBL
             {
                 dal.AddStation(station);
             }
-            catch (DalObject.DroneException e)
+            catch (DalObject.stationException e)
             {
-                throw new DalObject.DroneException("" + e);
+                throw new DalObject.stationException("" + e);
             }
         }
 
