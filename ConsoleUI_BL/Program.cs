@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Channels;
 using IBL;
 using IBL.BO;
 using IDAL.DO;
@@ -228,7 +229,8 @@ namespace ConsoleUI_BL
                             case OptionListView.ListStations:
                                 try
                                 {
-                                    Console.WriteLine(bl.GetStations());
+                                    foreach (var elementStation in bl.GetStations())
+                                        Console.WriteLine(elementStation.ToString());
                                 }
                                 catch (StationException e)
                                 {
@@ -238,7 +240,8 @@ namespace ConsoleUI_BL
                             case OptionListView.ListDrones:
                                 try
                                 {
-                                    Console.WriteLine(bl.GetDrones());
+                                    foreach (var elementDrone in bl.GetDrones())
+                                        Console.WriteLine(elementDrone.ToString());
                                 }
                                 catch (DroneException e)
                                 {
@@ -248,7 +251,8 @@ namespace ConsoleUI_BL
                             case OptionListView.ListCustomers:
                                 try
                                 {
-                                    Console.WriteLine(bl.GetCustomers());
+                                    foreach (var elementCustomer in bl.GetCustomers())
+                                        Console.WriteLine(elementCustomer.ToString());
                                 }
                                 catch (CustomerException e)
                                 {
@@ -258,7 +262,8 @@ namespace ConsoleUI_BL
                             case OptionListView.ListParcels:
                                 try
                                 {
-                                    Console.WriteLine(bl.GetParcels());
+                                    foreach (var elementParcel in bl.GetParcels())
+                                        Console.WriteLine(elementParcel.ToString());
                                 }
                                 catch (ParcelException e)
                                 {
@@ -268,7 +273,8 @@ namespace ConsoleUI_BL
                             case OptionListView.ListParcelsNoDrones:
                                 try
                                 {
-                                    Console.WriteLine(bl.GetParcelsNoDrones());
+                                    foreach (var elementParcelsNoDrone in bl.GetParcelsNoDrones())
+                                        Console.WriteLine(elementParcelsNoDrone.ToString());
                                 }
                                 catch (ParcelException e)
                                 {
@@ -278,7 +284,8 @@ namespace ConsoleUI_BL
                             case OptionListView.ListStationsCharge:
                                 try
                                 {
-                                    Console.WriteLine(bl.GetStationsCharge());
+                                    foreach (var elementStationCharge in bl.GetStationsCharge())
+                                        Console.WriteLine(elementStationCharge.ToString());
                                 }
                                 catch (StationException e)
                                 {
