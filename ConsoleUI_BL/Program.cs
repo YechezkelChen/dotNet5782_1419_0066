@@ -224,22 +224,64 @@ namespace ConsoleUI_BL
                         switch (olv)
                         {
                             case OptionListView.ListStations:
-                                Console.WriteLine(bl.GetStations());
+                                try
+                                {
+                                    Console.WriteLine(bl.GetStations());
+                                }
+                                catch (StationException e)
+                                {
+                                    Console.WriteLine(e);
+                                }
                                 break;
                             case OptionListView.ListDrones:
-                                Console.WriteLine(bl.GetDrones());
+                                try
+                                {
+                                    Console.WriteLine(bl.GetDrones());
+                                }
+                                catch (DroneException e)
+                                {
+                                    Console.WriteLine(e); 
+                                }
                                 break;
                             case OptionListView.ListCustomers:
-                                Console.WriteLine(bl.GetCustomers());
+                                try
+                                {
+                                    Console.WriteLine(bl.GetCustomers());
+                                }
+                                catch (CustomerException e)
+                                {
+                                    Console.WriteLine(e);
+                                }
                                 break;
                             case OptionListView.ListParcels:
-                                Console.WriteLine(bl.GetParcels());
+                                try
+                                {
+                                    Console.WriteLine(bl.GetParcels());
+                                }
+                                catch (ParcelException e)
+                                {
+                                    Console.WriteLine(e);
+                                }
                                 break;
                             case OptionListView.ListParcelsNoDrones:
-                                Console.WriteLine(bl.GetParcelsNoDrones());
+                                try
+                                {
+                                    Console.WriteLine(bl.GetParcelsNoDrones());
+                                }
+                                catch (ParcelException e)
+                                {
+                                    Console.WriteLine(e);
+                                }
                                 break;
                             case OptionListView.ListStationsCharge:
-                                Console.WriteLine(bl.GetStationsCharge());
+                                try
+                                {
+                                    Console.WriteLine(bl.GetStationsCharge());
+                                }
+                                catch (StationException e)
+                                {
+                                    Console.WriteLine(e);
+                                }
                                 break;
                             case OptionListView.Exit:
                                 break;

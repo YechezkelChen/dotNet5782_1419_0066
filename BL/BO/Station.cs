@@ -18,8 +18,11 @@ namespace IBL
             public List<DroneCharge> InCharges { get; set; }
             public override string ToString()
             {
+                StringBuilder builderDroneChargeListPrint = new StringBuilder();
+                foreach (var elementInCharge in InCharges)
+                    builderDroneChargeListPrint.Append(elementInCharge).Append(", ");
                 return $"Id #{Id}: Name = {Name},Location = {Location}," +
-                       $"Charge slots = {ChargeSlots}, Drone in charges = {InCharges.ToString()}";
+                       $"Charge slots = {ChargeSlots}, Drone in charges = {builderDroneChargeListPrint.ToString()}.";
             }
         }
     }
