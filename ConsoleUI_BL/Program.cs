@@ -155,10 +155,12 @@ namespace ConsoleUI_BL
                         } while (!int.TryParse(Console.ReadLine(), out c));
 
                         ep = (EntityOption) c;
-                        do
-                        {
-                            Console.WriteLine("Enter Id of the entity:\n");
-                        } while (!int.TryParse(Console.ReadLine(), out myId));
+                        myId = 0;
+                        if(c != 5)
+                            do
+                            {
+                                Console.WriteLine("Enter Id of the entity:\n");
+                            } while (!int.TryParse(Console.ReadLine(), out myId));
 
                         switch (ep)
                         {
