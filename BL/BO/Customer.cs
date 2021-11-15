@@ -19,10 +19,16 @@ namespace IBL
 
             public override string ToString()
             {
-                return
+                StringBuilder builderFromTheCustomerList = new StringBuilder();
+                StringBuilder builderToTheCustomerList = new StringBuilder();
+                foreach (var parcelInCustomer in FromTheCustomerList)
+                    builderFromTheCustomerList.Append(parcelInCustomer).Append(", ");
+                foreach (var parcelToCustomer in ToTheCustomerList)
+                    builderToTheCustomerList.Append(parcelToCustomer).Append(", ");
+                    return
                     $"Id #{Id}: Name = {Name}, Phone = {Phone},Location = {Location}," +
-                    $"Parcels the customer sent = {FromTheCustomerList.ToString()}, " +
-                    $"Parcels the customer need to receive = {ToTheCustomerList.ToString()}";
+                    $"Parcels the customer sent = {builderFromTheCustomerList.ToString()}, " +
+                    $"Parcels the customer need to receive = {builderToTheCustomerList.ToString()}";
             }
         }
     }
