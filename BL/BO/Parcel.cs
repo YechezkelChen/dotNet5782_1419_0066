@@ -22,7 +22,7 @@ namespace IBL
             public DateTime Delivered { get; set; }//אספקה
             public override string ToString()
             {
-                return $"Id #{Id}: SenderId = {Sender}, TargetId = {Target},Weight = {Weight}," +
+                return $"Id #{Id}: SenderId = {Sender}, TargetId = {Target}, Weight = {Weight}," +
                        $" Priority = {Priority}, Drone in Parcel = {DroneInParcel}, Requested = {Requested}," +
                        $" Scheduled = {Scheduled}, PickedUp = {PickedUp},Delivered = {Delivered},";
             }

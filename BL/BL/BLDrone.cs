@@ -91,7 +91,16 @@ namespace IBL
                     drone.Status = eleDroneToList.Status;
                     drone.Location = eleDroneToList.Location;
 
-                    IDAL.DO.Parcel parcel = dal.GetParcel(eleDroneToList.IdParcel);
+                    IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
+                    try
+                    {
+                        parcel = dal.GetParcel(eleDroneToList.IdParcel);
+                    }
+                    catch (Exception e)
+                    {
+                        return drone;
+                    }
+
                     if (parcel.DroneId == drone.Id)
                     {
                         drone.ParcelByTransfer.Id = parcel.Id;

@@ -52,17 +52,18 @@ namespace IBL
 
             Parcel parcel = new Parcel();
             parcel.Id = idalParcel.Id;
-            parcel.Sender.Id = idalParcel.SenderId;
-            parcel.Target.Id = idalParcel.TargetId;
+            parcel.Sender = new CustomerInParcel()
+                {Id = idalParcel.SenderId, NameCustomer = GetCustomer(idalParcel.SenderId).Name};
+            parcel.Target = new CustomerInParcel()
+                { Id = idalParcel.TargetId, NameCustomer = GetCustomer(idalParcel.TargetId).Name };
             parcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
             parcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
 
             foreach (var elementDrone in ListDrones)
                 if (elementDrone.Id == idalParcel.DroneId)
                 {
-                    parcel.DroneInParcel.Id = elementDrone.Id;
-                    parcel.DroneInParcel.Battery = elementDrone.Battery;
-                    parcel.DroneInParcel.Location = elementDrone.Location;
+                    parcel.DroneInParcel = new DroneInParcel()
+                        {Id = elementDrone.Id, Battery = elementDrone.Battery, Location = elementDrone.Location};
                 }
 
             parcel.Requested = idalParcel.Requested;

@@ -57,13 +57,14 @@ namespace IBL
             customer.Id = idalCustomer.Id;
             customer.Name = idalCustomer.Name;
             customer.Phone = idalCustomer.Phone;
-            customer.Location.Longitude = idalCustomer.Longitude;
-            customer.Location.Latitude = idalCustomer.Latitude;
+            customer.Location = new Location() {Longitude = idalCustomer.Longitude, Latitude = idalCustomer.Latitude};
+            customer.FromTheCustomerList = new List<ParcelInCustomer>();
+            customer.ToTheCustomerList = new List<ParcelInCustomer>();
 
-            ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
             foreach (var elementParcel in dal.GetParcels())
                 if (customer.Id == elementParcel.SenderId)
                 {
+                    ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
                     parcelInCustomer.Id = elementParcel.Id;
                     parcelInCustomer.Weight = Enum.Parse<WeightCategories>(elementParcel.Weight.ToString());
                     parcelInCustomer.Priority = Enum.Parse<Priorities>(elementParcel.Priority.ToString());
@@ -77,8 +78,8 @@ namespace IBL
                     if (elementParcel.Delivered != DateTime.MinValue)
                         parcelInCustomer.Status = ParcelStatuses.Delivered;
 
-                    parcelInCustomer.CustomerInDelivery.Id = customer.Id;
-                    parcelInCustomer.CustomerInDelivery.NameCustomer = customer.Name;
+                    parcelInCustomer.CustomerInDelivery = new CustomerInParcel()
+                        {Id = customer.Id, NameCustomer = customer.Name};
 
                     customer.FromTheCustomerList.Add(parcelInCustomer);
                 }
@@ -86,6 +87,7 @@ namespace IBL
             foreach (var elementParcel in dal.GetParcels())
                 if (customer.Id == elementParcel.TargetId)
                 {
+                    ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
                     parcelInCustomer.Id = elementParcel.Id;
                     parcelInCustomer.Weight = Enum.Parse<WeightCategories>(elementParcel.Weight.ToString());
                     parcelInCustomer.Priority = Enum.Parse<Priorities>(elementParcel.Priority.ToString());
@@ -98,8 +100,8 @@ namespace IBL
                     if (elementParcel.Requested != DateTime.MinValue)
                         parcelInCustomer.Status = ParcelStatuses.Requested;
 
-                    parcelInCustomer.CustomerInDelivery.Id = customer.Id;
-                    parcelInCustomer.CustomerInDelivery.NameCustomer = customer.Name;
+                    parcelInCustomer.CustomerInDelivery = new CustomerInParcel()
+                        {Id = customer.Id, NameCustomer = customer.Name};
 
                     customer.ToTheCustomerList.Add(parcelInCustomer);
                 }

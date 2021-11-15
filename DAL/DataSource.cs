@@ -15,7 +15,7 @@ namespace DalObject
 
         internal class Config
         {
-            internal static int ParcelsId = 0;
+            internal static int ParcelsId = 1;
 
             // km per hour
             internal static double BatteryAvailable = 5;
@@ -70,12 +70,12 @@ namespace DalObject
                 Parcels.Add(new Parcel
                 {
                     Id = Config.ParcelsId,
-                    SenderId = rand.Next(100000000, 1000000000),
-                    TargetId = rand.Next(100000000, 1000000000),
+                    SenderId = Customers[rand.Next(0, 10)].Id,
+                    TargetId = Customers[rand.Next(0, 10)].Id,
                     Weight = (WeightCategories)rand.Next(0, 3),
-                    Priority = (Priorities)rand.Next(0, 3),
+                    Priority = (Priorities)rand.Next(0, 3), 
                     DroneId = Drones[rand.Next(0,5)].Id,
-                    Requested = dates[rand.Next(0, 2)],
+                    Requested = dates[rand.Next(0, 2)], 
                     Scheduled = dates[rand.Next(0, 2)],
                     PickedUp = dates[rand.Next(0, 2)],
                     Delivered = dates[rand.Next(0, 2)]

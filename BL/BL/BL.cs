@@ -85,7 +85,7 @@ namespace IBL
                     }
 
                     if ((elementDrone.Status != DroneStatuses.Delivery))
-                        elementDrone.Status = (DroneStatuses) rand.Next(0, 1);
+                        elementDrone.Status = (DroneStatuses) rand.Next(0, 2);
 
                     if (elementDrone.Status == DroneStatuses.Maintenance)
                     {
@@ -108,7 +108,7 @@ namespace IBL
                             elementDrone.Location = new Location() {Longitude = 0, Latitude = 0};
                         else
                         {
-                            int index = rand.Next(0, customersWithDelivery.Count() - 1);
+                            int index = rand.Next(0, customersWithDelivery.Count());
                             elementDrone.Location = new Location()
                             {
                                 Longitude = customersWithDelivery.ElementAt(index).Longitude,
