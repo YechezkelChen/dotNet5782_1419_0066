@@ -43,7 +43,7 @@ namespace DalObject
         public bool IsExistDroneCharge(DroneCharge droneCharge, IEnumerable<DroneCharge> droneCharges)
         {
             foreach (DroneCharge elementDroneCharge in droneCharges)
-                if (elementDroneCharge.DroneId == droneCharge.DroneId && elementDroneCharge.Stationld == droneCharge.Stationld) 
+                if (elementDroneCharge.DroneId == droneCharge.DroneId && elementDroneCharge.StationId == droneCharge.StationId) 
                     return true;
             return false;//the drone not exist
         }

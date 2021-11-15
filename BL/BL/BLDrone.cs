@@ -202,7 +202,7 @@ namespace IBL
             dal.UpdateStation(updateStation);
 
             IDAL.DO.DroneCharge newDroneCharge = new DroneCharge();
-            newDroneCharge.Stationld = nearStation.Id;
+            newDroneCharge.StationId = nearStation.Id;
             newDroneCharge.DroneId = drone.Id;
             dal.AddDroneCharge(newDroneCharge);
         }
@@ -234,9 +234,9 @@ namespace IBL
                         {
                             foreach (var elementStationToList in GetStations())
                             {
-                                if (elementDroneCharge.Stationld == elementStationToList.Id)
+                                if (elementDroneCharge.StationId == elementStationToList.Id)
                                 {
-                                    IDAL.DO.Station updateStation = dal.GetStation(elementDroneCharge.Stationld);
+                                    IDAL.DO.Station updateStation = dal.GetStation(elementDroneCharge.StationId);
                                     updateStation.ChargeSlots++;
                                     dal.UpdateStation(updateStation);
 

@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
 using IDAL;
+using IDAL.DO;
+using Station = IBL.BO.Station;
 
 
 namespace IBL
@@ -56,8 +58,9 @@ namespace IBL
             station.Name = idalStation.Name;
             station.Location = new Location() {Longitude = idalStation.Longitude, Latitude = idalStation.Latitude};
             station.ChargeSlots = idalStation.ChargeSlots;
+            station.InCharges = new List<DroneCharge>();
             foreach (var elementDroneCharge in dal.GetDronesCharge())
-                if(elementDroneCharge.Stationld == station.Id)
+                if(elementDroneCharge.StationId == station.Id)
                     station.InCharges.Add(elementDroneCharge);
 
             return station;
