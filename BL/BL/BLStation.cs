@@ -54,8 +54,7 @@ namespace IBL
             Station station = new Station();
             station.Id = idalStation.Id;
             station.Name = idalStation.Name;
-            station.Location.Longitude = idalStation.Longitude;
-            station.Location.Latitude = idalStation.Latitude;
+            station.Location = new Location() {Longitude = idalStation.Longitude, Latitude = idalStation.Latitude};
             station.ChargeSlots = idalStation.ChargeSlots;
             foreach (var elementDroneCharge in dal.GetDronesCharge())
                 if(elementDroneCharge.Stationld == station.Id)
@@ -78,7 +77,10 @@ namespace IBL
                 newStationToList.Id = idalStation.Id;
                 newStationToList.Name = idalStation.Name;
                 newStationToList.ChargeSlotsAvailable = idalStation.ChargeSlots;
-                newStationToList.ChargeSlotsNotAvailable =idalStation.ChargeSlots - station.InCharges.Count();
+                if (station.InCharges == null)
+                    newStationToList.ChargeSlotsNotAvailable = idalStation.ChargeSlots;
+                else
+                    newStationToList.ChargeSlotsNotAvailable = idalStation.ChargeSlots - station.InCharges.Count();
 
                 stationsToList.Add(newStationToList);
             }

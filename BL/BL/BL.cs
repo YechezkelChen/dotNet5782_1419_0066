@@ -15,7 +15,7 @@ namespace IBL
     {
         public List<DroneToList> ListDrones = new List<DroneToList>();
 
-        IDal dal = new DalObject.DalObject();
+        private IDal dal;
 
         double BatteryAvailable, BatteryLightWeight, BatteryMediumWeight, BatteryHeavyWeight, ChargingRateOfDrone;
 
@@ -23,6 +23,8 @@ namespace IBL
 
         public BL()
         {
+            dal = new DalObject.DalObject();
+
             // km per hour
             double[] powerConsumption = dal.GetRequestPowerConsumption();
             BatteryAvailable = powerConsumption[0];
@@ -32,9 +34,9 @@ namespace IBL
             ChargingRateOfDrone = powerConsumption[4];
 
             IEnumerable<IDAL.DO.Drone> listDronesIdalDo = dal.GetDrones();
-            DroneToList newDrone = new DroneToList();
             foreach (var elementDrone in listDronesIdalDo)
             {
+                DroneToList newDrone = new DroneToList();
                 newDrone.Id = elementDrone.Id;
                 newDrone.Model = elementDrone.Model;
                 newDrone.Weight = Enum.Parse<WeightCategories>(elementDrone.Weight.ToString());
@@ -102,12 +104,17 @@ namespace IBL
                     {
                         IEnumerable<IDAL.DO.Customer> customersWithDelivery =
                             ListCustomersWithDelivery(dal.GetCustomers(), dal.GetParcels());
-                        int index = rand.Next(0, customersWithDelivery.Count());
-                        elementDrone.Location = new Location()
+                        if (customersWithDelivery.Count() == 0)
+                            elementDrone.Location = new Location() {Longitude = 0, Latitude = 0};
+                        else
                         {
-                            Longitude = customersWithDelivery.ElementAt(index).Longitude,
-                            Latitude = customersWithDelivery.ElementAt(index).Latitude
-                        };
+                            int index = rand.Next(0, customersWithDelivery.Count() - 1);
+                            elementDrone.Location = new Location()
+                            {
+                                Longitude = customersWithDelivery.ElementAt(index).Longitude,
+                                Latitude = customersWithDelivery.ElementAt(index).Latitude
+                            };
+                        }
 
                         double distanceFromNearStation = Distance(elementDrone.Location,
                             NearStationToDrone(dal.GetDrone(elementDrone.Id)).Location);

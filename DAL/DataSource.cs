@@ -29,6 +29,7 @@ namespace DalObject
         {
             Random rand = new Random(DateTime.Now.Millisecond);
             List<string> names = new List<string>() { "a", "b", "c", "d", "e" };
+            List<DateTime> dates = new List<DateTime>() {DateTime.Now, DateTime.MinValue, DateTime.MaxValue};
 
             for (int i = 0; i < 5; i++)
             {
@@ -68,19 +69,19 @@ namespace DalObject
             {
                 Parcels.Add(new Parcel
                 {
-                    Id = rand.Next(100000000, 999999999),
+                    Id = Config.ParcelsId,
                     SenderId = rand.Next(100000000, 999999999),
                     TargetId = rand.Next(100000000, 999999999),
                     Weight = (WeightCategories)rand.Next(0, 2),
                     Priority = (Priorities)rand.Next(0, 2),
                     DroneId = rand.Next(100000000, 999999999),
-                    Requested = DateTime.Now,
-                    Scheduled = DateTime.Now,
-                    PickedUp = DateTime.Now,
-                    Delivered = DateTime.Now
+                    Requested = dates[rand.Next(0, 2)],
+                    Scheduled = dates[rand.Next(0, 2)],
+                    PickedUp = dates[rand.Next(0, 2)],
+                    Delivered = dates[rand.Next(0, 2)]
                 });
+                Config.ParcelsId++;
             }
-            Config.ParcelsId = 1000000000;//bigger frome all the ID 
         }
     }
 }
