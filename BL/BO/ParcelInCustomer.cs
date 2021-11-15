@@ -17,8 +17,8 @@ namespace IBL
             public CustomerInParcel CustomerInDelivery { get; set; }//how is the customer
             public override string ToString()
             {
-                return $"Id #{Id}: Weight = {Weight}, Priority = {Priority},Weight = {Weight}," +
-                       $" Priority = {Priority}, Status = {Status}, Customer in delivery = {CustomerInDelivery.ToString()}";
+                return $"Id #{Id}: Weight = {Weight}, Priority = {Priority}, " +
+                       $" Status = {Status}, Customer in delivery = {CustomerInDelivery.ToString()}";
             }
         }
     }
