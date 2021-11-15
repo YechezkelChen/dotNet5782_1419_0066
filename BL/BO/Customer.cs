@@ -25,10 +25,11 @@ namespace IBL
                     builderFromTheCustomerList.Append(parcelInCustomer).Append(", ");
                 foreach (var parcelToCustomer in ToTheCustomerList)
                     builderToTheCustomerList.Append(parcelToCustomer).Append(", ");
-                    return
+
+                return
                     $"Id #{Id}: Name = {Name}, Phone = {Phone},Location = {Location}," +
-                    $"Parcels the customer sent = {builderFromTheCustomerList.ToString()}, " +
-                    $"Parcels the customer need to receive = {builderToTheCustomerList.ToString()}";
+                    $"Parcels the customer sent = {builderFromTheCustomerList.ToString()}" +
+                    $"Parcels the customer need to receive = {builderToTheCustomerList.ToString()}.";
             }
         }
     }
