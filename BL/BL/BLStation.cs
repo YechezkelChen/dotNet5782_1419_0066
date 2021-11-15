@@ -77,9 +77,8 @@ namespace IBL
 
                 newStationToList.Id = idalStation.Id;
                 newStationToList.Name = idalStation.Name;
-                newStationToList.ChargeSlotsAvailable = idalStation.ChargeSlots - station.InCharges.Count();
-                newStationToList.ChargeSlotsNotAvailable = idalStation.ChargeSlots -
-                                                           newStationToList.ChargeSlotsAvailable;
+                newStationToList.ChargeSlotsAvailable = idalStation.ChargeSlots;
+                newStationToList.ChargeSlotsNotAvailable =idalStation.ChargeSlots - station.InCharges.Count();
 
                 stationsToList.Add(newStationToList);
             }
@@ -127,11 +126,19 @@ namespace IBL
         {
             List<double> distancesList = new List<double>();
             Location stationLocation = new Location();
-            Location droneLocation = GetDrone(drone.Id).Location;
+            Location droneLocation = new Location();
+            try
+            {
+                droneLocation = GetDrone(drone.Id).Location;
+            }
+            catch (DroneException e)
+            {
+                throw new DroneException("" + e);
+            }
 
             foreach (var stationCharge in GetStationsCharge())
             {
-                foreach (var station in dal.GetStations())
+                foreach (var station in dal.GetStations()) // for the location
                 {
                     if (stationCharge.Id == station.Id)
                     {
@@ -140,6 +147,9 @@ namespace IBL
                     }
                 }
             }
+
+            if (distancesList.Count() == 0)
+                throw new DroneException("ERROR: There is no station to charge your drone! :(");
 
             double minDistance = distancesList.Min();
             Station nearStation = new Station();

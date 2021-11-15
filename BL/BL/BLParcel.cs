@@ -218,14 +218,13 @@ namespace IBL
                 }
             }
 
-            IDAL.DO.Parcel updateparcel = dal.GetParcel(collectionDrone.ParcelByTransfer.Id);
-            updateparcel.PickedUp = DateTime.Now;
-            dal.UpdateParcel(updateparcel);
+            IDAL.DO.Parcel updateParcel = dal.GetParcel(collectionDrone.ParcelByTransfer.Id);
+            updateParcel.PickedUp = DateTime.Now;
+            dal.UpdateParcel(updateParcel);
         }
 
         public void SupplyParcelByDrone(int idDrone)
         {
-            DroneToList dronToList = new DroneToList();
             Drone drone = new Drone();
             try
             {
@@ -236,13 +235,6 @@ namespace IBL
                 throw new DroneException("" + e);
             }
 
-            foreach (var elementDroneToList in ListDrones)
-            {
-                if (elementDroneToList.Id == idDrone)
-                    dronToList = elementDroneToList;
-            }
-
-            ParcelToList parcelToList = new ParcelToList();
             Parcel parcel = new Parcel();
             foreach (var elementParcelToList in GetParcels())
             {
