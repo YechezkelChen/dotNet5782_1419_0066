@@ -169,12 +169,22 @@ namespace IBL
             
             if (newModel == "")
                 throw new DroneException("ERROR: Model must have value");
-            else
-                updateDrone.Model = newModel;
-            
-            dal.UpdateDrone(updateDrone);
-        }
 
+
+            updateDrone.Model = newModel;
+
+
+            dal.UpdateDrone(updateDrone);
+            for (int i = 0; i < ListDrones.Count(); i++)
+            {
+                if (ListDrones[i].Id == droneId)
+                {
+                    DroneToList updateDroneToList = ListDrones[i];
+                    updateDroneToList.Model = newModel;
+                    ListDrones[i] = updateDroneToList;
+                }
+            }
+        }
 
         public void SendDroneToDroneCharge(int id)
         {

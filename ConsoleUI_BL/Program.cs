@@ -565,10 +565,10 @@ namespace ConsoleUI_BL
             string model;
             do
             {
-                Console.WriteLine("Enter Id Drone: ");
+                Console.WriteLine("Enter id drone: ");
             } while (!int.TryParse(Console.ReadLine(), out id));
 
-            Console.WriteLine("Enter Model Drone: ");
+            Console.WriteLine("Enter the new model drone: ");
             model = Console.ReadLine();
 
             try
