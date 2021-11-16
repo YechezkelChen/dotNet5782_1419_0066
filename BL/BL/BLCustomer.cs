@@ -33,9 +33,9 @@ namespace IBL
             }
 
             IDAL.DO.Customer customer = new IDAL.DO.Customer();
-            customer.Id = newCustomer.Id;
+            customer.Id = newCustomer.Id * 10 + lastDigitID(newCustomer.Id);
             customer.Name = newCustomer.Name;
-            customer.Phone = newCustomer.Phone;
+            customer.Phone = newCustomer.Phone; 
             customer.Longitude = newCustomer.Location.Longitude;
             customer.Latitude = newCustomer.Location.Latitude;
             dal.AddCustomer(customer);
@@ -172,12 +172,43 @@ namespace IBL
 
         private void CheckCustomer(Customer customer)
         {
-            if (customer.Id < 0)
+            if(customer.Id < 10000000 || customer.Id > 99999999)//Check that it's 8 digits.
                 throw new CustomerException("ERROR: the ID is illegal! ");
-            if (customer.Name == "")
-                throw new DalObject.CustomerException("ERROR: Name must have value");
-            if (customer.Phone == "")
-                throw new DalObject.CustomerException("ERROR: Phone must have value");
+            if (customer.Name.Length == 0)
+                throw new CustomerException("ERROR: Name must have value");
+            if (customer.Phone.Length != 10)
+                throw new CustomerException("ERROR: Phone must have 10 digits");
+        }
+
+        private int lastDigitID(int lessID)
+        {
+            int digit1, digit2, sumResultDigits = 0, digitID;
+            for (int i = 1; i <= lessID; i++)
+            {
+                digit1 = lessID % 10;
+                digit1 *= 2;//Calculating the digits double their weight.
+                sumResultDigits += sumDigits(digit1);//The sum of the result digits.
+                lessID /= 10;
+                digit2 = lessID % 10;
+                digit2 *= 1;//Calculating the digits double their weight.
+                sumResultDigits += sumDigits(digit2);//The sum of the result digits.
+                lessID /= 10;
+            }
+            sumResultDigits %= 10;//The unity digit of the result.
+
+            digitID = 10 - sumResultDigits;
+            return digitID;//Returning the missing digit.v
+        }
+
+        private int sumDigits(int num)//Entering a number by the computer.
+        {
+            int sum_digits = 0;
+            while (num > 0)
+            {
+                sum_digits += num % 10;
+                num = num / 10;
+            }
+            return sum_digits;//Return of the sum of his digits.
         }
 
         private IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,

@@ -169,7 +169,6 @@ namespace ConsoleUI_BL
                                 try
                                 {
                                     Console.WriteLine(bl.GetStation(myId));
-
                                 }
                                 catch (StationException e)
                                 {
@@ -426,6 +425,10 @@ namespace ConsoleUI_BL
             {
                 Console.WriteLine(e);
             }
+            catch (StationException e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         /// <summary>
@@ -440,7 +443,7 @@ namespace ConsoleUI_BL
             Customer newCustomer = new Customer();
             do
             {
-                Console.WriteLine("Enter Id Customer: ");
+                Console.WriteLine("Enter Id with 8 digits of Customer: ");
             } while (!int.TryParse(Console.ReadLine(), out num1));
 
             newCustomer.Id = num1;
@@ -485,12 +488,6 @@ namespace ConsoleUI_BL
         {
             int num;
             Parcel newParcel = new Parcel();
-            do
-            {
-                Console.WriteLine("Enter Id of the Parcel you want to send: ");
-            } while (!int.TryParse(Console.ReadLine(), out num));
-
-            newParcel.Id = num;
 
             do
             {

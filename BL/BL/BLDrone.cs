@@ -114,6 +114,7 @@ namespace IBL
 
                     if (parcel.DroneId == drone.Id)
                     {
+                        drone.ParcelByTransfer = new ParcelByTransfer();
                         drone.ParcelByTransfer.Id = parcel.Id;
                         drone.ParcelByTransfer.Weight= Enum.Parse<WeightCategories>(parcel.Weight.ToString());
 
@@ -126,14 +127,18 @@ namespace IBL
                         drone.ParcelByTransfer.Priority= Enum.Parse<Priorities>(parcel.Priority.ToString());
 
                         IDAL.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
+                        drone.ParcelByTransfer.SenderInParcel = new CustomerInParcel();
                         drone.ParcelByTransfer.SenderInParcel.Id = customer.Id;
                         drone.ParcelByTransfer.SenderInParcel.NameCustomer = customer.Name;
+                        drone.ParcelByTransfer.PickUpLocation = new Location();
                         drone.ParcelByTransfer.PickUpLocation.Longitude = customer.Longitude;
                         drone.ParcelByTransfer.PickUpLocation.Latitude = customer.Latitude;
 
                         customer = dal.GetCustomer(parcel.TargetId);
+                        drone.ParcelByTransfer.ReceiverInParcel = new CustomerInParcel();
                         drone.ParcelByTransfer.ReceiverInParcel.Id = customer.Id;
                         drone.ParcelByTransfer.ReceiverInParcel.NameCustomer = customer.Name;
+                        drone.ParcelByTransfer.TargetLocation = new Location();
                         drone.ParcelByTransfer.TargetLocation.Longitude = customer.Longitude;
                         drone.ParcelByTransfer.TargetLocation.Latitude = customer.Latitude;
 

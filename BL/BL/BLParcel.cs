@@ -278,10 +278,22 @@ namespace IBL
 
         private void CheckParcel(Parcel parcel)
         {
-            if (parcel.Sender.Id < 0)
-                throw new ParcelException("ERROR: the Sender ID is illegal! ");
-            if (parcel.Target.Id < 0)
-                throw new ParcelException("ERROR: the Target ID is illegal! ");
+            try
+            {
+                dal.GetCustomer(parcel.Sender.Id);
+            }
+            catch (DalObject.CustomerException e)
+            {
+                throw new ParcelException("ERROR: the Sender customer not found! ");
+            }
+            try
+            {
+                dal.GetCustomer(parcel.Target.Id);
+            }
+            catch (DalObject.CustomerException e)
+            {
+                throw new ParcelException("ERROR: the Target customer not found! ");
+            }
             if (parcel.Sender.Id == parcel.Target.Id)
                 throw new ParcelException("ERROR: the Target ID and the Sender ID are equals! ");
         }

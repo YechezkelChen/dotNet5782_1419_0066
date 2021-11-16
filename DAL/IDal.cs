@@ -35,7 +35,6 @@ namespace IDAL
         IEnumerable<Customer> GetCustomers();
         void UpdateCustomer(Customer customer);
 
-
         // Parcel
         int AddParcel(Parcel newParcel);
         Parcel GetParcel(int parcelId);
