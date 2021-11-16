@@ -44,13 +44,16 @@ namespace IBL
             newDroneToList.Status = DroneStatuses.Maintenance;
             try
             {
-                newDroneToList.Location.Longitude = dal.GetStation(idStation).Longitude;
-                newDroneToList.Location.Latitude = dal.GetStation(idStation).Latitude;
+                dal.GetStation(idStation);
             }
             catch (DalObject.stationException e)
             {
-                throw new DroneException("" + e);
+                throw new StationException("" + e);
             }
+
+            newDroneToList.Location = new Location();
+            newDroneToList.Location.Longitude = dal.GetStation(idStation).Longitude;
+            newDroneToList.Location.Latitude = dal.GetStation(idStation).Latitude;
 
             try
             {
@@ -63,7 +66,15 @@ namespace IBL
             }
 
             ListDrones.Add(newDroneToList);
-            dal.AddDrone(drone);
+            try
+            {
+                dal.AddDrone(drone);
+            }
+            catch (DalObject.DroneException e)
+            {
+                throw new DroneException("" + e);
+            }
+            
         }
 
         public Drone GetDrone(int id)
@@ -271,7 +282,7 @@ namespace IBL
             foreach (IDAL.DO.Parcel elementParcel in parcels)
                 if (elementParcel.DroneId == droneId)
                     return elementParcel.Id;
-            throw new DroneException("ERROR: the drone not exist! ");
+            return 0;
         }
     }
 }

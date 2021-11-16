@@ -17,7 +17,7 @@ namespace IBL
             public override string ToString()
             {
                 return $"Id #{Id}: Name = {Name},Charge slots available = {ChargeSlotsAvailable}," +
-                       $"charge slots not available = {ChargeSlotsNotAvailable}";
+                        $"charge slots not available = {ChargeSlotsNotAvailable}";
             }
         }
     }

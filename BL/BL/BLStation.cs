@@ -79,8 +79,9 @@ namespace IBL
                 newStationToList.Id = idalStation.Id;
                 newStationToList.Name = idalStation.Name;
                 newStationToList.ChargeSlotsAvailable = idalStation.ChargeSlots;
+
                 if (station.InCharges == null)
-                    newStationToList.ChargeSlotsNotAvailable = idalStation.ChargeSlots;
+                    newStationToList.ChargeSlotsNotAvailable = 0;
                 else
                     newStationToList.ChargeSlotsNotAvailable = idalStation.ChargeSlots - station.InCharges.Count();
 

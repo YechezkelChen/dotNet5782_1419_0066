@@ -487,9 +487,17 @@ namespace ConsoleUI_BL
             Parcel newParcel = new Parcel();
             do
             {
+                Console.WriteLine("Enter Id of the Parcel you want to send: ");
+            } while (!int.TryParse(Console.ReadLine(), out num));
+
+            newParcel.Id = num;
+
+            do
+            {
                 Console.WriteLine("Enter Sender Id Parcel: ");
             } while (!int.TryParse(Console.ReadLine(), out num));
 
+            newParcel.Sender = new CustomerInParcel();
             newParcel.Sender.Id = num;
 
             do
@@ -497,6 +505,7 @@ namespace ConsoleUI_BL
                 Console.WriteLine("Enter Target Id Parcel: ");
             } while (!int.TryParse(Console.ReadLine(), out num));
 
+            newParcel.Target = new CustomerInParcel();
             newParcel.Target.Id = num;
 
             do
