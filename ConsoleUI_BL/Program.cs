@@ -798,6 +798,14 @@ namespace ConsoleUI_BL
                     if (choice != "yes")
                         break;
                 }
+                catch (ParcelException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("If you know about some drone ,\n do you want to connect parcel to drone? please enter yes or no.");
+                    string choice = Console.ReadLine();
+                    if (choice != "yes")
+                        break;
+                }
             }
         }
 
@@ -849,7 +857,8 @@ namespace ConsoleUI_BL
                 catch (DroneException e)
                 {
                     Console.WriteLine(e);
-                    Console.WriteLine("Do you want to supply parcel by drone? please enter yes or no.");
+                    Console.WriteLine("You need to choose drone that pick-up some parcel.\n" +
+                                      "so do you want to supply parcel by drone? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
                         break;

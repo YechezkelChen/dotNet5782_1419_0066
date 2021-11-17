@@ -224,7 +224,11 @@ namespace IBL
                 if (ListDrones[i].Id == drone.Id)
                 {
                     DroneToList newDrone = ListDrones[i];
-                    newDrone.Battery -= distance * BatteryAvailable;
+                    if (distance * BatteryAvailable > 100)
+                        newDrone.Battery = 100;
+                    else
+                        newDrone.Battery += distance * BatteryAvailable;
+
                     newDrone.Location = nearStation.Location;
                     newDrone.Status = DroneStatuses.Maintenance;
                     ListDrones[i] = newDrone;
@@ -280,9 +284,19 @@ namespace IBL
                                     updateStation.ChargeSlots++;
                                     dal.UpdateStation(updateStation);
 
-                                    elementListDrone.Battery += chargeTime * ChargingRateOfDrone;
+                                    if (chargeTime * ChargingRateOfDrone > 100)
+                                        elementListDrone.Battery = 100;
+                                    else
+                                    {
+                                        elementListDrone.Battery += chargeTime * ChargingRateOfDrone;
+                                        if (elementListDrone.Battery > 100)
+                                            elementListDrone.Battery = 100;
+                                    }
+                                        
+
                                     elementListDrone.Status = DroneStatuses.Available;
                                     dal.RemoveDroneCharge(elementDroneCharge);
+                                    return;
                                 }
                             }
 
