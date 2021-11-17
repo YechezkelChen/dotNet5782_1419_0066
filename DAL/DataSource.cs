@@ -55,9 +55,11 @@ namespace DalObject
 
             for (int i = 0; i < 10; i++)
             {
+                int tmpId = rand.Next(10000000, 100000000);
+                tmpId = tmpId * 10 + lastDigitID(tmpId);
                 Customers.Add(new Customer
                 {
-                    Id = rand.Next(100000000, 1000000000),
+                    Id = tmpId,
                     Name = names[rand.Next(0, 5)],
                     Phone = "05" + rand.Next(10000000, 99999999),
                     Longitude = rand.Next(10, 1000),
@@ -82,6 +84,37 @@ namespace DalObject
                 });
                 Config.ParcelsId++;
             }
+        }
+
+        private static int lastDigitID(int lessID)
+        {
+            int digit1, digit2, sumResultDigits = 0, digitID;
+            for (int i = 1; i <= lessID; i++)
+            {
+                digit1 = lessID % 10;
+                digit1 *= 2;//Calculating the digits double their weight.
+                sumResultDigits += sumDigits(digit1);//The sum of the result digits.
+                lessID /= 10;
+                digit2 = lessID % 10;
+                digit2 *= 1;//Calculating the digits double their weight.
+                sumResultDigits += sumDigits(digit2);//The sum of the result digits.
+                lessID /= 10;
+            }
+            sumResultDigits %= 10;//The unity digit of the result.
+
+            digitID = 10 - sumResultDigits;
+            return digitID;//Returning the missing digit.v
+        }
+
+        private static int sumDigits(int num)//Entering a number by the computer.
+        {
+            int sum_digits = 0;
+            while (num > 0)
+            {
+                sum_digits += num % 10;
+                num = num / 10;
+            }
+            return sum_digits;//Return of the sum of his digits.
         }
     }
 }
