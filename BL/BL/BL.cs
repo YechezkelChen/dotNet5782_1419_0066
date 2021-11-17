@@ -91,6 +91,7 @@ namespace IBL
 
                     if (elementDrone.Status == DroneStatuses.Maintenance)
                     {
+                        elementDrone.Status = DroneStatuses.Available; // for the charge after he will be in Maintenance.
                         IEnumerable<IDAL.DO.Station> listStationsIdalDo = dal.GetStations();
                         int index = rand.Next(0, listStationsIdalDo.Count());
                         elementDrone.Location = new Location()
@@ -98,14 +99,14 @@ namespace IBL
                             Longitude = listStationsIdalDo.ElementAt(index).Longitude,
                             Latitude = listStationsIdalDo.ElementAt(index).Latitude
                         };
-
-                        elementDrone.Battery = 20 * rand.NextDouble();
                         try
                         {
                             SendDroneToDroneCharge(elementDrone.Id);
                         }
                         catch (DroneException e)
                         { }
+
+                        elementDrone.Battery = 20 * rand.NextDouble();
                     }
 
                     if (elementDrone.Status == DroneStatuses.Available)
