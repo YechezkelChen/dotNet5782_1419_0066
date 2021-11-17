@@ -67,7 +67,7 @@ namespace ConsoleUI_BL
             {
                 do
                 {
-                    Console.WriteLine("\nHELLO\n" + "Choose one of the following:\n" + "1: Add\n" + "2: Update\n" +
+                    Console.WriteLine("HELLO\n" + "Choose one of the following:\n" + "1: Add\n" + "2: Update\n" +
                                       "3: View\n" + "4: List View\n" + "5: Exit\n");
                 } while (!int.TryParse(Console.ReadLine(), out c));
 
