@@ -318,56 +318,64 @@ namespace ConsoleUI_BL
             double num2;
             Location stationLocation = new Location();
             Station newStation = new Station();
-            do
+            while (true)
             {
-                Console.WriteLine("Enter Id Station: ");
-            } while (!int.TryParse(Console.ReadLine(), out num1));
+                do
+                {
+                    Console.WriteLine("Enter Id Station: ");
+                } while (!int.TryParse(Console.ReadLine(), out num1));
 
-            newStation.Id = num1;
+                newStation.Id = num1;
 
-            do
-            {
-                Console.WriteLine("Enter Name Station: ");
+                do
+                {
+                    Console.WriteLine("Enter Name Station: ");
 
-            } while (!int.TryParse(Console.ReadLine(), out num1));
+                } while (!int.TryParse(Console.ReadLine(), out num1));
 
-            newStation.Name = num1;
+                newStation.Name = num1;
 
-            do
-            {
-                Console.WriteLine("Enter longitude Station: ");
+                do
+                {
+                    Console.WriteLine("Enter longitude Station: ");
 
-            } while (!double.TryParse(Console.ReadLine(), out num2));
+                } while (!double.TryParse(Console.ReadLine(), out num2));
 
-            stationLocation.Longitude = num2;
+                stationLocation.Longitude = num2;
 
-            do
-            {
-                Console.WriteLine("Enter Latitude Station: ");
+                do
+                {
+                    Console.WriteLine("Enter Latitude Station: ");
 
-            } while (!double.TryParse(Console.ReadLine(), out num2));
+                } while (!double.TryParse(Console.ReadLine(), out num2));
 
-            stationLocation.Latitude = num2;
-            newStation.Location = stationLocation;
+                stationLocation.Latitude = num2;
+                newStation.Location = stationLocation;
 
-            do
-            {
-                Console.WriteLine("Enter Available Charge Slots  Station: ");
+                do
+                {
+                    Console.WriteLine("Enter Available Charge Slots  Station: ");
 
-            } while (!int.TryParse(Console.ReadLine(), out num1));
+                } while (!int.TryParse(Console.ReadLine(), out num1));
 
-            newStation.ChargeSlots = num1;
+                newStation.ChargeSlots = num1;
 
-            newStation.InCharges = new List<DroneCharge>();
+                newStation.InCharges = new List<DroneCharge>();
 
-            try
-            {
-                bl.AddStation(newStation);
-                Console.WriteLine("Success! :)\n");
-            }
-            catch (StationException e)
-            {
-                Console.WriteLine(e);
+                try
+                {
+                    bl.AddStation(newStation);
+                    Console.WriteLine("Success! :)\n");
+                    break;
+                }
+                catch (StationException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Do you want to add station? please enter yes or no.");
+                    string choice = Console.ReadLine();
+                    if (choice != "yes")
+                        break;
+                }
             }
         }
 
@@ -379,55 +387,67 @@ namespace ConsoleUI_BL
         {
             int num;
             Drone newDrone = new Drone();
-
-            do
+            while (true)
             {
-                Console.WriteLine("Enter Id Drone: ");
-            } while (!int.TryParse(Console.ReadLine(), out num));
 
-            newDrone.Id = num;
 
-            Console.WriteLine("Enter Model Drone: ");
-            newDrone.Model = Console.ReadLine();
+                do
+                {
+                    Console.WriteLine("Enter Id Drone: ");
+                } while (!int.TryParse(Console.ReadLine(), out num));
 
-            do
-            {
-                Console.WriteLine("Enter Weight Drone:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
-                int.TryParse(Console.ReadLine(), out num);
-            } while (num != 1 && num != 2 && num != 3);
+                newDrone.Id = num;
 
-            switch (num)
-            {
-                case 1:
-                    newDrone.Weight = IBL.BO.WeightCategories.Light;
-                    break;
-                case 2:
-                    newDrone.Weight = IBL.BO.WeightCategories.Medium;
-                    break;
-                case 3:
-                    newDrone.Weight = IBL.BO.WeightCategories.Heavy;
-                    break;
-                default:
-                    break;
-            }
+                Console.WriteLine("Enter Model Drone: ");
+                newDrone.Model = Console.ReadLine();
 
-            do
-            {
-                Console.WriteLine("Enter id of station to put the drone in: ");
-            } while (!int.TryParse(Console.ReadLine(), out num));
+                do
+                {
+                    Console.WriteLine("Enter Weight Drone:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
+                    int.TryParse(Console.ReadLine(), out num);
+                } while (num != 1 && num != 2 && num != 3);
 
-            try
-            {
-                bl.AddDrone(newDrone, num);
-                Console.WriteLine("Success! :)\n");
-            }
-            catch (DroneException e)
-            {
-                Console.WriteLine(e);
-            }
-            catch (StationException e)
-            {
-                Console.WriteLine(e);
+                switch (num)
+                {
+                    case 1:
+                        newDrone.Weight = IBL.BO.WeightCategories.Light;
+                        break;
+                    case 2:
+                        newDrone.Weight = IBL.BO.WeightCategories.Medium;
+                        break;
+                    case 3:
+                        newDrone.Weight = IBL.BO.WeightCategories.Heavy;
+                        break;
+                    default:
+                        break;
+                }
+
+                do
+                {
+                    Console.WriteLine("Enter id of station to put the drone in: ");
+                } while (!int.TryParse(Console.ReadLine(), out num));
+
+                try
+                {
+                    bl.AddDrone(newDrone, num);
+                    Console.WriteLine("Success! :)\n");
+                }
+                catch (DroneException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Do you want to add drone? please enter yes or no.");
+                    string choice = Console.ReadLine();
+                    if (choice != "yes")
+                        break;
+                }
+                catch (StationException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Do you want to add drone? please enter yes or no.");
+                    string choice = Console.ReadLine();
+                    if (choice != "yes")
+                        break;
+                }
             }
         }
 
@@ -441,42 +461,50 @@ namespace ConsoleUI_BL
             double num2;
             Location customerLocation = new Location();
             Customer newCustomer = new Customer();
-            do
+
+            while (true)
             {
-                Console.WriteLine("Enter Id with 8 digits of Customer: ");
-            } while (!int.TryParse(Console.ReadLine(), out num1));
+                do
+                {
+                    Console.WriteLine("Enter Id with 8 digits of Customer: ");
+                } while (!int.TryParse(Console.ReadLine(), out num1));
 
-            newCustomer.Id = num1;
+                newCustomer.Id = num1;
 
-            Console.WriteLine("Enter Name Customer: ");
-            newCustomer.Name = Console.ReadLine();
+                Console.WriteLine("Enter Name Customer: ");
+                newCustomer.Name = Console.ReadLine();
 
-            Console.WriteLine("Enter Phone Customer: ");
-            newCustomer.Phone = Console.ReadLine();
+                Console.WriteLine("Enter Phone Customer: ");
+                newCustomer.Phone = Console.ReadLine();
 
-            do
-            {
-                Console.WriteLine("Enter Longitude Customer: ");
-            } while (!double.TryParse(Console.ReadLine(), out num2));
+                do
+                {
+                    Console.WriteLine("Enter Longitude Customer: ");
+                } while (!double.TryParse(Console.ReadLine(), out num2));
 
-            customerLocation.Longitude = num2;
+                customerLocation.Longitude = num2;
 
-            do
-            {
-                Console.WriteLine("Enter Latitude Customer: ");
-            } while (!double.TryParse(Console.ReadLine(), out num2));
+                do
+                {
+                    Console.WriteLine("Enter Latitude Customer: ");
+                } while (!double.TryParse(Console.ReadLine(), out num2));
 
-            customerLocation.Latitude = num2;
-            newCustomer.Location = customerLocation;
+                customerLocation.Latitude = num2;
+                newCustomer.Location = customerLocation;
 
-            try
-            {
-                bl.AddCustomer(newCustomer);
-                Console.WriteLine("Success! :)\n");
-            }
-            catch (CustomerException e)
-            {
-                Console.WriteLine(e);
+                try
+                {
+                    bl.AddCustomer(newCustomer);
+                    Console.WriteLine("Success! :)\n");
+                }
+                catch (CustomerException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Do you want to add customer? please enter yes or no.");
+                    string choice = Console.ReadLine();
+                    if (choice != "yes")
+                        break;
+                }
             }
         }
 
@@ -489,73 +517,82 @@ namespace ConsoleUI_BL
             int num;
             Parcel newParcel = new Parcel();
 
-            do
-            {
-                Console.WriteLine("Enter Sender Id Parcel: ");
-            } while (!int.TryParse(Console.ReadLine(), out num));
-
-            newParcel.Sender = new CustomerInParcel();
-            newParcel.Sender.Id = num;
-
-            do
-            {
-                Console.WriteLine("Enter Target Id Parcel: ");
-            } while (!int.TryParse(Console.ReadLine(), out num));
-
-            newParcel.Target = new CustomerInParcel();
-            newParcel.Target.Id = num;
-
-            do
-            {
-                Console.WriteLine("Enter Weight Parcel:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
-                int.TryParse(Console.ReadLine(), out num);
-            } while (num != 1 && num != 2 && num != 3);
-
-            switch (num)
-            {
-                case 1:
-                    newParcel.Weight = IBL.BO.WeightCategories.Light;
-                    break;
-                case 2:
-                    newParcel.Weight = IBL.BO.WeightCategories.Medium;
-                    break;
-                case 3:
-                    newParcel.Weight = IBL.BO.WeightCategories.Heavy;
-                    break;
-                default:
-                    break;
-            }
-
-            do
+            while (true)
             {
 
-                Console.WriteLine("Enter Priority Parcel:\n" + "1: Normal\n" + "2: Fast\n" + "3: Emergency\n");
-                int.TryParse(Console.ReadLine(), out num);
-            } while (num != 1 && num != 2 && num != 3);
 
-            switch (num)
-            {
-                case 1:
-                    newParcel.Priority = IBL.BO.Priorities.Normal;
-                    break;
-                case 2:
-                    newParcel.Priority = IBL.BO.Priorities.Fast;
-                    break;
-                case 3:
-                    newParcel.Priority = IBL.BO.Priorities.Emergency;
-                    break;
-                default:
-                    break;
-            }
+                do
+                {
+                    Console.WriteLine("Enter Sender Id Parcel: ");
+                } while (!int.TryParse(Console.ReadLine(), out num));
 
-            try
-            {
-                bl.AddParcel(newParcel);
-                Console.WriteLine("Success! :)\n");
-            }
-            catch (ParcelException e)
-            {
-                Console.WriteLine(e);
+                newParcel.Sender = new CustomerInParcel();
+                newParcel.Sender.Id = num;
+
+                do
+                {
+                    Console.WriteLine("Enter Target Id Parcel: ");
+                } while (!int.TryParse(Console.ReadLine(), out num));
+
+                newParcel.Target = new CustomerInParcel();
+                newParcel.Target.Id = num;
+
+                do
+                {
+                    Console.WriteLine("Enter Weight Parcel:\n" + "1: Light\n" + "2: Medium\n" + "3: Heavy\n");
+                    int.TryParse(Console.ReadLine(), out num);
+                } while (num != 1 && num != 2 && num != 3);
+
+                switch (num)
+                {
+                    case 1:
+                        newParcel.Weight = IBL.BO.WeightCategories.Light;
+                        break;
+                    case 2:
+                        newParcel.Weight = IBL.BO.WeightCategories.Medium;
+                        break;
+                    case 3:
+                        newParcel.Weight = IBL.BO.WeightCategories.Heavy;
+                        break;
+                    default:
+                        break;
+                }
+
+                do
+                {
+
+                    Console.WriteLine("Enter Priority Parcel:\n" + "1: Normal\n" + "2: Fast\n" + "3: Emergency\n");
+                    int.TryParse(Console.ReadLine(), out num);
+                } while (num != 1 && num != 2 && num != 3);
+
+                switch (num)
+                {
+                    case 1:
+                        newParcel.Priority = IBL.BO.Priorities.Normal;
+                        break;
+                    case 2:
+                        newParcel.Priority = IBL.BO.Priorities.Fast;
+                        break;
+                    case 3:
+                        newParcel.Priority = IBL.BO.Priorities.Emergency;
+                        break;
+                    default:
+                        break;
+                }
+
+                try
+                {
+                    bl.AddParcel(newParcel);
+                    Console.WriteLine("Success! :)\n");
+                }
+                catch (ParcelException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Do you want to add parcel? please enter yes or no.");
+                    string choice = Console.ReadLine();
+                    if (choice != "yes")
+                        break;
+                }
             }
         }
 
@@ -563,52 +600,71 @@ namespace ConsoleUI_BL
         {
             int id;
             string model;
-            do
+            while (true)
             {
-                Console.WriteLine("Enter id drone: ");
-            } while (!int.TryParse(Console.ReadLine(), out id));
 
-            Console.WriteLine("Enter the new model drone: ");
-            model = Console.ReadLine();
 
-            try
-            {
-                bl.UpdateDroneModel(id, model);
-                Console.WriteLine("Success! :)\n");
-            }
-            catch (DroneException e)
-            {
-                Console.WriteLine(e);
+                do
+                {
+                    Console.WriteLine("Enter id drone: ");
+                } while (!int.TryParse(Console.ReadLine(), out id));
+
+                Console.WriteLine("Enter the new model drone: ");
+                model = Console.ReadLine();
+
+                try
+                {
+                    bl.UpdateDroneModel(id, model);
+                    Console.WriteLine("Success! :)\n");
+                }
+                catch (DroneException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Do you want to update the model of the drone? please enter yes or no.");
+                    string choice = Console.ReadLine();
+                    if (choice != "yes")
+                        break;
+                }
             }
         }
 
         private static void UpdateDataStation(IBL.IBL bl)
         {
             int id, name, chargeSlots;
-            do
-            {
-                Console.WriteLine("Enter Id Station: ");
-            } while (!int.TryParse(Console.ReadLine(), out id));
 
-            Console.WriteLine("Note! Enter at least one of the following data:\n");
-            do
+            while (true)
             {
-                Console.WriteLine("If you want to update the name of the station, Enter name:\n if you don't want, Enter -1: \n");
-            } while (!int.TryParse(Console.ReadLine(), out name));
+                do
+                {
+                    Console.WriteLine("Enter Id Station: ");
+                } while (!int.TryParse(Console.ReadLine(), out id));
 
-            do
-            {
-                Console.WriteLine("If you want to update the number of charge Slots in the station, Enter the amount:\n if you don't want, Enter -1: \n");
-            } while (!int.TryParse(Console.ReadLine(), out chargeSlots));
+                Console.WriteLine("Note! Enter at least one of the following data:\n");
+                do
+                {
+                    Console.WriteLine(
+                        "If you want to update the name of the station, Enter name:\n if you don't want, Enter -1: \n");
+                } while (!int.TryParse(Console.ReadLine(), out name));
 
-            try
-            {
-                bl.UpdateDataStation(id, name, chargeSlots);
-                Console.WriteLine("Success! :)\n");
-            }
-            catch (StationException e)
-            {
-                Console.WriteLine(e);
+                do
+                {
+                    Console.WriteLine(
+                        "If you want to update the number of charge Slots in the station, Enter the amount:\n if you don't want, Enter -1: \n");
+                } while (!int.TryParse(Console.ReadLine(), out chargeSlots));
+
+                try
+                {
+                    bl.UpdateDataStation(id, name, chargeSlots);
+                    Console.WriteLine("Success! :)\n");
+                }
+                catch (StationException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Do you want to update the data of the station? please enter yes or no.");
+                    string choice = Console.ReadLine();
+                    if (choice != "yes")
+                        break;
+                }
             }
         }
 
@@ -616,127 +672,179 @@ namespace ConsoleUI_BL
         {
             int id;
             string name, phone;
-            do
+
+            while (true)
             {
-                Console.WriteLine("Enter Id Customer: ");
-            } while (!int.TryParse(Console.ReadLine(), out id));
+                do
+                {
+                    Console.WriteLine("Enter Id Customer: ");
+                } while (!int.TryParse(Console.ReadLine(), out id));
 
-            Console.WriteLine("Note! Enter at least one of the following data:\n");
+                Console.WriteLine("Note! Enter at least one of the following data:\n");
 
-            Console.WriteLine("If you want to update the name of the customer, Enter name:\n if you don't want, press Enter: \n");
-            name = Console.ReadLine();
+                Console.WriteLine(
+                    "If you want to update the name of the customer, Enter name:\n if you don't want, press Enter: \n");
+                name = Console.ReadLine();
 
-            Console.WriteLine("If you want to update the phone of the customer, Enter phone:\n if you don't want, press Enter: \n");
-            phone = Console.ReadLine();
+                Console.WriteLine(
+                    "If you want to update the phone of the customer, Enter phone:\n if you don't want, press Enter: \n");
+                phone = Console.ReadLine();
 
-            try
-            {
-                bl.UpdateDataCustomer(id, name, phone);
-                Console.WriteLine("Success! :)\n");
-            }
-            catch (CustomerException e)
-            {
-                Console.WriteLine(e);
+                try
+                {
+                    bl.UpdateDataCustomer(id, name, phone);
+                    Console.WriteLine("Success! :)\n");
+                }
+                catch (CustomerException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Do you want to update the data of the customer? please enter yes or no.");
+                    string choice = Console.ReadLine();
+                    if (choice != "yes")
+                        break;
+                }
             }
         }
 
         private static void SendDroneToCharge(IBL.IBL bl)
         {
             int id;
-            do
-            {
-                Console.WriteLine("Enter Id Drone: ");
-            } while (!int.TryParse(Console.ReadLine(), out id));
 
-            try
+            while (true)
             {
-                bl.SendDroneToDroneCharge(id);
-                Console.WriteLine("Success! :)\n");
-            }
-            catch (DroneException e)
-            {
-                Console.WriteLine(e);
+
+
+                do
+                {
+                    Console.WriteLine("Enter Id Drone: ");
+                } while (!int.TryParse(Console.ReadLine(), out id));
+
+                try
+                {
+                    bl.SendDroneToDroneCharge(id);
+                    Console.WriteLine("Success! :)\n");
+                }
+                catch (DroneException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Do you want to send the drone to charge? please enter yes or no.");
+                    string choice = Console.ReadLine();
+                    if (choice != "yes")
+                        break;
+                }
             }
         }
         
         private static void ReleaseDroneFromCharge(IBL.IBL bl)
         {
             int id, chargeTime;
-            do
-            {
-                Console.WriteLine("Enter Id Drone: ");
-            } while (!int.TryParse(Console.ReadLine(), out id));
 
-            do
+            while (true)
             {
-                Console.WriteLine("Enter the time the drone was in charge:\n ");
-            } while (!int.TryParse(Console.ReadLine(), out chargeTime));
+                do
+                {
+                    Console.WriteLine("Enter Id Drone: ");
+                } while (!int.TryParse(Console.ReadLine(), out id));
 
-            try
-            {
-                bl.ReleaseDroneFromDroneCharge(id, chargeTime);
-                Console.WriteLine("Success! :)\n");
-            }
-            catch (DroneException e)
-            {
-                Console.WriteLine(e);
+                do
+                {
+                    Console.WriteLine("Enter the time the drone was in charge:\n ");
+                } while (!int.TryParse(Console.ReadLine(), out chargeTime));
+
+                try
+                {
+                    bl.ReleaseDroneFromDroneCharge(id, chargeTime);
+                    Console.WriteLine("Success! :)\n");
+                }
+                catch (DroneException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Do you want to release the drone from charge? please enter yes or no.");
+                    string choice = Console.ReadLine();
+                    if (choice != "yes")
+                        break;
+                }
             }
         }
 
         private static void ConnectParcelToDrone(IBL.IBL bl)
         {
             int droneId;
-            do
-            {
-                Console.WriteLine("Enter Id Drone: ");
-            } while (!int.TryParse(Console.ReadLine(), out droneId));
 
-            try
+            while (true)
             {
-                bl.ConnectParcelToDrone(droneId);
-                Console.WriteLine("Success! :)\n");
-            }
-            catch (DroneException e)
-            {
-                Console.WriteLine(e);
+                do
+                {
+                    Console.WriteLine("Enter Id Drone: ");
+                } while (!int.TryParse(Console.ReadLine(), out droneId));
+
+                try
+                {
+                    bl.ConnectParcelToDrone(droneId);
+                    Console.WriteLine("Success! :)\n");
+                }
+                catch (DroneException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Do you want to connect parcel to drone? please enter yes or no.");
+                    string choice = Console.ReadLine();
+                    if (choice != "yes")
+                        break;
+                }
             }
         }
 
         private static void CollectionParcelByDrone(IBL.IBL bl)
         {
             int droneId;
-            do
-            {
-                Console.WriteLine("Enter Id Drone: ");
-            } while (!int.TryParse(Console.ReadLine(), out droneId));
 
-            try
+            while (true)
             {
-                bl.CollectionParcelByDrone(droneId);
-                Console.WriteLine("Success! :)\n");
-            }
-            catch (DroneException e)
-            {
-                Console.WriteLine(e);
+                do
+                {
+                    Console.WriteLine("Enter Id Drone: ");
+                } while (!int.TryParse(Console.ReadLine(), out droneId));
+
+                try
+                {
+                    bl.CollectionParcelByDrone(droneId);
+                    Console.WriteLine("Success! :)\n");
+                }
+                catch (DroneException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Do you want to collect the parcel by drone? please enter yes or no.");
+                    string choice = Console.ReadLine();
+                    if (choice != "yes")
+                        break;
+                }
             }
         }
 
         private static void SupplyParcelByDrone(IBL.IBL bl)
         {
             int droneId;
-            do
-            {
-                Console.WriteLine("Enter Id Drone: ");
-            } while (!int.TryParse(Console.ReadLine(), out droneId));
 
-            try
+            while (true)
             {
-                bl.SupplyParcelByDrone(droneId);
-                Console.WriteLine("Success! :)\n");
-            }
-            catch (DroneException e)
-            {
-                Console.WriteLine(e);
+                do
+                {
+                    Console.WriteLine("Enter Id Drone: ");
+                } while (!int.TryParse(Console.ReadLine(), out droneId));
+
+                try
+                {
+                    bl.SupplyParcelByDrone(droneId);
+                    Console.WriteLine("Success! :)\n");
+                }
+                catch (DroneException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Do you want to supply parcel by drone? please enter yes or no.");
+                    string choice = Console.ReadLine();
+                    if (choice != "yes")
+                        break;
+                }
             }
         }
     }
