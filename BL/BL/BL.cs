@@ -96,8 +96,12 @@ namespace IBL
                             Longitude = listStationsIdalDo.ElementAt(index).Longitude,
                             Latitude = listStationsIdalDo.ElementAt(index).Latitude
                         };
-
-                        SendDroneToDroneCharge(elementDrone.Id);
+                        try
+                        {
+                            SendDroneToDroneCharge(elementDrone.Id);
+                        }
+                        catch (DroneException e)
+                        { }
 
                         elementDrone.Battery = 20 * rand.NextDouble();
                     }
