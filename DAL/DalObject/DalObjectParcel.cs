@@ -81,86 +81,79 @@ namespace DalObject
         }
 
 
+        ///// <summary>
+        ///// connecting between parcel and drone and change data in the object's according to the function
+        ///// </summary>
+        ///// <param Name="p"></the parcel the user ask to connect with the drone he ask>
+        ///// <param Name="d"></the drone the user ask to connect with the parcel he ask >
+        //public void ConnectParcelToDrone(Parcel p, Drone d)
+        //{
+        //    if (IsExistParcel(p, DataSource.Parcels))
+        //        if (IsExistDrone(d, DataSource.Drones))
+        //        {
+        //            Parcel newParcel = new Parcel();
+        //            for (int i = 0; i < DataSource.Parcels.Count; i++)
+        //            {
+        //                if (DataSource.Parcels[i].Id == p.Id)
+        //                {
+        //                    newParcel = DataSource.Parcels[i];
+        //                    newParcel.Requested = DateTime.Now;
+        //                    newParcel.Scheduled = DateTime.Now;
+        //                    newParcel.DroneId = d.Id;
+        //                    DataSource.Parcels[i] = newParcel;
+        //                }
+        //            }
+        //        }
+        //        else
+        //            throw new DroneException("ERROR: the drone isn't exist");
+        //    else
+        //        throw new ParcelException("ERROR: the parcel isn't exist");
+        //}
 
+        ///// <summary>
+        ///// chenge the pick up statuse of the parcel the user ask for by searching the parcel in the list and update the pick up time statuse of the parcel
+        ///// </summary>
+        ///// <param Name="p"></the spesific parcel the user ask to update as pick'd up>
+        //public void CollectionParcelByDrone(Parcel p)
+        //{
+        //    if (IsExistParcel(p, DataSource.Parcels))
+        //    {
+        //        Parcel newParcel = new Parcel();
+        //        for (int i = 0; i < DataSource.Parcels.Count; i++)
+        //        {
+        //            if (DataSource.Parcels[i].Id == p.Id)
+        //            {
+        //                newParcel = DataSource.Parcels[i];
+        //                newParcel.PickedUp = DateTime.Now;
+        //                DataSource.Parcels[i] = newParcel;
+        //            }
+        //        }
+        //    }
+        //    else
+        //        throw new ParcelException("ERROR: the parcel is not exist!\n");
+        //}
 
-
-
-
-
-
-        /// <summary>
-        /// connecting between parcel and drone and change data in the object's according to the function
-        /// </summary>
-        /// <param Name="p"></the parcel the user ask to connect with the drone he ask>
-        /// <param Name="d"></the drone the user ask to connect with the parcel he ask >
-        public void ConnectParcelToDrone(Parcel p, Drone d)
-        {
-            if (IsExistParcel(p, DataSource.Parcels))
-                if (IsExistDrone(d, DataSource.Drones))
-                {
-                    Parcel newParcel = new Parcel();
-                    for (int i = 0; i < DataSource.Parcels.Count; i++)
-                    {
-                        if (DataSource.Parcels[i].Id == p.Id)
-                        {
-                            newParcel = DataSource.Parcels[i];
-                            newParcel.Requested = DateTime.Now;
-                            newParcel.Scheduled = DateTime.Now;
-                            newParcel.DroneId = d.Id;
-                            DataSource.Parcels[i] = newParcel;
-                        }
-                    }
-                }
-                else
-                    throw new DroneException("ERROR: the drone isn't exist");
-            else
-                throw new ParcelException("ERROR: the parcel isn't exist");
-        }
-
-        /// <summary>
-        /// chenge the pick up statuse of the parcel the user ask for by searching the parcel in the list and update the pick up time statuse of the parcel
-        /// </summary>
-        /// <param Name="p"></the spesific parcel the user ask to update as pick'd up>
-        public void CollectionParcelByDrone(Parcel p)
-        {
-            if (IsExistParcel(p, DataSource.Parcels))
-            {
-                Parcel newParcel = new Parcel();
-                for (int i = 0; i < DataSource.Parcels.Count; i++)
-                {
-                    if (DataSource.Parcels[i].Id == p.Id)
-                    {
-                        newParcel = DataSource.Parcels[i];
-                        newParcel.PickedUp = DateTime.Now;
-                        DataSource.Parcels[i] = newParcel;
-                    }
-                }
-            }
-            else
-                throw new ParcelException("ERROR: the parcel is not exist!\n");
-        }
-
-        /// <summary>
-        /// chenge the deliversd statuse of the parcel the user ask for by searching the parcel in the list and update the deliverd time statuse of the parcel
-        /// </summary>
-        /// <param Name="p"></the specific parcel the user ask to pdate as deliver'd >
-        public void SupplyParcelToCustomer(Parcel p)
-        {
-            if (IsExistParcel(p, DataSource.Parcels))
-            {
-                Parcel newParcel = new Parcel();
-                for (int i = 0; i < DataSource.Parcels.Count; i++)
-                {
-                    if (DataSource.Parcels[i].Id == p.Id)
-                    {
-                        newParcel = DataSource.Parcels[i];
-                        newParcel.Delivered = DateTime.Now;
-                        DataSource.Parcels[i] = newParcel;
-                    }
-                }
-            }
-            else
-                throw new ParcelException("ERROR: the parcel isn't exist");
-        }
+        ///// <summary>
+        ///// chenge the deliversd statuse of the parcel the user ask for by searching the parcel in the list and update the deliverd time statuse of the parcel
+        ///// </summary>
+        ///// <param Name="p"></the specific parcel the user ask to pdate as deliver'd >
+        //public void SupplyParcelToCustomer(Parcel p)
+        //{
+        //    if (IsExistParcel(p, DataSource.Parcels))
+        //    {
+        //        Parcel newParcel = new Parcel();
+        //        for (int i = 0; i < DataSource.Parcels.Count; i++)
+        //        {
+        //            if (DataSource.Parcels[i].Id == p.Id)
+        //            {
+        //                newParcel = DataSource.Parcels[i];
+        //                newParcel.Delivered = DateTime.Now;
+        //                DataSource.Parcels[i] = newParcel;
+        //            }
+        //        }
+        //    }
+        //    else
+        //        throw new ParcelException("ERROR: the parcel isn't exist");
+        //}
     }
 }

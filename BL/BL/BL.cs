@@ -97,6 +97,8 @@ namespace IBL
                             Latitude = listStationsIdalDo.ElementAt(index).Latitude
                         };
 
+                        SendDroneToDroneCharge(elementDrone.Id);
+
                         elementDrone.Battery = 20 * rand.NextDouble();
                     }
 

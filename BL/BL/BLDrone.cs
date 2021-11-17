@@ -55,6 +55,8 @@ namespace IBL
             newDroneToList.Location.Longitude = dal.GetStation(idStation).Longitude;
             newDroneToList.Location.Latitude = dal.GetStation(idStation).Latitude;
 
+            SendDroneToDroneCharge(newDroneToList.Id);
+
             try
             {
                 int foundDrone = CheckDroneAndParcel(newDroneToList.Id, dal.GetParcels());
