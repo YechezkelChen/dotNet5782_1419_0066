@@ -106,7 +106,8 @@ namespace IBL
                 {
                     drone.Battery = eleDroneToList.Battery;
                     drone.Status = eleDroneToList.Status;
-                    drone.Location = eleDroneToList.Location;
+                    drone.Location = new Location()
+                        {Longitude = eleDroneToList.Location.Longitude, Latitude = eleDroneToList.Location.Latitude};
 
                     IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
                     try
