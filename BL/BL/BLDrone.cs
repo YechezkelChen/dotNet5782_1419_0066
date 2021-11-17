@@ -54,12 +54,6 @@ namespace IBL
             newDroneToList.Location = new Location();
             newDroneToList.Location.Longitude = dal.GetStation(idStation).Longitude;
             newDroneToList.Location.Latitude = dal.GetStation(idStation).Latitude;
-            try
-            {
-                SendDroneToDroneCharge(newDroneToList.Id);
-            }
-            catch (DroneException e)
-            { }
 
             try
             {
@@ -80,7 +74,13 @@ namespace IBL
             {
                 throw new DroneException("" + e);
             }
-            
+
+            try
+            {
+                SendDroneToDroneCharge(newDroneToList.Id);
+            }
+            catch (DroneException e)
+            { }
         }
 
         public Drone GetDrone(int id)
