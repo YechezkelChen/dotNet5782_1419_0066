@@ -155,17 +155,21 @@ namespace IBL
             }
             catch (DalObject.CustomerException e)
             {
-                throw new DalObject.CustomerException("" + e);
+                throw new CustomerException("" + e);
             }
 
             if (name == "" && phone == "")
-                throw new DalObject.CustomerException("ERROR: need one thing at least to change");
+                throw new CustomerException("ERROR: need one thing at least to change");
 
             if (name != "")
                 updateCustomer.Name = name;
 
             if (phone != "")
+            {
+                if(phone.Length != 10)
+                    throw new CustomerException("ERROR: Phone must have 10 digits");
                 updateCustomer.Phone = phone;
+            }
 
             dal.UpdateCustomer(updateCustomer);
         }

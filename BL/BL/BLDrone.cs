@@ -55,6 +55,8 @@ namespace IBL
             newDroneToList.Location.Longitude = dal.GetStation(idStation).Longitude;
             newDroneToList.Location.Latitude = dal.GetStation(idStation).Latitude;
 
+            SendDroneToDroneCharge(newDroneToList.Id);
+
             try
             {
                 int foundDrone = CheckDroneAndParcel(newDroneToList.Id, dal.GetParcels());
@@ -173,8 +175,6 @@ namespace IBL
 
             updateDrone.Model = newModel;
 
-
-            dal.UpdateDrone(updateDrone);
             for (int i = 0; i < ListDrones.Count(); i++)
             {
                 if (ListDrones[i].Id == droneId)
@@ -184,6 +184,8 @@ namespace IBL
                     ListDrones[i] = updateDroneToList;
                 }
             }
+
+            dal.UpdateDrone(updateDrone);
         }
 
         public void SendDroneToDroneCharge(int id)
