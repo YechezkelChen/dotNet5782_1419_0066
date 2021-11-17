@@ -496,6 +496,7 @@ namespace ConsoleUI_BL
                 {
                     bl.AddCustomer(newCustomer);
                     Console.WriteLine("Success! :)\n");
+                    break;
                 }
                 catch (CustomerException e)
                 {
@@ -584,6 +585,7 @@ namespace ConsoleUI_BL
                 {
                     bl.AddParcel(newParcel);
                     Console.WriteLine("Success! :)\n");
+                    break;
                 }
                 catch (ParcelException e)
                 {
@@ -616,6 +618,7 @@ namespace ConsoleUI_BL
                 {
                     bl.UpdateDroneModel(id, model);
                     Console.WriteLine("Success! :)\n");
+                    break;
                 }
                 catch (DroneException e)
                 {
@@ -656,6 +659,7 @@ namespace ConsoleUI_BL
                 {
                     bl.UpdateDataStation(id, name, chargeSlots);
                     Console.WriteLine("Success! :)\n");
+                    break;
                 }
                 catch (StationException e)
                 {
@@ -694,6 +698,7 @@ namespace ConsoleUI_BL
                 {
                     bl.UpdateDataCustomer(id, name, phone);
                     Console.WriteLine("Success! :)\n");
+                    break;
                 }
                 catch (CustomerException e)
                 {
@@ -723,6 +728,7 @@ namespace ConsoleUI_BL
                 {
                     bl.SendDroneToDroneCharge(id);
                     Console.WriteLine("Success! :)\n");
+                    break;
                 }
                 catch (DroneException e)
                 {
@@ -755,6 +761,7 @@ namespace ConsoleUI_BL
                 {
                     bl.ReleaseDroneFromDroneCharge(id, chargeTime);
                     Console.WriteLine("Success! :)\n");
+                    break;
                 }
                 catch (DroneException e)
                 {
@@ -782,6 +789,7 @@ namespace ConsoleUI_BL
                 {
                     bl.ConnectParcelToDrone(droneId);
                     Console.WriteLine("Success! :)\n");
+                    break;
                 }
                 catch (DroneException e)
                 {
@@ -809,6 +817,7 @@ namespace ConsoleUI_BL
                 {
                     bl.CollectionParcelByDrone(droneId);
                     Console.WriteLine("Success! :)\n");
+                    break;
                 }
                 catch (DroneException e)
                 {
@@ -836,6 +845,7 @@ namespace ConsoleUI_BL
                 {
                     bl.SupplyParcelByDrone(droneId);
                     Console.WriteLine("Success! :)\n");
+                    break;
                 }
                 catch (DroneException e)
                 {
