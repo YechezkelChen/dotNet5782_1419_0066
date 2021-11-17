@@ -41,7 +41,7 @@ namespace IBL
             newDroneToList.Model = newDrone.Model;
             newDroneToList.Weight = newDrone.Weight;
             newDroneToList.Battery = 20 * rand.NextDouble() + 20;
-            newDroneToList.Status = DroneStatuses.Maintenance;
+            newDroneToList.Status = DroneStatuses.Available; // for the charge after he will be in Maintenance.
             try
             {
                 dal.GetStation(idStation);
