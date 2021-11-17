@@ -18,11 +18,11 @@ namespace DalObject
             internal static int ParcelsId = 1;
 
             // km per hour
-            internal static double BatteryAvailable = 5;
-            internal static double BatteryLightWeight = 10;
-            internal static double BatteryMediumWeight = 15;
-            internal static double BatteryHeavyWeight = 20;
-            internal static double ChargingRateOfDrone = 10;
+            internal static double BatteryAvailable = 0.05;
+            internal static double BatteryLightWeight = 1;
+            internal static double BatteryMediumWeight = 1.5;
+            internal static double BatteryHeavyWeight = 2;
+            internal static double ChargingRateOfDrone = 1;
         }
 
         public static void Initialize()
@@ -47,8 +47,8 @@ namespace DalObject
                 {
                     Id = rand.Next(100000000, 1000000000),
                     Name = rand.Next(1, 100),
-                    Longitude = rand.Next(10, 1000),
-                    Latitude = rand.Next(10, 1000),
+                    Longitude = rand.Next(1, 10),
+                    Latitude = rand.Next(1, 10),
                     ChargeSlots = rand.Next(0, 100)
                 });
             }
@@ -62,8 +62,8 @@ namespace DalObject
                     Id = tmpId,
                     Name = names[rand.Next(0, 5)],
                     Phone = "05" + rand.Next(10000000, 99999999),
-                    Longitude = rand.Next(10, 1000),
-                    Latitude = rand.Next(10, 1000)
+                    Longitude = rand.Next(1, 10),
+                    Latitude = rand.Next(1, 10)
                 });
             }
 

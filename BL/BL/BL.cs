@@ -80,6 +80,8 @@ namespace IBL
                             NearStationToCustomer(dal.GetCustomer(elementParcel.TargetId)).Location) * BatteryAvailable;
 
                         elementDrone.Battery = (100 - distanceDelivery) * rand.NextDouble() + distanceDelivery;
+                        if (elementDrone.Battery > 100)
+                            elementDrone.Battery = 100;
 
                         elementDrone.IdParcel = elementParcel.Id;
                     }
@@ -128,6 +130,8 @@ namespace IBL
                         distanceFromNearStation *= BatteryAvailable;
 
                         elementDrone.Battery = (100 - distanceFromNearStation) * rand.NextDouble() + distanceFromNearStation;
+                        if (elementDrone.Battery > 100)
+                            elementDrone.Battery = 100;
                     }
                 }
             }
