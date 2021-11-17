@@ -216,7 +216,7 @@ namespace IBL
                 throw new DroneException("" + e);
             }
             double distance = Distance(drone.Location, nearStation.Location);
-            if (distance * BatteryAvailable < drone.Battery)
+            if (distance * BatteryAvailable > drone.Battery)
                 throw new DroneException("ERROR: the drone not have battery to go to station charge ");
 
             for (int i = 0; i < ListDrones.Count; i++)
