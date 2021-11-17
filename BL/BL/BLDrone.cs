@@ -236,7 +236,14 @@ namespace IBL
             IDAL.DO.DroneCharge newDroneCharge = new DroneCharge();
             newDroneCharge.StationId = nearStation.Id;
             newDroneCharge.DroneId = drone.Id;
-            dal.AddDroneCharge(newDroneCharge);
+            try
+            {
+                dal.AddDroneCharge(newDroneCharge);
+            }
+            catch (DalObject.DroneChargeException e)
+            {
+                throw new DroneException("" + e);
+            }
         }
 
         public void ReleaseDroneFromDroneCharge(int id, int chargeTime)
