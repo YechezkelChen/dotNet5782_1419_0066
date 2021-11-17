@@ -389,8 +389,6 @@ namespace ConsoleUI_BL
             Drone newDrone = new Drone();
             while (true)
             {
-
-
                 do
                 {
                     Console.WriteLine("Enter Id Drone: ");
@@ -431,6 +429,7 @@ namespace ConsoleUI_BL
                 {
                     bl.AddDrone(newDrone, num);
                     Console.WriteLine("Success! :)\n");
+                    break;
                 }
                 catch (DroneException e)
                 {
