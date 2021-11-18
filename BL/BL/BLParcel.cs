@@ -203,7 +203,7 @@ namespace IBL
                                 throw new DroneException("Sorry, the drone can not connect to any parcel.\n");
                             else
                                 batteryDelivery += distanceDelivery * BatteryAvailable;
-
+                            
                             if (connectDrone.Battery >= batteryDelivery)
                                 break;
                         }
