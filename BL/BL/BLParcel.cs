@@ -149,15 +149,15 @@ namespace IBL
             List<ParcelToList> prioritiesParcel = new List<ParcelToList>();
             List<ParcelToList> weightParcel = new List<ParcelToList>();
             Parcel parcelToConnect = new Parcel();
-
-            for (int i = (int)Priorities.Emergency; i > (int)Priorities.Normal; i--)
+            for (int i = (int)Priorities.Emergency; i >= (int)Priorities.Normal; i--)
             {
                 prioritiesParcel = parcelNoDrones.ToList().FindAll(parcel => parcel.Priority == (Priorities)i);
-                for (int j = (int) connectDrone.Weight; j > (int) WeightCategories.Light; j--)
+                for (int j = (int) connectDrone.Weight; j >= (int) WeightCategories.Light; j--)
                 {
                     weightParcel = prioritiesParcel.ToList().FindAll(parcel => parcel.Weight == (WeightCategories) j);
                     while (weightParcel.Count() != 0)
                     {
+                        parcelToConnect = new Parcel();
                         parcelToConnect = NearParcelToDrone(connectDrone, weightParcel);
 
                         double distanceDelivery = Distance(connectDrone.Location,
@@ -183,15 +183,21 @@ namespace IBL
                         {
                             foreach (var parcelToRemove in weightParcel)
                                 if (parcelToRemove.Id == parcelToConnect.Id)
+                                {
+                                    //ParcelToList parcelToRemove = new ParcelToList();
+                                    //parcelToRemove = parcelInWeightParcel;
                                     weightParcel.Remove(parcelToRemove);
+                                    //if (weightParcel.Count() == 0)
+                                    //    break;
+                                }
                         }
                         else 
                             break;
                     }
                 }
             }
-            if(parcelToConnect == null)
-                throw new DroneException("Sorry, the drone can not connect to any parcel.\n");
+            //if(parcelToConnect == null)
+            //    throw new DroneException("Sorry, the drone can not connect to any parcel.\n");
 
             IDAL.DO.Parcel updateParcel = new IDAL.DO.Parcel();
             try
