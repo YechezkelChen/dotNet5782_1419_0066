@@ -149,68 +149,49 @@ namespace IBL
             List<ParcelToList> prioritiesParcel = new List<ParcelToList>();
             List<ParcelToList> weightParcel = new List<ParcelToList>();
             Parcel parcelToConnect = new Parcel();
-          
+
             for (int i = (int)Priorities.Emergency; i > (int)Priorities.Normal; i--)
             {
                 prioritiesParcel = parcelNoDrones.ToList().FindAll(parcel => parcel.Priority == (Priorities)i);
                 for (int j = (int) connectDrone.Weight; j > (int) WeightCategories.Light; j--)
                 {
                     weightParcel = prioritiesParcel.ToList().FindAll(parcel => parcel.Weight == (WeightCategories) j);
-                    if (weightParcel.Count() != 0)
+                    while (weightParcel.Count() != 0)
                     {
-                        while (true)
+                        parcelToConnect = NearParcelToDrone(connectDrone, weightParcel);
+
+                        double distanceDelivery = Distance(connectDrone.Location,
+                            GetCustomer(GetParcel(parcelToConnect.Id).Sender.Id).Location);
+                        double batteryDelivery = 0;
+                        batteryDelivery = distanceDelivery * BatteryAvailable;
+
+                        distanceDelivery = Distance(GetCustomer(GetParcel(parcelToConnect.Id).Sender.Id).Location,
+                            GetCustomer(GetParcel(parcelToConnect.Id).Target.Id)
+                                .Location); // the distance between the drone and the target
+                        if (parcelToConnect.Weight == WeightCategories.Heavy)
+                            batteryDelivery += distanceDelivery * BatteryHeavyWeight;
+                        if (parcelToConnect.Weight == WeightCategories.Medium)
+                            batteryDelivery += distanceDelivery * BatteryMediumWeight;
+                        if (parcelToConnect.Weight == WeightCategories.Light)
+                            batteryDelivery += distanceDelivery * BatteryLightWeight;
+
+                        distanceDelivery = Distance(GetCustomer(GetParcel(parcelToConnect.Id).Target.Id).Location,
+                            NearStationToCustomer(dal.GetCustomer(GetParcel(parcelToConnect.Id).Target.Id)).Location);
+                        batteryDelivery += distanceDelivery * BatteryAvailable;
+
+                        if (connectDrone.Battery < batteryDelivery)
                         {
-                            parcelToConnect = NearParcelToDrone(connectDrone, weightParcel);
-
-                            double distanceDelivery = Distance(connectDrone.Location,
-                                GetCustomer(GetParcel(parcelToConnect.Id).Sender.Id).Location);
-                            double batteryDelivery = 0;
-                            if (distanceDelivery * BatteryAvailable > 100) 
-                                batteryDelivery =100;
-                            else
-                                batteryDelivery = distanceDelivery * BatteryAvailable;
-                            
-                            distanceDelivery = Distance(GetCustomer(GetParcel(parcelToConnect.Id).Sender.Id).Location,
-                                GetCustomer(GetParcel(parcelToConnect.Id).Target.Id).Location); // the distance between the drone and the target
-                            if (parcelToConnect.Weight == WeightCategories.Heavy)
-                            {
-                                if (distanceDelivery * BatteryHeavyWeight > 100)
-                                    batteryDelivery = 100;
-                                else
-                                    batteryDelivery += distanceDelivery * BatteryHeavyWeight;
-                            }
-
-                            if (parcelToConnect.Weight == WeightCategories.Medium)
-                            {
-                                if (distanceDelivery * BatteryMediumWeight > 100)
-                                    batteryDelivery = 100;
-                                else
-                                    batteryDelivery += distanceDelivery * BatteryMediumWeight;
-                            }
-
-                            if (parcelToConnect.Weight == WeightCategories.Light)
-                            {
-                                if (distanceDelivery * BatteryLightWeight > 100)
-                                    batteryDelivery = 100;
-                                else
-                                    batteryDelivery += distanceDelivery * BatteryLightWeight;
-                            }
-                               
-
-                            distanceDelivery = Distance(GetCustomer(GetParcel(parcelToConnect.Id).Target.Id).Location,
-                                NearStationToCustomer(dal.GetCustomer(GetParcel(parcelToConnect.Id).Target.Id)).Location);
-                            if (distanceDelivery * BatteryAvailable > 100)
-                                throw new DroneException("Sorry, the drone can not connect to any parcel.\n");
-                            else
-                                batteryDelivery += distanceDelivery * BatteryAvailable;
-                            
-                            if (connectDrone.Battery >= batteryDelivery)
-                                break;
+                            foreach (var parcelToRemove in weightParcel)
+                                if (parcelToRemove.Id == parcelToConnect.Id)
+                                    weightParcel.Remove(parcelToRemove);
                         }
+                        else 
+                            break;
                     }
-
                 }
             }
+            if(parcelToConnect == null)
+                throw new DroneException("Sorry, the drone can not connect to any parcel.\n");
 
             IDAL.DO.Parcel updateParcel = new IDAL.DO.Parcel();
             try

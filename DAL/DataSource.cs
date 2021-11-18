@@ -47,8 +47,8 @@ namespace DalObject
                 {
                     Id = rand.Next(100000000, 1000000000),
                     Name = rand.Next(1, 100),
-                    Longitude = rand.Next(1, 10),
-                    Latitude = rand.Next(1, 10),
+                    Longitude = rand.Next(-90, 90),
+                    Latitude = rand.Next(-180, 180),
                     ChargeSlots = rand.Next(0, 100)
                 });
             }
@@ -62,8 +62,8 @@ namespace DalObject
                     Id = tmpId,
                     Name = names[rand.Next(0, 5)],
                     Phone = "05" + rand.Next(10000000, 99999999),
-                    Longitude = rand.Next(1, 10),
-                    Latitude = rand.Next(1, 10)
+                    Longitude = rand.Next(-90,90),
+                    Latitude = rand.Next(-180,180)
                 });
             }
 
