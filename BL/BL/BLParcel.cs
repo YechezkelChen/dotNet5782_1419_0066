@@ -200,7 +200,7 @@ namespace IBL
                             distanceDelivery = Distance(GetCustomer(GetParcel(parcelToConnect.Id).Target.Id).Location,
                                 NearStationToCustomer(dal.GetCustomer(GetParcel(parcelToConnect.Id).Target.Id)).Location);
                             if (distanceDelivery * BatteryAvailable > 100)
-                                batteryDelivery = 100;
+                                throw new DroneException("Sorry, the drone can not connect to any parcel.\n");
                             else
                                 batteryDelivery += distanceDelivery * BatteryAvailable;
 

@@ -793,7 +793,8 @@ namespace ConsoleUI_BL
                 catch (DroneException e)
                 {
                     Console.WriteLine(e);
-                    Console.WriteLine("Do you want to connect parcel to drone? please enter yes or no.");
+                    Console.WriteLine("Do you want to connect parcel to drone or do know about drone that can do any connect to some parcel?\n" +
+                                      "if you do please enter yes, else no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
                         break;
