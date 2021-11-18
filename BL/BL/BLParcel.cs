@@ -181,9 +181,12 @@ namespace IBL
 
                         if (connectDrone.Battery < batteryDelivery)
                         {
-                            foreach (var parcelToRemove in weightParcel)
-                                if (parcelToRemove.Id == parcelToConnect.Id) 
-                                    weightParcel.Remove(parcelToRemove);
+                            ParcelToList parcelToRemove = new ParcelToList();
+                            foreach (var parcelInWeightParcel in weightParcel)
+                                if (parcelInWeightParcel.Id == parcelToConnect.Id)
+                                    parcelToRemove = parcelInWeightParcel;
+
+                            weightParcel.Remove(parcelToRemove);
                         }
                         else 
                             break;

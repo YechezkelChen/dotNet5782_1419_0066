@@ -42,6 +42,7 @@ namespace IBL
             newDroneToList.Weight = newDrone.Weight;
             newDroneToList.Battery = 20 * rand.NextDouble() + 20;
             newDroneToList.Status = DroneStatuses.Available; // for the charge after he will be in Maintenance.
+            newDroneToList.IdParcel = 0;
             try
             {
                 dal.GetStation(idStation);
@@ -119,9 +120,9 @@ namespace IBL
                         return drone;
                     }
 
+                    drone.ParcelByTransfer = new ParcelByTransfer();
                     if (parcel.DroneId == drone.Id)
                     {
-                        drone.ParcelByTransfer = new ParcelByTransfer();
                         drone.ParcelByTransfer.Id = parcel.Id;
                         drone.ParcelByTransfer.Weight= Enum.Parse<WeightCategories>(parcel.Weight.ToString());
 
@@ -152,6 +153,8 @@ namespace IBL
                         drone.ParcelByTransfer.DistanceOfTransfer = Distance(drone.ParcelByTransfer.PickUpLocation,
                             drone.ParcelByTransfer.TargetLocation);
                     }
+                    else
+                        drone.ParcelByTransfer.Status = false;
                 }
             }
             return drone;
