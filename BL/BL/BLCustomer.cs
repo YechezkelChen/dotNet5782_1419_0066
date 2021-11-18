@@ -182,6 +182,10 @@ namespace IBL
                 throw new CustomerException("ERROR: Name must have value");
             if (customer.Phone.Length != 10)
                 throw new CustomerException("ERROR: Phone must have 10 digits");
+            if (customer.Location.Longitude < -1 || customer.Location.Longitude > 1)
+                throw new DalObject.CustomerException("ERROR: Longitude must to be between -1 to 1");
+            if (customer.Location.Latitude < -1 || customer.Location.Latitude > 1)
+                throw new DalObject.CustomerException("ERROR: Latitude must to be between -1 to 1");
         }
 
         private int lastDigitID(int lessID)

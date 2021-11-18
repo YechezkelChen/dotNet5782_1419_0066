@@ -182,22 +182,14 @@ namespace IBL
                         if (connectDrone.Battery < batteryDelivery)
                         {
                             foreach (var parcelToRemove in weightParcel)
-                                if (parcelToRemove.Id == parcelToConnect.Id)
-                                {
-                                    //ParcelToList parcelToRemove = new ParcelToList();
-                                    //parcelToRemove = parcelInWeightParcel;
+                                if (parcelToRemove.Id == parcelToConnect.Id) 
                                     weightParcel.Remove(parcelToRemove);
-                                    //if (weightParcel.Count() == 0)
-                                    //    break;
-                                }
                         }
                         else 
                             break;
                     }
                 }
             }
-            //if(parcelToConnect == null)
-            //    throw new DroneException("Sorry, the drone can not connect to any parcel.\n");
 
             IDAL.DO.Parcel updateParcel = new IDAL.DO.Parcel();
             try

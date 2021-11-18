@@ -207,8 +207,11 @@ namespace IBL
             if (station.ChargeSlots < 0)
                 throw new StationException("ERROR: the charge slots must have positive or 0 value! ");
 
-            if (station.Location.Latitude < 0 || station.Location.Longitude < 0)
-                throw new StationException("ERROR: the location is not exist! ");
+            if (station.Location.Longitude < -1 || station.Location.Longitude > 1)
+                throw new DalObject.CustomerException("ERROR: Longitude must to be between -1 to 1");
+
+            if (station.Location.Latitude < -1 || station.Location.Latitude > 1)
+                throw new DalObject.CustomerException("ERROR: Latitude must to be between -1 to 1");
 
             foreach (var elementStation in dal.GetStations())
                 if (elementStation.Latitude == station.Location.Latitude &&

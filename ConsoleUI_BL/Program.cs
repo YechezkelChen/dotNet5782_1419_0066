@@ -337,7 +337,7 @@ namespace ConsoleUI_BL
 
                 do
                 {
-                    Console.WriteLine("Enter longitude Station: ");
+                    Console.WriteLine("Enter longitude between -1 to 1 to Station: ");
 
                 } while (!double.TryParse(Console.ReadLine(), out num2));
 
@@ -345,7 +345,7 @@ namespace ConsoleUI_BL
 
                 do
                 {
-                    Console.WriteLine("Enter Latitude Station: ");
+                    Console.WriteLine("Enter Latitude between -1 to 1 to Station: ");
 
                 } while (!double.TryParse(Console.ReadLine(), out num2));
 
@@ -478,14 +478,14 @@ namespace ConsoleUI_BL
 
                 do
                 {
-                    Console.WriteLine("Enter Longitude Customer: ");
+                    Console.WriteLine("Enter Longitude between -1 to 1 to Customer: ");
                 } while (!double.TryParse(Console.ReadLine(), out num2));
 
                 customerLocation.Longitude = num2;
 
                 do
                 {
-                    Console.WriteLine("Enter Latitude Customer: ");
+                    Console.WriteLine("Enter Latitude between -1 to 1 to Customer: ");
                 } while (!double.TryParse(Console.ReadLine(), out num2));
 
                 customerLocation.Latitude = num2;
@@ -519,8 +519,6 @@ namespace ConsoleUI_BL
 
             while (true)
             {
-
-
                 do
                 {
                     Console.WriteLine("Enter Sender Id Parcel: ");
