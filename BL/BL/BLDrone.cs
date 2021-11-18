@@ -111,20 +111,21 @@ namespace IBL
                         {Longitude = eleDroneToList.Location.Longitude, Latitude = eleDroneToList.Location.Latitude};
 
                     IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
+                    drone.ParcelByTransfer = new ParcelByTransfer();
                     try
                     {
                         parcel = dal.GetParcel(eleDroneToList.IdParcel);
                     }
-                    catch (Exception e)
+                    catch (DalObject.ParcelException e)
                     {
+                        drone.ParcelByTransfer.Status = false;
                         return drone;
                     }
 
-                    drone.ParcelByTransfer = new ParcelByTransfer();
                     if (parcel.DroneId == drone.Id)
                     {
                         drone.ParcelByTransfer.Id = parcel.Id;
-                        drone.ParcelByTransfer.Weight= Enum.Parse<WeightCategories>(parcel.Weight.ToString());
+                        drone.ParcelByTransfer.Weight = Enum.Parse<WeightCategories>(parcel.Weight.ToString());
 
                         if (parcel.Scheduled != DateTime.MinValue && parcel.PickedUp == DateTime.MinValue)
                             drone.ParcelByTransfer.Status = false;
@@ -132,29 +133,23 @@ namespace IBL
                         if (parcel.PickedUp != DateTime.MinValue && parcel.Delivered == DateTime.MinValue)
                             drone.ParcelByTransfer.Status = true;
 
-                        drone.ParcelByTransfer.Priority= Enum.Parse<Priorities>(parcel.Priority.ToString());
+                        drone.ParcelByTransfer.Priority = Enum.Parse<Priorities>(parcel.Priority.ToString());
 
                         IDAL.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
-                        drone.ParcelByTransfer.SenderInParcel = new CustomerInParcel();
-                        drone.ParcelByTransfer.SenderInParcel.Id = customer.Id;
-                        drone.ParcelByTransfer.SenderInParcel.NameCustomer = customer.Name;
-                        drone.ParcelByTransfer.PickUpLocation = new Location();
-                        drone.ParcelByTransfer.PickUpLocation.Longitude = customer.Longitude;
-                        drone.ParcelByTransfer.PickUpLocation.Latitude = customer.Latitude;
+                        drone.ParcelByTransfer.SenderInParcel = new CustomerInParcel()
+                            {Id = customer.Id, NameCustomer = customer.Name};
+                        drone.ParcelByTransfer.PickUpLocation = new Location()
+                            {Longitude = customer.Longitude, Latitude = customer.Latitude};
 
                         customer = dal.GetCustomer(parcel.TargetId);
-                        drone.ParcelByTransfer.ReceiverInParcel = new CustomerInParcel();
-                        drone.ParcelByTransfer.ReceiverInParcel.Id = customer.Id;
-                        drone.ParcelByTransfer.ReceiverInParcel.NameCustomer = customer.Name;
-                        drone.ParcelByTransfer.TargetLocation = new Location();
-                        drone.ParcelByTransfer.TargetLocation.Longitude = customer.Longitude;
-                        drone.ParcelByTransfer.TargetLocation.Latitude = customer.Latitude;
+                        drone.ParcelByTransfer.ReceiverInParcel = new CustomerInParcel()
+                            {Id = customer.Id, NameCustomer = customer.Name};
+                        drone.ParcelByTransfer.TargetLocation = new Location()
+                            {Longitude = customer.Longitude, Latitude = customer.Latitude};
 
                         drone.ParcelByTransfer.DistanceOfTransfer = Distance(drone.ParcelByTransfer.PickUpLocation,
                             drone.ParcelByTransfer.TargetLocation);
                     }
-                    else
-                        drone.ParcelByTransfer.Status = false;
                 }
             }
             return drone;

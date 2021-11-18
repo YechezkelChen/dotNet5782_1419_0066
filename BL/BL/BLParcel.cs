@@ -65,6 +65,11 @@ namespace IBL
                     parcel.DroneInParcel = new DroneInParcel()
                         {Id = elementDrone.Id, Battery = elementDrone.Battery, Location = elementDrone.Location};
                 }
+                else
+                {
+                    parcel.DroneInParcel = new DroneInParcel()
+                        {Id = 0, Battery = 0, Location = new Location() {Longitude = 0, Latitude = 0}};
+                }
 
             parcel.Requested = idalParcel.Requested;
             parcel.Scheduled = idalParcel.Scheduled;
@@ -207,8 +212,11 @@ namespace IBL
 
             foreach (var drone in ListDrones)
                 if (drone.Id == connectDrone.Id)
+                {
                     drone.Status = DroneStatuses.Delivery;
-            
+                    drone.IdParcel = updateParcel.Id;
+                }
+
             updateParcel.DroneId = connectDrone.Id;
             updateParcel.Scheduled = DateTime.Now;
              
@@ -228,7 +236,7 @@ namespace IBL
             }
 
             if (collectionDrone.Status != DroneStatuses.Delivery && collectionDrone.ParcelByTransfer.Status != true)
-                throw new DroneException("ERROR: The drone is not in delivery so he can not collect some parcel. ");
+                throw new DroneException("ERROR: The drone is not in delivery so he can not collect any parcel. ");
 
             for (int i = 0; i < ListDrones.Count(); i++)
             {

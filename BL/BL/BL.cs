@@ -115,7 +115,7 @@ namespace IBL
                         };
 
                         newDroneToList.Battery = 20 * rand.NextDouble();
-
+                        newDroneToList.IdParcel = 0;
                         SendDroneToDroneCharge(newDroneToList.Id);
                     }
 
@@ -144,6 +144,7 @@ namespace IBL
                                                  distanceFromNearStation;
                         if (newDroneToList.Battery > 100)
                             newDroneToList.Battery = 100;
+                        newDroneToList.IdParcel = 0;
                     }
 
                     ListDrones[i] = newDroneToList;
