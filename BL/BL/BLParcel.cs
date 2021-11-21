@@ -15,6 +15,10 @@ namespace IBL
 {
     public partial class BL : IBL
     {
+        /// <summary>
+        /// add parcel with all fields to data source with checking 
+        /// </summary>
+        /// <param name="newParcel"></param>
         public void AddParcel(Parcel newParcel)
         {
             try
@@ -38,6 +42,12 @@ namespace IBL
             dal.AddParcel(parcel);
         }
 
+        /// <summary>
+        /// send id of parcel and checking that it exist.
+        /// make special entity and return it
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Parcel GetParcel(int id)
         {
             IDAL.DO.Parcel idalParcel = new IDAL.DO.Parcel();
@@ -79,6 +89,10 @@ namespace IBL
             return parcel;
         }
 
+        /// <summary>
+        /// return the list of parcel in special entity for show
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<ParcelToList> GetParcels()
         {
             IEnumerable<IDAL.DO.Parcel> idalParcels = dal.GetParcels();
@@ -109,6 +123,10 @@ namespace IBL
             return parcelToLists;
         }
 
+        /// <summary>
+        /// return the list without drone that scheduled to them
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<ParcelToList> GetParcelsNoDrones()
         {
             IEnumerable<IDAL.DO.Parcel> idalParcels = dal.GetParcels();
@@ -133,6 +151,10 @@ namespace IBL
             return parcelNoDrones;
         }
 
+        /// <summary>
+        /// find parcel in the data conditions and connect it to the drone
+        /// </summary>
+        /// <param name="droneId"></param>
         public void ConnectParcelToDrone(int droneId)
         {
             Drone connectDrone = new Drone();
@@ -156,14 +178,14 @@ namespace IBL
             Parcel parcelToConnect = new Parcel();
             for (int i = (int)Priorities.Emergency; i >= (int)Priorities.Normal; i--)
             {
-                prioritiesParcel = parcelNoDrones.ToList().FindAll(parcel => parcel.Priority == (Priorities)i);
+                prioritiesParcel = parcelNoDrones.ToList().FindAll(parcel => parcel.Priority == (Priorities)i); // parcels with priority according to the brace
                 for (int j = (int) connectDrone.Weight; j >= (int) WeightCategories.Light; j--)
                 {
-                    weightParcel = prioritiesParcel.ToList().FindAll(parcel => parcel.Weight == (WeightCategories) j);
+                    weightParcel = prioritiesParcel.ToList().FindAll(parcel => parcel.Weight == (WeightCategories) j); // parcels with weight according to the brace
                     while (weightParcel.Count() != 0)
                     {
                         parcelToConnect = new Parcel();
-                        parcelToConnect = NearParcelToDrone(connectDrone, weightParcel);
+                        parcelToConnect = NearParcelToDrone(connectDrone, weightParcel); // find the close station
 
                         double distanceDelivery = Distance(connectDrone.Location,
                             GetCustomer(GetParcel(parcelToConnect.Id).Sender.Id).Location);
@@ -184,7 +206,7 @@ namespace IBL
                             NearStationToCustomer(dal.GetCustomer(GetParcel(parcelToConnect.Id).Target.Id)).Location);
                         batteryDelivery += distanceDelivery * BatteryAvailable;
 
-                        if (connectDrone.Battery < batteryDelivery)
+                        if (connectDrone.Battery < batteryDelivery) // if there is no enough battery delete the parcel from list
                         {
                             ParcelToList parcelToRemove = new ParcelToList();
                             foreach (var parcelInWeightParcel in weightParcel)
@@ -223,6 +245,10 @@ namespace IBL
             dal.UpdateParcel(updateParcel);
         }
 
+        /// <summary>
+        /// Collection the parcel bt the drone
+        /// </summary>
+        /// <param name="idDrone"></param>
         public void CollectionParcelByDrone(int idDrone)
         {
             Drone collectionDrone = new Drone();
@@ -255,6 +281,10 @@ namespace IBL
             dal.UpdateParcel(updateParcel);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idDrone"></param>
         public void SupplyParcelByDrone(int idDrone)
         {
             Drone drone = new Drone();
