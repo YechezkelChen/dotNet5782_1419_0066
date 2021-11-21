@@ -594,7 +594,10 @@ namespace ConsoleUI_BL
                 }
             }
         }
-
+        /// <summary>
+        /// update the drone model 
+        /// </summary>
+        /// <returns></no returns, just update the model>
         private static void UpdateDroneModel(IBL.IBL bl)
         {
             int id;
@@ -627,7 +630,10 @@ namespace ConsoleUI_BL
                 }
             }
         }
-
+        /// <summary>
+        /// update the data of the station the user ask 
+        /// </summary>
+        /// <returns></no returns, just update the station>
         private static void UpdateDataStation(IBL.IBL bl)
         {
             int id, name, chargeSlots;
@@ -668,7 +674,10 @@ namespace ConsoleUI_BL
                 }
             }
         }
-
+        /// <summary>
+        /// update the data of the customer the user ask 
+        /// </summary>
+        /// <returns></no returns, just update the customer>
         private static void UpdateDataCustomer(IBL.IBL bl)
         {
             int id;
@@ -707,7 +716,10 @@ namespace ConsoleUI_BL
                 }
             }
         }
-
+        /// <summary>
+        /// send the drone to station with available drone charge
+        /// </summary>
+        /// <returns></no returns, just send the drone to station with available drone charge>
         private static void SendDroneToCharge(IBL.IBL bl)
         {
             int id;
@@ -737,7 +749,10 @@ namespace ConsoleUI_BL
                 }
             }
         }
-        
+        /// <summary>
+        /// Release the drone from the charge spot in the station 
+        /// </summary>
+        /// <returns></no returns, just release the drone from the charge spot in the station>
         private static void ReleaseDroneFromCharge(IBL.IBL bl)
         {
             int id, chargeTime;
@@ -770,7 +785,10 @@ namespace ConsoleUI_BL
                 }
             }
         }
-
+        /// <summary>
+        /// connect the parcel to available drone
+        /// </summary>
+        /// <returns></no returns, just release connect the parcel to available drone>
         private static void ConnectParcelToDrone(IBL.IBL bl)
         {
             int droneId;
@@ -807,7 +825,10 @@ namespace ConsoleUI_BL
                 }
             }
         }
-
+        /// <summary>
+        /// Collect a parcel by drone
+        /// </summary>
+        /// <returns></no returns, just collect a parcel by drone>
         private static void CollectionParcelByDrone(IBL.IBL bl)
         {
             int droneId;
@@ -835,7 +856,10 @@ namespace ConsoleUI_BL
                 }
             }
         }
-
+        /// <summary>
+        /// Supply a parcel by drone
+        /// </summary>
+        /// <returns></no returns, supply a parcel by drone>
         private static void SupplyParcelByDrone(IBL.IBL bl)
         {
             int droneId;
