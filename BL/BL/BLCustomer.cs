@@ -21,11 +21,15 @@ namespace IBL
 {
     public partial class BL : IBL
     {
+        /// <summary>
+        /// add a customer
+        /// </summary>
+        /// <returns></no returns, add a customer>
         public void AddCustomer(Customer newCustomer)
         {
             try
             {
-                CheckCustomer(newCustomer);
+                CheckCustomer(newCustomer);// check the input of the user
             }
             catch (CustomerException e)
             {
@@ -40,13 +44,16 @@ namespace IBL
             customer.Latitude = newCustomer.Location.Latitude;
             dal.AddCustomer(customer);
         }
-
+        /// <summary>
+        /// get a customer
+        /// </summary>
+        /// <returns></return the customer>
         public Customer GetCustomer(int id)
         {
             IDAL.DO.Customer idalCustomer = new IDAL.DO.Customer();
             try
             {
-                idalCustomer = dal.GetCustomer(id);
+                idalCustomer = dal.GetCustomer(id);// if the customer not in data 
             }
             catch (DalObject.CustomerException e)
             {
@@ -61,7 +68,7 @@ namespace IBL
             customer.FromTheCustomerList = new List<ParcelInCustomer>();
             customer.ToTheCustomerList = new List<ParcelInCustomer>();
 
-            foreach (var elementParcel in dal.GetParcels())
+            foreach (var elementParcel in dal.GetParcels())// accordion to the conditions in the exercise
                 if (customer.Id == elementParcel.SenderId)
                 {
                     ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
@@ -108,7 +115,10 @@ namespace IBL
 
             return customer;
         }
-
+        /// <summary>
+        /// get a customers
+        /// </summary>
+        /// <returns></return all customers>
         public IEnumerable<CustomerToList> GetCustomers()
         {
             IEnumerable<IDAL.DO.Customer> idalcCustomers = dal.GetCustomers();
@@ -145,7 +155,10 @@ namespace IBL
 
             return customerToLists;
         }
-
+        /// <summary>
+        /// Update the data of the customer
+        /// </summary>
+        /// <returns></no returns, update the data of the customer>
         public void UpdateDataCustomer(int id, string name, string phone)
         {
             IDAL.DO.Customer updateCustomer = new IDAL.DO.Customer();
@@ -153,14 +166,15 @@ namespace IBL
             {
                 updateCustomer = dal.GetCustomer(id);
             }
-            catch (DalObject.CustomerException e)
+            catch (DalObject.CustomerException e)// if the customer not exist
             {
                 throw new CustomerException("" + e);
             }
 
-            if (name == "" && phone == "")
+            if (name == "" && phone == "")// if the user not pur anything
                 throw new CustomerException("ERROR: need one thing at least to change");
 
+            // update the data according to the user asks
             if (name != "")
                 updateCustomer.Name = name;
 
@@ -171,9 +185,12 @@ namespace IBL
                 updateCustomer.Phone = phone;
             }
 
-            dal.UpdateCustomer(updateCustomer);
+            dal.UpdateCustomer(updateCustomer);// update the data center
         }
-
+        /// <summary>
+        /// Check the input of the user
+        /// </summary>
+        /// <returns></no returns, just check the input of the user>
         private void CheckCustomer(Customer customer)
         {
             if(customer.Id < 10000000 || customer.Id > 99999999)//Check that it's 8 digits.
@@ -187,7 +204,10 @@ namespace IBL
             if (customer.Location.Latitude < -1 || customer.Location.Latitude > 1)
                 throw new DalObject.CustomerException("ERROR: Latitude must to be between -1 to 1");
         }
-
+        /// <summary>
+        /// get last digit of the id
+        /// </summary>
+        /// <returns></return the last digit of the id>
         private int lastDigitID(int lessID)
         {
             int digit1, digit2, sumResultDigits = 0, digitID;
@@ -207,8 +227,10 @@ namespace IBL
             digitID = 10 - sumResultDigits;
             return digitID;//Returning the missing digit.v
         }
-
-        private int sumDigits(int num)//Entering a number by the computer.
+        /// <summary>
+        ///Entering a number by the computer.
+        /// <returns></return the sum of digit >
+        private int sumDigits(int num)
         {
             int sum_digits = 0;
             while (num > 0)
@@ -218,7 +240,9 @@ namespace IBL
             }
             return sum_digits;//Return of the sum of his digits.
         }
-
+        /// <summary>
+        /// check for the customer with delivery.
+        /// <returns></return the customers that have any dilivery>
         private IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
             IEnumerable<IDAL.DO.Parcel> Parcels)
         {

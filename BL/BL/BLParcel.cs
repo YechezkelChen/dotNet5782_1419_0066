@@ -282,9 +282,9 @@ namespace IBL
         }
 
         /// <summary>
-        /// 
+        /// Supply parcel by drone
         /// </summary>
-        /// <param name="idDrone"></param>
+        /// <param name="idDrone"></the id of the drone>
         public void SupplyParcelByDrone(int idDrone)
         {
             Drone drone = new Drone();

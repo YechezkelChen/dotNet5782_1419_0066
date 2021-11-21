@@ -20,146 +20,145 @@ namespace IBL
         double BatteryAvailable, BatteryLightWeight, BatteryMediumWeight, BatteryHeavyWeight, ChargingRateOfDrone;
 
         Random rand = new Random(DateTime.Now.Millisecond);
-        
+
+        /// <summary>
+        /// constractur of the BL
+        /// </summary>
+        /// <returns></no returns >
         public BL()
         {
-            try
+            dal = new DalObject.DalObject();
+
+            // km per hour
+            double[] powerConsumption = dal.GetRequestPowerConsumption();
+            BatteryAvailable = powerConsumption[0];
+            BatteryLightWeight = powerConsumption[1];
+            BatteryMediumWeight = powerConsumption[2];
+            BatteryHeavyWeight = powerConsumption[3];
+            ChargingRateOfDrone = powerConsumption[4];
+
+            IEnumerable<IDAL.DO.Drone> listDronesIdalDo = dal.GetDrones();
+            foreach (var elementDrone in listDronesIdalDo)
             {
-                dal = new DalObject.DalObject();
+                DroneToList newDrone = new DroneToList();
+                newDrone.Id = elementDrone.Id;
+                newDrone.Model = elementDrone.Model;
+                newDrone.Weight = Enum.Parse<WeightCategories>(elementDrone.Weight.ToString());
+                ListDrones.Add(newDrone);
+            }
 
-                // km per hour
-                double[] powerConsumption = dal.GetRequestPowerConsumption();
-                BatteryAvailable = powerConsumption[0];
-                BatteryLightWeight = powerConsumption[1];
-                BatteryMediumWeight = powerConsumption[2];
-                BatteryHeavyWeight = powerConsumption[3];
-                ChargingRateOfDrone = powerConsumption[4];
+            IEnumerable<IDAL.DO.Parcel> ListParcelsIdalDo = dal.GetParcels();
 
-                IEnumerable<IDAL.DO.Drone> listDronesIdalDo = dal.GetDrones();
-                foreach (var elementDrone in listDronesIdalDo)
+            for (int i = 0; i < ListDrones.Count(); i++)
+            {
+                DroneToList newDroneToList = new DroneToList();
+                newDroneToList = ListDrones[i];
+                foreach (var elementParcel in ListParcelsIdalDo)
                 {
-                    DroneToList newDrone = new DroneToList();
-                    newDrone.Id = elementDrone.Id;
-                    newDrone.Model = elementDrone.Model;
-                    newDrone.Weight = Enum.Parse<WeightCategories>(elementDrone.Weight.ToString());
-                    ListDrones.Add(newDrone);
-                }
-
-                IEnumerable<IDAL.DO.Parcel> ListParcelsIdalDo = dal.GetParcels();
-
-                for (int i = 0; i < ListDrones.Count(); i++)
-                {
-                    DroneToList newDroneToList = new DroneToList();
-                    newDroneToList = ListDrones[i];
-                    foreach (var elementParcel in ListParcelsIdalDo)
+                    if (newDroneToList.Id == elementParcel.DroneId &&
+                        elementParcel.Scheduled != DateTime.MinValue &&
+                        elementParcel.Delivered == DateTime.MinValue) //if the parcel are not in deliver
+                        //and have drone to connect
                     {
-                        if (newDroneToList.Id == elementParcel.DroneId &&
-                            elementParcel.Scheduled != DateTime.MinValue &&
-                            elementParcel.Delivered == DateTime.MinValue)
-                        {
-                            newDroneToList.Status = DroneStatuses.Delivery;
-                            if (elementParcel.Scheduled != DateTime.MinValue &&
-                                elementParcel.PickedUp == DateTime.MinValue)
-                                newDroneToList.Location =
-                                    NearStationToCustomer(dal.GetCustomer(elementParcel.SenderId)).Location;
-                            if (elementParcel.Delivered == DateTime.MinValue &&
-                                elementParcel.PickedUp != DateTime.MinValue)
-                                newDroneToList.Location = new Location()
-                                {
-                                    Longitude = dal.GetCustomer(elementParcel.SenderId).Longitude,
-                                    Latitude = dal.GetCustomer(elementParcel.SenderId).Latitude
-                                }; //the location of the customer
-
-                            Location targetLocation = new Location()
-                            {
-                                Longitude = dal.GetCustomer(elementParcel.TargetId).Longitude,
-                                Latitude = dal.GetCustomer(elementParcel.TargetId).Latitude
-                            };
-
-                            double distanceDelivery =
-                                Distance(newDroneToList.Location,
-                                    targetLocation); // the distance between the drone and the target
-                            if (elementParcel.Weight == IDAL.DO.WeightCategories.Heavy)
-                                distanceDelivery *= BatteryHeavyWeight;
-                            if (elementParcel.Weight == IDAL.DO.WeightCategories.Medium)
-                                distanceDelivery *= BatteryMediumWeight;
-                            if (elementParcel.Weight == IDAL.DO.WeightCategories.Light)
-                                distanceDelivery *= BatteryLightWeight;
-
-                            distanceDelivery += Distance(targetLocation,
-                                                    NearStationToCustomer(dal.GetCustomer(elementParcel.TargetId))
-                                                        .Location) *
-                                                BatteryAvailable;
-
-                            newDroneToList.Battery = (100 - distanceDelivery) * rand.NextDouble() + distanceDelivery;
-                            if (newDroneToList.Battery > 100)
-                                newDroneToList.Battery = 100;
-
-                            newDroneToList.IdParcel = elementParcel.Id;
-                        }
-                    }
-
-                    if ((newDroneToList.Status != DroneStatuses.Delivery))
-                            newDroneToList.Status = (DroneStatuses) rand.Next(0, 2);
-
-                    if (newDroneToList.Status == DroneStatuses.Maintenance)
-                    {
-                        newDroneToList.Status =
-                            DroneStatuses.Available; // for the charge after he will be in Maintenance.
-                        IEnumerable<IDAL.DO.Station> listStationsIdalDo = dal.GetStations();
-                        int index = rand.Next(0, listStationsIdalDo.Count());
-                        newDroneToList.Location = new Location()
-                        {
-                            Longitude = listStationsIdalDo.ElementAt(index).Longitude,
-                            Latitude = listStationsIdalDo.ElementAt(index).Latitude
-                        };
-
-                        newDroneToList.Battery = 20 * rand.NextDouble();
-                        newDroneToList.IdParcel = 0;
-                        SendDroneToDroneCharge(newDroneToList.Id);
-                    }
-
-                    if (newDroneToList.Status == DroneStatuses.Available)
-                    {
-                        IEnumerable<IDAL.DO.Customer> customersWithDelivery =
-                            ListCustomersWithDelivery(dal.GetCustomers(), dal.GetParcels());
-                        if (customersWithDelivery.Count() == 0)
-                            newDroneToList.Location = new Location() {Longitude = 0, Latitude = 0};
-                        else
-                        {
-                            int index = rand.Next(0, customersWithDelivery.Count());
+                        newDroneToList.Status = DroneStatuses.Delivery;
+                        if (elementParcel.Scheduled != DateTime.MinValue &&
+                            elementParcel.PickedUp == DateTime.MinValue) //we write the the bool condition
+                            //elementParcel.Scheduled != DateTime.MinValue for the understanding of the code
+                            newDroneToList.Location =
+                                NearStationToCustomer(dal.GetCustomer(elementParcel.SenderId)).Location;
+                        if (elementParcel.Delivered == DateTime.MinValue &&
+                            elementParcel.PickedUp != DateTime.MinValue)
                             newDroneToList.Location = new Location()
                             {
-                                Longitude = customersWithDelivery.ElementAt(index).Longitude,
-                                Latitude = customersWithDelivery.ElementAt(index).Latitude
-                            };
-                        }
+                                Longitude = dal.GetCustomer(elementParcel.SenderId).Longitude,
+                                Latitude = dal.GetCustomer(elementParcel.SenderId).Latitude
+                            }; //the location of the customer
 
-                        double distanceFromNearStation = Distance(newDroneToList.Location,
-                            NearStationToDrone(dal.GetDrone(newDroneToList.Id)).Location);
+                        Location targetLocation = new Location()
+                        {
+                            Longitude = dal.GetCustomer(elementParcel.TargetId).Longitude,
+                            Latitude = dal.GetCustomer(elementParcel.TargetId).Latitude
+                        };
 
-                        distanceFromNearStation *= BatteryAvailable;
+                        double distanceDelivery =
+                            Distance(newDroneToList.Location,
+                                targetLocation); // the distance between the drone and the target
+                        if (elementParcel.Weight == IDAL.DO.WeightCategories.Heavy)
+                            distanceDelivery *= BatteryHeavyWeight;
+                        if (elementParcel.Weight == IDAL.DO.WeightCategories.Medium)
+                            distanceDelivery *= BatteryMediumWeight;
+                        if (elementParcel.Weight == IDAL.DO.WeightCategories.Light)
+                            distanceDelivery *= BatteryLightWeight;
 
-                        newDroneToList.Battery = (100 - distanceFromNearStation) * rand.NextDouble() +
-                                                 distanceFromNearStation;
+                        distanceDelivery += Distance(targetLocation,
+                                                NearStationToCustomer(dal.GetCustomer(elementParcel.TargetId))
+                                                    .Location) *
+                                            BatteryAvailable;
+
+                        newDroneToList.Battery = (100 - distanceDelivery) * rand.NextDouble() + distanceDelivery;
                         if (newDroneToList.Battery > 100)
                             newDroneToList.Battery = 100;
-                        newDroneToList.IdParcel = 0;
+
+                        newDroneToList.IdParcel = elementParcel.Id;
+                    }
+                }
+
+                if ((newDroneToList.Status != DroneStatuses.Delivery))
+                    newDroneToList.Status = (DroneStatuses) rand.Next(0, 2);
+
+                if (newDroneToList.Status == DroneStatuses.Maintenance)
+                {
+                    newDroneToList.Status =
+                        DroneStatuses.Available; // for the charge after he will be in Maintenance.
+                    IEnumerable<IDAL.DO.Station> listStationsIdalDo = dal.GetStations();
+                    int index = rand.Next(0, listStationsIdalDo.Count());
+                    newDroneToList.Location = new Location()
+                    {
+                        Longitude = listStationsIdalDo.ElementAt(index).Longitude,
+                        Latitude = listStationsIdalDo.ElementAt(index).Latitude
+                    };
+
+                    newDroneToList.Battery = 20 * rand.NextDouble();
+                    newDroneToList.IdParcel = 0;
+                    SendDroneToDroneCharge(newDroneToList.Id);
+                }
+
+                if (newDroneToList.Status == DroneStatuses.Available)
+                {
+                    IEnumerable<IDAL.DO.Customer> customersWithDelivery =
+                        ListCustomersWithDelivery(dal.GetCustomers(), dal.GetParcels());
+                    if (customersWithDelivery.Count() == 0)
+                        newDroneToList.Location = new Location() {Longitude = 0, Latitude = 0};
+                    else
+                    {
+                        int index = rand.Next(0, customersWithDelivery.Count());
+                        newDroneToList.Location = new Location()
+                        {
+                            Longitude = customersWithDelivery.ElementAt(index).Longitude,
+                            Latitude = customersWithDelivery.ElementAt(index).Latitude
+                        };
                     }
 
-                    ListDrones[i] = newDroneToList;
+                    double distanceFromNearStation = Distance(newDroneToList.Location,
+                        NearStationToDrone(dal.GetDrone(newDroneToList.Id)).Location);
+
+                    distanceFromNearStation *= BatteryAvailable;
+
+                    newDroneToList.Battery = (100 - distanceFromNearStation) * rand.NextDouble() +
+                                             distanceFromNearStation;
+                    if (newDroneToList.Battery > 100)
+                        newDroneToList.Battery = 100;
+                    newDroneToList.IdParcel = 0;
                 }
+
+                ListDrones[i] = newDroneToList;
             }
-            catch (StationException)
-            { }
-            catch (DroneException)
-            { }
-            catch (CustomerException)
-            { }
-            catch (ParcelException)
-            { }
         }
-        
+
+        /// <summary>
+        /// the distances from "FROM" to "TO"
+        /// </summary>
+        /// <returns></returns the distance on double type>
         private double Distance(Location from, Location to)
         {
             int R = 6371 * 1000; // metres -- radius of the earth
@@ -177,147 +176,3 @@ namespace IBL
         }
     }
 }
-
-
-//void f()
-//{
-//    IEnumerable<IDAL.DO.Station> ListStations = dal.GetStations();
-//    var updateDrones = from drone in ListDrones
-//        from parcel in ListParcels
-//        where drone.Id == parcel.DroneId && parcel.Delivered == DateTime.MinValue &&
-//              parcel.Scheduled != DateTime.MinValue && parcel.PickedUp == DateTime.MinValue
-//        select new BO.Drone()
-//        {
-//            Id = drone.Id,
-//            Model = drone.Model,
-//            Weight = Enum.Parse<WeightCategories>(drone.Weight.ToString()),
-//            Location = NearStationToCustomer(dal.GetCustomer(parcel.SenderId), dal.GetStations())
-//        };
-
-//    updateDrones.ToList().ForEach(UpdateDrone);
-//}
-
-
-
-/*
-                 dal = new DalObject.DalObject();
-
-                // km per hour
-                double[] powerConsumption = dal.GetRequestPowerConsumption();
-                BatteryAvailable = powerConsumption[0];
-                BatteryLightWeight = powerConsumption[1];
-                BatteryMediumWeight = powerConsumption[2];
-                BatteryHeavyWeight = powerConsumption[3];
-                ChargingRateOfDrone = powerConsumption[4];
-
-                IEnumerable<IDAL.DO.Drone> listDronesIdalDo = dal.GetDrones();
-                foreach (var elementDrone in listDronesIdalDo)
-                {
-                    DroneToList newDrone = new DroneToList();
-                    newDrone.Id = elementDrone.Id;
-                    newDrone.Model = elementDrone.Model;
-                    newDrone.Weight = Enum.Parse<WeightCategories>(elementDrone.Weight.ToString());
-                    ListDrones.Add(newDrone);
-                }
-
-                IEnumerable<IDAL.DO.Parcel> ListParcelsIdalDo = dal.GetParcels();
-
-                foreach (var elementDrone in ListDrones)
-                {
-                    foreach (var elementParcel in ListParcelsIdalDo)
-                    {
-                        DroneToList newDroneToList = new DroneToList();
-                        newDroneToList = elementDrone;
-                        if (elementDrone.Id == elementParcel.DroneId && elementParcel.Scheduled != DateTime.MinValue &&
-                            elementParcel.Delivered == DateTime.MinValue)
-                        {
-                            elementDrone.Status = DroneStatuses.Delivery;
-                            if (elementParcel.Scheduled != DateTime.MinValue &&
-                                elementParcel.PickedUp == DateTime.MinValue)
-                                elementDrone.Location =
-                                    NearStationToCustomer(dal.GetCustomer(elementParcel.SenderId)).Location;
-                            if (elementParcel.Delivered == DateTime.MinValue &&
-                                elementParcel.PickedUp != DateTime.MinValue)
-                                elementDrone.Location = new Location()
-                                {
-                                    Longitude = dal.GetCustomer(elementParcel.SenderId).Longitude,
-                                    Latitude = dal.GetCustomer(elementParcel.SenderId).Latitude
-                                }; //the location of the customer
-
-                            Location targetLocation = new Location()
-                            {
-                                Longitude = dal.GetCustomer(elementParcel.TargetId).Longitude,
-                                Latitude = dal.GetCustomer(elementParcel.TargetId).Latitude
-                            };
-
-                            double distanceDelivery =
-                                Distance(elementDrone.Location,
-                                    targetLocation); // the distance between the drone and the target
-                            if (elementParcel.Weight == IDAL.DO.WeightCategories.Heavy)
-                                distanceDelivery *= BatteryHeavyWeight;
-                            if (elementParcel.Weight == IDAL.DO.WeightCategories.Medium)
-                                distanceDelivery *= BatteryMediumWeight;
-                            if (elementParcel.Weight == IDAL.DO.WeightCategories.Light)
-                                distanceDelivery *= BatteryLightWeight;
-
-                            distanceDelivery += Distance(targetLocation,
-                                                    NearStationToCustomer(dal.GetCustomer(elementParcel.TargetId))
-                                                        .Location) *
-                                                BatteryAvailable;
-
-                            elementDrone.Battery = (100 - distanceDelivery) * rand.NextDouble() + distanceDelivery;
-                            if (elementDrone.Battery > 100)
-                                elementDrone.Battery = 100;
-
-                            elementDrone.IdParcel = elementParcel.Id;
-                        }
-
-                        if ((elementDrone.Status != DroneStatuses.Delivery))
-                            elementDrone.Status = (DroneStatuses) rand.Next(0, 2);
-
-                        if (elementDrone.Status == DroneStatuses.Maintenance)
-                        {
-                            elementDrone.Status =
-                                DroneStatuses.Available; // for the charge after he will be in Maintenance.
-                            IEnumerable<IDAL.DO.Station> listStationsIdalDo = dal.GetStations();
-                            int index = rand.Next(0, listStationsIdalDo.Count());
-                            elementDrone.Location = new Location()
-                            {
-                                Longitude = listStationsIdalDo.ElementAt(index).Longitude,
-                                Latitude = listStationsIdalDo.ElementAt(index).Latitude
-                            };
-
-                            elementDrone.Battery = 20 * rand.NextDouble();
-
-                            SendDroneToDroneCharge(elementDrone.Id);
-                        }
-
-                        if (elementDrone.Status == DroneStatuses.Available)
-                        {
-                            IEnumerable<IDAL.DO.Customer> customersWithDelivery =
-                                ListCustomersWithDelivery(dal.GetCustomers(), dal.GetParcels());
-                            if (customersWithDelivery.Count() == 0)
-                                elementDrone.Location = new Location() {Longitude = 0, Latitude = 0};
-                            else
-                            {
-                                int index = rand.Next(0, customersWithDelivery.Count());
-                                elementDrone.Location = new Location()
-                                {
-                                    Longitude = customersWithDelivery.ElementAt(index).Longitude,
-                                    Latitude = customersWithDelivery.ElementAt(index).Latitude
-                                };
-                            }
-
-                            double distanceFromNearStation = Distance(elementDrone.Location,
-                                NearStationToDrone(dal.GetDrone(elementDrone.Id)).Location);
-
-                            distanceFromNearStation *= BatteryAvailable;
-
-                            elementDrone.Battery = (100 - distanceFromNearStation) * rand.NextDouble() +
-                                                   distanceFromNearStation;
-                            if (elementDrone.Battery > 100)
-                                elementDrone.Battery = 100;
-                        }
-                    }
-                }
- */

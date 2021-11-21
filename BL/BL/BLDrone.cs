@@ -19,11 +19,15 @@ namespace IBL
 {
     public partial class BL : IBL
     {
+        /// <summary>
+        /// add a drone
+        /// </summary>
+        /// <returns></no returns, add a drone>
         public void AddDrone(Drone newDrone, int idStation)
         {
             try
             {
-                CheckDrone(newDrone);
+                CheckDrone(newDrone);// check the input of the user
             }
             catch (DroneException e)
             {
@@ -45,7 +49,7 @@ namespace IBL
             newDroneToList.IdParcel = 0;
             try
             {
-                dal.GetStation(idStation);
+                dal.GetStation(idStation);// try to find the station the user want to connect the drone to
             }
             catch (DalObject.stationException e)
             {
@@ -58,7 +62,7 @@ namespace IBL
 
             try
             {
-                int foundDrone = CheckDroneAndParcel(newDroneToList.Id, dal.GetParcels());
+                int foundDrone = CheckDroneAndParcel(newDroneToList.Id, dal.GetParcels());//return the id of the parcel
                 newDroneToList.IdParcel = foundDrone;
             }
             catch (DroneException e)
@@ -69,7 +73,7 @@ namespace IBL
             ListDrones.Add(newDroneToList);
             try
             {
-                dal.AddDrone(drone);
+                dal.AddDrone(drone);// add the drone just if the drone not in the data center
             }
             catch (DalObject.DroneException e)
             {
@@ -83,7 +87,10 @@ namespace IBL
             catch (DroneException e)
             { }
         }
-
+        /// <summary>
+        /// get a drone
+        /// </summary>
+        /// <returns></return the drone>
         public Drone GetDrone(int id)
         {
             IDAL.DO.Drone idalDrone = new IDAL.DO.Drone();
@@ -154,12 +161,18 @@ namespace IBL
             }
             return drone;
         }
-
+        /// <summary>
+        /// get a drones
+        /// </summary>
+        /// <returns></return all drones>
         public IEnumerable<DroneToList> GetDrones()
         {
             return ListDrones;
         }
-
+        /// <summary>
+        /// Update the model of the drone
+        /// </summary>
+        /// <returns></no returns, update the model of the drone>
         public void UpdateDroneModel(int droneId, string newModel)
         {
             IDAL.DO.Drone updateDrone = new IDAL.DO.Drone();
@@ -190,7 +203,10 @@ namespace IBL
 
             dal.UpdateDrone(updateDrone);
         }
-
+        /// <summary>
+        /// Send the drone to drone charge
+        /// </summary>
+        /// <returns></no returns, just send the drone to drone charge>
         public void SendDroneToDroneCharge(int id)
         {
             Drone drone = new Drone();
@@ -208,7 +224,7 @@ namespace IBL
             Station nearStation = new Station();
             try
             {
-                nearStation = NearStationToDrone(dal.GetDrone(drone.Id));
+                nearStation = NearStationToDrone(dal.GetDrone(drone.Id));// if the drone is not exist
             }
             catch (DroneException e)
             {
@@ -248,7 +264,10 @@ namespace IBL
                 throw new DroneException("" + e);
             }
         }
-
+        /// <summary>
+        /// Release the drone from the drone charge
+        /// </summary>
+        /// <returns></no returns, release the drone from the drone charge>
         public void ReleaseDroneFromDroneCharge(int id, int chargeTime)
         {
             try
@@ -303,7 +322,10 @@ namespace IBL
                 }
             }
         }
-
+        /// <summary>
+        /// Check the input of the user
+        /// </summary>
+        /// <returns></no returns, just check the input of the user>
         private void CheckDrone(Drone drone)
         {
             if (drone.Id < 0)
