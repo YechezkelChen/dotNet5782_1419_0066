@@ -90,7 +90,7 @@ namespace IBL
         }
 
         /// <summary>
-        /// return the list of parcel in special entity for show
+        /// return the list of parcels in special entity for show
         /// </summary>
         /// <returns></returns>
         public IEnumerable<ParcelToList> GetParcels()
@@ -246,7 +246,7 @@ namespace IBL
         }
 
         /// <summary>
-        /// Collection the parcel bt the drone
+        /// Collection the parcel by the drone
         /// </summary>
         /// <param name="idDrone"></param>
         public void CollectionParcelByDrone(int idDrone)
@@ -325,7 +325,7 @@ namespace IBL
                             drone.Battery = distance * BatteryMediumWeight;
 
                     if (parcel.Weight == WeightCategories.Light)
-                        if (distance * BatteryHeavyWeight > 100)
+                        if (distance * BatteryHeavyWeight > 100) // if the battery is logical
                             fullBattery = true;
                         else
                             drone.Battery = distance * BatteryLightWeight;
@@ -357,6 +357,10 @@ namespace IBL
             }
         }
 
+        /// <summary>
+        /// check the input in add parcel to list
+        /// </summary>
+        /// <param name="parcel"></param>
         private void CheckParcel(Parcel parcel)
         {
             try
@@ -379,6 +383,12 @@ namespace IBL
                 throw new ParcelException("ERROR: the Target ID and the Sender ID are equals! ");
         }
 
+        /// <summary>
+        /// find the near parcel from all parcels to drone
+        /// </summary>
+        /// <param name="drone"></param>
+        /// <param name="parcels"></param>
+        /// <returns></returns>
         private Parcel NearParcelToDrone(Drone drone, IEnumerable<ParcelToList> parcels)
         {
             List<double> distancesList = new List<double>();

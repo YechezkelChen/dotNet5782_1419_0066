@@ -18,7 +18,7 @@ namespace IBL
             public ParcelStatuses ParcelStatuses { get; set; }
             public override string ToString()
             {
-                return $"Id #{Id}: Sender id = {SenderName},Target id = {TargetName}," +
+                return $"Id #{Id}: Sender name = {SenderName},Target name = {TargetName}," +
                        $"Weight = {Weight},  Priority = {Priority}, Parcel statuses = {ParcelStatuses}";
             }
         }
