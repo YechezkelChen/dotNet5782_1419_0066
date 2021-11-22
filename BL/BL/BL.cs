@@ -16,7 +16,6 @@ namespace IBL
     {
         public List<DroneToList> ListDrones = new List<DroneToList>();
 
-
         private IDal dal;
 
         double BatteryAvailable, BatteryLightWeight, BatteryMediumWeight, BatteryHeavyWeight, ChargingRateOfDrone;
@@ -123,7 +122,7 @@ namespace IBL
                     {
                         SendDroneToDroneCharge(newDroneToList.Id);
                     }
-                    catch (DroneException)
+                    catch (DroneException) // there is no throw, for the program continue the constructor.
                     { }
                 }
 

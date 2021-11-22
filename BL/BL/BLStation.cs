@@ -28,7 +28,7 @@ namespace IBL
             }
             catch (StationException e)
             {
-                throw new StationException("" + e);
+                throw new StationException(e.Message, e);
             }
             IDAL.DO.Station station = new IDAL.DO.Station();
             station.Id = newStation.Id;
@@ -42,7 +42,7 @@ namespace IBL
             }
             catch (DalObject.stationException e)
             {
-                throw new StationException("" + e);
+                throw new StationException(e.Message, e);
             }
         }
 
@@ -61,7 +61,7 @@ namespace IBL
             }
             catch (DalObject.stationException e)
             {
-                throw new StationException("" + e);
+                throw new StationException(e.Message, e);
             }
 
             Station station = new Station();
@@ -116,7 +116,7 @@ namespace IBL
             }
             catch (DalObject.stationException e)
             {
-                throw new StationException("" + e);
+                throw new StationException(e.Message, e);
             }
 
             if (name == -1 && chargeSlots == -1) // if he don't want to update nothing
@@ -146,7 +146,7 @@ namespace IBL
             }
             catch (DroneException e)
             {
-                throw new DroneException("" + e);
+                throw new DroneException(e.Message, e);
             }
 
             foreach (var stationCharge in GetStations(s => s.ChargeSlots > 0))
