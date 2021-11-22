@@ -56,13 +56,13 @@ namespace IBL
                 foreach (var elementParcel in ListParcelsIdalDo)
                 {
                     if (newDroneToList.Id == elementParcel.DroneId &&
-                        elementParcel.Scheduled != DateTime.MinValue &&
-                        elementParcel.Delivered == DateTime.MinValue) //if the parcel are not in deliver
+                        elementParcel.Scheduled != null &&
+                        elementParcel.Delivered == null) //if the parcel are not in deliver
                         //and have drone to connect
                     {
                         newDroneToList.Status = DroneStatuses.Delivery;
-                        if (elementParcel.Scheduled != DateTime.MinValue &&
-                            elementParcel.PickedUp == DateTime.MinValue) //we write the the bool condition
+                        if (elementParcel.Scheduled != null &&
+                            elementParcel.PickedUp == null) //we write the the bool condition
                             //elementParcel.Scheduled != DateTime.MinValue for the understanding of the code
                             newDroneToList.Location =
                                 NearStationToCustomer(dal.GetCustomer(elementParcel.SenderId)).Location;
