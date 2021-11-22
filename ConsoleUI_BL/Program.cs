@@ -228,7 +228,7 @@ namespace ConsoleUI_BL
                             case OptionListView.ListStations:
                                 try
                                 {
-                                    foreach (var elementStation in bl.GetStations())
+                                    foreach (var elementStation in bl.GetStations(s => true))
                                         Console.WriteLine(elementStation.ToString());
                                 }
                                 catch (StationException e)
@@ -283,7 +283,7 @@ namespace ConsoleUI_BL
                             case OptionListView.ListStationsCharge:
                                 try
                                 {
-                                    foreach (var elementStationCharge in bl.GetStationsCharge())
+                                    foreach (var elementStationCharge in bl.GetStations(s => s.ChargeSlots > 0))
                                         Console.WriteLine(elementStationCharge.ToString());
                                 }
                                 catch (StationException e)
