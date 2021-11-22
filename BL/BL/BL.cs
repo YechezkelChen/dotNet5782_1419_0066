@@ -15,6 +15,7 @@ namespace IBL
     {
         public List<DroneToList> ListDrones = new List<DroneToList>();
 
+
         private IDal dal;
 
         double BatteryAvailable, BatteryLightWeight, BatteryMediumWeight, BatteryHeavyWeight, ChargingRateOfDrone;

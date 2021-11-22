@@ -13,7 +13,7 @@ namespace IBL
         void AddStation(Station newStation);
         Station GetStation(int id);
         IEnumerable<StationToList> GetStations();
-        IEnumerable<StationToList> GetStationsCharge();
+        IEnumerable<StationToList> GetStationsCharge();//
         void UpdateDataStation(int id, int name, int chargeSlots);
 
 
@@ -37,7 +37,7 @@ namespace IBL
         void AddParcel(Parcel newParcel);
         Parcel GetParcel(int id);
         IEnumerable<ParcelToList> GetParcels();
-        IEnumerable<ParcelToList> GetParcelsNoDrones();
+        IEnumerable<ParcelToList> GetParcelsNoDrones();//
         void ConnectParcelToDrone(int idDrone);
         void CollectionParcelByDrone(int idDrone);
         void SupplyParcelByDrone(int idDrone);
