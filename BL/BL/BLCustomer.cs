@@ -33,7 +33,7 @@ namespace IBL
             }
             catch (CustomerException e)
             {
-                throw new CustomerException("" + e);
+                throw new CustomerException(e.Message, e);
             }
 
             IDAL.DO.Customer customer = new IDAL.DO.Customer();
@@ -57,7 +57,7 @@ namespace IBL
             }
             catch (DalObject.CustomerException e)
             {
-                throw new CustomerException("" + e);
+                throw new CustomerException(e.Message, e);
             }
 
             Customer customer = new Customer();
@@ -168,7 +168,7 @@ namespace IBL
             }
             catch (DalObject.CustomerException e)// if the customer not exist
             {
-                throw new CustomerException("" + e);
+                throw new CustomerException(e.Message, e);
             }
 
             if (name == "" && phone == "")// if the user not pur anything

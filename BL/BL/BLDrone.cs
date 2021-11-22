@@ -31,7 +31,7 @@ namespace IBL
             }
             catch (DroneException e)
             {
-                throw new DroneException("" + e);
+                throw new DroneException(e.Message, e);
             }
             IDAL.DO.Drone drone = new IDAL.DO.Drone();
             DroneToList newDroneToList = new DroneToList();
@@ -55,7 +55,7 @@ namespace IBL
             }
             catch (DalObject.stationException e)
             {
-                throw new StationException("" + e);
+                throw new StationException(e.Message, e);
             }
 
             newDroneToList.Location = new Location();
@@ -69,7 +69,7 @@ namespace IBL
             }
             catch (DroneException e)
             {
-                throw new DroneException("" + e);
+                throw new DroneException(e.Message, e);
             }
 
             ListDrones.Add(newDroneToList);
@@ -79,7 +79,7 @@ namespace IBL
             }
             catch (DalObject.DroneException e)
             {
-                throw new DroneException("" + e);
+                throw new DroneException(e.Message, e);
             }
 
             try
@@ -102,7 +102,7 @@ namespace IBL
             }
             catch (DalObject.DroneException e)
             {
-                throw new DroneException("" + e);
+                throw new DroneException(e.Message, e);
             }
 
             Drone drone = new Drone();
@@ -184,7 +184,7 @@ namespace IBL
             }
             catch (DalObject.DroneException e)
             {
-                throw new DroneException("" + e);
+                throw new DroneException(e.Message, e);
             }
             
             if (newModel == "")
@@ -218,7 +218,7 @@ namespace IBL
             }
             catch (DroneException e)
             {
-                throw new DroneException("" + e);
+                throw new DroneException(e.Message, e);
             }
             if (drone.Status != DroneStatuses.Available)
                 throw new DroneException("ERROR: the drone not available to charge ");
@@ -230,7 +230,7 @@ namespace IBL
             }
             catch (DroneException e)
             {
-                throw new DroneException("" + e);
+                throw new DroneException(e.Message, e);
             }
             double distance = Distance(drone.Location, nearStation.Location);
             if (distance * BatteryAvailable > drone.Battery)
@@ -263,7 +263,7 @@ namespace IBL
             }
             catch (DalObject.DroneChargeException e)
             {
-                throw new DroneException("" + e);
+                throw new DroneException(e.Message, e);
             }
         }
         /// <summary>
@@ -278,7 +278,7 @@ namespace IBL
             }
             catch (DroneException e)
             {
-                throw new DroneException("" + e);
+                throw new DroneException(e.Message, e);
             }
 
             if (chargeTime < 0)

@@ -182,7 +182,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (DroneException e)
                                 {
-                                    Console.WriteLine(e);
+                                    Console.WriteLine(e.Message);
                                 }
                                 break;
                             case EntityOption.Customer:
@@ -192,7 +192,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (CustomerException e)
                                 {
-                                    Console.WriteLine(e);
+                                    Console.WriteLine(e.Message);
 
                                 }
                                 break;
@@ -203,7 +203,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (ParcelException e)
                                 {
-                                    Console.WriteLine(e);
+                                    Console.WriteLine(e.Message);
                                 }
                                 break;
                             case EntityOption.Exit:
@@ -233,7 +233,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (StationException e)
                                 {
-                                    Console.WriteLine(e);
+                                    Console.WriteLine(e.Message);
                                 }
                                 break;
                             case OptionListView.ListDrones:
@@ -244,7 +244,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (DroneException e)
                                 {
-                                    Console.WriteLine(e); 
+                                    Console.WriteLine(e.Message); 
                                 }
                                 break;
                             case OptionListView.ListCustomers:
@@ -255,7 +255,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (CustomerException e)
                                 {
-                                    Console.WriteLine(e);
+                                    Console.WriteLine(e.Message);
                                 }
                                 break;
                             case OptionListView.ListParcels:
@@ -266,7 +266,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (ParcelException e)
                                 {
-                                    Console.WriteLine(e);
+                                    Console.WriteLine(e.Message);
                                 }
                                 break;
                             case OptionListView.ListParcelsNoDrones:
@@ -279,7 +279,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (ParcelException e)
                                 {
-                                    Console.WriteLine(e);
+                                    Console.WriteLine(e.Message);
                                 }
                                 break;
                             case OptionListView.ListStationsCharge:
@@ -290,7 +290,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (StationException e)
                                 {
-                                    Console.WriteLine(e);
+                                    Console.WriteLine(e.Message);
                                 }
                                 break;
                             case OptionListView.Exit:
@@ -372,7 +372,7 @@ namespace ConsoleUI_BL
                 }
                 catch (StationException e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to add station? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -435,7 +435,7 @@ namespace ConsoleUI_BL
                 }
                 catch (DroneException e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to add drone? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -443,7 +443,7 @@ namespace ConsoleUI_BL
                 }
                 catch (StationException e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to add drone? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -501,7 +501,7 @@ namespace ConsoleUI_BL
                 }
                 catch (CustomerException e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to add customer? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -588,7 +588,7 @@ namespace ConsoleUI_BL
                 }
                 catch (ParcelException e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to add parcel? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -624,7 +624,7 @@ namespace ConsoleUI_BL
                 }
                 catch (DroneException e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to update the model of the drone? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -668,7 +668,7 @@ namespace ConsoleUI_BL
                 }
                 catch (StationException e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to update the data of the station? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -710,7 +710,7 @@ namespace ConsoleUI_BL
                 }
                 catch (CustomerException e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to update the data of the customer? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -743,7 +743,7 @@ namespace ConsoleUI_BL
                 }
                 catch (DroneException e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to send the drone to charge? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -779,7 +779,7 @@ namespace ConsoleUI_BL
                 }
                 catch (DroneException e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to release the drone from charge? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -810,7 +810,7 @@ namespace ConsoleUI_BL
                 }
                 catch (DroneException e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to connect parcel to drone or do know about drone that can do any connect to some parcel?\n" +
                                       "if you do please enter yes, else no.");
                     string choice = Console.ReadLine();
@@ -819,7 +819,7 @@ namespace ConsoleUI_BL
                 }
                 catch (ParcelException e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("If you know about some drone ,\n do you want to connect parcel to drone? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -850,7 +850,7 @@ namespace ConsoleUI_BL
                 }
                 catch (DroneException e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to collect the parcel by drone? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -881,7 +881,7 @@ namespace ConsoleUI_BL
                 }
                 catch (DroneException e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("You need to choose drone that pick-up some parcel.\n" +
                                       "so do you want to supply parcel by drone? please enter yes or no.");
                     string choice = Console.ReadLine();
