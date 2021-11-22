@@ -27,7 +27,7 @@ namespace IBL
             }
             catch (ParcelException e)
             {
-                throw new ParcelException("" + e);
+                throw new ParcelException(e.Message, e);
             }
             IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
             parcel.SenderId = newParcel.Sender.Id;
@@ -57,7 +57,7 @@ namespace IBL
             }
             catch (DalObject.ParcelException e)
             {
-                throw new ParcelException("" + e);
+                throw new ParcelException(e.Message, e);
             }
 
             Parcel parcel = new Parcel();
@@ -164,7 +164,7 @@ namespace IBL
             }
             catch (DroneException e)
             {
-                throw new DroneException("" + e);
+                throw new DroneException(e.Message, e);
             }
 
             if (connectDrone.Status != DroneStatuses.Available)
@@ -226,7 +226,7 @@ namespace IBL
             {
                 updateParcel = dal.GetParcel(parcelToConnect.Id);
             }
-            catch (DalObject.ParcelException )//if ther is not available drone to carry the parcel
+            catch (DalObject.ParcelException )//if there is not available drone to carry the parcel
             {
                 throw new ParcelException("There are no packages that the available drone you entered can carry\n .. " +
                                           "Please wait for other drones to be available or enter the identity of another available drone.");
@@ -258,7 +258,7 @@ namespace IBL
             }
             catch (DroneException e)
             {
-                throw new DroneException("" + e);
+                throw new DroneException(e.Message, e);
             }
 
             if (collectionDrone.Status != DroneStatuses.Delivery && collectionDrone.ParcelByTransfer.Status != true)
@@ -294,7 +294,7 @@ namespace IBL
             }
             catch (DroneException e)
             {
-                throw new DroneException("" + e);
+                throw new DroneException(e.Message, e);
             }
 
             Parcel parcel = new Parcel();
