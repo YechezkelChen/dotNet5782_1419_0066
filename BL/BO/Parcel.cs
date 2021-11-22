@@ -16,10 +16,10 @@ namespace IBL
             public WeightCategories Weight { get; set; }
             public Priorities Priority { get; set; }
             public DroneInParcel DroneInParcel { get; set; }
-            public DateTime Requested { get; set; }//יצירה
-            public DateTime Scheduled { get; set; }//שיוך
-            public DateTime PickedUp { get; set; }//איסוף
-            public DateTime Delivered { get; set; }//אספקה
+            public DateTime? Requested { get; set; }//יצירה
+            public DateTime? Scheduled { get; set; }//שיוך
+            public DateTime? PickedUp { get; set; }//איסוף
+            public DateTime? Delivered { get; set; }//אספקה
             public override string ToString()
             {
                 return $"Id #{Id}: SenderId = {Sender}, TargetId = {Target}, Weight = {Weight}," +
