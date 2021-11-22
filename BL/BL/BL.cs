@@ -66,8 +66,8 @@ namespace IBL
                             //elementParcel.Scheduled != DateTime.MinValue for the understanding of the code
                             newDroneToList.Location =
                                 NearStationToCustomer(dal.GetCustomer(elementParcel.SenderId)).Location;
-                        if (elementParcel.Delivered == DateTime.MinValue &&
-                            elementParcel.PickedUp != DateTime.MinValue)
+                        if (elementParcel.Delivered == null &&
+                            elementParcel.PickedUp != null)
                             newDroneToList.Location = new Location()
                             {
                                 Longitude = dal.GetCustomer(elementParcel.SenderId).Longitude,

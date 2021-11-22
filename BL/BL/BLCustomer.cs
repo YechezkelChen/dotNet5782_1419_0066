@@ -76,13 +76,13 @@ namespace IBL
                     parcelInCustomer.Weight = Enum.Parse<WeightCategories>(elementParcel.Weight.ToString());
                     parcelInCustomer.Priority = Enum.Parse<Priorities>(elementParcel.Priority.ToString());
 
-                    if (elementParcel.Requested != DateTime.MinValue)
+                    if (elementParcel.Requested != null)
                         parcelInCustomer.Status = ParcelStatuses.Requested;
-                    if (elementParcel.Scheduled != DateTime.MinValue)
+                    if (elementParcel.Scheduled != null)
                         parcelInCustomer.Status = ParcelStatuses.Scheduled;
-                    if (elementParcel.PickedUp != DateTime.MinValue)
+                    if (elementParcel.PickedUp != null)
                         parcelInCustomer.Status = ParcelStatuses.PickedUp;
-                    if (elementParcel.Delivered != DateTime.MinValue)
+                    if (elementParcel.Delivered != null)
                         parcelInCustomer.Status = ParcelStatuses.Delivered;
 
                     parcelInCustomer.CustomerInDelivery = new CustomerInParcel()
@@ -98,13 +98,13 @@ namespace IBL
                     parcelInCustomer.Id = elementParcel.Id;
                     parcelInCustomer.Weight = Enum.Parse<WeightCategories>(elementParcel.Weight.ToString());
                     parcelInCustomer.Priority = Enum.Parse<Priorities>(elementParcel.Priority.ToString());
-                    if (elementParcel.Delivered != DateTime.MinValue)
+                    if (elementParcel.Delivered != null)
                         parcelInCustomer.Status = ParcelStatuses.Delivered;
-                    if (elementParcel.PickedUp != DateTime.MinValue)
+                    if (elementParcel.PickedUp != null)
                         parcelInCustomer.Status = ParcelStatuses.PickedUp;
-                    if (elementParcel.Scheduled != DateTime.MinValue)
+                    if (elementParcel.Scheduled != null)
                         parcelInCustomer.Status = ParcelStatuses.Scheduled;
-                    if (elementParcel.Requested != DateTime.MinValue)
+                    if (elementParcel.Requested != null)
                         parcelInCustomer.Status = ParcelStatuses.Requested;
 
                     parcelInCustomer.CustomerInDelivery = new CustomerInParcel()
@@ -140,13 +140,13 @@ namespace IBL
 
                 foreach (var elementParcel in dal.GetParcels())
                 {
-                    if (elementParcel.SenderId == idalCustomer.Id && elementParcel.Delivered != DateTime.MinValue)
+                    if (elementParcel.SenderId == idalCustomer.Id && elementParcel.Delivered != null)
                         newCustomer.SenderParcelDelivered++;
-                    else if (elementParcel.SenderId == idalCustomer.Id && elementParcel.PickedUp != DateTime.MinValue)
+                    else if (elementParcel.SenderId == idalCustomer.Id && elementParcel.PickedUp != null)
                         newCustomer.SenderParcelPickedUp++;
-                    if (elementParcel.TargetId == idalCustomer.Id && elementParcel.Delivered != DateTime.MinValue)
+                    if (elementParcel.TargetId == idalCustomer.Id && elementParcel.Delivered != null)
                         newCustomer.TargetParcelDelivered++;
-                    else if (elementParcel.TargetId == idalCustomer.Id && elementParcel.PickedUp != DateTime.MinValue)
+                    else if (elementParcel.TargetId == idalCustomer.Id && elementParcel.PickedUp != null)
                         newCustomer.TargetParcelPickedUp++;
                 }
 
@@ -253,7 +253,7 @@ namespace IBL
             {
                 foreach (var elementParcel in Parcels)
                 {
-                    if (elementParcel.TargetId == elementCustomer.Id && elementParcel.Delivered != DateTime.MinValue)
+                    if (elementParcel.TargetId == elementCustomer.Id && elementParcel.Delivered != null)
                         newCustomers.Add(elementCustomer);
                 }
             }

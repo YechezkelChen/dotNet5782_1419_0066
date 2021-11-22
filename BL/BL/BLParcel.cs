@@ -36,9 +36,9 @@ namespace IBL
             parcel.Priority = (IDAL.DO.Priorities)newParcel.Priority;
             parcel.DroneId = 0;
             parcel.Requested = DateTime.Now;
-            parcel.Scheduled = DateTime.MinValue;
-            parcel.PickedUp = DateTime.MinValue;
-            parcel.Delivered = DateTime.MinValue;
+            parcel.Scheduled = null;
+            parcel.PickedUp = null;
+            parcel.Delivered = null;
             dal.AddParcel(parcel);
         }
 
@@ -108,13 +108,13 @@ namespace IBL
                 newParcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
                 newParcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
 
-                if (idalParcel.Requested != DateTime.MinValue)
+                if (idalParcel.Requested != null)
                     newParcel.ParcelStatuses = ParcelStatuses.Requested;
-                if (idalParcel.Scheduled != DateTime.MinValue)
+                if (idalParcel.Scheduled != null)
                     newParcel.ParcelStatuses = ParcelStatuses.Scheduled;
-                if (idalParcel.PickedUp != DateTime.MinValue)
+                if (idalParcel.PickedUp != null)
                     newParcel.ParcelStatuses = ParcelStatuses.PickedUp;
-                if (idalParcel.Delivered != DateTime.MinValue)
+                if (idalParcel.Delivered != null)
                     newParcel.ParcelStatuses = ParcelStatuses.Delivered;
 
                 parcelToLists.Add(newParcel);
@@ -134,8 +134,8 @@ namespace IBL
            
 
             foreach (var idalParcel in idalParcels)
-                if (idalParcel.Scheduled == DateTime.MinValue && idalParcel.PickedUp == DateTime.MinValue &&
-                    idalParcel.Delivered == DateTime.MinValue)
+                if (idalParcel.Scheduled == null && idalParcel.PickedUp == null &&
+                    idalParcel.Delivered == null)
                     
                 {
                     ParcelToList newParcel = new ParcelToList();

@@ -136,10 +136,10 @@ namespace IBL
                         drone.ParcelByTransfer.Id = parcel.Id;
                         drone.ParcelByTransfer.Weight = Enum.Parse<WeightCategories>(parcel.Weight.ToString());
 
-                        if (parcel.Scheduled != DateTime.MinValue && parcel.PickedUp == DateTime.MinValue)
+                        if (parcel.Scheduled != null && parcel.PickedUp == null)
                             drone.ParcelByTransfer.Status = false;
 
-                        if (parcel.PickedUp != DateTime.MinValue && parcel.Delivered == DateTime.MinValue)
+                        if (parcel.PickedUp != null && parcel.Delivered == null)
                             drone.ParcelByTransfer.Status = true;
 
                         drone.ParcelByTransfer.Priority = Enum.Parse<Priorities>(parcel.Priority.ToString());
