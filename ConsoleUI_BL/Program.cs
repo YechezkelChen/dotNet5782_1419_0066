@@ -274,7 +274,7 @@ namespace ConsoleUI_BL
                                 {
                                     foreach (var elementParcelsNoDrone in bl.GetParcels(parcel =>
                                         parcel.Scheduled == null && parcel.PickedUp == null &&
-                                        parcel.Delivered == null)) 
+                                        parcel.Delivered == null)) // just parcels that dont have them drone.
                                         Console.WriteLine(elementParcelsNoDrone.ToString());
                                 }
                                 catch (ParcelException e)
