@@ -199,7 +199,7 @@ namespace IBL
                 throw new CustomerException("ERROR: Name must have value");
             int phone;
             if (customer.Phone.Length != 10 || customer.Phone.Substring(0, 2) != "05" ||
-                !int.TryParse(customer.Phone.Substring(0, customer.Phone.Length), out phone))
+                !int.TryParse(customer.Phone.Substring(0, customer.Phone.Length), out phone)) // check format phone
                 throw new CustomerException("ERROR: Phone must have 10 digits and to begin with the numbers 05");
             if (customer.Location.Longitude < -1 || customer.Location.Longitude > 1)
                 throw new CustomerException("ERROR: Longitude must to be between -1 to 1");
