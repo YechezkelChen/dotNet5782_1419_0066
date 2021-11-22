@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
 using IDAL;
+using Customer = IDAL.DO.Customer;
 
 
 namespace IBL
@@ -48,7 +49,7 @@ namespace IBL
                 ListDrones.Add(newDrone);
             }
 
-            IEnumerable<IDAL.DO.Parcel> ListParcelsIdalDo = dal.GetParcels();
+            IEnumerable<IDAL.DO.Parcel> ListParcelsIdalDo = dal.GetParcels(parcel => true);
 
             for (int i = 0; i < ListDrones.Count(); i++)
             {
@@ -62,13 +63,10 @@ namespace IBL
                         //and have drone to connect
                     {
                         newDroneToList.Status = DroneStatuses.Delivery;
-                        if (elementParcel.Scheduled != null &&
-                            elementParcel.PickedUp == null) //we write the the bool condition
-                            //elementParcel.Scheduled != DateTime.MinValue for the understanding of the code
+                        if (elementParcel.PickedUp == null && elementParcel.Delivered == null)
                             newDroneToList.Location =
                                 NearStationToCustomer(dal.GetCustomer(elementParcel.SenderId)).Location;
-                        if (elementParcel.Delivered == null &&
-                            elementParcel.PickedUp != null)
+                        if (elementParcel.PickedUp != null && elementParcel.Delivered == null)
                             newDroneToList.Location = new Location()
                             {
                                 Longitude = dal.GetCustomer(elementParcel.SenderId).Longitude,
@@ -121,16 +119,22 @@ namespace IBL
 
                     newDroneToList.Battery = 20 * rand.NextDouble();
                     newDroneToList.IdParcel = 0;
-                    SendDroneToDroneCharge(newDroneToList.Id);
+                    try
+                    {
+                        SendDroneToDroneCharge(newDroneToList.Id);
+                    }
+                    catch (DroneException)
+                    { }
                 }
 
                 if (newDroneToList.Status == DroneStatuses.Available)
                 {
-                    IEnumerable<IDAL.DO.Customer> customersWithDelivery =
-                        ListCustomersWithDelivery(dal.GetCustomers(), dal.GetParcels());
-                    if (customersWithDelivery.Count() == 0)
-                        newDroneToList.Location = new Location() {Longitude = 0, Latitude = 0};
-                    else
+                    IEnumerable<IDAL.DO.Customer> customersWithDelivery = new List<IDAL.DO.Customer>();
+                    foreach (var elementParcel in dal.GetParcels(parcel => true))
+                        customersWithDelivery = dal.GetCustomers().ToList().FindAll(customer =>
+                            customer.Id == elementParcel.TargetId && elementParcel.Delivered != null);
+
+                    if (customersWithDelivery.Any())
                     {
                         int index = rand.Next(0, customersWithDelivery.Count());
                         newDroneToList.Location = new Location()
@@ -139,6 +143,8 @@ namespace IBL
                             Latitude = customersWithDelivery.ElementAt(index).Latitude
                         };
                     }
+                    else
+                        newDroneToList.Location = new Location() {Longitude = 0, Latitude = 0};
 
                     double distanceFromNearStation = Distance(newDroneToList.Location,
                         NearStationToDrone(dal.GetDrone(newDroneToList.Id)).Location);

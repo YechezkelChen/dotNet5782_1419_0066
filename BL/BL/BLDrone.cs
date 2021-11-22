@@ -64,7 +64,7 @@ namespace IBL
 
             try
             {
-                int foundDrone = CheckDroneAndParcel(newDroneToList.Id, dal.GetParcels());//return the id of the parcel
+                int foundDrone = CheckDroneAndParcel(newDroneToList.Id, dal.GetParcels(parcel => true));//return the id of the parcel
                 newDroneToList.IdParcel = foundDrone;
             }
             catch (DroneException e)

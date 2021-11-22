@@ -68,7 +68,7 @@ namespace IBL
             customer.FromTheCustomerList = new List<ParcelInCustomer>();
             customer.ToTheCustomerList = new List<ParcelInCustomer>();
 
-            foreach (var elementParcel in dal.GetParcels())// accordion to the conditions in the exercise
+            foreach (var elementParcel in dal.GetParcels(parcel => true))// accordion to the conditions in the exercise
                 if (customer.Id == elementParcel.SenderId)
                 {
                     ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
@@ -91,7 +91,7 @@ namespace IBL
                     customer.FromTheCustomerList.Add(parcelInCustomer);
                 }
 
-            foreach (var elementParcel in dal.GetParcels())
+            foreach (var elementParcel in dal.GetParcels(parcel => true))
                 if (customer.Id == elementParcel.TargetId)
                 {
                     ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
@@ -138,7 +138,7 @@ namespace IBL
                 newCustomer.TargetParcelDelivered = 0;
                 newCustomer.TargetParcelPickedUp = 0;
 
-                foreach (var elementParcel in dal.GetParcels())
+                foreach (var elementParcel in dal.GetParcels(parcel => true))
                 {
                     if (elementParcel.SenderId == idalCustomer.Id && elementParcel.Delivered != null)
                         newCustomer.SenderParcelDelivered++;
@@ -241,24 +241,6 @@ namespace IBL
                 num = num / 10;
             }
             return sum_digits;//Return of the sum of his digits.
-        }
-        /// <summary>
-        /// check for the customer with delivery.
-        /// <returns></return the customers that have any dilivery>
-        private IEnumerable<IDAL.DO.Customer> ListCustomersWithDelivery(IEnumerable<IDAL.DO.Customer> customers,
-            IEnumerable<IDAL.DO.Parcel> Parcels)
-        {
-            List<IDAL.DO.Customer> newCustomers = new List<IDAL.DO.Customer>();
-            foreach (var elementCustomer in customers)
-            {
-                foreach (var elementParcel in Parcels)
-                {
-                    if (elementParcel.TargetId == elementCustomer.Id && elementParcel.Delivered != null)
-                        newCustomers.Add(elementCustomer);
-                }
-            }
-
-            return newCustomers;
         }
     }
 }

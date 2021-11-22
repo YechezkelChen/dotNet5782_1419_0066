@@ -38,7 +38,7 @@ namespace IDAL
         // Parcel
         int AddParcel(Parcel newParcel);
         Parcel GetParcel(int parcelId);
-        IEnumerable<Parcel> GetParcels();
+        IEnumerable<Parcel> GetParcels(Predicate<Parcel> parcelPredicate);
         void UpdateParcel(Parcel parcel);
 
 

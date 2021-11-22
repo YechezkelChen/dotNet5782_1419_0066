@@ -54,9 +54,10 @@ namespace DalObject
         /// return all the parcel in the list
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Parcel> GetParcels()
+        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> parcelPredicate)
         {
-            return DataSource.Parcels;
+            List<Parcel> parcels = DataSource.Parcels.FindAll(parcelPredicate);
+            return parcels;
         }
 
         public void UpdateParcel(Parcel parcel)

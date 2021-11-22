@@ -102,28 +102,6 @@ namespace IBL
         }
 
         /// <summary>
-        ///  return the list of stations charge in special entity for show
-        /// </summary>
-        /// <returns></returns>
-        //public IEnumerable<StationToList> GetStationsCharge(Predicate<IDAL.DO.Station> stationPredicate)
-        //{
-        //    List<StationToList> stationChargeSlotsAvailable = new List<StationToList>();
-
-        //    foreach (var elementStationToList in dal.GetStations(stationPredicate))
-        //    {
-        //        StationToList station= new StationToList()
-        //        {
-        //            Id=elementStationToList.Id,
-        //            Name = elementStationToList.Name,
-        //            ChargeSlotsNotAvailable = elementStationToList.
-        //        };
-        //        stationChargeSlotsAvailable.Add(elementStationToList);
-        //    }
-
-        //    return stationChargeSlotsAvailable;
-        //}
-
-        /// <summary>
         /// update the parameters that user want to update(name, chargeSlots)
         /// </summary>
         /// <param name="id"></param>

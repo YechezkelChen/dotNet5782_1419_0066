@@ -93,13 +93,11 @@ namespace IBL
         /// return the list of parcels in special entity for show
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ParcelToList> GetParcels()
+        public IEnumerable<ParcelToList> GetParcels(Predicate<IDAL.DO.Parcel> parcelPredicate)
         {
-            IEnumerable<IDAL.DO.Parcel> idalParcels = dal.GetParcels();
             List<ParcelToList> parcelToLists = new List<ParcelToList>();
             
-
-            foreach (var idalParcel in idalParcels)
+            foreach (var idalParcel in dal.GetParcels(parcelPredicate))
             {
                 ParcelToList newParcel = new ParcelToList();
                 newParcel.Id = idalParcel.Id;
@@ -129,7 +127,7 @@ namespace IBL
         /// <returns></returns>
         public IEnumerable<ParcelToList> GetParcelsNoDrones()
         {
-            IEnumerable<IDAL.DO.Parcel> idalParcels = dal.GetParcels();
+            IEnumerable<IDAL.DO.Parcel> idalParcels = dal.GetParcels(parcel =>true);
             List<ParcelToList> parcelNoDrones = new List<ParcelToList>();
            
 
@@ -302,7 +300,7 @@ namespace IBL
             Parcel parcel = new Parcel();
             parcel = GetParcel(drone.ParcelByTransfer.Id);
 
-            foreach (var elementParcelToList in GetParcels())
+            foreach (var elementParcelToList in GetParcels(parcel => true))
             {
                 if (elementParcelToList.Id == parcel.Id)
                 {

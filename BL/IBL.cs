@@ -13,7 +13,6 @@ namespace IBL
         void AddStation(Station newStation);
         Station GetStation(int id);
         IEnumerable<StationToList> GetStations(Predicate<IDAL.DO.Station> stationPredicate);
-        //IEnumerable<StationToList> GetStationsCharge(Predicate<IDAL.DO.Station> stationPredicate);//
         void UpdateDataStation(int id, int name, int chargeSlots);
 
 
@@ -36,8 +35,7 @@ namespace IBL
         // Parcel
         void AddParcel(Parcel newParcel);
         Parcel GetParcel(int id);
-        IEnumerable<ParcelToList> GetParcels();
-        IEnumerable<ParcelToList> GetParcelsNoDrones();//
+        IEnumerable<ParcelToList> GetParcels(Predicate<IDAL.DO.Parcel> parcelPredicate);
         void ConnectParcelToDrone(int idDrone);
         void CollectionParcelByDrone(int idDrone);
         void SupplyParcelByDrone(int idDrone);

@@ -172,7 +172,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (StationException e)
                                 {
-                                    Console.WriteLine(e);
+                                    Console.WriteLine(e.Message);
                                 }
                                 break;
                             case EntityOption.Drone:
@@ -228,7 +228,7 @@ namespace ConsoleUI_BL
                             case OptionListView.ListStations:
                                 try
                                 {
-                                    foreach (var elementStation in bl.GetStations(s => true))
+                                    foreach (var elementStation in bl.GetStations(station => true))
                                         Console.WriteLine(elementStation.ToString());
                                 }
                                 catch (StationException e)
@@ -261,7 +261,7 @@ namespace ConsoleUI_BL
                             case OptionListView.ListParcels:
                                 try
                                 {
-                                    foreach (var elementParcel in bl.GetParcels())
+                                    foreach (var elementParcel in bl.GetParcels(parcel => true))
                                         Console.WriteLine(elementParcel.ToString());
                                 }
                                 catch (ParcelException e)
@@ -272,7 +272,9 @@ namespace ConsoleUI_BL
                             case OptionListView.ListParcelsNoDrones:
                                 try
                                 {
-                                    foreach (var elementParcelsNoDrone in bl.GetParcelsNoDrones())
+                                    foreach (var elementParcelsNoDrone in bl.GetParcels(parcel =>
+                                        parcel.Scheduled == null && parcel.PickedUp == null &&
+                                        parcel.Delivered == null)) 
                                         Console.WriteLine(elementParcelsNoDrone.ToString());
                                 }
                                 catch (ParcelException e)
@@ -283,7 +285,7 @@ namespace ConsoleUI_BL
                             case OptionListView.ListStationsCharge:
                                 try
                                 {
-                                    foreach (var elementStationCharge in bl.GetStations(s => s.ChargeSlots > 0))
+                                    foreach (var elementStationCharge in bl.GetStations(station => station.ChargeSlots > 0))
                                         Console.WriteLine(elementStationCharge.ToString());
                                 }
                                 catch (StationException e)
