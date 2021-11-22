@@ -16,7 +16,9 @@ namespace IBL
             public override string ToString()
             {
                 return
-                    $"Id #{Id}: Battery = {Battery}, Location ={Location}";
+                    $"Id #{Id}: " +
+                    $"Battery = " + String.Format("{0:0.000}", Battery) + "," +
+                    $" Location ={Location}";
             }
         }
     }

@@ -25,7 +25,7 @@ namespace IBL
                 return $"Id #{Id}: Parcel status = {Status},Priority = {Priority}," +
                        $"Weight = {Weight},  Sender in parcel = {SenderInParcel}, Receiver in parcel = {ReceiverInParcel}," +
                        $"Pick up location = {PickUpLocation},Target location = {TargetLocation}, " +
-                       $"Distance of transfer = {DistanceOfTransfer}";
+                       $"Distance of transfer =" + String.Format("{0:0.00}", DistanceOfTransfer) + "\n";
             }
         }
     }
