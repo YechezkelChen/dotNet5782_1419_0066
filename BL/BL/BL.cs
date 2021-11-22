@@ -171,7 +171,7 @@ namespace IBL
                        Math.Cos(phi1) * Math.Cos(phi2) *
                        Math.Sin(deltaLambda / 2) * Math.Sin(deltaLambda / 2);
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            double d = R * c / 1000; // in kilometres
+            double d = R * c / 1000; // in kilometers
             return d;
         }
     }
