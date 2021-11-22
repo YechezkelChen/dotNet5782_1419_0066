@@ -134,7 +134,9 @@ namespace IBL
            
 
             foreach (var idalParcel in idalParcels)
-                if (idalParcel.Scheduled == DateTime.MinValue)
+                if (idalParcel.Scheduled == DateTime.MinValue && idalParcel.PickedUp == DateTime.MinValue &&
+                    idalParcel.Delivered == DateTime.MinValue)
+                    
                 {
                     ParcelToList newParcel = new ParcelToList();
                     newParcel.Id = idalParcel.Id;

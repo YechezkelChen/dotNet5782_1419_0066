@@ -197,12 +197,14 @@ namespace IBL
                 throw new CustomerException("ERROR: the ID is illegal! ");
             if (customer.Name.Length == 0)
                 throw new CustomerException("ERROR: Name must have value");
-            if (customer.Phone.Length != 10)
-                throw new CustomerException("ERROR: Phone must have 10 digits");
+            int phone;
+            if (customer.Phone.Length != 10 || customer.Phone.Substring(0, 2) != "05" ||
+                !int.TryParse(customer.Phone.Substring(0, customer.Phone.Length), out phone))
+                throw new CustomerException("ERROR: Phone must have 10 digits and to begin with the numbers 05");
             if (customer.Location.Longitude < -1 || customer.Location.Longitude > 1)
-                throw new DalObject.CustomerException("ERROR: Longitude must to be between -1 to 1");
+                throw new CustomerException("ERROR: Longitude must to be between -1 to 1");
             if (customer.Location.Latitude < -1 || customer.Location.Latitude > 1)
-                throw new DalObject.CustomerException("ERROR: Latitude must to be between -1 to 1");
+                throw new CustomerException("ERROR: Latitude must to be between -1 to 1");
         }
         /// <summary>
         /// get last digit of the id
