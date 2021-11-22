@@ -49,7 +49,9 @@ namespace IBL
             newDroneToList.IdParcel = 0;
             try
             {
-                dal.GetStation(idStation);// try to find the station the user want to connect the drone to
+                IDAL.DO.Station station = dal.GetStation(idStation);// try to find the station the user want to connect the drone to and if the station the
+                if (station.ChargeSlots == 0) // user ask have place for charge
+                    throw new StationException("The station you ask not have more place.");
             }
             catch (DalObject.stationException e)
             {

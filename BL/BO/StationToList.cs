@@ -16,7 +16,7 @@ namespace IBL
             public int ChargeSlotsNotAvailable { get; set; }
             public override string ToString()
             {
-                return $"Id #{Id}: Name = {Name},Charge slots available = {ChargeSlotsAvailable}," +
+                return $"Id #{Id}: Name = {Name}, Charge slots available = {ChargeSlotsAvailable}, " +
                         $"charge slots not available = {ChargeSlotsNotAvailable}";
             }
         }

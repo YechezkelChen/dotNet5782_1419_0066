@@ -17,8 +17,8 @@ namespace IBL
             {
                 return
                     $"Id #{Id}: " +
-                    $"Battery = " + String.Format("{0:0.000}", Battery) + "," +
-                    $" Location ={Location}";
+                    $"Battery = " + String.Format("{0:0.000}", Battery) + ", " +
+                    $"Location ={Location}";
             }
         }
     }

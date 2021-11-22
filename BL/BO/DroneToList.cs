@@ -20,9 +20,9 @@ namespace IBL
             public override string ToString()
             {
                 return
-                    $"Id #{Id}: Model = {Model}, Weight = {Weight}," +
-                    $"Battery = " + String.Format("{0:0.000}", Battery) + "," +
-                    $"Drone Statues = {Status}, Location = {Location},Id of the parcel = {IdParcel}";
+                    $"Id #{Id}: Model = {Model}, Weight = {Weight}, " +
+                    $"Battery = " + String.Format("{0:0.000}", Battery) + ", " +
+                    $"Drone Statues = {Status}, Location = {Location}, Id of the parcel = {IdParcel}";
             }
         }
     }
