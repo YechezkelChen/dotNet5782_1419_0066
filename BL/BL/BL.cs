@@ -111,7 +111,7 @@ namespace IBL
                 {
                     newDroneToList.Status =
                         DroneStatuses.Available; // for the charge after he will be in Maintenance.
-                    IEnumerable<IDAL.DO.Station> listStationsIdalDo = dal.GetStations();
+                    IEnumerable<IDAL.DO.Station> listStationsIdalDo = dal.GetStations(s => true);
                     int index = rand.Next(0, listStationsIdalDo.Count());
                     newDroneToList.Location = new Location()
                     {

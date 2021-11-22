@@ -86,7 +86,7 @@ namespace IBL
             {
                 SendDroneToDroneCharge(newDroneToList.Id);
             }
-            catch (DroneException e)
+            catch (DroneException )
             { }
         }
         /// <summary>
@@ -125,7 +125,7 @@ namespace IBL
                     {
                         parcel = dal.GetParcel(eleDroneToList.IdParcel);
                     }
-                    catch (DalObject.ParcelException e)
+                    catch (DalObject.ParcelException )
                     {
                         drone.ParcelByTransfer.Status = false;
                         return drone;
@@ -295,7 +295,7 @@ namespace IBL
                     {
                         if (elementDroneCharge.DroneId == elementListDrone.Id)
                         {
-                            foreach (var elementStationToList in GetStations())
+                            foreach (var elementStationToList in GetStations(s => true))
                             {
                                 if (elementDroneCharge.StationId == elementStationToList.Id)
                                 {

@@ -93,7 +93,6 @@ namespace IBL
                 newStationToList.Id = idalStation.Id;
                 newStationToList.Name = idalStation.Name;
                 newStationToList.ChargeSlotsAvailable = idalStation.ChargeSlots;
-
                 newStationToList.ChargeSlotsNotAvailable = station.InCharges.Count();
 
                 stationsToList.Add(newStationToList);
@@ -106,17 +105,23 @@ namespace IBL
         ///  return the list of stations charge in special entity for show
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<StationToList> GetStationsCharge()
-        {
-            IEnumerable<StationToList> stationsToList = GetStations();
-            List<StationToList> stationChargeSlotsAvailable = new List<StationToList>();
+        //public IEnumerable<StationToList> GetStationsCharge(Predicate<IDAL.DO.Station> stationPredicate)
+        //{
+        //    List<StationToList> stationChargeSlotsAvailable = new List<StationToList>();
 
-            foreach (var elementStationToList in stationsToList) 
-                if (stationPredicate)
-                    stationChargeSlotsAvailable.Add(elementStationToList);
+        //    foreach (var elementStationToList in dal.GetStations(stationPredicate))
+        //    {
+        //        StationToList station= new StationToList()
+        //        {
+        //            Id=elementStationToList.Id,
+        //            Name = elementStationToList.Name,
+        //            ChargeSlotsNotAvailable = elementStationToList.
+        //        };
+        //        stationChargeSlotsAvailable.Add(elementStationToList);
+        //    }
 
-            return stationChargeSlotsAvailable;
-        }
+        //    return stationChargeSlotsAvailable;
+        //}
 
         /// <summary>
         /// update the parameters that user want to update(name, chargeSlots)
@@ -166,9 +171,9 @@ namespace IBL
                 throw new DroneException("" + e);
             }
 
-            foreach (var stationCharge in GetStationsCharge())
+            foreach (var stationCharge in GetStations(s => s.ChargeSlots > 0))
             {
-                foreach (var station in dal.GetStations()) // for the location
+                foreach (var station in dal.GetStations(s => true)) // for the location
                 {
                     if (stationCharge.Id == station.Id)
                     {
@@ -183,7 +188,7 @@ namespace IBL
 
             double minDistance = distancesList.Min();
             Station nearStation = new Station();
-            foreach (var station in dal.GetStations())
+            foreach (var station in dal.GetStations(s => true))
             {
                 stationLocation.Longitude = station.Longitude;
                 stationLocation.Latitude = station.Latitude;
@@ -206,9 +211,9 @@ namespace IBL
             Location stationLocation = new Location();
             Location customerLocation = new Location() { Longitude = customer.Longitude, Latitude = customer.Latitude };
 
-            foreach (var stationCharge in GetStationsCharge())
+            foreach (var stationCharge in GetStations(s => s.ChargeSlots > 0))
             {
-                foreach (var station in dal.GetStations())
+                foreach (var station in dal.GetStations(s => true))
                 {
                     if (stationCharge.Id == station.Id)
                     {
@@ -220,7 +225,7 @@ namespace IBL
 
             double minDistance = distancesList.Min();
             Station nearStation = new Station();
-            foreach (var station in dal.GetStations())
+            foreach (var station in dal.GetStations(s => true))
             {
                 stationLocation.Longitude = station.Longitude;
                 stationLocation.Latitude = station.Latitude;
@@ -250,7 +255,7 @@ namespace IBL
             if (station.Location.Latitude < -1 || station.Location.Latitude > 1)
                 throw new StationException("ERROR: Latitude must to be between -1 to 1");
 
-            foreach (var elementStation in dal.GetStations())
+            foreach (var elementStation in dal.GetStations(s => true))
                 if (elementStation.Latitude == station.Location.Latitude &&
                     elementStation.Longitude == station.Location.Longitude)
                     throw new StationException("ERROR: the location is catch! ");

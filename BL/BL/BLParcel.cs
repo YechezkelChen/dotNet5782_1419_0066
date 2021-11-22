@@ -228,7 +228,7 @@ namespace IBL
             {
                 updateParcel = dal.GetParcel(parcelToConnect.Id);
             }
-            catch (DalObject.ParcelException e)//if ther is not available drone to carry the parcel
+            catch (DalObject.ParcelException )//if ther is not available drone to carry the parcel
             {
                 throw new ParcelException("There are no packages that the available drone you entered can carry\n .. " +
                                           "Please wait for other drones to be available or enter the identity of another available drone.");
@@ -369,7 +369,7 @@ namespace IBL
             {
                 dal.GetCustomer(parcel.Sender.Id);
             }
-            catch (DalObject.CustomerException e)
+            catch (DalObject.CustomerException )
             {
                 throw new ParcelException("ERROR: the Sender customer not found! ");
             }
@@ -377,7 +377,7 @@ namespace IBL
             {
                 dal.GetCustomer(parcel.Target.Id);
             }
-            catch (DalObject.CustomerException e)
+            catch (DalObject.CustomerException )
             {
                 throw new ParcelException("ERROR: the Target customer not found! ");
             }

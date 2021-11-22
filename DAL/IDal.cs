@@ -17,7 +17,7 @@ namespace IDAL
         // Station
         void AddStation(Station newStation);
         Station GetStation(int stationId);
-        IEnumerable<Station> GetStations();
+        IEnumerable<Station> GetStations(Predicate<Station> stationPredicate);
         void UpdateStation(Station station);
 
 

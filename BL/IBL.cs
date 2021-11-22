@@ -13,7 +13,7 @@ namespace IBL
         void AddStation(Station newStation);
         Station GetStation(int id);
         IEnumerable<StationToList> GetStations(Predicate<IDAL.DO.Station> stationPredicate);
-        IEnumerable<StationToList> GetStationsCharge();//
+        //IEnumerable<StationToList> GetStationsCharge(Predicate<IDAL.DO.Station> stationPredicate);//
         void UpdateDataStation(int id, int name, int chargeSlots);
 
 
