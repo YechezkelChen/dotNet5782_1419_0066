@@ -49,7 +49,7 @@ namespace DalObject
                     Name = rand.Next(1, 100),
                     Longitude = rand.NextDouble(),
                     Latitude = rand.NextDouble(),
-                    ChargeSlots = rand.Next(0, 100)
+                    ChargeSlots = rand.Next(0, 10)
                 });
             }
 
