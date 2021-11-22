@@ -29,7 +29,7 @@ namespace DalObject
         {
             Random rand = new Random(DateTime.Now.Millisecond);
             List<string> names = new List<string>() { "a", "b", "c", "d", "e" };
-            List<DateTime> dates = new List<DateTime>() {DateTime.Now, DateTime.MinValue};
+            List<DateTime?> dates = new List<DateTime?>() {DateTime.Now, null};
 
             for (int i = 0; i < 5; i++)
             {

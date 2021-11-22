@@ -21,7 +21,6 @@ namespace IDAL
         void UpdateStation(Station station);
 
 
-
         // Drone
         void AddDrone(Drone newDrone);
         Drone GetDrone(int droneId);
@@ -35,6 +34,7 @@ namespace IDAL
         IEnumerable<Customer> GetCustomers();
         void UpdateCustomer(Customer customer);
 
+
         // Parcel
         int AddParcel(Parcel newParcel);
         Parcel GetParcel(int parcelId);
@@ -42,17 +42,9 @@ namespace IDAL
         void UpdateParcel(Parcel parcel);
 
 
-
         // DroneCharge
         void AddDroneCharge(DroneCharge newDroneCharge);
         void RemoveDroneCharge(DroneCharge DroneCharge);
         IEnumerable<DroneCharge> GetDronesCharge();
-
-
-        //void ConnectParcelToDrone(Parcel p, Drone d);
-        //void CollectionParcelByDrone(Parcel p);
-        //void SupplyParcelToCustomer(Parcel p);
-        //void SendDroneToDroneCharge(Station s, Drone d);
-        //void ReleaseDroneFromDroneCharge(Station s, Drone d);
     }
 }
