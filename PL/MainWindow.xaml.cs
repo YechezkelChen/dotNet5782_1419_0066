@@ -23,8 +23,8 @@ namespace PL
         IBL.IBL bl;
         public MainWindow()
         {
-            bl = new IBL.BL();
             InitializeComponent();
+            bl = new IBL.BL();
             ShowDroneButton.MouseDoubleClick += ShowDroneButtonClick;
         }
         private void ShowDroneButtonClick (object sender, RoutedEventArgs e)
