@@ -22,17 +22,17 @@
         </Grid>
         <ComboBox Name="DroneSelector" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="StatusSelectorClick">
             <ComboBoxItem Name="DroneStatus">
-                <ComboBox Name="Statuss" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="StatusSelectorClick">
-                    <ComboBoxItem Content="Aviailable"/>
-                    <ComboBoxItem Content="Maintenance"/>
-                    <ComboBoxItem Content="Delivery"/>
+                <ComboBox Name="Status" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="StatusSelectorClick">
+                    <ComboBoxItem Name="Aviailable" Content="Aviailable"/>
+                    <ComboBoxItem Name="Maintenance" Content="Maintenance"/>
+                    <ComboBoxItem Name="Delivery" Content="Delivery"/>
                 </ComboBox>
             </ComboBoxItem>
             <ComboBoxItem Name="DroneWeight">
                 <ComboBox Name="Weight" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="StatusSelectorClick">
-                    <ComboBoxItem Content="Light"/>
-                    <ComboBoxItem Content="Medium"/>
-                    <ComboBoxItem Content="Heavy"/>
+                    <ComboBoxItem Name="Light" Content="Light"/>
+                    <ComboBoxItem Name="Medium" Content="Medium"/>
+                    <ComboBoxItem Name="Heavy" Content="Heavy"/>
                 </ComboBox>
             </ComboBoxItem>
         </ComboBox>

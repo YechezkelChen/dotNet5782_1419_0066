@@ -31,9 +31,26 @@ namespace PL
 
         private void StatusSelectorClick(object sender, SelectionChangedEventArgs e)
         {
+            MessageBox.Show(DroneSelector.ToString());
+            if (DroneSelector.SelectedItem == DroneStatus)
+            {
+                if (Status.SelectedItem == Aviailable)
+                    DronesListView.ItemsSource = bl.GetDrones(drone => drone.Status == DroneStatuses.Available);
+                if (Status.SelectedItem == Maintenance)
+                    DronesListView.ItemsSource = bl.GetDrones(drone => drone.Status == DroneStatuses.Maintenance); 
+                if (Status.SelectedItem == Delivery)
+                    DronesListView.ItemsSource = bl.GetDrones(drone => drone.Status == DroneStatuses.Delivery);
+            }
 
+            if (DroneSelector.SelectedItem == DroneWeight)
+            {
+                if (Weight.SelectedItem == Light)
+                    DronesListView.ItemsSource = bl.GetDrones(drone => drone.Weight == WeightCategories.Light);
+                if (Weight.SelectedItem == Medium)
+                    DronesListView.ItemsSource = bl.GetDrones(drone => drone.Weight == WeightCategories.Medium);
+                if (Weight.SelectedItem == Heavy)
+                    DronesListView.ItemsSource = bl.GetDrones(drone => drone.Weight == WeightCategories.Heavy);
+            }
         }
-
-
     }
 }
