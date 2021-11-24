@@ -122,36 +122,6 @@ namespace IBL
         }
 
         /// <summary>
-        /// return the list without drone that scheduled to them
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<ParcelToList> GetParcelsNoDrones()
-        {
-            IEnumerable<IDAL.DO.Parcel> idalParcels = dal.GetParcels(parcel =>true);
-            List<ParcelToList> parcelNoDrones = new List<ParcelToList>();
-           
-
-            foreach (var idalParcel in idalParcels)
-                if (idalParcel.Scheduled == null && idalParcel.PickedUp == null &&
-                    idalParcel.Delivered == null)
-                    
-                {
-                    ParcelToList newParcel = new ParcelToList();
-                    newParcel.Id = idalParcel.Id;
-                    newParcel.SenderName = GetCustomer(idalParcel.SenderId).Name;
-                    newParcel.TargetName = GetCustomer(idalParcel.TargetId).Name;
-                    newParcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
-                    newParcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
-
-                    newParcel.ParcelStatuses = ParcelStatuses.Requested;
-
-                    parcelNoDrones.Add(newParcel);
-                }
-            
-            return parcelNoDrones;
-        }
-
-        /// <summary>
         /// find parcel in the data conditions and connect it to the drone
         /// </summary>
         /// <param name="droneId"></param>
@@ -172,7 +142,8 @@ namespace IBL
 
             ParcelToList parcel = new ParcelToList();
 
-            IEnumerable<ParcelToList> parcelNoDrones = GetParcelsNoDrones();
+            IEnumerable<ParcelToList> parcelNoDrones = GetParcels(parcel => parcel.Scheduled == null &&
+                                                                  parcel.PickedUp == null && parcel.Delivered == null); // just parcels that dont have them drone.
             List<ParcelToList> prioritiesParcel = new List<ParcelToList>();
             List<ParcelToList> weightParcel = new List<ParcelToList>();
             Parcel parcelToConnect = new Parcel();

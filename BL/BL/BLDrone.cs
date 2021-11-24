@@ -89,6 +89,7 @@ namespace IBL
             catch (DroneException )
             { }
         }
+
         /// <summary>
         /// get a drone
         /// </summary>
@@ -163,6 +164,7 @@ namespace IBL
             }
             return drone;
         }
+
         /// <summary>
         /// get a drones
         /// </summary>
@@ -171,6 +173,7 @@ namespace IBL
         {
             return ListDrones;
         }
+
         /// <summary>
         /// Update the model of the drone
         /// </summary>
@@ -205,6 +208,7 @@ namespace IBL
 
             dal.UpdateDrone(updateDrone);
         }
+
         /// <summary>
         /// Send the drone to drone charge
         /// </summary>
@@ -266,6 +270,7 @@ namespace IBL
                 throw new DroneException(e.Message, e);
             }
         }
+
         /// <summary>
         /// Release the drone from the drone charge
         /// </summary>
@@ -324,6 +329,7 @@ namespace IBL
                 }
             }
         }
+
         /// <summary>
         /// Check the input of the user
         /// </summary>

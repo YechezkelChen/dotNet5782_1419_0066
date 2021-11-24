@@ -73,7 +73,7 @@ namespace DalObject
         /// <param Name="d"></the parcel we check if she is exist>
         /// <param Name="Drones"></the list of Parcels>
         /// <returns></returns>
-        public bool IsExistParcel(Parcel parcel, IEnumerable<Parcel> parcels)
+        private bool IsExistParcel(Parcel parcel, IEnumerable<Parcel> parcels)
         {
             foreach (Parcel elementParcel in parcels)
                 if (elementParcel.Id == parcel.Id)

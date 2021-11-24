@@ -40,7 +40,7 @@ namespace DalObject
             return DataSource.DroneCharges;
         }
 
-        public bool IsExistDroneCharge(DroneCharge droneCharge, IEnumerable<DroneCharge> droneCharges)
+        private bool IsExistDroneCharge(DroneCharge droneCharge, IEnumerable<DroneCharge> droneCharges)
         {
             foreach (DroneCharge elementDroneCharge in droneCharges)
                 if (elementDroneCharge.DroneId == droneCharge.DroneId && elementDroneCharge.StationId == droneCharge.StationId) 

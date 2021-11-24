@@ -14,9 +14,9 @@ namespace IBL
 {
     public partial class BL : IBL
     {
-        public List<DroneToList> ListDrones = new List<DroneToList>();
+        List<DroneToList> ListDrones = new List<DroneToList>();
 
-        private IDal dal;
+        IDal dal;
 
         double BatteryAvailable, BatteryLightWeight, BatteryMediumWeight, BatteryHeavyWeight, ChargingRateOfDrone;
 

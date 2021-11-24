@@ -44,6 +44,7 @@ namespace IBL
             customer.Latitude = newCustomer.Location.Latitude;
             dal.AddCustomer(customer);
         }
+
         /// <summary>
         /// get a customer
         /// </summary>
@@ -115,6 +116,7 @@ namespace IBL
 
             return customer;
         }
+
         /// <summary>
         /// get a customers
         /// </summary>
@@ -155,6 +157,7 @@ namespace IBL
 
             return customerToLists;
         }
+
         /// <summary>
         /// Update the data of the customer
         /// </summary>
@@ -187,6 +190,7 @@ namespace IBL
 
             dal.UpdateCustomer(updateCustomer);// update the data center
         }
+
         /// <summary>
         /// Check the input of the user
         /// </summary>
@@ -206,6 +210,7 @@ namespace IBL
             if (customer.Location.Latitude < -1 || customer.Location.Latitude > 1)
                 throw new CustomerException("ERROR: Latitude must to be between -1 to 1");
         }
+
         /// <summary>
         /// get last digit of the id
         /// </summary>
@@ -229,6 +234,7 @@ namespace IBL
             digitID = 10 - sumResultDigits;
             return digitID;//Returning the missing digit.v
         }
+
         /// <summary>
         ///Entering a number by the computer.
         /// <returns></return the sum of digit >
