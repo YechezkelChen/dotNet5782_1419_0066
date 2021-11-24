@@ -27,14 +27,11 @@ namespace PL
             InitializeComponent();
             bl = ibl;
             DronesListView.ItemsSource = bl.GetDrones(drone => true);
-
-            DroneSelector
-            DroneSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
         }
 
-        private void StatuseSelector_Click(object sender, SelectionChangedEventArgs e)
+        private void StatusSelectorClick(object sender, SelectionChangedEventArgs e)
         {
-            bl.GetDrones(drone => drone.Status == StatuseSelector.ItemsSource);
+            MessageBox.Show(DroneSelector.SelectedItem.ToString());
         }
 
 

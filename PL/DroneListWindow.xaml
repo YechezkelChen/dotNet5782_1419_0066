@@ -20,16 +20,16 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
         </Grid>
-        <ComboBox Name="DroneSelector" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="DroneSelectorSelectionChanged">
+        <ComboBox Name="DroneSelector" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="StatusSelectorClick">
             <ComboBoxItem Name="DroneStatus">
-                <ComboBox Name="Statuss" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="DroneSelectorSelectionChanged">
+                <ComboBox Name="Statuss" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="StatusSelectorClick">
                     <ComboBoxItem Content="Aviailable"/>
                     <ComboBoxItem Content="Maintenance"/>
                     <ComboBoxItem Content="Delivery"/>
                 </ComboBox>
             </ComboBoxItem>
             <ComboBoxItem Name="DroneWeight">
-                <ComboBox Name="Weight" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="DroneSelectorSelectionChanged">
+                <ComboBox Name="Weight" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="StatusSelectorClick">
                     <ComboBoxItem Content="Light"/>
                     <ComboBoxItem Content="Medium"/>
                     <ComboBoxItem Content="Heavy"/>
