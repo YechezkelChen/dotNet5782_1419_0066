@@ -32,7 +32,7 @@ namespace IBL
         void UpdateDataCustomer(int id, string name, string phone); // Update customer data according to user request.
 
 
-        // Parcel
+        // Parcel 
         void AddParcel(Parcel newParcel); // Adds a parcel to the list of parcels.
         Parcel GetParcel(int id); // Returning a parcel according to the id of the parcel.
         IEnumerable<ParcelToList> GetParcels(Predicate<IDAL.DO.Parcel> parcelPredicate); // Returning the list of parcels in a special entity "Parcel to list".
