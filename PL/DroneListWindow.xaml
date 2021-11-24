@@ -20,8 +20,23 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
         </Grid>
-        <ComboBox Name="StatuseSelector" HorizontalAlignment="Left" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="StatuseSelector_Click"/>
-        <ComboBox Name="WeightSelector" HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged=""/>
+        <ComboBox Name="DroneSelector" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="DroneSelectorSelectionChanged">
+            <ComboBoxItem Name="DroneStatus">
+                <ComboBox Name="Statuss" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="DroneSelectorSelectionChanged">
+                    <ComboBoxItem Content="Aviailable"/>
+                    <ComboBoxItem Content="Maintenance"/>
+                    <ComboBoxItem Content="Delivery"/>
+                </ComboBox>
+            </ComboBoxItem>
+            <ComboBoxItem Name="DroneWeight">
+                <ComboBox Name="Weight" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="DroneSelectorSelectionChanged">
+                    <ComboBoxItem Content="Light"/>
+                    <ComboBoxItem Content="Medium"/>
+                    <ComboBoxItem Content="Heavy"/>
+                </ComboBox>
+            </ComboBoxItem>
+        </ComboBox>
+
         <TextBox Name="TextSelctor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0"/>
         <ListView x:Name="DronesListView" Grid.Row="1">
             <ListView.View>

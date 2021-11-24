@@ -26,13 +26,14 @@ namespace PL
         {
             InitializeComponent();
             bl = ibl;
-            DronesListView.ItemsSource = bl.GetDrones();
+            DronesListView.ItemsSource = bl.GetDrones(drone=>true);
             StatuseSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
         }
 
-        private void StatuseSelector_Click(object sender, SelectedDatesCollection e)
+        private void StatuseSelector_Click(object sender, SelectedCellsChangedEventArgs e)
         {
-           bl.GetDrones()
+            DronesListView.ItemsSource=bl.GetDrones(drone=>)
+            bl.GetDrones(drone => drone.Status ==  );
         }
 
 
