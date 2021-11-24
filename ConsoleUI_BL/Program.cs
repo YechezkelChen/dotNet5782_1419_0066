@@ -239,7 +239,7 @@ namespace ConsoleUI_BL
                             case OptionListView.ListDrones:
                                 try
                                 {
-                                    foreach (var elementDrone in bl.GetDrones())
+                                    foreach (var elementDrone in bl.GetDrones(drone => true))
                                         Console.WriteLine(elementDrone.ToString());
                                 }
                                 catch (DroneException e)
@@ -250,7 +250,7 @@ namespace ConsoleUI_BL
                             case OptionListView.ListCustomers:
                                 try
                                 {
-                                    foreach (var elementCustomer in bl.GetCustomers())
+                                    foreach (var elementCustomer in bl.GetCustomers(Customer => true))
                                         Console.WriteLine(elementCustomer.ToString());
                                 }
                                 catch (CustomerException e)

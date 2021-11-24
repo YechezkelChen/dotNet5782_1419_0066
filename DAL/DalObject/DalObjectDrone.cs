@@ -46,9 +46,10 @@ namespace DalObject
         /// return all the drone's list
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Drone> GetDrones()
+        public IEnumerable<Drone> GetDrones(Predicate<Drone> dronePredicate)
         {
-            return DataSource.Drones;
+            List<Drone> drones = DataSource.Drones.FindAll(dronePredicate);
+            return drones;
         }
 
         public void UpdateDrone(Drone drone)

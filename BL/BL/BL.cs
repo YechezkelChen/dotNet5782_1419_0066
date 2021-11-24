@@ -38,7 +38,7 @@ namespace IBL
             BatteryHeavyWeight = powerConsumption[3];
             ChargingRateOfDrone = powerConsumption[4];
 
-            IEnumerable<IDAL.DO.Drone> listDronesIdalDo = dal.GetDrones();
+            IEnumerable<IDAL.DO.Drone> listDronesIdalDo = dal.GetDrones(drone => true);
             foreach (var elementDrone in listDronesIdalDo)
             {
                 DroneToList newDrone = new DroneToList();
@@ -130,7 +130,7 @@ namespace IBL
                 {
                     IEnumerable<IDAL.DO.Customer> customersWithDelivery = new List<IDAL.DO.Customer>();
                     foreach (var elementParcel in dal.GetParcels(parcel => true))
-                        customersWithDelivery = dal.GetCustomers().ToList().FindAll(customer =>
+                        customersWithDelivery = dal.GetCustomers(drone => true).ToList().FindAll(customer =>
                             customer.Id == elementParcel.TargetId && elementParcel.Delivered != null);
 
                     if (customersWithDelivery.Any())

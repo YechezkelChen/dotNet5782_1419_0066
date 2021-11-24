@@ -46,9 +46,10 @@ namespace DalObject
         /// return all the customer list
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Customer> GetCustomers()
+        public IEnumerable<Customer> GetCustomers(Predicate<Customer> customerPredicate)
         {
-            return DataSource.Customers;
+            List<Customer> customers = DataSource.Customers.FindAll(customerPredicate);
+            return customers;
         }
 
         public void UpdateCustomer(Customer customer)

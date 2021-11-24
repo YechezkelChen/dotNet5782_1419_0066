@@ -19,7 +19,7 @@ namespace IBL
         // Drone
         void AddDrone(Drone newDrone, int idStation); // Adds a drone to the list of drones.
         Drone GetDrone(int id); // Returning a drone according to the id of the drone.
-        IEnumerable<DroneToList> GetDrones(); // Returning the list of drones in a special entity "Drone to list".
+        IEnumerable<DroneToList> GetDrones(Predicate<DroneToList> dronePredicate); // Returning the list of drones in a special entity "Drone to list".
         void UpdateDroneModel(int droneId, string newModel); // Update drone data according to user request.
         void SendDroneToDroneCharge(int id);// Sending a drone for charging at a vacant charging station.
         void ReleaseDroneFromDroneCharge(int id, int chargeTime); // Release drone from charging station.
@@ -28,7 +28,7 @@ namespace IBL
         // Customer
         void AddCustomer(Customer newCustomer); // Adds a customer to the list of customers.
         Customer GetCustomer(int id); // Returning a customer according to the id of the customer.
-        IEnumerable<CustomerToList> GetCustomers(); // Returning the list of customers in a special entity "Customer to list".
+        IEnumerable<CustomerToList> GetCustomers(Predicate<IDAL.DO.Customer> customerPredicate); // Returning the list of customers in a special entity "Customer to list".
         void UpdateDataCustomer(int id, string name, string phone); // Update customer data according to user request.
 
 
