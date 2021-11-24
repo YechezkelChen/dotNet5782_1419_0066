@@ -24,14 +24,14 @@ namespace IDAL
         // Drone
         void AddDrone(Drone newDrone); // Adds a drone to the list of drones.
         Drone GetDrone(int droneId); // Returning a drone according to the id of the drone.
-        IEnumerable<Drone> GetDrones(); // Returning the list of drones.
+        IEnumerable<Drone> GetDrones(Predicate<Drone> dronePredicate); // Returning the list of drones.
         void UpdateDrone(Drone drone); // Update drone data according to user request.
 
 
         // Customer
         void AddCustomer(Customer newCustomer); // Adds a customer to the list of customers.
         Customer GetCustomer(int customerId); // Returning a customer according to the id of the customer.
-        IEnumerable<Customer> GetCustomers(); // Returning the list of customers.
+        IEnumerable<Customer> GetCustomers(Predicate<Customer> customerPredicate); // Returning the list of customers.
         void UpdateCustomer(Customer customer); // Update customer data according to user request.
 
 

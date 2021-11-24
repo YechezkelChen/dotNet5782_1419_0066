@@ -169,9 +169,9 @@ namespace IBL
         /// get a drones
         /// </summary>
         /// <returns></return all drones>
-        public IEnumerable<DroneToList> GetDrones()
+        public IEnumerable<DroneToList> GetDrones(Predicate<DroneToList> dronePredicate)
         {
-            return ListDrones;
+            return ListDrones.FindAll(dronePredicate);
         }
 
         /// <summary>

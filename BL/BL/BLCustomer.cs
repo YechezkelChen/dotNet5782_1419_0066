@@ -121,13 +121,11 @@ namespace IBL
         /// get a customers
         /// </summary>
         /// <returns></return all customers>
-        public IEnumerable<CustomerToList> GetCustomers()
+        public IEnumerable<CustomerToList> GetCustomers(Predicate<IDAL.DO.Customer> customerPredicate)
         {
-            IEnumerable<IDAL.DO.Customer> idalcCustomers = dal.GetCustomers();
             List<CustomerToList> customerToLists = new List<CustomerToList>();
             
-
-            foreach (var idalCustomer in idalcCustomers)
+            foreach (var idalCustomer in dal.GetCustomers(customerPredicate))
             {
                 CustomerToList newCustomer = new CustomerToList();
                 newCustomer.Id = idalCustomer.Id;
