@@ -26,6 +26,7 @@ namespace PL
             InitializeComponent();
             bl = new IBL.BL();
             ShowDroneButton.MouseDoubleClick += ShowDroneButtonClick;
+
         }
 
         private void ShowDroneButtonClick (object sender, RoutedEventArgs e)

@@ -20,16 +20,16 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
         </Grid>
-        <ComboBox Name="DroneSelector" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="StatusSelectorClick">
+        <ComboBox x:Name="DroneSelector" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,127,0,0" Width="180" Grid.Row="0" Grid.Column="1" SelectionChanged="StatusSelectorClick">
             <ComboBoxItem Name="DroneStatus">
-                <ComboBox Name="Status" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="StatusSelectorClick">
+                <ComboBox Name="Status" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" SelectionChanged="StatusSelectorClick">
                     <ComboBoxItem Name="Aviailable" Content="Aviailable"/>
                     <ComboBoxItem Name="Maintenance" Content="Maintenance"/>
                     <ComboBoxItem Name="Delivery" Content="Delivery"/>
                 </ComboBox>
             </ComboBoxItem>
             <ComboBoxItem Name="DroneWeight">
-                <ComboBox Name="Weight" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="StatusSelectorClick">
+                <ComboBox Name="Weight" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="1" SelectionChanged="StatusSelectorClick">
                     <ComboBoxItem Name="Light" Content="Light"/>
                     <ComboBoxItem Name="Medium" Content="Medium"/>
                     <ComboBoxItem Name="Heavy" Content="Heavy"/>
