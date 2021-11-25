@@ -78,5 +78,10 @@ namespace PL
         {
             new DroneWindow(bl).Show(); //go to the window that can add a drone
         }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
