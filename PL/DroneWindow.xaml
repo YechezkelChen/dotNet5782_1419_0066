@@ -46,15 +46,16 @@
             <Label Name="TextStationLabel" Content="Please choose station to put the drone in charge:" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <ComboBox Name="GetStation" Grid.Column="1" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" Width="120"/>
         </Grid>
-        <Button x:Name="AddButton" Content="Add" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="139,0,0,0" Height="50" Width="150" Click="AddButton_Click"/>
-        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="578,0,0,0" Grid.Row="4" VerticalAlignment="Center" Height="50" Width="150" Click="CancelButton_Click"/>
-        <Button x:Name="CloseWindowButton" Content="CloseWindow" HorizontalAlignment="Center" VerticalAlignment="Top"  Grid.Row="4" Height="50" Width="150" Click="CloseWindowButton_Click" Margin="0,14,0,0"/>
+        <Button x:Name="AddButton" Content="Add" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="50" Width="150" Click="AddButton_Click"/>
+        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" Height="50" Width="150" Click="CancelButton_Click"/>
+        <Button x:Name="CloseWindowButton" Content="Close window" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="4" Height="50" Width="186" Click="CloseWindowButton_Click"/>
 
-        <Button x:Name="UpdateModelButton" Content="Update model drone" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Width="200" Height="50"/>
-        <Button x:Name="SendToChargeButton" Content="Send drone to charge" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Width="200" Height="50"/>
-        <Button x:Name="RealeseFromChargeButton" Content="Realese drone from charge" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Width="200" Height="50"/>
-        <Button x:Name="SendToDeliveryButton" Content="Send drone to delivery" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Width="200" Height="50"/>
-        <Button x:Name="CollectParcelButton" Content="Collect parcel by the drone" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Width="200" Height="50"/>
-        <Button x:Name="SupplyParcelButton" Content="Supply parcel by the drone" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4" Width="200" Height="50"/>
+        <Button x:Name="UpdateModelButton" Content="Update model drone" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Width="200" Height="50" Click="UpdateModelButton_Click"/>
+        <Button x:Name="SendToChargeButton" Content="Send drone to charge" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Width="200" Height="50" Click="SendToChargeButton_Click"/>
+        <Button x:Name="RealeseFromChargeButton" Content="Realese drone from charge" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Width="200" Height="50" Click="RealeseFromChargeButton_Click"/>
+        <Button x:Name="SendToDeliveryButton" Content="Send drone to delivery" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Width="200" Height="50" Click="SendToDeliveryButton_Click"/>
+        <Button x:Name="CollectParcelButton" Content="Collect parcel by the drone" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Width="200" Height="50" Click="CollectParcelButton_Click"/>
+        <Button x:Name="SupplyParcelButton" Content="Supply parcel by the drone" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4" Width="200" Height="50" Click="SupplyParcelButton_Click"/>
+        <Label Name="DataDroneLabel" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Height="291" Width="340" Grid.RowSpan="4"/>
     </Grid>
 </Window>

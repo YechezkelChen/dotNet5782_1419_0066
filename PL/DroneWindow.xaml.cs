@@ -22,6 +22,7 @@ namespace PL
     public partial class DroneWindow : Window
     {
         private IBL.IBL bl;
+        Drone drone = new Drone();
 
         public DroneWindow(IBL.IBL ibl)
         {
@@ -29,13 +30,19 @@ namespace PL
             bl = ibl;
             GetWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             GetStation.ItemsSource = bl.GetStations(station => station.ChargeSlots > 0);
-
+            UpdateModelButton.Visibility = Visibility.Hidden;
+            SendToChargeButton.Visibility = Visibility.Hidden;
+            RealeseFromChargeButton.Visibility = Visibility.Hidden;
+            SendToDeliveryButton.Visibility = Visibility.Hidden;
+            CollectParcelButton.Visibility = Visibility.Hidden;
+            SupplyParcelButton.Visibility = Visibility.Hidden;
+            DataDroneLabel.Content = "";
         }
 
-        public DroneWindow(Drone drone)
+        public DroneWindow(Drone droneHelp)
         {
             InitializeComponent();
-
+            drone = droneHelp;
             // hidden the add controls
             TextIdLabel.Content = "";
             GetId.Visibility = Visibility.Hidden;
@@ -48,7 +55,7 @@ namespace PL
             AddButton.Visibility = Visibility.Hidden;
             CancelButton.Visibility = Visibility.Hidden;
 
-
+            DataDroneLabel.Content = "The date of the drone is:\n" + "\n" + drone.ToString();
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -160,6 +167,56 @@ namespace PL
         private void CloseWindowButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void UpdateModelButton_Click(object sender, RoutedEventArgs e)
+        {
+            TextModelLabel.Content = "Please enter model of the drone:\n";
+            GetModel.Visibility = Visibility.Visible;
+            UpdateModelButton.Visibility = Visibility.Hidden;
+            SendToChargeButton.Visibility = Visibility.Hidden;
+            RealeseFromChargeButton.Visibility = Visibility.Hidden;
+            SendToDeliveryButton.Visibility = Visibility.Hidden;
+            CollectParcelButton.Visibility = Visibility.Hidden;
+            SupplyParcelButton.Visibility = Visibility.Hidden;
+            DataDroneLabel.Content = "";
+
+        }
+
+        private void SendToChargeButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.SendDroneToDroneCharge(drone.Id);
+            }
+            catch (DroneException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            MessageBox.Show("The send success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            drone = bl.GetDrone(drone.Id);
+            DataDroneLabel.Content = drone.ToString();
+        }
+
+        private void RealeseFromChargeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SendToDeliveryButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CollectParcelButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SupplyParcelButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         // בונוס!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

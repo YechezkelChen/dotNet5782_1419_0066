@@ -22,9 +22,14 @@ namespace IBL
 
             public override string ToString()
             {
-                return $"Id #{Id}: Parcel status = {Status},Priority = {Priority}," +
-                       $"Weight = {Weight},  Sender in parcel = {SenderInParcel}, Receiver in parcel = {ReceiverInParcel}," +
-                       $"Pick up location = {PickUpLocation},Target location = {TargetLocation}, " +
+                return $"Id #{Id}:\n" +
+                       $"Parcel status = {Status}\n" +
+                       $"Priority = {Priority}\n" +
+                       $"Weight = {Weight}\n" +
+                       $"Sender in parcel = {SenderInParcel}\n" +
+                       $"Receiver in parcel = {ReceiverInParcel}\n" +
+                       $"Pick up location = {PickUpLocation}" +
+                       $"Target location = {TargetLocation}" +
                        $"Distance of transfer =" + String.Format("{0:0.00}", DistanceOfTransfer) + "\n";
             }
         }
