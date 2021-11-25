@@ -15,15 +15,16 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
+        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2" Margin="-34,-5,34,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <!--<TextBox x:Name="StatusSelctor"  HorizontalAlignment="Left" Margin="80,20,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>-->
         </Grid>
-        <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" Margin="235,0,0,0" VerticalAlignment="Center" Width="120"  SelectionChanged="StatusSelctor_SelectionChanged" Grid.ColumnSpan="2"/>
+        <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" Margin="231,13,0,0" VerticalAlignment="Top" Width="120"  SelectionChanged="StatusSelctor_SelectionChanged"/>
         <ListView x:Name="DronesListView" Grid.ColumnSpan="2" Margin="0,69,0,0" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
