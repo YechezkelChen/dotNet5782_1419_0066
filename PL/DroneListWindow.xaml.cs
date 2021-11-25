@@ -37,7 +37,12 @@ namespace PL
 
         private void Status_TextChanged(object sender, TextChangedEventArgs e)
         {
+            Status.Text = "select status:";
+        }
 
+        private void Weight_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Weight.Text = "select Weight:";
         }
     }
 }

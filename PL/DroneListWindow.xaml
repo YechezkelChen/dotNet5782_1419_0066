@@ -22,9 +22,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="Status" HorizontalAlignment="Left" Margin="80,20,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Status_TextChanged"/>
+            <TextBox x:Name="Status" HorizontalAlignment="Left" Margin="58,10,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Status_TextChanged"/>
+            <TextBox x:Name="Weight" HorizontalAlignment="Left" Margin="58,41,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Weight_TextChanged"/>
         </Grid>
-        <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" Margin="231,13,0,0" VerticalAlignment="Top" Width="120"  SelectionChanged="StatusSelctor_SelectionChanged"/>
+        <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" Margin="210,0,0,0" VerticalAlignment="Top" Width="108"  SelectionChanged="StatusSelctor_SelectionChanged" Height="22"/>
         <ListView x:Name="DronesListView" Grid.ColumnSpan="2" Margin="0,69,0,0" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
