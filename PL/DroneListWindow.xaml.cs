@@ -27,17 +27,12 @@ namespace PL
             InitializeComponent();
             bl = ibl;
             DronesListView.ItemsSource = bl.GetDrones(drone => true);
-
+            StatusSelctor.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
         }
 
-        private void ViewStatusDrone(object sender, SelectionChangedEventArgs e)
+        private void StatusSelctor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-     
-        }
-
-        private void DroneSelctor_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            DronesListView.ItemsSource = bl.GetDrones(drone => drone.Status == (DroneStatuses)Enum.Parse(typeof(DroneStatuses), StatusSelctor.SelectedItem.ToString()));
         }
     }
 }
