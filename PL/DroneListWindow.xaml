@@ -7,12 +7,15 @@
         mc:Ignorable="d"
         Title="DroneListWindow" Height="640" Width="800">
     <Grid Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="351*"/>
+            <ColumnDefinition Width="449*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-              VerticalAlignment="Stretch" Width="auto">
+        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -20,9 +23,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
         </Grid>
-        <ComboBox Name="DroneSelctor" HorizontalAlignment="Left" Margin="235,0,0,0" VerticalAlignment="Center" Width="120"/>
+        <ComboBox Name="DroneSelctor" HorizontalAlignment="Left" Margin="235,0,0,0" VerticalAlignment="Center" Width="120"  SelectionChanged="DroneSelctor_SelectionChanged" Grid.ColumnSpan="2"/>
         <!--<TextBox Name="TextSelctor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0"/>-->
-        <ListView x:Name="DronesListView" Grid.Row="1">
+        <ListView x:Name="DronesListView" Grid.ColumnSpan="2" Margin="0,69,0,0" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

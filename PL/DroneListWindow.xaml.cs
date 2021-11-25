@@ -34,5 +34,10 @@ namespace PL
         {
      
         }
+
+        private void DroneSelctor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
