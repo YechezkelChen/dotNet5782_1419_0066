@@ -201,7 +201,18 @@ namespace PL
 
         private void RealeseFromChargeButton_Click(object sender, RoutedEventArgs e)
         {
-           
+            try
+            {
+                bl.ReleaseDroneFromDroneCharge(int.Parse((drone.Id).ToString()), 323333333);
+            }
+            catch (DroneException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            MessageBox.Show("The realese succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            drone = bl.GetDrone(drone.Id);
+            DataDroneLabel.Content = drone.ToString();
         }
 
         private void SendToDeliveryButton_Click(object sender, RoutedEventArgs e)
