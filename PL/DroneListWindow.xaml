@@ -27,6 +27,9 @@
             <TextBox x:Name="Weight" HorizontalAlignment="Left" Margin="58,41,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Weight_TextChanged"/>
             <ComboBox Name="WeightSelctor" Grid.Column="1" HorizontalAlignment="Left" Margin="27,41,0,0" VerticalAlignment="Top" Width="109" Height="21" SelectionChanged="WeightSelctor_SelectionChanged"/>
             <Button x:Name="Clear" Content="Clear" Grid.Column="1" HorizontalAlignment="Left" Margin="148,0,0,0" VerticalAlignment="Center" Height="20" Click="Clear_Click"/>
+            <Button x:Name="AddDrone" Content="Add a drone" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddDrone_Click"/>
+            <Button Content="Button" Grid.Column="3" HorizontalAlignment="Left" Margin="83,0,0,0" VerticalAlignment="Center" Click="Button_Click"/>
+
         </Grid>
         <ListView x:Name="DronesListView" Grid.ColumnSpan="2" Margin="0,69,0,0" Grid.RowSpan="2">
             <ListView.View>

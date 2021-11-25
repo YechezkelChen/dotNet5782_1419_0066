@@ -33,6 +33,7 @@ namespace PL
             StatusSelctor.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
             WeightSelctor.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             Clear.MouseDoubleClick += Clear_Click;
+            AddDrone.MouseDoubleClick += AddDrone_Click;
         }
 
         private void StatusSelctor_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -51,26 +52,31 @@ namespace PL
             WeightCategories maxWeightToShow = (WeightCategories)Enum.Parse(typeof(WeightCategories), WeightSelctor.SelectedItem.ToString());
 
             if (maxWeightToShow == WeightCategories.Heavy)
-                drones = bl.GetDrones(drone => true && drones.ToList().Find(d => d.Id == drone.Id) != null);//show all drones
+                drones = bl.GetDrones(drone => true && drones.ToList().Find(d => d.Id == drone.Id) != null);//(etgar 2)
             else if (maxWeightToShow == WeightCategories.Medium)
                 drones = bl.GetDrones(drone => (drone.Weight == maxWeightToShow || drone.Weight == WeightCategories.Light) &&
-                        drones.ToList().Find(d => d.Id == drone.Id) != null);//show all drones
+                        drones.ToList().Find(d => d.Id == drone.Id) != null);//(etgar 2)
             else
                 drones = bl.GetDrones(drone => drone.Weight == maxWeightToShow &&
-                        drones.ToList().Find(d => d.Id == drone.Id) != null);//show all drones
+                        drones.ToList().Find(d => d.Id == drone.Id) != null);//(atgar 2)
 
             DronesListView.ItemsSource = drones;
         }
 
-        private void Weight_TextChanged(object sender, TextChangedEventArgs e)
+        private void Weight_TextChanged(object sender, TextChangedEventArgs e)// for the buutom
         {
             Weight.Text = "select Weight:";
         }
 
-        private void Clear_Click(object sender, RoutedEventArgs e)
+        private void Clear_Click(object sender, RoutedEventArgs e) //clear the view mean its show all the list again (atgar 1)
         {
             drones = bl.GetDrones(drone => true);
             DronesListView.ItemsSource = drones;
+        }
+
+        private void AddDrone_Click(object sender, RoutedEventArgs e)
+        {
+            new DroneWindow(bl).Show(); //go to the window that can add a drone
         }
     }
 }
