@@ -187,7 +187,7 @@ namespace PL
         {
             try
             {
-                bl.SendDroneToDroneCharge(drone.Id);
+                bl.SendDroneToDroneCharge(int.Parse((drone.Id).ToString()));
             }
             catch (DroneException ex)
             {
