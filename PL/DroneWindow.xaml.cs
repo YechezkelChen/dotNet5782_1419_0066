@@ -36,6 +36,8 @@ namespace PL
             SendToDeliveryButton.Visibility = Visibility.Hidden;
             CollectParcelButton.Visibility = Visibility.Hidden;
             SupplyParcelButton.Visibility = Visibility.Hidden;
+            HoursOfChargeLabel.Content = "";
+            HoursOfChargeTextBox.Visibility = Visibility.Hidden;
             DataDroneLabel.Content = "";
         }
 
@@ -54,6 +56,8 @@ namespace PL
             GetStation.Visibility = Visibility.Hidden;
             AddButton.Visibility = Visibility.Hidden;
             CancelButton.Visibility = Visibility.Hidden;
+            HoursOfChargeLabel.Content = "";
+            HoursOfChargeTextBox.Visibility = Visibility.Hidden;
 
             DataDroneLabel.Content = "The date of the drone is:\n" + "\n" + drone.ToString();
         }
@@ -201,9 +205,34 @@ namespace PL
 
         private void RealeseFromChargeButton_Click(object sender, RoutedEventArgs e)
         {
+            UpdateModelButton.Visibility = Visibility.Hidden;
+            SendToChargeButton.Visibility = Visibility.Hidden;
+            RealeseFromChargeButton.Visibility = Visibility.Hidden;
+            SendToDeliveryButton.Visibility = Visibility.Hidden;
+            CollectParcelButton.Visibility = Visibility.Hidden;
+            SupplyParcelButton.Visibility = Visibility.Hidden;
+            TextIdLabel.Content = "";
+            GetId.Visibility = Visibility.Hidden;
+            TextModelLabel.Content = "";
+            GetModel.Visibility = Visibility.Hidden;
+            TextWeightLabel.Content = "";
+            GetWeight.Visibility = Visibility.Hidden;
+            TextStationLabel.Content = "";
+            GetStation.Visibility = Visibility.Hidden;
+            AddButton.Visibility = Visibility.Hidden;
+            CancelButton.Visibility = Visibility.Hidden;
+            DataDroneLabel.Content = "";
+            HoursOfChargeTextBox.Visibility = Visibility.Visible;
+            HoursOfChargeLabel.Content = "Enter the amount of hours the drone was in charge:";
+
+            int Hours = 0;
+            if (HoursOfChargeTextBox.Text.ToString() == "")
+                MessageBox.Show("Enter a positive amount", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error); 
+            else
+                Hours = int.Parse(HoursOfChargeTextBox.Text.ToString());
             try
             {
-                bl.ReleaseDroneFromDroneCharge(int.Parse((drone.Id).ToString()), 323333333);
+                bl.ReleaseDroneFromDroneCharge(int.Parse((drone.Id).ToString()), Hours);
             }
             catch (DroneException ex)
             {
@@ -266,6 +295,12 @@ namespace PL
             drone = bl.GetDrone(drone.Id);
             DataDroneLabel.Content = drone.ToString();
         }
+
+        
+
+
+
+
 
         // בונוס!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }

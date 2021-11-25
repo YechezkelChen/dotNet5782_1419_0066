@@ -29,6 +29,8 @@
             </Grid.ColumnDefinitions>
             <Label Name="TextModelLabel" Content="Please enter model of the drone:" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBox x:Name="GetModel" Grid.Column="1" HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
+            <Label Name="HoursOfChargeLabel" Content="Enter the amount of hours the drone was in charge:" HorizontalAlignment="Left" Margin="254,5,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="280"/>
+            <TextBox x:Name="HoursOfChargeTextBox" Text="" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="321,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         </Grid>
         <Grid Name="WeightGrid" Height="auto" Grid.Row="2" Width="auto" Grid.ColumnSpan="2" Margin="-34,-5,34,5">
             <Grid.ColumnDefinitions>
