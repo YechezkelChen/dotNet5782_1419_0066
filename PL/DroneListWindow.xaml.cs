@@ -27,32 +27,12 @@ namespace PL
             InitializeComponent();
             bl = ibl;
             DronesListView.ItemsSource = bl.GetDrones(drone => true);
-            //DroneSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
 
         }
 
         private void ViewStatusDrone(object sender, SelectionChangedEventArgs e)
         {
-            ComboBoxItem statusDrone = new ComboBoxItem();
-            //if (DroneSelector.SelectedItem == DroneStatus)
-            //{
-            //    if (Status.SelectedItem == Aviailable)
-            //        DronesListView.ItemsSource = bl.GetDrones(drone => drone.Status == DroneStatuses.Available);
-            //    if (Status.SelectedItem == Maintenance)
-            //        DronesListView.ItemsSource = bl.GetDrones(drone => drone.Status == DroneStatuses.Maintenance);
-            //    if (Status.SelectedItem == Delivery)
-            //        DronesListView.ItemsSource = bl.GetDrones(drone => drone.Status == DroneStatuses.Delivery);
-            //}
-
-            //if (DroneSelector.SelectedItem == DroneWeight)
-            //{
-            //    if (Weight.SelectedItem == Light)
-            //        DronesListView.ItemsSource = bl.GetDrones(drone => drone.Weight == WeightCategories.Light);
-            //    if (Weight.SelectedItem == Medium)
-            //        DronesListView.ItemsSource = bl.GetDrones(drone => drone.Weight == WeightCategories.Medium);
-            //    if (Weight.SelectedItem == Heavy)
-            //        DronesListView.ItemsSource = bl.GetDrones(drone => drone.Weight == WeightCategories.Heavy);
-            //}
+     
         }
     }
 }
