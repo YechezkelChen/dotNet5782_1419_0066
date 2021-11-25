@@ -32,50 +32,58 @@ namespace PL
             DronesListView.ItemsSource = drones;
             StatusSelctor.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
             WeightSelctor.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            Clear.MouseDoubleClick += Clear_Click;
-            AddDrone.MouseDoubleClick += AddDrone_Click;
         }
 
         private void StatusSelctor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            drones = bl.GetDrones(drone => drone.Status == (DroneStatuses)Enum.Parse(typeof(DroneStatuses), StatusSelctor.SelectedItem.ToString()) && drones.ToList().Find(d => d.Id == drone.Id) != null);
+            if (StatusSelctor.SelectedItem == null)
+                drones = bl.GetDrones(drone => true);
+            else
+                drones = bl.GetDrones(drone => drone.Status == (DroneStatuses)Enum.Parse(typeof(DroneStatuses), StatusSelctor.SelectedItem.ToString()) && drones.ToList().Find(d => d.Id == drone.Id) != null);
             DronesListView.ItemsSource = drones;
         }
-
-       
 
         private void WeightSelctor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            WeightCategories maxWeightToShow = (WeightCategories)Enum.Parse(typeof(WeightCategories), WeightSelctor.SelectedItem.ToString());
-
-            if (maxWeightToShow == WeightCategories.Heavy)
-                drones = bl.GetDrones(drone => true && drones.ToList().Find(d => d.Id == drone.Id) != null);//(etgar 2)
-            else if (maxWeightToShow == WeightCategories.Medium)
-                drones = bl.GetDrones(drone => (drone.Weight == maxWeightToShow || drone.Weight == WeightCategories.Light) &&
-                        drones.ToList().Find(d => d.Id == drone.Id) != null);//(etgar 2)
+            if (WeightSelctor.SelectedItem == null)
+                drones = bl.GetDrones(drone => true);
             else
-                drones = bl.GetDrones(drone => drone.Weight == maxWeightToShow &&
-                        drones.ToList().Find(d => d.Id == drone.Id) != null);//(atgar 2)
+            {
+                WeightCategories maxWeightToShow = (WeightCategories)Enum.Parse(typeof(WeightCategories), WeightSelctor.SelectedItem.ToString());
 
+                if (maxWeightToShow == WeightCategories.Heavy)
+                    drones = bl.GetDrones(drone => true && drones.ToList().Find(d => d.Id == drone.Id) != null);//(etgar 2)
+                else if (maxWeightToShow == WeightCategories.Medium)
+                    drones = bl.GetDrones(drone => (drone.Weight == maxWeightToShow || drone.Weight == WeightCategories.Light) &&
+                            drones.ToList().Find(d => d.Id == drone.Id) != null);//(etgar 2)
+                else
+                    drones = bl.GetDrones(drone => drone.Weight == maxWeightToShow &&
+                            drones.ToList().Find(d => d.Id == drone.Id) != null);//(atgar 2)
+            }
             DronesListView.ItemsSource = drones;
         }
 
-      
-
-        private void Clear_Click(object sender, RoutedEventArgs e) //clear the view mean its show all the list again (atgar 1)
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            drones = bl.GetDrones(drone => true);
-            DronesListView.ItemsSource = drones;
+            StatusSelctor.SelectedIndex = -1;
+            WeightSelctor.SelectedIndex = -1;
         }
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-            new DroneWindow(bl).Show(); //go to the window that can add a drone
+            new DroneWindow(bl).ShowDialog(); //go to the window that can add a drone
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
+            Drone drone = bl.GetDrone(droneToList.Id);
+            new DroneWindow(drone).ShowDialog();
         }
     }
 }

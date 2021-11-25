@@ -7,10 +7,6 @@
         mc:Ignorable="d"
         Title="DroneListWindow" Height="640" Width="800">
     <Grid Name="MainGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="351*"/>
-            <ColumnDefinition Width="449*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
@@ -23,15 +19,17 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="Status" Content="Choose a status :" HorizontalAlignment="Left" Margin="87,7,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="Weight" Content="Choose a weight :" HorizontalAlignment="Left" Margin="87,38,0,0" VerticalAlignment="Top"/>
-            <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" Margin="27,10,0,0" VerticalAlignment="Top" Width="109"  SelectionChanged="StatusSelctor_SelectionChanged" Height="21" Grid.Column="1"/>
-            <ComboBox Name="WeightSelctor" Grid.Column="1" HorizontalAlignment="Left" Margin="27,41,0,0" VerticalAlignment="Top" Width="109" Height="21" SelectionChanged="WeightSelctor_SelectionChanged"/>
-            <Button x:Name="Clear" Content="Clear" Grid.Column="1" HorizontalAlignment="Left" Margin="148,0,0,0" VerticalAlignment="Center" Height="20" Click="Clear_Click"/>
-            <Button x:Name="AddDrone" Content="Add a drone" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddDrone_Click"/>
-            <Button x:Name="Close" Content="Close Window" Grid.Column="3" HorizontalAlignment="Center" Margin="83,0,0,0" VerticalAlignment="Center" Click="Close_Click"/>
+            <Label x:Name="StatusLabel" Content="Choose a status :" HorizontalAlignment="Left" Margin="87,7,0,0" VerticalAlignment="Top"/>
+            <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="109" Height="21" Grid.Column="1" SelectionChanged="StatusSelctor_SelectionChanged"/>
+            <Label x:Name="WeightLabel" Content="Choose a weight :" HorizontalAlignment="Left" Margin="87,38,0,0" VerticalAlignment="Top"/>
+            <ComboBox Name="WeightSelctor" Grid.Column="1" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="109" Height="21" SelectionChanged="WeightSelctor_SelectionChanged"/>
+
+            <Button x:Name="ClearButton" Content="Clear" Grid.Column="1" HorizontalAlignment="Left" Margin="124,26,0,0" VerticalAlignment="Top" Height="20" Width="72" Click="ClearButton_Click"/>
+
+            <Button x:Name="AddDroneButton" Content="Add a drone" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddDrone_Click"/>
+            <Button x:Name="CloseButton" Content="Close Window" Grid.Column="3" HorizontalAlignment="Center" Margin="83,0,0,0" VerticalAlignment="Center" Click="Close_Click"/>
         </Grid>
-        <ListView x:Name="DronesListView" Grid.ColumnSpan="2" Margin="0,69,0,0" Grid.RowSpan="2">
+        <ListView x:Name="DronesListView" Grid.Row="1" MouseDoubleClick="DronesListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

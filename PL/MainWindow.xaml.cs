@@ -25,13 +25,12 @@ namespace PL
         {
             InitializeComponent();
             bl = new IBL.BL();
-            ShowDroneButton.MouseDoubleClick += ShowDroneButtonClick;
-
         }
 
-        private void ShowDroneButtonClick (object sender, RoutedEventArgs e)
+        private void ShowDroneButton_Click(object sender, RoutedEventArgs e)
         {
-            new DroneListWindow(bl).Show();
+            new DroneListWindow(bl).ShowDialog();
+            this.Close();
         }
     }
 }
