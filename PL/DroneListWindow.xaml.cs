@@ -42,10 +42,7 @@ namespace PL
             DronesListView.ItemsSource = drones;
         }
 
-        private void Status_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Status.Text = "select Status:";
-        }
+       
 
         private void WeightSelctor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -63,10 +60,7 @@ namespace PL
             DronesListView.ItemsSource = drones;
         }
 
-        private void Weight_TextChanged(object sender, TextChangedEventArgs e)// for the buutom
-        {
-            Weight.Text = "select Weight:";
-        }
+      
 
         private void Clear_Click(object sender, RoutedEventArgs e) //clear the view mean its show all the list again (atgar 1)
         {

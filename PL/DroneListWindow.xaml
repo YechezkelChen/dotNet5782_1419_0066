@@ -22,9 +22,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="Status" HorizontalAlignment="Left" Margin="58,10,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Status_TextChanged"/>
+
+            <Label x:Name="Status" Content="Choose a status :" HorizontalAlignment="Left" Margin="87,7,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="Weight" Content="Choose a weight :" HorizontalAlignment="Left" Margin="87,38,0,0" VerticalAlignment="Top"/>
             <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" Margin="27,10,0,0" VerticalAlignment="Top" Width="109"  SelectionChanged="StatusSelctor_SelectionChanged" Height="21" Grid.Column="1"/>
-            <TextBox x:Name="Weight" HorizontalAlignment="Left" Margin="58,41,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Weight_TextChanged"/>
             <ComboBox Name="WeightSelctor" Grid.Column="1" HorizontalAlignment="Left" Margin="27,41,0,0" VerticalAlignment="Top" Width="109" Height="21" SelectionChanged="WeightSelctor_SelectionChanged"/>
             <Button x:Name="Clear" Content="Clear" Grid.Column="1" HorizontalAlignment="Left" Margin="148,0,0,0" VerticalAlignment="Center" Height="20" Click="Clear_Click"/>
             <Button x:Name="AddDrone" Content="Add a drone" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddDrone_Click"/>
