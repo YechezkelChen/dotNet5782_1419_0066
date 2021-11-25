@@ -150,10 +150,10 @@ namespace PL
             }
             catch (DroneException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            MessageBox.Show("The add is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The add is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             this.Close();
 
             //צריך להציג את הרחפן שנוסף עם הרשימה האחרונה !!!! חלק ב סעיף 14!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -191,32 +191,69 @@ namespace PL
             }
             catch (DroneException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            MessageBox.Show("The send success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The send succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
             DataDroneLabel.Content = drone.ToString();
         }
 
         private void RealeseFromChargeButton_Click(object sender, RoutedEventArgs e)
         {
-
+           
         }
 
         private void SendToDeliveryButton_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                bl.ConnectParcelToDrone(int.Parse((drone.Id).ToString()));
+            }
+            catch (DroneException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (ParcelException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
+            MessageBox.Show("The connection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            drone = bl.GetDrone(drone.Id);
+            DataDroneLabel.Content = drone.ToString();
         }
 
         private void CollectParcelButton_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                bl.CollectionParcelByDrone(int.Parse((drone.Id).ToString()));
+            }
+            catch (DroneException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+           
+            MessageBox.Show("The collection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            drone = bl.GetDrone(drone.Id);
+            DataDroneLabel.Content = drone.ToString();
         }
 
         private void SupplyParcelButton_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                bl.SupplyParcelByDrone(int.Parse((drone.Id).ToString()));
+            }
+            catch (DroneException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+          
+            MessageBox.Show("The supply succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            drone = bl.GetDrone(drone.Id);
+            DataDroneLabel.Content = drone.ToString();
         }
 
         // בונוס!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
