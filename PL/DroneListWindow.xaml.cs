@@ -22,27 +22,55 @@ namespace PL
     public partial class DroneListWindow : Window
     {
         private IBL.IBL bl;
+
+        IEnumerable<DroneToList> drones = new List<DroneToList>();
         public DroneListWindow(IBL.IBL ibl)
         {
             InitializeComponent();
             bl = ibl;
-            DronesListView.ItemsSource = bl.GetDrones(drone => true);
+            drones = bl.GetDrones(drone => true);
+            DronesListView.ItemsSource = drones;
             StatusSelctor.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
+            WeightSelctor.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            Clear.MouseDoubleClick += Clear_Click;
         }
 
         private void StatusSelctor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DronesListView.ItemsSource = bl.GetDrones(drone => drone.Status == (DroneStatuses)Enum.Parse(typeof(DroneStatuses), StatusSelctor.SelectedItem.ToString()));
+            drones = bl.GetDrones(drone => drone.Status == (DroneStatuses)Enum.Parse(typeof(DroneStatuses), StatusSelctor.SelectedItem.ToString()) && drones.ToList().Find(d => d.Id == drone.Id) != null);
+            DronesListView.ItemsSource = drones;
         }
 
         private void Status_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Status.Text = "select status:";
+            Status.Text = "select Status:";
+        }
+
+        private void WeightSelctor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            WeightCategories maxWeightToShow = (WeightCategories)Enum.Parse(typeof(WeightCategories), WeightSelctor.SelectedItem.ToString());
+
+            if (maxWeightToShow == WeightCategories.Heavy)
+                drones = bl.GetDrones(drone => true && drones.ToList().Find(d => d.Id == drone.Id) != null);//show all drones
+            else if (maxWeightToShow == WeightCategories.Medium)
+                drones = bl.GetDrones(drone => (drone.Weight == maxWeightToShow || drone.Weight == WeightCategories.Light) &&
+                        drones.ToList().Find(d => d.Id == drone.Id) != null);//show all drones
+            else
+                drones = bl.GetDrones(drone => drone.Weight == maxWeightToShow &&
+                        drones.ToList().Find(d => d.Id == drone.Id) != null);//show all drones
+
+            DronesListView.ItemsSource = drones;
         }
 
         private void Weight_TextChanged(object sender, TextChangedEventArgs e)
         {
             Weight.Text = "select Weight:";
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            drones = bl.GetDrones(drone => true);
+            DronesListView.ItemsSource = drones;
         }
     }
 }
