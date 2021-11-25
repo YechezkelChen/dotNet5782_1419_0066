@@ -27,11 +27,8 @@ namespace PL
             InitializeComponent();
             bl = ibl;
             DronesListView.ItemsSource = bl.GetDrones(drone => true);
-            DroneSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
-            //MessageBox.Show(DroneSelector.ToString());
-            //DroneSelector.ItemsSource = 
-            //Status.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
-            //Weight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            //DroneSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
+
         }
 
         private void ViewStatusDrone(object sender, SelectionChangedEventArgs e)
