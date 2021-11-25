@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <!--<TextBox x:Name="StatusSelctor"  HorizontalAlignment="Left" Margin="80,20,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>-->
+            <TextBox x:Name="Status" HorizontalAlignment="Left" Margin="80,20,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Status_TextChanged"/>
         </Grid>
         <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" Margin="231,13,0,0" VerticalAlignment="Top" Width="120"  SelectionChanged="StatusSelctor_SelectionChanged"/>
         <ListView x:Name="DronesListView" Grid.ColumnSpan="2" Margin="0,69,0,0" Grid.RowSpan="2">

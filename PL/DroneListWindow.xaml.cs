@@ -34,5 +34,10 @@ namespace PL
         {
             DronesListView.ItemsSource = bl.GetDrones(drone => drone.Status == (DroneStatuses)Enum.Parse(typeof(DroneStatuses), StatusSelctor.SelectedItem.ToString()));
         }
+
+        private void Status_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
