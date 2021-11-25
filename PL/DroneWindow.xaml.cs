@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using IBL;
+using IBL.BO;
 
 namespace PL
 {
@@ -25,8 +27,33 @@ namespace PL
         {
             InitializeComponent();
             bl = ibl;
+            GetWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            GetStation.ItemsSource = bl.GetStations(station => station.ChargeSlots > 0);
+            Continue.Click += Continue_Click;
+        }
 
-
+        private void Continue_Click(object sender, RoutedEventArgs e)
+        {
+            Drone drone = new Drone();
+            int id = int.Parse(GetId.Text.ToString());
+            if (id <= 0)
+            {
+                MessageBoxResult result = MessageBox.Show("Id is illegal!, please enter legal id to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                switch (result)
+                {
+                    case MessageBoxResult.OK:
+                        GetId.Clear();
+                        break;
+                    case MessageBoxResult.Cancel:
+                        Close();
+                        break;
+                    default:
+                        Close();
+                        break;
+                }
+            }
+            else
+                drone.Id = id;
         }
     }
 }
