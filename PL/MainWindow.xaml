@@ -7,6 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Name="ShowDroneButton" Content="ShowDrone" HorizontalAlignment="Center" VerticalAlignment="Center" Height="116" Width="264" Click="ShowDroneButton_Click"/>
+        <Button Name="ShowDroneButton" Content="ShowDrone" HorizontalAlignment="Center" VerticalAlignment="Center" Height="116" Width="264" Click="ShowDroneButton_Click">
+            <Button.Background>
+                <LinearGradientBrush>
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStop Offset="0" Color="{x:Static SystemColors.DesktopColor}"/>
+                        <GradientStop Offset="1" Color="{x:Static SystemColors.ControlColor}"/>
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>

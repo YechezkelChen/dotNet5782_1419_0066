@@ -29,8 +29,8 @@ namespace PL
 
         private void ShowDroneButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
             new DroneListWindow(bl).ShowDialog();
+            this.Close(); //לשאול את יאיר למה זה לא עובד אם שמים אותו לפני הקריאה לבנאי??? ככה זה סוגר יפה
         }
     }
 }

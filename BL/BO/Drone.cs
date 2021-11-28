@@ -22,7 +22,7 @@ namespace IBL
                     $"Id #{Id}:\n" +
                     $"Model = {Model}\n" +
                     $"Weight = {Weight}\n" +
-                    $"Battery = " + String.Format("{0:0.000}", Battery) + "\n " +
+                    $"Battery = " + String.Format("{0:0.000}", Battery) + "\n" +
                     $"Status = {Status}\n" +
                     $"DeliveryByTransfer = {ParcelByTransfer}" +
                     $"Location = {Location}";
