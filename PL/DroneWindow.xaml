@@ -27,10 +27,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Name="TextModelLabel" Content="Please enter model of the drone:" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Name="TextModelLabel" Content="Please enter model of the drone:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,32,0,0"/>
             <TextBox x:Name="GetModel" Grid.Column="1" HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
-            <Label Name="HoursOfChargeLabel" Content="Enter the amount of hours the drone was in charge:" HorizontalAlignment="Left" Margin="254,5,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="280"/>
-            <TextBox x:Name="HoursOfChargeTextBox" Text="" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="321,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         </Grid>
         <Grid Name="WeightGrid" Height="auto" Grid.Row="2" Width="auto" Grid.ColumnSpan="2" Margin="-34,-5,34,5">
             <Grid.ColumnDefinitions>
@@ -40,6 +38,7 @@
             <Label Name="TextWeightLabel" Content="Please choose Weight of the drone:" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <ComboBox Name="GetWeight" Grid.Column="1" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top" Width="120"/>
         </Grid>
+        
         <Grid Name="StationGrid" Height="auto" Grid.Row="3" Width="auto" Grid.ColumnSpan="2" Margin="-34,-5,34,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -48,6 +47,7 @@
             <Label Name="TextStationLabel" Content="Please choose station to put the drone in charge:" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <ComboBox Name="GetStation" Grid.Column="1" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" Width="120"/>
         </Grid>
+        
         <Button x:Name="AddButton" Content="Add" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="50" Width="150" Click="AddButton_Click"/>
         <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" Height="50" Width="150" Click="CancelButton_Click"/>
         <Button x:Name="CloseWindowButton" Content="Close window" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="4" Height="50" Width="186" Click="CloseWindowButton_Click"/>
@@ -59,5 +59,18 @@
         <Button x:Name="CollectParcelButton" Content="Collect parcel by the drone" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Width="200" Height="50" Click="CollectParcelButton_Click"/>
         <Button x:Name="SupplyParcelButton" Content="Supply parcel by the drone" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4" Width="200" Height="50" Click="SupplyParcelButton_Click"/>
         <Label Name="DataDroneLabel" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Height="291" Width="340" Grid.RowSpan="4"/>
+        <Label Name="HoursOfChargeLabel" Content="Enter the amount of hours the drone was in charge:" HorizontalAlignment="Left" Margin="0,86,0,0" VerticalAlignment="Top" Width="289" Grid.Row="2" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.051"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <TextBox x:Name="HoursOfChargeTextBox" Text="" HorizontalAlignment="Left" Margin="40,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="3"/>
+        <Label Name="TextUpdateModelLabel" Content="Please enter model of the drone to update:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,81,0,0" Grid.RowSpan="2"/>
+        <TextBox x:Name="GetUpdateModel" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="40,25,0,0" Grid.Row="1"/>
     </Grid>
 </Window>
