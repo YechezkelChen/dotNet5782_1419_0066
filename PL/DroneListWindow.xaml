@@ -6,35 +6,34 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="DroneListWindow" Height="640" Width="800">
-    <Grid Name="MainGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="400*"/>
-        </Grid.RowDefinitions>
-        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2" Margin="-34,-5,34,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+    <Border Background="#CAD2C5" Height="640" Width="800">
+        <Grid Name="MainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="400*"/>
+            </Grid.RowDefinitions>
+            <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2" Margin="-34,-5,34,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <Label x:Name="StatusLabel" Content="Choose a status :" HorizontalAlignment="Left" Margin="87,7,0,0" VerticalAlignment="Top"/>
-            <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="109" Height="21" Grid.Column="1" SelectionChanged="StatusSelctor_SelectionChanged"/>
-            <Label x:Name="WeightLabel" Content="Choose a weight :" HorizontalAlignment="Left" Margin="87,38,0,0" VerticalAlignment="Top"/>
-            <ComboBox Name="WeightSelctor" Grid.Column="1" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="109" Height="21" SelectionChanged="WeightSelctor_SelectionChanged"/>
+                <Label x:Name="StatusLabel" Content="Choose a status :" HorizontalAlignment="Center" Margin="40,9,0,0" VerticalAlignment="Top" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Normal"/>
 
-            <Button x:Name="ClearButton" Content="Clear" Grid.Column="1" HorizontalAlignment="Left" Margin="124,26,0,0" VerticalAlignment="Top" Height="20" Width="72" Click="ClearButton_Click"/>
+                <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="109" Height="27" Grid.Column="1" SelectionChanged="StatusSelctor_SelectionChanged" Foreground="#FF2F3E46" FontFamily="Agency FB" FontSize="16" FontStyle="Italic"/>
+                <Label x:Name="WeightLabel" Content="Choose a weight :" HorizontalAlignment="Left" Margin="68,40,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Agency FB" Foreground="#FF2F3E46" Height="33"/>
+                <ComboBox Name="WeightSelctor" Grid.Column="1" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="109" Height="26" SelectionChanged="WeightSelctor_SelectionChanged" Foreground="#FF2F3E46" FontFamily="Agency FB" FontSize="16" FontStyle="Italic"/>
 
-            <Button x:Name="AddDroneButton" Content="Add a drone" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddDrone_Click"/>
-            <Button x:Name="CloseButton" Content="Close Window" Grid.Column="3" HorizontalAlignment="Center" Margin="83,0,0,0" VerticalAlignment="Center" Click="Close_Click"/>
+                <Button x:Name="ClearButton" Content="Clear" Grid.Column="1" HorizontalAlignment="Left" Margin="124,26,0,0" VerticalAlignment="Top" Height="20" Width="72" Click="ClearButton_Click" Foreground="#FF6B0F1A" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic"/>
+
+                <Button x:Name="AddDroneButton" Content="Add a drone" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddDrone_Click" Foreground="#FF474A2C" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic"/>
+                <Button x:Name="CloseButton" Content="Close Window" Grid.Column="3" HorizontalAlignment="Center" Margin="83,0,0,0" VerticalAlignment="Center" Click="Close_Click" Foreground="#FF6B0F1A" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic"/>
+            </Grid>
+            <Label Content="Hey it's Jeffrey again, If you want to update a particular drone click on him twice." HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="40" Width="800" Background="#84A98C" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46"/>
+            <ListView x:Name="DronesListView" Grid.Row="2" Background="#52796F" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#FF0B3948" FontFamily="David" FontSize="14"/>
         </Grid>
-        <ListView x:Name="DronesListView" Grid.Row="1" MouseDoubleClick="DronesListView_MouseDoubleClick">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-    </Grid>
+    </Border>
 </Window>

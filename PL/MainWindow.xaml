@@ -6,21 +6,11 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Border Background="#272537"
-            CornerRadius="20">
+    <Border Background="#2F3E46" Height="450" Width="800">
         <Grid>
-        <Button Name="ShowDroneButton" Content="ShowDrone" HorizontalAlignment="Center" VerticalAlignment="Center" Height="116" Width="264" Click="ShowDroneButton_Click">
-            <Button.Background>
-                <LinearGradientBrush>
-                    <LinearGradientBrush.GradientStops>
-                        <GradientStop Offset="0" Color="{x:Static SystemColors.DesktopColor}"/>
-                        <GradientStop Offset="1" Color="{x:Static SystemColors.ControlColor}"/>
-                    </LinearGradientBrush.GradientStops>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-    </Grid>
+            <Button Name="ShowDroneButton" Content="Show all drones" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="150" Width="300" Background="#CAD2C5" FontSize="50" Click="ShowDroneButton_Click" Foreground="#FF2F3E46" FontWeight="Bold" FontStyle="Italic" FontFamily="Agency FB" Margin="0,0,10,28"/>
+            <Label Content="Hello User!&#xA;I'm Jeffrey your personal assistant.&#xA;I can perform a variety of operations with drones.&#xA;Such as: Adding / displaying / updating a drone.&#xA;To see all the drones I currently have click on the button below:" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Top" Height="190" Width="696" Background="#FF2F3E46" Foreground="#FFCAD2C5" FontWeight="Normal" FontFamily="Agency FB"/>
+            <Label Content="&quot;Show all drones&quot;" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Width="600" Height="50" FontSize="30" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Foreground="#FFCAD2C5"/>
+        </Grid>
     </Border>
-
-
 </Window>
