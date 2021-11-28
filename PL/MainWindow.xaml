@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Border Background="#272537"
+            CornerRadius="20">
+        <Grid>
         <Button Name="ShowDroneButton" Content="ShowDrone" HorizontalAlignment="Center" VerticalAlignment="Center" Height="116" Width="264" Click="ShowDroneButton_Click">
             <Button.Background>
                 <LinearGradientBrush>
@@ -18,4 +20,7 @@
             </Button.Background>
         </Button>
     </Grid>
+    </Border>
+
+
 </Window>
