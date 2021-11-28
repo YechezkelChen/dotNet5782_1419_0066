@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="DroneWindow" Height="450" Width="800">
     <Border Background="#606F49">
-        <Grid>
+        <Grid Margin="0,-18,0,10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -15,21 +15,23 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Name="IdGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2" Margin="-34,-5,34,5">
+            <Grid Name="IdGrid" Height="auto" Grid.Row="0" Width="auto" Margin="-34,-5,34,79" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label Name="TextIdLabel" Content="Please enter id of the drone:" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="18" FontWeight="Normal" FontStyle="Normal"/>
-                <TextBox x:Name="GetId" Grid.Column="1" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" Margin="234,0,0,0" Foreground="#FFE9F5DB" FontFamily="David" FontSize="16" Background="#FFA6B98B"/>
+                <TextBox x:Name="GetId" Grid.Column="1" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="121" Margin="232,0,0,0" Foreground="#FF3E4C2E" FontFamily="David" FontSize="16" Background="#FFF5F7F2"/>
+                <Label Name="informationJeffrey" Content="Hi it's Jeffrey again,!&#xA; here's some information!&#xA; about the drone that interested you." HorizontalAlignment="Left" Margin="290,24,0,0" VerticalAlignment="Top" Width="260" Grid.ColumnSpan="2" Height="79" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Normal"/>
             </Grid>
             <Grid Name="ModelGrid" Height="auto" Grid.Row="1" Width="auto" Grid.ColumnSpan="2" Margin="-34,-5,34,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="400*"/>
+                    <ColumnDefinition Width="317*"/>
+                    <ColumnDefinition Width="83*"/>
                 </Grid.ColumnDefinitions>
-                <Label Name="TextModelLabel" Content="Please enter model of the drone:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,32,0,0" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="18"/>
-                <TextBox x:Name="GetModel" Grid.Column="1" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="233,36,0,0" Foreground="#FFE9F5DB" FontFamily="David" FontSize="16" Background="#FFA6B98B"/>
+                <Label Name="TextModelLabel" Content="Please enter model of the drone:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,19,0,0" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="18"/>
+                <TextBox x:Name="GetModel" Grid.Column="1" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="232,26,0,0" Foreground="#FF3E4C2E" FontFamily="David" FontSize="16" Background="#FFF7F9F4" Grid.ColumnSpan="2"/>
             </Grid>
             <Grid Name="WeightGrid" Height="auto" Grid.Row="2" Width="auto" Grid.ColumnSpan="2" Margin="-34,-5,34,5">
                 <Grid.ColumnDefinitions>
@@ -38,7 +40,7 @@
                     <ColumnDefinition Width="69*"/>
                 </Grid.ColumnDefinitions>
                 <Label Name="TextWeightLabel" Content="Please choose Weight of the drone:" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="18"/>
-                <ComboBox Name="GetWeight" Grid.Column="1" HorizontalAlignment="Left" Margin="233,0,0,0" VerticalAlignment="Center" Width="120" Foreground="#FFE9F5DB" FontFamily="David" FontSize="16" Grid.ColumnSpan="2">
+                <ComboBox Name="GetWeight" Grid.Column="1" HorizontalAlignment="Left" Margin="233,0,0,0" VerticalAlignment="Center" Width="120" Foreground="#FF3E4C2E" FontFamily="David" FontSize="16" Grid.ColumnSpan="2">
                     <ComboBox.Background>
                         <LinearGradientBrush EndPoint="0,1">
                             <GradientStop Color="#FFF0F0F0"/>
@@ -57,7 +59,7 @@
                     <ColumnDefinition Width="62*"/>
                 </Grid.ColumnDefinitions>
                 <Label Name="TextStationLabel" Content="Please choose station to put the drone in charge:" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="18"/>
-                <ComboBox Name="GetStation" Grid.Column="1" HorizontalAlignment="Left" Margin="233,34,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="4" Foreground="#FF9BDEAC" FontFamily="David" FontSize="16">
+                <ComboBox Name="GetStation" Grid.Column="1" HorizontalAlignment="Left" Margin="233,34,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="4" Foreground="#FF3E4C2E" FontFamily="David" FontSize="16">
                     <ComboBox.Background>
                         <LinearGradientBrush EndPoint="0,1">
                             <GradientStop Color="#FFF0F0F0"/>
@@ -71,17 +73,17 @@
             <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" Height="50" Width="150" Click="CancelButton_Click" FontFamily="Agency FB" Foreground="#FF540804" FontSize="36" FontWeight="Bold" FontStyle="Normal" Background="#FFA6B98B"/>
             <Button x:Name="CloseWindowButton" Content="Close window" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="4" Height="50" Width="186" Click="CloseWindowButton_Click" Foreground="#FFAD2E24" FontFamily="Agency FB" FontSize="36" FontWeight="Bold" FontStyle="Normal" Background="#FFA6B98B"/>
 
-            <!--<Button x:Name="UpdateModelButton" Content="Update model drone" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Width="200" Height="50" Click="UpdateModelButton_Click"/>
-            <Button x:Name="SendToChargeButton" Content="Send drone to charge" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Width="200" Height="50" Click="SendToChargeButton_Click"/>
-            <Button x:Name="RealeseFromChargeButton" Content="Realese drone from charge" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Width="200" Height="50" Click="RealeseFromChargeButton_Click"/>
-            <Button x:Name="SendToDeliveryButton" Content="Send drone to delivery" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Width="200" Height="50" Click="SendToDeliveryButton_Click"/>
-            <Button x:Name="CollectParcelButton" Content="Collect parcel by the drone" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Width="200" Height="50" Click="CollectParcelButton_Click"/>
-            <Button x:Name="SupplyParcelButton" Content="Supply parcel by the drone" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4" Width="200" Height="50" Click="SupplyParcelButton_Click"/>
-            <Label Name="DataDroneLabel" HorizontalAlignment="Left" Margin="255,43,0,0" VerticalAlignment="Top" Height="291" Width="340" Grid.RowSpan="4"/>
-            <Label Name="HoursOfChargeLabel" Content="Enter the amount of the drone was in charge:" HorizontalAlignment="Left" Margin="0,86,0,0" VerticalAlignment="Top" Width="289" Grid.Row="2" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5"/>
-            <TextBox x:Name="HoursOfChargeTextBox" Text="" HorizontalAlignment="Left" Margin="40,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="3"/>
-            <Label Name="TextUpdateModelLabel" Content="Please enter model of the drone to update:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,81,0,0" Grid.RowSpan="2" Width="238" Height="26"/>
-            <TextBox x:Name="GetUpdateModelTextBox" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="40,25,0,0" Grid.Row="1"/>-->
+            <Button x:Name="UpdateModelButton" Content="Update model drone" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Width="200" Height="50" Click="UpdateModelButton_Click" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="16"/>
+            <Button x:Name="SendToChargeButton" Content="Send drone to charge" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Width="200" Height="50" Click="SendToChargeButton_Click" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic"/>
+            <Button x:Name="RealeseFromChargeButton" Content="Realese drone from charge" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Width="200" Height="50" Click="RealeseFromChargeButton_Click" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="16"/>
+            <Button x:Name="SendToDeliveryButton" Content="Send drone to delivery" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Width="200" Height="50" Click="SendToDeliveryButton_Click" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic"/>
+            <Button x:Name="CollectParcelButton" Content="Collect parcel by the drone" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Width="200" Height="50" Click="CollectParcelButton_Click" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic"/>
+            <Button x:Name="SupplyParcelButton" Content="Supply parcel by the drone" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="4" Width="200" Height="50" Click="SupplyParcelButton_Click" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" Margin="0,26,0,0"/>
+            <Label Name="DataDroneLabel" HorizontalAlignment="Left" Margin="255,10,0,0" VerticalAlignment="Top" Height="256" Width="317" Grid.RowSpan="4" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" Grid.Row="1"/>
+            <Label Name="HoursOfChargeLabel" Content="Enter the amount of the drone was in charge:" HorizontalAlignment="Left" Margin="0,86,0,0" VerticalAlignment="Top" Width="289" Grid.Row="2" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" FontFamily="Agency FB" FontWeight="Bold"/>
+            <TextBox x:Name="HoursOfChargeTextBox" Text="" HorizontalAlignment="Left" Margin="40,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="3" Foreground="#FF606F49" FontFamily="Agency FB"/>
+            <Label Name="TextUpdateModelLabel" Content="Please enter model of the drone to update:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,81,0,0" Grid.RowSpan="2" Width="238" Height="26" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Normal"/>
+            <TextBox x:Name="GetUpdateModelTextBox" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="40,25,0,0" Grid.Row="1" FontFamily="David" Foreground="#FF606F49" FontWeight="Normal"/>
         </Grid>
     </Border>
 </Window>

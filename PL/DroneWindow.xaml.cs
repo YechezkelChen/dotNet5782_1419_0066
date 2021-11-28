@@ -36,6 +36,7 @@ namespace PL
             SendToDeliveryButton.Visibility = Visibility.Hidden;
             CollectParcelButton.Visibility = Visibility.Hidden;
             SupplyParcelButton.Visibility = Visibility.Hidden;
+            informationJeffrey.Content = "";
             HoursOfChargeLabel.Content = "";
             HoursOfChargeTextBox.Visibility = Visibility.Hidden;
             TextUpdateModelLabel.Content = "";
@@ -60,7 +61,7 @@ namespace PL
             GetStation.Visibility = Visibility.Hidden;
             AddButton.Visibility = Visibility.Hidden;
             CancelButton.Visibility = Visibility.Hidden;
-            DataDroneLabel.Content = "The date of the drone is:\n" + "\n" + drone.ToString();
+            DataDroneLabel.Content = "\n" + drone.ToString();
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
