@@ -22,7 +22,7 @@ namespace PL
     public partial class DroneWindow : Window
     {
         private IBL.IBL bl;
-        Drone drone = new Drone();
+        private Drone drone;
 
         public DroneWindow(IBL.IBL ibl)
         {
@@ -41,10 +41,12 @@ namespace PL
             DataDroneLabel.Content = "";
         }
 
-        public DroneWindow(Drone droneHelp)
+        public DroneWindow(IBL.IBL ibl, Drone droneHelp)
         {
             InitializeComponent();
+            bl = ibl;
             drone = droneHelp;
+
             // hidden the add controls
             TextIdLabel.Content = "";
             GetId.Visibility = Visibility.Hidden;
@@ -58,7 +60,6 @@ namespace PL
             CancelButton.Visibility = Visibility.Hidden;
             HoursOfChargeLabel.Content = "";
             HoursOfChargeTextBox.Visibility = Visibility.Hidden;
-
             DataDroneLabel.Content = "The date of the drone is:\n" + "\n" + drone.ToString();
         }
 
@@ -155,6 +156,7 @@ namespace PL
             catch (DroneException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
 
             MessageBox.Show("The add is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -170,6 +172,7 @@ namespace PL
 
         private void CloseWindowButton_Click(object sender, RoutedEventArgs e)
         {
+            new DroneListWindow(bl);
             this.Close();
         }
 
@@ -191,11 +194,12 @@ namespace PL
         {
             try
             {
-                bl.SendDroneToDroneCharge(int.Parse((drone.Id).ToString()));
+                bl.SendDroneToDroneCharge(drone.Id);
             }
             catch (DroneException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
 
             MessageBox.Show("The send succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -232,11 +236,12 @@ namespace PL
                 Hours = int.Parse(HoursOfChargeTextBox.Text.ToString());
             try
             {
-                bl.ReleaseDroneFromDroneCharge(int.Parse((drone.Id).ToString()), Hours);
+                bl.ReleaseDroneFromDroneCharge(drone.Id, Hours);
             }
             catch (DroneException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
 
             MessageBox.Show("The realese succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -248,15 +253,17 @@ namespace PL
         {
             try
             {
-                bl.ConnectParcelToDrone(int.Parse((drone.Id).ToString()));
+                bl.ConnectParcelToDrone(drone.Id);
             }
             catch (DroneException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
             catch (ParcelException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
 
             MessageBox.Show("The connection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -268,13 +275,14 @@ namespace PL
         {
             try
             {
-                bl.CollectionParcelByDrone(int.Parse((drone.Id).ToString()));
+                bl.CollectionParcelByDrone(drone.Id);
             }
             catch (DroneException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-           
+
             MessageBox.Show("The collection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
             DataDroneLabel.Content = drone.ToString();
@@ -284,19 +292,20 @@ namespace PL
         {
             try
             {
-                bl.SupplyParcelByDrone(int.Parse((drone.Id).ToString()));
+                bl.SupplyParcelByDrone(drone.Id);
             }
             catch (DroneException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-          
+
             MessageBox.Show("The supply succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
             DataDroneLabel.Content = drone.ToString();
         }
 
-        
+
 
 
 
