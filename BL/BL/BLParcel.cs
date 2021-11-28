@@ -69,16 +69,14 @@ namespace IBL
             parcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
             parcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
 
+            parcel.DroneInParcel = new DroneInParcel()
+            { Id = 0, Battery = 0, Location = new Location() { Longitude = 0, Latitude = 0 } };
+
             foreach (var elementDrone in ListDrones)
                 if (elementDrone.Id == idalParcel.DroneId)
                 {
                     parcel.DroneInParcel = new DroneInParcel()
                         {Id = elementDrone.Id, Battery = elementDrone.Battery, Location = elementDrone.Location};
-                }
-                else
-                {
-                    parcel.DroneInParcel = new DroneInParcel()
-                        {Id = 0, Battery = 0, Location = new Location() {Longitude = 0, Latitude = 0}};
                 }
 
             parcel.Requested = idalParcel.Requested;
@@ -277,7 +275,7 @@ namespace IBL
                 {
                     if (elementParcelToList.ParcelStatuses != ParcelStatuses.PickedUp &&
                         parcel.DroneInParcel.Id == idDrone)
-                        throw new DroneException("ERROR: the drone is not pick-up the parcel yet.:\n");
+                        throw new DroneException("ERROR: the drone is not pick-up the parcel yet\n");
 
                     double distance = Distance(drone.Location, GetCustomer(parcel.Target.Id).Location);
 

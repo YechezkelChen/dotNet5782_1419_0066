@@ -38,6 +38,8 @@ namespace PL
             SupplyParcelButton.Visibility = Visibility.Hidden;
             HoursOfChargeLabel.Content = "";
             HoursOfChargeTextBox.Visibility = Visibility.Hidden;
+            TextUpdateModelLabel.Content = "";
+            GetUpdateModelTextBox.Visibility = Visibility.Hidden;
             DataDroneLabel.Content = "";
         }
 
@@ -58,8 +60,6 @@ namespace PL
             GetStation.Visibility = Visibility.Hidden;
             AddButton.Visibility = Visibility.Hidden;
             CancelButton.Visibility = Visibility.Hidden;
-            HoursOfChargeLabel.Content = "";
-            HoursOfChargeTextBox.Visibility = Visibility.Hidden;
             DataDroneLabel.Content = "The date of the drone is:\n" + "\n" + drone.ToString();
         }
 
@@ -172,22 +172,41 @@ namespace PL
 
         private void CloseWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            new DroneListWindow(bl);
             this.Close();
         }
 
         private void UpdateModelButton_Click(object sender, RoutedEventArgs e)
         {
-            TextModelLabel.Content = "Please enter model of the drone:\n";
-            GetModel.Visibility = Visibility.Visible;
-            UpdateModelButton.Visibility = Visibility.Hidden;
-            SendToChargeButton.Visibility = Visibility.Hidden;
-            RealeseFromChargeButton.Visibility = Visibility.Hidden;
-            SendToDeliveryButton.Visibility = Visibility.Hidden;
-            CollectParcelButton.Visibility = Visibility.Hidden;
-            SupplyParcelButton.Visibility = Visibility.Hidden;
-            DataDroneLabel.Content = "";
+            string model = GetUpdateModelTextBox.Text;
+            if (model == "")
+            {
+                MessageBoxResult result = MessageBox.Show("Model must have value, please enter legal model to continue, or Cancel to stop the update", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                switch (result)
+                {
+                    case MessageBoxResult.OK:
+                        return;
+                    case MessageBoxResult.Cancel:
+                        GetUpdateModelTextBox.Clear();
+                        return;
+                    default:
+                        GetUpdateModelTextBox.Clear();
+                        return;
+                }
+            }
 
+            try
+            {
+                bl.UpdateDroneModel(drone.Id, model);
+            }
+            catch (DroneException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("The update is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            drone = bl.GetDrone(drone.Id);
+            DataDroneLabel.Content = drone.ToString();
         }
 
         private void SendToChargeButton_Click(object sender, RoutedEventArgs e)
@@ -209,31 +228,19 @@ namespace PL
 
         private void RealeseFromChargeButton_Click(object sender, RoutedEventArgs e)
         {
-            UpdateModelButton.Visibility = Visibility.Hidden;
-            SendToChargeButton.Visibility = Visibility.Hidden;
-            RealeseFromChargeButton.Visibility = Visibility.Hidden;
-            SendToDeliveryButton.Visibility = Visibility.Hidden;
-            CollectParcelButton.Visibility = Visibility.Hidden;
-            SupplyParcelButton.Visibility = Visibility.Hidden;
-            TextIdLabel.Content = "";
-            GetId.Visibility = Visibility.Hidden;
-            TextModelLabel.Content = "";
-            GetModel.Visibility = Visibility.Hidden;
-            TextWeightLabel.Content = "";
-            GetWeight.Visibility = Visibility.Hidden;
-            TextStationLabel.Content = "";
-            GetStation.Visibility = Visibility.Hidden;
-            AddButton.Visibility = Visibility.Hidden;
-            CancelButton.Visibility = Visibility.Hidden;
-            DataDroneLabel.Content = "";
-            HoursOfChargeTextBox.Visibility = Visibility.Visible;
-            HoursOfChargeLabel.Content = "Enter the amount of hours the drone was in charge:";
-
             int Hours = 0;
             if (HoursOfChargeTextBox.Text.ToString() == "")
-                MessageBox.Show("Enter a positive amount", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error); 
+            {
+                MessageBox.Show("Enter amount of charge!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             else
+            {
                 Hours = int.Parse(HoursOfChargeTextBox.Text.ToString());
+                HoursOfChargeTextBox.Clear();
+
+            }
+
             try
             {
                 bl.ReleaseDroneFromDroneCharge(drone.Id, Hours);
@@ -295,6 +302,11 @@ namespace PL
                 bl.SupplyParcelByDrone(drone.Id);
             }
             catch (DroneException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            catch (ParcelException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
