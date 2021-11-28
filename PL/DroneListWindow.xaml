@@ -33,7 +33,7 @@
                 <Button x:Name="CloseButton" Content="Close Window" Grid.Column="3" HorizontalAlignment="Center" Margin="83,0,0,0" VerticalAlignment="Center" Click="Close_Click" Foreground="#FF6B0F1A" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic"/>
             </Grid>
             <Label Content="Hey it's Jeffrey again, If you want to update a particular drone click on him twice." HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="40" Width="800" Background="#84A98C" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46"/>
-            <ListView x:Name="DronesListView" Grid.Row="2" Background="#52796F" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#FF0B3948" FontFamily="David" FontSize="14"/>
+            <ListView x:Name="DronesListView" Grid.Row="2" Background="#52796F" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#CAD2C5" FontFamily="David" FontSize="14" FontWeight="Normal"/>
         </Grid>
     </Border>
 </Window>
