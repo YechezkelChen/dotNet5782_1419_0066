@@ -161,8 +161,6 @@ namespace PL
 
             MessageBox.Show("The add is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             this.Close();
-
-            //צריך להציג את הרחפן שנוסף עם הרשימה האחרונה !!!! חלק ב סעיף 14!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
