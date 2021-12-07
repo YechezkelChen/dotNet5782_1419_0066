@@ -171,7 +171,8 @@ namespace IBL
         /// <returns></return all drones>
         public IEnumerable<DroneToList> GetDrones(Predicate<DroneToList> dronePredicate)
         {
-            return ListDrones.FindAll(dronePredicate);
+            IEnumerable<DroneToList> drones = ListDrones.FindAll(dronePredicate);
+            return drones;
         }
 
         /// <summary>
@@ -292,7 +293,7 @@ namespace IBL
             if (GetDrone(id).Status != DroneStatuses.Maintenance)
                 throw new DroneException("The drone can not release because he is in maintenance statuses\n");
 
-            foreach (var elementDroneCharge in dal.GetDronesCharge())
+            foreach (var elementDroneCharge in dal.GetDronesCharge(droneCharge => true))
             {
                 if (id == elementDroneCharge.DroneId)
                 {
@@ -300,7 +301,7 @@ namespace IBL
                     {
                         if (elementDroneCharge.DroneId == elementListDrone.Id)
                         {
-                            foreach (var elementStationToList in GetStations(s => true))
+                            foreach (var elementStationToList in GetStations())
                             {
                                 if (elementDroneCharge.StationId == elementStationToList.Id)
                                 {

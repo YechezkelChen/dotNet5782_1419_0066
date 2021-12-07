@@ -91,11 +91,43 @@ namespace IBL
         /// return the list of parcels in special entity for show
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ParcelToList> GetParcels(Predicate<IDAL.DO.Parcel> parcelPredicate)
+        public IEnumerable<ParcelToList> GetParcels()
         {
             List<ParcelToList> parcelToLists = new List<ParcelToList>();
             
-            foreach (var idalParcel in dal.GetParcels(parcelPredicate))
+            foreach (var idalParcel in dal.GetParcels(parcel => true))
+            {
+                ParcelToList newParcel = new ParcelToList();
+                newParcel.Id = idalParcel.Id;
+                newParcel.SenderName = GetCustomer(idalParcel.SenderId).Name;
+                newParcel.TargetName = GetCustomer(idalParcel.TargetId).Name;
+                newParcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
+                newParcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
+
+                if (idalParcel.Requested != null)
+                    newParcel.ParcelStatuses = ParcelStatuses.Requested;
+                if (idalParcel.Scheduled != null)
+                    newParcel.ParcelStatuses = ParcelStatuses.Scheduled;
+                if (idalParcel.PickedUp != null)
+                    newParcel.ParcelStatuses = ParcelStatuses.PickedUp;
+                if (idalParcel.Delivered != null)
+                    newParcel.ParcelStatuses = ParcelStatuses.Delivered;
+
+                parcelToLists.Add(newParcel);
+            }
+
+            return parcelToLists;
+        }
+
+        /// <summary>
+        /// Returning the list of parcels with no drones in a special entity "Parcel to list".
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ParcelToList> GetParcelsNoDrones()
+        {
+            List<ParcelToList> parcelToLists = new List<ParcelToList>();
+
+            foreach (var idalParcel in dal.GetParcels(parcel => parcel.Scheduled == null && parcel.PickedUp == null && parcel.Delivered == null)) // just parcels that dont have them drone.
             {
                 ParcelToList newParcel = new ParcelToList();
                 newParcel.Id = idalParcel.Id;
@@ -140,8 +172,7 @@ namespace IBL
 
             ParcelToList parcel = new ParcelToList();
 
-            IEnumerable<ParcelToList> parcelNoDrones = GetParcels(parcel => parcel.Scheduled == null &&
-                                                                  parcel.PickedUp == null && parcel.Delivered == null); // just parcels that dont have them drone.
+            IEnumerable<ParcelToList> parcelNoDrones = GetParcelsNoDrones();
             List<ParcelToList> prioritiesParcel = new List<ParcelToList>();
             List<ParcelToList> weightParcel = new List<ParcelToList>();
             Parcel parcelToConnect = new Parcel();
@@ -269,7 +300,7 @@ namespace IBL
             Parcel parcel = new Parcel();
             parcel = GetParcel(drone.ParcelByTransfer.Id);
 
-            foreach (var elementParcelToList in GetParcels(parcel => true))
+            foreach (var elementParcelToList in GetParcels())
             {
                 if (elementParcelToList.Id == parcel.Id)
                 {

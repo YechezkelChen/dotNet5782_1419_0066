@@ -70,7 +70,7 @@ namespace IBL
             station.Location = new Location() {Longitude = idalStation.Longitude, Latitude = idalStation.Latitude};
             station.ChargeSlots = idalStation.ChargeSlots;
             station.InCharges = new List<DroneCharge>();
-            foreach (var elementDroneCharge in dal.GetDronesCharge())
+            foreach (var elementDroneCharge in dal.GetDronesCharge(droneCharge => true))
                 if(elementDroneCharge.StationId == station.Id)
                     station.InCharges.Add(elementDroneCharge);
 
@@ -81,11 +81,35 @@ namespace IBL
         ///  return the list of stations in special entity for show
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<StationToList> GetStations(Predicate<IDAL.DO.Station> stationPredicate)
+        public IEnumerable<StationToList> GetStations()
         {
             List<StationToList> stationsToList = new List<StationToList>();
 
-            foreach (var idalStation in dal.GetStations(stationPredicate))
+            foreach (var idalStation in dal.GetStations(station => true))
+            {
+                Station station = new Station();
+                station = GetStation(idalStation.Id);
+                StationToList newStationToList = new StationToList();
+                newStationToList.Id = idalStation.Id;
+                newStationToList.Name = idalStation.Name;
+                newStationToList.ChargeSlotsAvailable = idalStation.ChargeSlots;
+                newStationToList.ChargeSlotsNotAvailable = station.InCharges.Count();
+
+                stationsToList.Add(newStationToList);
+            }
+
+            return stationsToList;
+        }
+
+        /// <summary>
+        /// Returning the list of stations with available charging position in a special entity "Station to list".
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<StationToList> GetStationsCharge()
+        {
+            List<StationToList> stationsToList = new List<StationToList>();
+
+            foreach (var idalStation in dal.GetStations(station => station.ChargeSlots > 0))
             {
                 Station station = new Station();
                 station = GetStation(idalStation.Id);
@@ -149,7 +173,7 @@ namespace IBL
                 throw new DroneException(e.Message, e);
             }
 
-            foreach (var stationCharge in GetStations(s => s.ChargeSlots > 0))
+            foreach (var stationCharge in GetStationsCharge())
             {
                 foreach (var station in dal.GetStations(s => true)) // for the location
                 {
@@ -189,7 +213,7 @@ namespace IBL
             Location stationLocation = new Location();
             Location customerLocation = new Location() { Longitude = customer.Longitude, Latitude = customer.Latitude };
 
-            foreach (var stationCharge in GetStations(s => s.ChargeSlots > 0))
+            foreach (var stationCharge in GetStationsCharge())
             {
                 foreach (var station in dal.GetStations(s => true))
                 {

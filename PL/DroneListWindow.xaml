@@ -4,16 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        Icon="C:\Users\USER001\source\repos\YechezkelChen\dotNet5782_1419_0066\icon.png"
+        Closing="CloseWithSpecialButton"
         mc:Ignorable="d"
         Title="DroneListWindow" Height="640" Width="800">
     <Border Background="#CAD2C5" Height="640" Width="800">
         <Grid Name="MainGrid">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50*"/>
+                <RowDefinition Height="60*"/>
                 <RowDefinition Height="30*"/>
                 <RowDefinition Height="400*"/>
             </Grid.RowDefinitions>
-            <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2" Margin="-34,-5,34,5">
+            <Grid Name="UpGrid" Grid.Row="0">
+                <Grid.Background>
+                    <ImageBrush ImageSource="C:\Users\USER001\source\repos\YechezkelChen\dotNet5782_1419_0066\upGrid.jpg"/>
+                </Grid.Background>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -21,19 +26,29 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label x:Name="StatusLabel" Content="Choose a status :" HorizontalAlignment="Center" Margin="40,9,0,0" VerticalAlignment="Top" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Normal"/>
+                <Label x:Name="StatusLabel" Content="Choose a status :" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40,9,0,0" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Normal"/>
+                <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,9,0,0" Height="27" Width="109" Grid.Column="1" SelectionChanged="StatusSelctor_SelectionChanged" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontStyle="Italic"/>
 
-                <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="109" Height="27" Grid.Column="1" SelectionChanged="StatusSelctor_SelectionChanged" Foreground="#FF2F3E46" FontFamily="Agency FB" FontSize="16" FontStyle="Italic"/>
-                <Label x:Name="WeightLabel" Content="Choose a weight :" HorizontalAlignment="Left" Margin="68,40,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontFamily="Agency FB" Foreground="#FF2F3E46" Height="33"/>
-                <ComboBox Name="WeightSelctor" Grid.Column="1" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="109" Height="26" SelectionChanged="WeightSelctor_SelectionChanged" Foreground="#FF2F3E46" FontFamily="Agency FB" FontSize="16" FontStyle="Italic"/>
+                <Label x:Name="WeightLabel" Content="Choose a weight :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="68,40,0,0" Height="33" Foreground="#FF2F3E46" FontSize="16" FontWeight="Bold" FontFamily="Agency FB"/>
+                <ComboBox Name="WeightSelctor" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,41,0,0" Height="26" Width="109" Grid.Column="1" SelectionChanged="WeightSelctor_SelectionChanged" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontStyle="Italic"/>
 
-                <Button x:Name="ClearButton" Content="Clear" Grid.Column="1" HorizontalAlignment="Left" Margin="124,26,0,0" VerticalAlignment="Top" Height="20" Width="72" Click="ClearButton_Click" Foreground="#FF6B0F1A" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic"/>
+                <Button x:Name="ClearButton" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,26,0,0" Height="20" Width="72" Grid.Column="1" Click="ClearButton_Click" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic"/>
 
-                <Button x:Name="AddDroneButton" Content="Add a drone" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="AddDrone_Click" Foreground="#FF474A2C" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic"/>
+                <Button x:Name="AddDroneButton" Content="Add a drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Click="AddDrone_Click" Foreground="#FF474A2C" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic"/>
+
                 <Button x:Name="CloseButton" Content="Close Window" Grid.Column="3" HorizontalAlignment="Center" Margin="83,0,0,0" VerticalAlignment="Center" Click="Close_Click" Foreground="#FF6B0F1A" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic"/>
             </Grid>
-            <Label Content="Hey it's Jeffrey again, If you want to update a particular drone click on him twice." HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="40" Width="800" Background="#84A98C" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46"/>
-            <ListView x:Name="DronesListView" Grid.Row="2" Background="#52796F" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#CAD2C5" FontFamily="David" FontSize="14" FontWeight="Normal"/>
+
+            <Grid Name="MiddleGrid" Grid.Row="1">
+                <Grid.Background>
+                    <ImageBrush ImageSource="C:\Users\USER001\source\repos\YechezkelChen\dotNet5782_1419_0066\d.jpg"/>
+                </Grid.Background>
+                <Label Content="List Drones:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="auto" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46"/>
+            </Grid>
+            <ListView x:Name="DronesListView" Grid.Row="2" Background="DarkGray" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="20" FontWeight="Normal"/>
+
+            <!--<Label Content="Hey it's Jeffrey again, If you want to update a particular drone click on him twice." HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="40" Width="800" Background="#84A98C" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46"/>-->
+        
         </Grid>
     </Border>
 </Window>

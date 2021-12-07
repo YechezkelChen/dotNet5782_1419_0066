@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        Icon="C:\Users\USER001\source\repos\YechezkelChen\dotNet5782_1419_0066\icon.png"
         mc:Ignorable="d"
         Title="DroneWindow" Height="450" Width="800">
     <Border Background="#606F49" Margin="0,0,0,-6">
@@ -15,7 +16,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Name="IdGrid" Height="auto" Grid.Row="0" Width="auto" Margin="-34,-5,34,79" Grid.RowSpan="2">
+            <Grid Name="IdGrid" Height="auto" Grid.Row="0" Width="auto" Margin="-34,-5,34,79" Grid.RowSpan="2" KeyDown="IdGrid_KeyDown">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>

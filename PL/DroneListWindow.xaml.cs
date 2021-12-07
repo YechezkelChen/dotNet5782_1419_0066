@@ -77,6 +77,7 @@ namespace PL
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
+            CloseButton.Visibility = Visibility.Hidden;
             this.Close();
         }
 
@@ -115,6 +116,12 @@ namespace PL
                             drones.ToList().Find(d => d.Id == drone.Id) != null);//(atgar 2)
             }
             DronesListView.ItemsSource = drones;
+        }
+
+        private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (CloseButton.Visibility != Visibility.Hidden)
+                e.Cancel = true;
         }
     }
 }

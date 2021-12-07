@@ -29,7 +29,7 @@ namespace PL
             InitializeComponent();
             bl = ibl;
             GetWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            GetStation.ItemsSource = bl.GetStations(station => station.ChargeSlots > 0);
+            GetStation.ItemsSource = bl.GetStationsCharge();
             UpdateModelButton.Visibility = Visibility.Hidden;
             SendToChargeButton.Visibility = Visibility.Hidden;
             RealeseFromChargeButton.Visibility = Visibility.Hidden;
@@ -314,6 +314,20 @@ namespace PL
             MessageBox.Show("The supply succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
             DataDroneLabel.Content = drone.ToString();
+        }
+
+        private void IdGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            int id;
+            if (GetId.Text.ToString() == "")
+                id = 0;
+            else
+                id = int.Parse(GetId.Text.ToString());
+
+            if (id <= 0)
+                GetId.Background = Brushes.Red;
+            else
+                drone.Id = id;
         }
 
 

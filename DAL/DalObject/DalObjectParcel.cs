@@ -56,7 +56,7 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> parcelPredicate)
         {
-            List<Parcel> parcels = DataSource.Parcels.FindAll(parcelPredicate);
+            IEnumerable<Parcel> parcels = DataSource.Parcels.FindAll(parcelPredicate);
             return parcels;
         }
 

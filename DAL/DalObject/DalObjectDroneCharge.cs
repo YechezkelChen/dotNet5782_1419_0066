@@ -35,9 +35,10 @@ namespace DalObject
         /// return all the list of the drone's that they are in charge sopt 
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<DroneCharge> GetDronesCharge()
+        public IEnumerable<DroneCharge> GetDronesCharge(Predicate<DroneCharge> droneChargePredicate)
         {
-            return DataSource.DroneCharges;
+            IEnumerable<DroneCharge> dronesCharge = DataSource.DroneCharges.FindAll(droneChargePredicate);
+            return dronesCharge;
         }
 
         private bool IsExistDroneCharge(DroneCharge droneCharge, IEnumerable<DroneCharge> droneCharges)

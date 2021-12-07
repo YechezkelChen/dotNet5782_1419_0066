@@ -4,13 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        Icon="C:\Users\USER001\source\repos\YechezkelChen\dotNet5782_1419_0066\icon.png"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Border Background="#2F3E46" Height="450" Width="800">
-        <Grid>
-            <Button Name="ShowDroneButton" Content="Show all drones" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="150" Width="300" Background="#CAD2C5" FontSize="50" Click="ShowDroneButton_Click" Foreground="#FF2F3E46" FontWeight="Bold" FontStyle="Italic" FontFamily="Agency FB" Margin="0,0,10,28"/>
-            <Label Content="Hello User!&#xA;I'm Jeffrey your personal assistant.&#xA;I can perform a variety of operations with drones,&#xA;Such as: Adding / displaying / updating a drone.&#xA;To see all the drones I currently have click on the button below:" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Top" Height="190" Width="696" Background="#FF2F3E46" Foreground="#FFCAD2C5" FontWeight="Normal" FontFamily="Agency FB"/>
-            <Label Content="&quot;Show all drones&quot;" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Width="600" Height="50" FontSize="30" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Foreground="#FFCAD2C5"/>
-        </Grid>
-    </Border>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\USER001\source\repos\YechezkelChen\dotNet5782_1419_0066\background.jpg"/>
+        </Grid.Background>
+        <Button Name="StartButton" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="100" FontSize="50" Background="#FFCAD2C5" Click="ShowDroneButton_Click" Foreground="#FF2F3E46" FontWeight="Bold" FontStyle="Italic" FontFamily="Agency FB" Margin="0,199,0,0"/>
+        <Label Content="Drone Delivery LTD" HorizontalAlignment="Left" VerticalAlignment="Top" Width="350" Height="80" FontSize="50" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Foreground="#FFCAD2C5"/>
+    </Grid>
 </Window>

@@ -47,7 +47,7 @@ namespace DalObject
         /// <returns></returns>
         public IEnumerable<Station> GetStations(Predicate<Station> stationPredicate)
         {
-            List<Station> stations = DataSource.Stations.FindAll(stationPredicate);
+            IEnumerable<Station> stations = DataSource.Stations.FindAll(stationPredicate);
             return stations;
         }
 

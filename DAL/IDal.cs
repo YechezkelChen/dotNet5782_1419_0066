@@ -45,6 +45,6 @@ namespace IDAL
         // DroneCharge
         void AddDroneCharge(DroneCharge newDroneCharge); // Adds a droneCharge to the list of dronesCharge.
         void RemoveDroneCharge(DroneCharge DroneCharge); // Remove a droneCharge from the list of droneCharges.
-        IEnumerable<DroneCharge> GetDronesCharge(); // Returning the list of dronesCharge.
+        IEnumerable<DroneCharge> GetDronesCharge(Predicate<DroneCharge> droneChargePredicate); // Returning the list of dronesCharge.
     }
 }

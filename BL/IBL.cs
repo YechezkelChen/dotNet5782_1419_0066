@@ -12,7 +12,8 @@ namespace IBL
         // Station
         void AddStation(Station newStation); // Adds a station to the list of stations.
         Station GetStation(int id); // Returning a station according to the id of the station.
-        IEnumerable<StationToList> GetStations(Predicate<IDAL.DO.Station> stationPredicate); // Returning the list of stations in a special entity "Station to list".
+        IEnumerable<StationToList> GetStations(); // Returning the list of stations in a special entity "Station to list".
+        IEnumerable<StationToList> GetStationsCharge(); // Returning the list of stations with available charging position in a special entity "Station to list".
         void UpdateDataStation(int id, int name, int chargeSlots); // Update station data according to user request.
 
 
@@ -28,14 +29,15 @@ namespace IBL
         // Customer
         void AddCustomer(Customer newCustomer); // Adds a customer to the list of customers.
         Customer GetCustomer(int id); // Returning a customer according to the id of the customer.
-        IEnumerable<CustomerToList> GetCustomers(Predicate<IDAL.DO.Customer> customerPredicate); // Returning the list of customers in a special entity "Customer to list".
+        IEnumerable<CustomerToList> GetCustomers(); // Returning the list of customers in a special entity "Customer to list".
         void UpdateDataCustomer(int id, string name, string phone); // Update customer data according to user request.
 
 
         // Parcel 
         void AddParcel(Parcel newParcel); // Adds a parcel to the list of parcels.
         Parcel GetParcel(int id); // Returning a parcel according to the id of the parcel.
-        IEnumerable<ParcelToList> GetParcels(Predicate<IDAL.DO.Parcel> parcelPredicate); // Returning the list of parcels in a special entity "Parcel to list".
+        IEnumerable<ParcelToList> GetParcels(); // Returning the list of parcels in a special entity "Parcel to list".
+        IEnumerable<ParcelToList> GetParcelsNoDrones(); // Returning the list of parcels with no drones in a special entity "Parcel to list".
         void ConnectParcelToDrone(int idDrone); // Selecting a parcel according to criteria and sending a drone according to the id that will be associated with the parcel.
         void CollectionParcelByDrone(int idDrone); // Sending the desired drone (according to id) to collect the parcel from its place.
         void SupplyParcelByDrone(int idDrone); // Sending the drone (according to id) deliver the parcel to the destination of the parcel.
