@@ -95,7 +95,7 @@ namespace PL
             if (StatusSelctor.SelectedItem == null)
                 dronesFiltering = bl.GetDrones();
             else
-                dronesFiltering = bl.GetDronesByStatus((DroneStatuses)StatusSelctor.SelectedItem);// (drone => drone.Status == (DroneStatuses)Enum.Parse(typeof(DroneStatuses), StatusSelctor.SelectedItem.ToString()) && drones.ToList().Find(d => d.Id == drone.Id) != null);
+                dronesFiltering = bl.GetDronesByStatus((DroneStatuses)StatusSelctor.SelectedItem);
 
             drones = dronesFiltering.ToList().FindAll(drone => drones.ToList().Find(d => d.Id == drone.Id) != null);
 

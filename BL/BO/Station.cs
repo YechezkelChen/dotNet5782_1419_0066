@@ -22,7 +22,7 @@ namespace IBL
                 foreach (var elementInCharge in InCharges)
                     builderDroneChargeListPrint.Append(elementInCharge).Append(", ");
                 return $"Id #{Id}: Name = {Name},Location = {Location}, " +
-                       $"Charge slots = {ChargeSlots}, Drone in charges = {builderDroneChargeListPrint.ToString()}.";
+                       $"Charge slots = {ChargeSlots}, Drone in charges = {builderDroneChargeListPrint}.";
             }
         }
     }

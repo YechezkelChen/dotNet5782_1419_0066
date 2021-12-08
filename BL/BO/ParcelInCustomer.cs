@@ -18,7 +18,7 @@ namespace IBL
             public override string ToString()
             {
                 return $"Id #{Id}: Weight = {Weight}, Priority = {Priority}, " +
-                       $" Status = {Status}, Customer in delivery = {CustomerInDelivery.ToString()}";
+                       $" Status = {Status}, Customer in delivery = {CustomerInDelivery}";
             }
         }
     }

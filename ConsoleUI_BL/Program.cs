@@ -239,7 +239,7 @@ namespace ConsoleUI_BL
                             case OptionListView.ListDrones:
                                 try
                                 {
-                                    foreach (var elementDrone in bl.GetDrones(drone => true))
+                                    foreach (var elementDrone in bl.GetDrones())
                                         Console.WriteLine(elementDrone);
                                 }
                                 catch (DroneException e)

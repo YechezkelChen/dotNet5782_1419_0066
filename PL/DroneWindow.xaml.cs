@@ -40,7 +40,7 @@ namespace PL
             bl = ibl;
             drone = droneHelp;
             AddDroneGrid.Visibility = Visibility.Hidden;
-            DataDroneLabel.Content = "\n" + drone.ToString();
+            DataDroneLabel.Content = "\n" + drone;
         }
 
         private void CloseWindowButton_Click(object sender, RoutedEventArgs e)
@@ -58,7 +58,7 @@ namespace PL
         private void GetId_MouseLeave(object sender, MouseEventArgs e)
         {
             int id;
-            if (GetId.Text.ToString() == "" || !GetId.Text.All(char.IsDigit))
+            if (GetId.Text == "" || !GetId.Text.All(char.IsDigit))
                 id = 0;
             else
                 id = int.Parse(GetId.Text);
@@ -212,7 +212,7 @@ namespace PL
 
             MessageBox.Show("The update is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
-            DataDroneLabel.Content = drone.ToString();
+            DataDroneLabel.Content = drone;
         }
 
         private void GetUpdateModelTextBox_MouseLeave(object sender, MouseEventArgs e)
@@ -241,7 +241,7 @@ namespace PL
 
             MessageBox.Show("The send succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
-            DataDroneLabel.Content = drone.ToString();
+            DataDroneLabel.Content = drone;
         }
 
         private void RealeseFromChargeButton_Click(object sender, RoutedEventArgs e)
@@ -267,7 +267,7 @@ namespace PL
 
             MessageBox.Show("The realese succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
-            DataDroneLabel.Content = drone.ToString();
+            DataDroneLabel.Content = drone;
         }
 
         private void HoursOfChargeTextBox_MouseLeave(object sender, MouseEventArgs e)
@@ -303,7 +303,7 @@ namespace PL
 
             MessageBox.Show("The connection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
-            DataDroneLabel.Content = drone.ToString();
+            DataDroneLabel.Content = drone;
         }
 
         private void CollectParcelButton_Click(object sender, RoutedEventArgs e)
@@ -320,7 +320,7 @@ namespace PL
 
             MessageBox.Show("The collection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
-            DataDroneLabel.Content = drone.ToString();
+            DataDroneLabel.Content = drone;
         }
 
         private void SupplyParcelButton_Click(object sender, RoutedEventArgs e)
@@ -342,7 +342,7 @@ namespace PL
 
             MessageBox.Show("The supply succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
-            DataDroneLabel.Content = drone.ToString();
+            DataDroneLabel.Content = drone;
         }
     }
 }

@@ -66,8 +66,8 @@ namespace IBL
                 {Id = idalParcel.SenderId, NameCustomer = GetCustomer(idalParcel.SenderId).Name};
             parcel.Target = new CustomerInParcel()
                 { Id = idalParcel.TargetId, NameCustomer = GetCustomer(idalParcel.TargetId).Name };
-            parcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
-            parcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
+            parcel.Weight = (WeightCategories)idalParcel.Weight;
+            parcel.Priority = (Priorities)idalParcel.Priority;
 
             parcel.DroneInParcel = new DroneInParcel()
             { Id = 0, Battery = 0, Location = new Location() { Longitude = 0, Latitude = 0 } };
@@ -101,8 +101,8 @@ namespace IBL
                 newParcel.Id = idalParcel.Id;
                 newParcel.SenderName = GetCustomer(idalParcel.SenderId).Name;
                 newParcel.TargetName = GetCustomer(idalParcel.TargetId).Name;
-                newParcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
-                newParcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
+                newParcel.Weight = (WeightCategories)idalParcel.Weight;
+                newParcel.Priority = (Priorities)idalParcel.Priority;
 
                 if (idalParcel.Requested != null)
                     newParcel.ParcelStatuses = ParcelStatuses.Requested;
@@ -133,8 +133,8 @@ namespace IBL
                 newParcel.Id = idalParcel.Id;
                 newParcel.SenderName = GetCustomer(idalParcel.SenderId).Name;
                 newParcel.TargetName = GetCustomer(idalParcel.TargetId).Name;
-                newParcel.Weight = Enum.Parse<WeightCategories>(idalParcel.Weight.ToString());
-                newParcel.Priority = Enum.Parse<Priorities>(idalParcel.Priority.ToString());
+                newParcel.Weight = (WeightCategories)idalParcel.Weight;
+                newParcel.Priority = (Priorities)idalParcel.Priority;
 
                 if (idalParcel.Requested != null)
                     newParcel.ParcelStatuses = ParcelStatuses.Requested;
