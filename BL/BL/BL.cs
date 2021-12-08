@@ -44,7 +44,7 @@ namespace IBL
                 DroneToList newDrone = new DroneToList();
                 newDrone.Id = elementDrone.Id;
                 newDrone.Model = elementDrone.Model;
-                newDrone.Weight = Enum.Parse<WeightCategories>(elementDrone.Weight.ToString());
+                newDrone.Weight = (WeightCategories)elementDrone.Weight;
                 ListDrones.Add(newDrone);
             }
 
