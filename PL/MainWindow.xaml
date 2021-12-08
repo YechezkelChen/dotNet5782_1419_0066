@@ -3,15 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Icon="images\icon.png"
         xmlns:local="clr-namespace:PL"
-        Icon="C:\Users\USER001\source\repos\YechezkelChen\dotNet5782_1419_0066\icon.png"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\USER001\source\repos\YechezkelChen\dotNet5782_1419_0066\background.jpg"/>
+            <ImageBrush ImageSource="images\background.jpg"/>
         </Grid.Background>
-        <Button Name="StartButton" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="100" FontSize="50" Background="#FFCAD2C5" Click="ShowDroneButton_Click" Foreground="#FF2F3E46" FontWeight="Bold" FontStyle="Italic" FontFamily="Agency FB" Margin="0,199,0,0"/>
+        <Button Name="StartButton" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="100" FontSize="50" Background="#ADE8F4" Click="ShowDroneButton_Click" Foreground="#FF2F3E46" FontWeight="Bold" FontStyle="Italic" FontFamily="Agency FB" Margin="0,199,0,0"/>
         <Label Content="Drone Delivery LTD" HorizontalAlignment="Left" VerticalAlignment="Top" Width="350" Height="80" FontSize="50" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Foreground="#FFCAD2C5"/>
     </Grid>
 </Window>

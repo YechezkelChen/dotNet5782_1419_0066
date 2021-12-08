@@ -7,7 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\1.jpg" />
+    <None Remove="images\addDroneGrid.jpg" />
+    <None Remove="images\background.jpg" />
+    <None Remove="images\icon.png" />
+    <None Remove="images\middleGrid.jpg" />
+    <None Remove="images\upGrid.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\1.jpg" />
+    <Resource Include="images\addDroneGrid.jpg" />
+    <Resource Include="images\background.jpg" />
+    <Resource Include="images\icon.png" />
+    <Resource Include="images\middleGrid.jpg" />
+    <Resource Include="images\upGrid.jpg" />
   </ItemGroup>
 
 </Project>

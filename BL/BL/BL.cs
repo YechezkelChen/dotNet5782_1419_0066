@@ -94,6 +94,7 @@ namespace IBL
                                             BatteryAvailable;
 
                         newDroneToList.Battery = (100 - distanceDelivery) * rand.NextDouble() + distanceDelivery;
+                        newDroneToList.Battery = (double)System.Math.Round(newDroneToList.Battery, 3);
                         if (newDroneToList.Battery > 100)
                             newDroneToList.Battery = 100;
 
@@ -117,6 +118,8 @@ namespace IBL
                     };
 
                     newDroneToList.Battery = 20 * rand.NextDouble();
+                    newDroneToList.Battery = (double)System.Math.Round(newDroneToList.Battery, 3);
+
                     newDroneToList.IdParcel = 0;
                     try
                     {
@@ -152,6 +155,8 @@ namespace IBL
 
                     newDroneToList.Battery = (100 - distanceFromNearStation) * rand.NextDouble() +
                                              distanceFromNearStation;
+                    newDroneToList.Battery = (double)System.Math.Round(newDroneToList.Battery, 3);
+
                     if (newDroneToList.Battery > 100)
                         newDroneToList.Battery = 100;
                     newDroneToList.IdParcel = 0;

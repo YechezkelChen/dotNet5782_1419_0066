@@ -15,7 +15,7 @@ namespace DalObject
 
         internal class Config
         {
-            internal static int ParcelsId = 1;
+            internal static int ParcelsId = 100000;
 
             // km per hour
             internal static double BatteryAvailable = 0.05;
@@ -28,15 +28,17 @@ namespace DalObject
         public static void Initialize()
         {
             Random rand = new Random(DateTime.Now.Millisecond);
-            List<string> names = new List<string>() { "a", "b", "c", "d", "e" };
+            List<string> droneNames = new List<string>() { "Topacc", "Mavic", "Phantom", "Combo", "Tello" };
+            List<string> stationNames = new List<string>() { "Bar Ilan", "Artist", "Jaffa", "Carmel", "Palmach" };
+            List<string> customerNames = new List<string>() { "Abraham", "Isaac", "Jacob", "Moshe", "Joseph" };
             List<DateTime?> dates = new List<DateTime?>() {DateTime.Now, null};
 
             for (int i = 0; i < 5; i++)
             {
                 Drones.Add(new Drone
                 {
-                    Id = rand.Next(100000000, 1000000000),
-                    Model = names[rand.Next(0, 5)],
+                    Id = rand.Next(100000, 1000000),
+                    Model = droneNames[rand.Next(0, 5)],
                     Weight = (WeightCategories) rand.Next(0, 3),
                 });
             }
@@ -45,8 +47,8 @@ namespace DalObject
             {
                 Stations.Add(new Station
                 {
-                    Id = rand.Next(100000000, 1000000000),
-                    Name = rand.Next(1, 100),
+                    Id = rand.Next(100000, 1000000),
+                    Name = stationNames[rand.Next(0, 5)],
                     Longitude = rand.NextDouble(),
                     Latitude = rand.NextDouble(),
                     ChargeSlots = rand.Next(0, 10)
@@ -60,7 +62,7 @@ namespace DalObject
                 Customers.Add(new Customer
                 {
                     Id = tmpId,
-                    Name = names[rand.Next(0, 5)],
+                    Name = customerNames[rand.Next(0, 5)],
                     Phone = "05" + rand.Next(10000000, 99999999),
                     Longitude = rand.NextDouble(),
                     Latitude = rand.NextDouble()

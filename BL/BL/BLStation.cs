@@ -131,7 +131,7 @@ namespace IBL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="chargeSlots"></param>
-        public void UpdateDataStation(int id, int name, int chargeSlots)
+        public void UpdateDataStation(int id, string name, int chargeSlots)
         {
             IDAL.DO.Station station = new IDAL.DO.Station();
             try
@@ -143,10 +143,10 @@ namespace IBL
                 throw new StationException(e.Message, e);
             }
 
-            if (name == -1 && chargeSlots == -1) // if he don't want to update nothing
+            if (name == "" && chargeSlots == -1) // if he don't want to update nothing
                 throw new StationException("ERROR: you must Enter at least one of the following data!\n");
 
-            if (name != -1) // if he want to update the name
+            if (name != "") // if he want to update the name
                 station.Name = name;
             if (chargeSlots != -1) // if he want to update the number of charge slots
                 station.ChargeSlots = chargeSlots;
@@ -245,8 +245,8 @@ namespace IBL
         /// <param name="station"></param>
         private void CheckStation(Station station)
         {
-            if (station.Id < 0)
-                throw new StationException("ERROR: the ID is illegal! ");
+            if (station.Id < 100000 || station.Id > 999999)//Check that it's 6 digits.
+                throw new CustomerException("ERROR: the ID is illegal! ");
 
             if (station.ChargeSlots < 0)
                 throw new StationException("ERROR: the charge slots must have positive or 0 value! ");

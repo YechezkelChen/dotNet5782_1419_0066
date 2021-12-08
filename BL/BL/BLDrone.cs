@@ -45,6 +45,7 @@ namespace IBL
             newDroneToList.Model = newDrone.Model;
             newDroneToList.Weight = newDrone.Weight;
             newDroneToList.Battery = 20 * rand.NextDouble() + 20;
+            newDroneToList.Battery = (double)System.Math.Round(newDroneToList.Battery, 3);
             newDroneToList.Status = DroneStatuses.Available; // for the charge after he will be in Maintenance.
             newDroneToList.IdParcel = 0;
             try
@@ -169,9 +170,31 @@ namespace IBL
         /// get a drones
         /// </summary>
         /// <returns></return all drones>
-        public IEnumerable<DroneToList> GetDrones(Predicate<DroneToList> dronePredicate)
+        public IEnumerable<DroneToList> GetDrones()
         {
-            IEnumerable<DroneToList> drones = ListDrones.FindAll(dronePredicate);
+            IEnumerable<DroneToList> drones = ListDrones;
+            return drones;
+        }
+
+        /// <summary>
+        /// get a drones with filtering of status
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public IEnumerable<DroneToList> GetDronesByStatus(DroneStatuses status)
+        {
+            IEnumerable<DroneToList> drones = ListDrones.FindAll(drone => drone.Status == status);
+            return drones;
+        }
+
+        /// <summary>
+        /// get a drones with filtering of max weight
+        /// </summary>
+        /// <param name="weight"></param>
+        /// <returns></returns>
+        public IEnumerable<DroneToList> GetDronesByMaxWeight(WeightCategories weight)
+        {
+            IEnumerable<DroneToList> drones = ListDrones.FindAll(drone => drone.Weight <= weight);
             return drones;
         }
 
@@ -248,7 +271,10 @@ namespace IBL
                     if (distance * BatteryAvailable > 100)
                         newDrone.Battery = 100;
                     else
+                    {
                         newDrone.Battery += distance * BatteryAvailable;
+                        newDrone.Battery = (double)System.Math.Round(newDrone.Battery, 3);
+                    }
 
                     newDrone.Location = nearStation.Location;
                     newDrone.Status = DroneStatuses.Maintenance;
@@ -314,6 +340,7 @@ namespace IBL
                                     else
                                     {
                                         elementListDrone.Battery += chargeTime * ChargingRateOfDrone;
+                                        elementListDrone.Battery = (double)System.Math.Round(elementListDrone.Battery, 3);
                                         if (elementListDrone.Battery > 100)
                                             elementListDrone.Battery = 100;
                                     }
@@ -337,8 +364,8 @@ namespace IBL
         /// <returns></no returns, just check the input of the user>
         private void CheckDrone(Drone drone)
         {
-            if (drone.Id < 0)
-                throw new DroneException("ERROR: the ID is illegal! ");
+            if (drone.Id < 100000 || drone.Id > 999999)//Check that it's 6 digits.
+                throw new CustomerException("ERROR: the ID is illegal! ");
             if (drone.Model == "")
                 throw new DroneException("ERROR: Model must have value");
         }

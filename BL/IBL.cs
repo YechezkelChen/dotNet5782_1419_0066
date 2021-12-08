@@ -14,13 +14,15 @@ namespace IBL
         Station GetStation(int id); // Returning a station according to the id of the station.
         IEnumerable<StationToList> GetStations(); // Returning the list of stations in a special entity "Station to list".
         IEnumerable<StationToList> GetStationsCharge(); // Returning the list of stations with available charging position in a special entity "Station to list".
-        void UpdateDataStation(int id, int name, int chargeSlots); // Update station data according to user request.
+        void UpdateDataStation(int id, string name, int chargeSlots); // Update station data according to user request.
 
 
         // Drone
         void AddDrone(Drone newDrone, int idStation); // Adds a drone to the list of drones.
         Drone GetDrone(int id); // Returning a drone according to the id of the drone.
-        IEnumerable<DroneToList> GetDrones(Predicate<DroneToList> dronePredicate); // Returning the list of drones in a special entity "Drone to list".
+        IEnumerable<DroneToList> GetDrones(); // Returning the list of drones in a special entity "Drone to list".
+        IEnumerable<DroneToList> GetDronesByStatus(DroneStatuses status); // Returning the list of drones with filtering of status
+        IEnumerable<DroneToList> GetDronesByMaxWeight(WeightCategories weight); // Returning the list of drones with filtering of max weight
         void UpdateDroneModel(int droneId, string newModel); // Update drone data according to user request.
         void SendDroneToDroneCharge(int id);// Sending a drone for charging at a vacant charging station.
         void ReleaseDroneFromDroneCharge(int id, int chargeTime); // Release drone from charging station.

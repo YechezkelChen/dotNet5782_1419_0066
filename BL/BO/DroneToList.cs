@@ -21,8 +21,8 @@ namespace IBL
             {
                 return
                     $"Id #{Id}: Model = {Model}, Weight = {Weight}, " +
-                    $"Battery = " + String.Format("{0:0.000}", Battery) + ", " +
-                    $"Drone Statues = {Status}, Location = {Location}, Id of the parcel = {IdParcel}";
+                    $"Battery = {Battery}, " +
+                    $"Parcel in delivery = { IdParcel}, Drone Statues = {Status}, Location = {Location}";
             }
         }
     }

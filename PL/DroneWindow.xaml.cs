@@ -28,20 +28,10 @@ namespace PL
         {
             InitializeComponent();
             bl = ibl;
+            UpdateDroneGrid.Visibility = Visibility.Hidden;
             GetWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             GetStation.ItemsSource = bl.GetStationsCharge();
-            UpdateModelButton.Visibility = Visibility.Hidden;
-            SendToChargeButton.Visibility = Visibility.Hidden;
-            RealeseFromChargeButton.Visibility = Visibility.Hidden;
-            SendToDeliveryButton.Visibility = Visibility.Hidden;
-            CollectParcelButton.Visibility = Visibility.Hidden;
-            SupplyParcelButton.Visibility = Visibility.Hidden;
-            informationJeffrey.Content = "";
-            HoursOfChargeLabel.Content = "";
-            HoursOfChargeTextBox.Visibility = Visibility.Hidden;
-            TextUpdateModelLabel.Content = "";
-            GetUpdateModelTextBox.Visibility = Visibility.Hidden;
-            DataDroneLabel.Content = "";
+            drone = new Drone();
         }
 
         public DroneWindow(IBL.IBL ibl, Drone droneHelp)
@@ -49,31 +39,57 @@ namespace PL
             InitializeComponent();
             bl = ibl;
             drone = droneHelp;
-
-            // hidden the add controls
-            TextIdLabel.Content = "";
-            GetId.Visibility = Visibility.Hidden;
-            TextModelLabel.Content = "";
-            GetModel.Visibility = Visibility.Hidden;
-            TextWeightLabel.Content = "";
-            GetWeight.Visibility = Visibility.Hidden;
-            TextStationLabel.Content = "";
-            GetStation.Visibility = Visibility.Hidden;
-            AddButton.Visibility = Visibility.Hidden;
-            CancelButton.Visibility = Visibility.Hidden;
+            AddDroneGrid.Visibility = Visibility.Hidden;
             DataDroneLabel.Content = "\n" + drone.ToString();
+        }
+
+        private void CloseWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            CloseWindowButton.Visibility = Visibility.Hidden;
+            this.Close();
+        }
+
+        private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (CloseWindowButton.Visibility != Visibility.Hidden)
+                e.Cancel = true;
+        }
+
+        private void GetId_MouseLeave(object sender, MouseEventArgs e)
+        {
+            int id;
+            if (GetId.Text.ToString() == "" || !GetId.Text.All(char.IsDigit))
+                id = 0;
+            else
+                id = int.Parse(GetId.Text);
+
+            if (id < 100000 || id > 999999) // Check that it's 6 digits.
+            {
+                GetId.Background = Brushes.DarkRed;
+                drone.Id = 0;
+            }
+            else
+            {
+                drone.Id = id;
+                GetId.Background = Brushes.White;
+            }
+        }
+
+        private void GetModel_MouseLeave(object sender, MouseEventArgs e)
+        {
+            string model = GetModel.Text;
+            if (model == "")
+                GetModel.Background = Brushes.DarkRed;
+            else
+            {
+                drone.Model = model;
+                GetModel.Background = Brushes.White;
+            }
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            Drone drone = new Drone();
-            int id;
-            if (GetId.Text.ToString() == "")
-                id = 0;
-            else
-                id = int.Parse(GetId.Text.ToString());
-
-            if (id <= 0)
+            if (drone.Id == 0)
             {
                 MessageBoxResult result = MessageBox.Show("Id is illegal!, please enter legal id to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                 switch (result)
@@ -88,11 +104,8 @@ namespace PL
                         return;
                 }
             }
-            else
-                drone.Id = id;
 
-            string model = GetModel.Text;
-            if (model == "")
+            if (drone.Model == "")
             {
                 MessageBoxResult result = MessageBox.Show("Model must have value, please enter legal model to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                 switch (result)
@@ -107,8 +120,6 @@ namespace PL
                         return;
                 }
             }
-            else
-                drone.Model = model;
 
             if (GetWeight.SelectedItem == null)
             {
@@ -126,9 +137,9 @@ namespace PL
                 }
             }
             else
-                drone.Weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), GetWeight.SelectedItem.ToString());
+                drone.Weight = (WeightCategories)GetWeight.SelectedItem;
 
-            if(GetStation.ItemsSource == null)
+            if (GetStation.ItemsSource == null)
                 MessageBox.Show("There is no station with a free standing to put the drone for charging", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
 
             StationToList stationCharge = new StationToList();
@@ -161,23 +172,19 @@ namespace PL
             }
 
             MessageBox.Show("The add is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            CloseWindowButton.Visibility = Visibility.Hidden;
             this.Close();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
-
-        private void CloseWindowButton_Click(object sender, RoutedEventArgs e)
-        {
+            CloseWindowButton.Visibility = Visibility.Hidden;
             this.Close();
         }
 
         private void UpdateModelButton_Click(object sender, RoutedEventArgs e)
         {
-            string model = GetUpdateModelTextBox.Text;
-            if (model == "")
+            if (GetUpdateModelTextBox.Background == Brushes.DarkRed)
             {
                 MessageBoxResult result = MessageBox.Show("Model must have value, please enter legal model to continue, or Cancel to stop the update", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                 switch (result)
@@ -195,7 +202,7 @@ namespace PL
 
             try
             {
-                bl.UpdateDroneModel(drone.Id, model);
+                bl.UpdateDroneModel(drone.Id, drone.Model);
             }
             catch (DroneException ex)
             {
@@ -206,6 +213,18 @@ namespace PL
             MessageBox.Show("The update is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
             DataDroneLabel.Content = drone.ToString();
+        }
+
+        private void GetUpdateModelTextBox_MouseLeave(object sender, MouseEventArgs e)
+        {
+            string model = GetUpdateModelTextBox.Text;
+            if (model == "")
+                GetUpdateModelTextBox.Background = Brushes.DarkRed;
+            else
+            {
+                drone.Model = model;
+                GetUpdateModelTextBox.Background = Brushes.White;
+            }
         }
 
         private void SendToChargeButton_Click(object sender, RoutedEventArgs e)
@@ -227,18 +246,14 @@ namespace PL
 
         private void RealeseFromChargeButton_Click(object sender, RoutedEventArgs e)
         {
-            int Hours = 0;
-            if (HoursOfChargeTextBox.Text.ToString() == "")
+            int Hours;
+            if (HoursOfChargeTextBox.Background == Brushes.DarkRed || HoursOfChargeTextBox.Text == "")
             {
                 MessageBox.Show("Enter amount of charge!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             else
-            {
-                Hours = int.Parse(HoursOfChargeTextBox.Text.ToString());
-                HoursOfChargeTextBox.Clear();
-
-            }
+                Hours = int.Parse(HoursOfChargeTextBox.Text);
 
             try
             {
@@ -253,6 +268,20 @@ namespace PL
             MessageBox.Show("The realese succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
             DataDroneLabel.Content = drone.ToString();
+        }
+
+        private void HoursOfChargeTextBox_MouseLeave(object sender, MouseEventArgs e)
+        {
+            int Hours;
+            if (HoursOfChargeTextBox.Text == "" || !HoursOfChargeTextBox.Text.All(char.IsDigit))
+                Hours = -1;
+            else
+                Hours = int.Parse(HoursOfChargeTextBox.Text);
+
+            if (Hours < 0)
+                HoursOfChargeTextBox.Background = Brushes.DarkRed;
+            else
+                HoursOfChargeTextBox.Background = Brushes.White;
         }
 
         private void SendToDeliveryButton_Click(object sender, RoutedEventArgs e)
@@ -315,27 +344,5 @@ namespace PL
             drone = bl.GetDrone(drone.Id);
             DataDroneLabel.Content = drone.ToString();
         }
-
-        private void IdGrid_KeyDown(object sender, KeyEventArgs e)
-        {
-            int id;
-            if (GetId.Text.ToString() == "")
-                id = 0;
-            else
-                id = int.Parse(GetId.Text.ToString());
-
-            if (id <= 0)
-                GetId.Background = Brushes.Red;
-            else
-                drone.Id = id;
-        }
-
-
-
-
-
-
-
-        // בונוס!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 }

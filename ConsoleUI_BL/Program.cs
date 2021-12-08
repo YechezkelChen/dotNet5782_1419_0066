@@ -322,18 +322,13 @@ namespace ConsoleUI_BL
             {
                 do
                 {
-                    Console.WriteLine("Enter Id Station: ");
+                    Console.WriteLine("Enter Id with 6 digits of Station: ");
                 } while (!int.TryParse(Console.ReadLine(), out num1));
 
                 newStation.Id = num1;
 
-                do
-                {
-                    Console.WriteLine("Enter Name Station: ");
-
-                } while (!int.TryParse(Console.ReadLine(), out num1));
-
-                newStation.Name = num1;
+                Console.WriteLine("Enter Name Station: ");
+                newStation.Name = Console.ReadLine();
 
                 do
                 {
@@ -391,7 +386,7 @@ namespace ConsoleUI_BL
             {
                 do
                 {
-                    Console.WriteLine("Enter Id Drone: ");
+                    Console.WriteLine("Enter Id with 6 digits of Drone: ");
                 } while (!int.TryParse(Console.ReadLine(), out num));
 
                 newDrone.Id = num;
@@ -636,7 +631,8 @@ namespace ConsoleUI_BL
         /// <returns></no returns, just update the station>
         private static void UpdateDataStation(IBL.IBL bl)
         {
-            int id, name, chargeSlots;
+            int id, chargeSlots;
+            string name;
 
             while (true)
             {
@@ -646,16 +642,14 @@ namespace ConsoleUI_BL
                 } while (!int.TryParse(Console.ReadLine(), out id));
 
                 Console.WriteLine("Note! Enter at least one of the following data:\n");
-                do
-                {
-                    Console.WriteLine(
-                        "If you want to update the name of the station, Enter name:\n if you don't want, Enter -1: \n");
-                } while (!int.TryParse(Console.ReadLine(), out name));
 
+                Console.WriteLine(
+                        "If you want to update the name of the station, Enter name:\n if you don't want, press Enter: \n");
+                name = Console.ReadLine();
                 do
                 {
                     Console.WriteLine(
-                        "If you want to update the number of charge Slots in the station, Enter the amount:\n if you don't want, Enter -1: \n");
+                        "If you want to update the number of charge slots in the station, Enter the amount:\n if you don't want, Enter -1: \n");
                 } while (!int.TryParse(Console.ReadLine(), out chargeSlots));
 
                 try
