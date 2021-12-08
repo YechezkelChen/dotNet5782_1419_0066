@@ -110,7 +110,7 @@ namespace IBL
             Drone drone = new Drone();
             drone.Id = idalDrone.Id;
             drone.Model = idalDrone.Model;
-            drone.Weight = Enum.Parse<WeightCategories>(idalDrone.Weight.ToString());
+            drone.Weight = (WeightCategories)idalDrone.Weight;
 
             foreach (var eleDroneToList in ListDrones)
             {
@@ -136,7 +136,7 @@ namespace IBL
                     if (parcel.DroneId == drone.Id)
                     {
                         drone.ParcelByTransfer.Id = parcel.Id;
-                        drone.ParcelByTransfer.Weight = Enum.Parse<WeightCategories>(parcel.Weight.ToString());
+                        drone.ParcelByTransfer.Weight = (WeightCategories)parcel.Weight;
 
                         if (parcel.Scheduled != null && parcel.PickedUp == null)
                             drone.ParcelByTransfer.Status = false;
@@ -144,7 +144,7 @@ namespace IBL
                         if (parcel.PickedUp != null && parcel.Delivered == null)
                             drone.ParcelByTransfer.Status = true;
 
-                        drone.ParcelByTransfer.Priority = Enum.Parse<Priorities>(parcel.Priority.ToString());
+                        drone.ParcelByTransfer.Priority = (Priorities)parcel.Priority;
 
                         IDAL.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
                         drone.ParcelByTransfer.SenderInParcel = new CustomerInParcel()

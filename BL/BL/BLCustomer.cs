@@ -74,8 +74,8 @@ namespace IBL
                 {
                     ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
                     parcelInCustomer.Id = elementParcel.Id;
-                    parcelInCustomer.Weight = Enum.Parse<WeightCategories>(elementParcel.Weight.ToString());
-                    parcelInCustomer.Priority = Enum.Parse<Priorities>(elementParcel.Priority.ToString());
+                    parcelInCustomer.Weight = (WeightCategories)elementParcel.Weight;
+                    parcelInCustomer.Priority = (Priorities)elementParcel.Priority;
 
                     if (elementParcel.Requested != null)
                         parcelInCustomer.Status = ParcelStatuses.Requested;
@@ -97,8 +97,8 @@ namespace IBL
                 {
                     ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
                     parcelInCustomer.Id = elementParcel.Id;
-                    parcelInCustomer.Weight = Enum.Parse<WeightCategories>(elementParcel.Weight.ToString());
-                    parcelInCustomer.Priority = Enum.Parse<Priorities>(elementParcel.Priority.ToString());
+                    parcelInCustomer.Weight = (WeightCategories)elementParcel.Weight;
+                    parcelInCustomer.Priority = (Priorities)elementParcel.Priority;
                     if (elementParcel.Delivered != null)
                         parcelInCustomer.Status = ParcelStatuses.Delivered;
                     if (elementParcel.PickedUp != null)
