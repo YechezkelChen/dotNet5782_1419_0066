@@ -33,31 +33,35 @@ namespace DalObject
             List<string> customerNames = new List<string>() { "Abraham", "Isaac", "Jacob", "Moshe", "Joseph" };
             List<DateTime?> dates = new List<DateTime?>() {DateTime.Now, null};
 
+            int id = 1000000;
             for (int i = 0; i < 5; i++)
             {
                 Drones.Add(new Drone
                 {
-                    Id = rand.Next(100000, 1000000),
+                    Id = id,
                     Model = droneNames[rand.Next(0, 5)],
                     Weight = (WeightCategories) rand.Next(0, 3),
                 });
+                id += 10;
             }
 
             for (int i = 0; i < 2; i++)
             {
                 Stations.Add(new Station
                 {
-                    Id = rand.Next(100000, 1000000),
+                    Id = id,
                     Name = stationNames[rand.Next(0, 5)],
                     Longitude = rand.NextDouble(),
                     Latitude = rand.NextDouble(),
                     ChargeSlots = rand.Next(0, 10)
                 });
+                id += 10;
             }
 
+            id = 100000000;
             for (int i = 0; i < 10; i++)
             {
-                int tmpId = rand.Next(10000000, 100000000);
+                int tmpId = id;
                 tmpId = tmpId * 10 + lastDigitID(tmpId);
                 Customers.Add(new Customer
                 {
@@ -67,6 +71,7 @@ namespace DalObject
                     Longitude = rand.NextDouble(),
                     Latitude = rand.NextDouble()
                 });
+                id += 10;
             }
 
             for (int i = 0; i < 10; i++)
