@@ -37,7 +37,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Name="TextIdLabel" Content="Please enter id of the drone:" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="330" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="25"/>
+                <Label Name="TextIdLabel" Content="Please enter ID of the drone:" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="330" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="25"/>
                 <TextBox x:Name="GetId" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="200" Text="" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="22" Background="#FFF5F7F2" MouseLeave="GetId_MouseLeave"/>
             </Grid>
 
@@ -80,7 +80,7 @@
 
         <Grid x:Name="UpdateDroneGrid" Grid.Row="1">
             <Grid.Background>
-                <ImageBrush ImageSource="images\1.jpg"/>
+                <ImageBrush ImageSource="images\updateDroneGrid.jpg"/>
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
