@@ -9,20 +9,133 @@
         mc:Ignorable="d"
         Title="DroneWindow" Height="450" Width="800">
     <Grid x:Name="MainGrid">
-        <Grid.RowDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="images\3.jpg"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="0.08*"/>
             <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid x:Name="ButtonCloseGrid" Grid.Row="0">
+        </Grid.RowDefinitions>-->
+        <!--<Grid x:Name="ButtonCloseGrid" Grid.Row="0">
             <Grid.Background>
                 <ImageBrush ImageSource="images\middleGrid.jpg"/>
-            </Grid.Background>
-            <Button x:Name="CloseWindowButton" Content="Close window" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="100" Click="CloseWindowButton_Click" Foreground="#FF6B0F1A" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Background="White"/>
+            </Grid.Background>-->
+        <Button x:Name="CloseWindowButton" Content="Close window" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="100" Click="CloseWindowButton_Click" Foreground="#FF6B0F1A" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Background="White"/>
+
+        <Grid x:Name="DataDroneGrid" Grid.Column="0" MouseLeave="DataDroneGrid_MouseLeave">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Name="DataDroneLabel" Content="Data drone:" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="30"/>
+
+            <Label Name="IdLabel" Content="ID:" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="90" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="25"/>
+            <TextBox x:Name="IdTextBox" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="160" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="22" Background="#FFF5F7F2"/>
+
+            <Label Name="ModelLabel" Grid.Row="2" Content="Model:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="90" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="25"/>
+            <TextBox x:Name="ModelTextBox" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="160" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="22" Background="#FFF7F9F4" MouseLeave="ModelTextBox_MouseLeave"/>
+
+            <Label Name="WeightLabel" Content="Weight:" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="90" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="25"/>
+            <ComboBox Name="WeightComboBox" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="160" Foreground="#FF3E4C2E" FontFamily="David" FontSize="22"/>
+
+            <Label Name="StationLabel" Content="Station ID:" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="90" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="25"/>
+            <ComboBox Name="StationComboBox" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="160" Foreground="#FF3E4C2E" FontFamily="David" FontSize="22"/>
+
+            <Label Name="BatteryLabel" Content="Battery:" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="90" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="25"/>
+            <TextBox x:Name="BatteryTextBox" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="160" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="22" Background="#FFF7F9F4"/>
+
+            <Label Name="StatusLabel" Content="Status:" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="90" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="25"/>
+            <TextBox x:Name="StatusTextBox" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="160" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="22" Background="#FFF7F9F4"/>
+
+            <Label Name="LocationLabel" Content="Location:" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="90" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="25"/>
+            <TextBox x:Name="LocationTextBox" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="160" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="22" Background="#FFF7F9F4"/>
+        </Grid>
+        
+        <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="150" Click="AddButton_Click" Foreground="#0096c7" FontFamily="Agency FB" FontSize="30" FontWeight="Bold" FontStyle="Italic" Background="White"/>
+        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="150" Click="CancelButton_Click" FontFamily="Agency FB" Foreground="#FF540804" FontSize="30" FontWeight="Bold" FontStyle="Italic" Background="White"/>
+        
+        <Grid x:Name="DataParcelGrid" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Name="DataParcelLabel" Content="Data parcel in drone:" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="180" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="25"/>
+
+            <Label Name="IdParcelLabel" Content="ID:" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="20"/>
+            <TextBox x:Name="IdParcelTextBox" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="140" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2"/>
+
+            <Label Name="StatusParcelLabel" Content="Status:" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="20"/>
+            <TextBox x:Name="StatusParcelTextBox" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="140" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2"/>
+
+            <Label Name="PriorityParcelLabel" Content="Priority:" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="20"/>
+            <TextBox x:Name="PriorityParcelTextBox" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="140" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2"/>
+
+            <Label Name="WeightParcelLabel" Content="Weight:" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="20"/>
+            <TextBox x:Name="WeightParcelTextBox" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="140" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2"/>
+
+            <Label Name="SenderInParcelLabel" Content="Sender:" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="20"/>
+            <TextBox x:Name="SenderInParcelTextBox" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="140" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2"/>
+
+            <Label Name="PickUpLocationParcelLabel" Content="Pick up location:" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="20"/>
+            <TextBox x:Name="PickUpLocationParcelTextBox" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="140" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2"/>
+
+            <Label Name="ReceiverInParcelLabel" Content="Receiver:" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="20"/>
+            <TextBox x:Name="ReceiverInParcelTextBox" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="140" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2"/>
+
+            <Label Name="TargetLocationParcelLabel" Content="Target location:" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="20"/>
+            <TextBox x:Name="TargetLocationParcelTextBox" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="140" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2"/>
+
+            <Label Name="DistanceOfTransferLabel" Content="Distance transfer:" Grid.Row="9" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FFE9F5DB" FontFamily="Agency FB" FontSize="20"/>
+            <TextBox x:Name="DistanceOfTransferTextBox" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="140" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2"/>
         </Grid>
 
-        <Grid x:Name="AddDroneGrid" Grid.Row="1">
+        <Grid x:Name="ActionsDroneGrid" Grid.Column="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="UpdateModelButton" Content="Update model" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="UpdateModelButton_Click" Background="#0096c7" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
+            <!--<Label Name="TextUpdateModelLabel" Content="Please enter model of the drone:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Height="30" Width="200" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Normal" FontSize="16"/>
+            <TextBox x:Name="GetUpdateModelTextBox" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Text="" TextWrapping="Wrap" Height="30" Width="200" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="22" Margin="0,0,0,22" MouseLeave="GetUpdateModelTextBox_MouseLeave"/>-->
+
+            <Button x:Name="SendToChargeButton" Content="Send to charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="SendToChargeButton_Click" Background="#0096c7" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20" />
+            <Button x:Name="RealeseFromChargeButton" Content="Realese from charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="RealeseFromChargeButton_Click" Background="#0096c7" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
+            <!--<Label Name="HoursOfChargeLabel" Content="Please enter the time that drone&#xA;was in charge:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Width="200" Height="50" FontFamily="Agency FB" FontWeight="Bold" FontSize="16" Margin="0,49,0,0"/>
+            <TextBox x:Name="HoursOfChargeTextBox" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="1" Text="" TextWrapping="Wrap" Height="30" Width="200" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="22" MouseLeave="HoursOfChargeTextBox_MouseLeave"/>-->
+
+            <Button x:Name="SendToDeliveryButton" Content="Send to delivery" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="SendToDeliveryButton_Click" Background="#0096c7" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
+            <Button x:Name="CollectParcelButton" Content="Collect parcel by the drone" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="CollectParcelButton_Click" Background="#0096c7" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
+            <Button x:Name="SupplyParcelButton" Content="Supply parcel by the drone" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="SupplyParcelButton_Click" Background="#0096c7" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
+        </Grid>
+        
+        <!--<Grid x:Name="AddDroneGrid" Grid.Row="1">
             <Grid.Background>
-                <ImageBrush ImageSource="images\addDroneGrid.jpg"/>
+                <ImageBrush ImageSource="images\3.jpg"/>
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -76,9 +189,9 @@
                 <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="150" Click="AddButton_Click" Foreground="#0096c7" FontFamily="Agency FB" FontSize="30" FontWeight="Bold" FontStyle="Italic" Background="White"/>
                 <Button x:Name="CancelButton" Content="Cancel" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="150" Click="CancelButton_Click" FontFamily="Agency FB" Foreground="#FF540804" FontSize="30" FontWeight="Bold" FontStyle="Italic" Background="White"/>
             </Grid>
-        </Grid>
+        </Grid>-->
 
-        <Grid x:Name="UpdateDroneGrid" Grid.Row="1">
+        <!--<Grid x:Name="UpdateDroneGrid" Grid.Row="1">
             <Grid.Background>
                 <ImageBrush ImageSource="images\updateDroneGrid.jpg"/>
             </Grid.Background>
@@ -105,6 +218,6 @@
             <Button x:Name="CollectParcelButton" Content="Collect parcel by the drone" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Width="200" Height="53" Click="CollectParcelButton_Click" Background="#0096c7" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
 
             <Button x:Name="SupplyParcelButton" Content="Supply parcel by the drone" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Width="200" Height="53" Click="SupplyParcelButton_Click" Background="#0096c7" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
-        </Grid>
+        </Grid>-->
     </Grid>
 </Window>

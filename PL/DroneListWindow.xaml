@@ -16,7 +16,7 @@
             </Grid.RowDefinitions>
             <Grid Name="UpGrid" Grid.Row="0">
                 <Grid.Background>
-                    <ImageBrush ImageSource="images\1.jpg"/>
+                    <ImageBrush ImageSource="images\upGrid.jpg"/>
                 </Grid.Background>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -39,14 +39,9 @@
                 <Button x:Name="CloseButton" Content="Close Window" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Close_Click" Foreground="#FF6B0F1A" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" Height="40" Width="100"/>
             </Grid>
 
-            <Grid Name="MiddleGrid" Grid.Row="1">
-                <Grid.Background>
-                    <ImageBrush ImageSource="images\middleGrid.jpg"/>
-                </Grid.Background>
-                <Label Content="List Drones:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="auto" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46"/>
-            </Grid>
+        <Label Content="List Drones:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="auto" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46"/>
 
-            <ListView x:Name="DronesListView" Grid.Row="2" Background="DarkGray" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="20" FontWeight="Normal">
+        <ListView x:Name="DronesListView" Grid.Row="2" Background="DarkGray" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="20" FontWeight="Normal">
                 <ListView.View>
                     <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="information">
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="70"/>

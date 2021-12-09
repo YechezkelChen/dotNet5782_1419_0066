@@ -28,10 +28,34 @@ namespace PL
         {
             InitializeComponent();
             bl = ibl;
-            UpdateDroneGrid.Visibility = Visibility.Hidden;
-            GetWeight.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            GetStation.ItemsSource = bl.GetStationsCharge();
+            WeightComboBox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            StationComboBox.ItemsSource = bl.GetStationsCharge();
             drone = new Drone();
+
+            // hidden irrelevant drone data
+            BatteryLabel.Visibility = Visibility.Hidden;
+            BatteryTextBox.Visibility = Visibility.Hidden;
+            StatusLabel.Visibility = Visibility.Hidden;
+            StatusTextBox.Visibility = Visibility.Hidden;
+            LocationLabel.Visibility = Visibility.Hidden;
+            LocationTextBox.Visibility = Visibility.Hidden;
+
+            // hidden data parcel
+            DataParcelGrid.Visibility = Visibility.Hidden;
+
+            // hidden irrelevant bottuns 
+            UpdateModelButton.Visibility = Visibility.Hidden;
+            //TextUpdateModelLabel.Visibility = Visibility.Hidden;
+            //GetUpdateModelTextBox.Visibility = Visibility.Hidden;
+            SendToChargeButton.Visibility = Visibility.Hidden;
+            RealeseFromChargeButton.Visibility = Visibility.Hidden;
+            // HoursOfChargeLabel.Visibility = Visibility.Hidden;
+            //HoursOfChargeTextBox.Visibility = Visibility.Hidden;
+            SendToDeliveryButton.Visibility = Visibility.Hidden;
+            CollectParcelButton.Visibility = Visibility.Hidden;
+            SupplyParcelButton.Visibility = Visibility.Hidden;
+
+           // textToDisplay.IsReadOnly = true;
         }
 
         public DroneWindow(IBL.IBL ibl, Drone droneHelp)
@@ -39,8 +63,73 @@ namespace PL
             InitializeComponent();
             bl = ibl;
             drone = droneHelp;
-            AddDroneGrid.Visibility = Visibility.Hidden;
-            DataDroneLabel.Content = "\n" + drone;
+
+            // print data drone
+            IdTextBox.Text = drone.Id.ToString();
+            IdTextBox.IsReadOnly = true;
+            ModelTextBox.Text = drone.Model;
+            WeightComboBox.SelectedItem = drone.Weight.ToString();
+            WeightComboBox.IsReadOnly = true;
+            if(drone.Status == DroneStatuses.Maintenance) // שגיאה??
+                StationComboBox.SelectedItem = bl.GetStations().ToList().Find(station => drone.Location == bl.GetStation(station.Id).Location).Id;
+            StationComboBox.IsReadOnly = true;
+            BatteryTextBox.Text = drone.Battery.ToString();
+            BatteryTextBox.IsReadOnly = true;
+            StatusTextBox.Text = drone.Status.ToString();
+            StatusTextBox.IsReadOnly = true;
+            LocationTextBox.Text = drone.Location.ToString();
+            LocationTextBox.IsReadOnly = true;
+
+            // print data parcel in drone
+            IdParcelTextBox.Text = drone.ParcelByTransfer.Id.ToString();
+            IdParcelTextBox.IsReadOnly = true;
+            StatusParcelTextBox.Text = drone.ParcelByTransfer.Status.ToString();
+            StatusParcelTextBox.IsReadOnly = true;
+            PriorityParcelTextBox.Text = drone.ParcelByTransfer.Priority.ToString();
+            PriorityParcelTextBox.IsReadOnly = true;
+            WeightParcelTextBox.Text = drone.ParcelByTransfer.Weight.ToString();
+            WeightParcelTextBox.IsReadOnly = true;
+            if (drone.ParcelByTransfer != null)
+            {
+                SenderInParcelTextBox.Text = drone.ParcelByTransfer.SenderInParcel.ToString();
+                SenderInParcelTextBox.IsReadOnly = true;
+                PickUpLocationParcelTextBox.Text = drone.ParcelByTransfer.PickUpLocation.ToString();
+                PickUpLocationParcelTextBox.IsReadOnly = true;
+                ReceiverInParcelTextBox.Text = drone.ParcelByTransfer.ReceiverInParcel.ToString();
+                ReceiverInParcelTextBox.IsReadOnly = true;
+                TargetLocationParcelTextBox.Text = drone.ParcelByTransfer.TargetLocation.ToString();
+                TargetLocationParcelTextBox.IsReadOnly = true;
+                DistanceOfTransferTextBox.Text = drone.ParcelByTransfer.DistanceOfTransfer.ToString();
+                DistanceOfTransferTextBox.IsReadOnly = true;
+            }
+
+            // hidden irrelevant bottuns
+            AddButton.Visibility = Visibility.Hidden;
+            CancelButton.Visibility = Visibility.Hidden;
+
+            if (drone.Status == DroneStatuses.Maintenance)
+                SendToChargeButton.Visibility = Visibility.Hidden;
+            else
+                RealeseFromChargeButton.Visibility = Visibility.Hidden;
+
+            if (drone.Status != DroneStatuses.Delivery)
+            {
+                CollectParcelButton.Visibility = Visibility.Hidden;
+                SupplyParcelButton.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                if (drone.ParcelByTransfer.Status == true)
+                {
+                    SendToDeliveryButton.Visibility = Visibility.Hidden;
+                    SupplyParcelButton.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    SendToDeliveryButton.Visibility = Visibility.Hidden;
+                    CollectParcelButton.Visibility = Visibility.Hidden;
+                }
+            }
         }
 
         private void CloseWindowButton_Click(object sender, RoutedEventArgs e)
@@ -55,35 +144,35 @@ namespace PL
                 e.Cancel = true;
         }
 
-        private void GetId_MouseLeave(object sender, MouseEventArgs e)
+        private void DataDroneGrid_MouseLeave(object sender, MouseEventArgs e)
         {
             int id;
-            if (GetId.Text == "" || !GetId.Text.All(char.IsDigit))
+            if (IdTextBox.Text == "" || !IdTextBox.Text.All(char.IsDigit))
                 id = 0;
             else
-                id = int.Parse(GetId.Text);
+                id = int.Parse(IdTextBox.Text);
 
             if (id < 100000 || id > 999999) // Check that it's 6 digits.
             {
-                GetId.Background = Brushes.DarkRed;
+                IdTextBox.Foreground = Brushes.Red;
                 drone.Id = 0;
             }
             else
             {
                 drone.Id = id;
-                GetId.Background = Brushes.White;
+                IdTextBox.Foreground = Brushes.SlateGray;
             }
         }
 
-        private void GetModel_MouseLeave(object sender, MouseEventArgs e)
+        private void ModelTextBox_MouseLeave(object sender, MouseEventArgs e)
         {
-            string model = GetModel.Text;
+            string model = ModelTextBox.Text;
             if (model == "")
-                GetModel.Background = Brushes.DarkRed;
+                ModelTextBox.Foreground = Brushes.Red;
             else
             {
                 drone.Model = model;
-                GetModel.Background = Brushes.White;
+                ModelTextBox.Foreground = Brushes.SlateGray;
             }
         }
 
@@ -91,7 +180,7 @@ namespace PL
         {
             if (drone.Id == 0)
             {
-                MessageBoxResult result = MessageBox.Show("Id is illegal!, please enter legal id to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                MessageBoxResult result = MessageBox.Show("Id is illegal!, please enter legal id with 6 digits to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                 switch (result)
                 {
                     case MessageBoxResult.OK:
@@ -121,7 +210,7 @@ namespace PL
                 }
             }
 
-            if (GetWeight.SelectedItem == null)
+            if (WeightComboBox.SelectedItem == null)
             {
                 MessageBoxResult result = MessageBox.Show("Weight must have value, please choose weight to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                 switch (result)
@@ -137,13 +226,13 @@ namespace PL
                 }
             }
             else
-                drone.Weight = (WeightCategories)GetWeight.SelectedItem;
+                drone.Weight = (WeightCategories)WeightComboBox.SelectedItem;
 
-            if (GetStation.ItemsSource == null)
+            if (StationComboBox.ItemsSource == null)
                 MessageBox.Show("There is no station with a free standing to put the drone for charging", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
 
             StationToList stationCharge = new StationToList();
-            if (GetStation.SelectedItem == null)
+            if (StationComboBox.SelectedItem == null)
             {
                 MessageBoxResult result = MessageBox.Show("Drone must have station to charge, please choose station to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                 switch (result)
@@ -159,7 +248,7 @@ namespace PL
                 }
             }
             else
-                stationCharge = (StationToList)GetStation.SelectedItem;
+                stationCharge = (StationToList)StationComboBox.SelectedItem;
 
             try
             {
@@ -184,7 +273,7 @@ namespace PL
 
         private void UpdateModelButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GetUpdateModelTextBox.Background == Brushes.DarkRed)
+            if (ModelTextBox.Foreground == Brushes.Red)
             {
                 MessageBoxResult result = MessageBox.Show("Model must have value, please enter legal model to continue, or Cancel to stop the update", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                 switch (result)
@@ -192,10 +281,10 @@ namespace PL
                     case MessageBoxResult.OK:
                         return;
                     case MessageBoxResult.Cancel:
-                        GetUpdateModelTextBox.Clear();
+                        ModelTextBox.Clear();
                         return;
                     default:
-                        GetUpdateModelTextBox.Clear();
+                        ModelTextBox.Clear();
                         return;
                 }
             }
@@ -213,18 +302,6 @@ namespace PL
             MessageBox.Show("The update is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
             DataDroneLabel.Content = drone;
-        }
-
-        private void GetUpdateModelTextBox_MouseLeave(object sender, MouseEventArgs e)
-        {
-            string model = GetUpdateModelTextBox.Text;
-            if (model == "")
-                GetUpdateModelTextBox.Background = Brushes.DarkRed;
-            else
-            {
-                drone.Model = model;
-                GetUpdateModelTextBox.Background = Brushes.White;
-            }
         }
 
         private void SendToChargeButton_Click(object sender, RoutedEventArgs e)
@@ -246,18 +323,9 @@ namespace PL
 
         private void RealeseFromChargeButton_Click(object sender, RoutedEventArgs e)
         {
-            int Hours;
-            if (HoursOfChargeTextBox.Background == Brushes.DarkRed || HoursOfChargeTextBox.Text == "")
-            {
-                MessageBox.Show("Enter amount of charge!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else
-                Hours = int.Parse(HoursOfChargeTextBox.Text);
-
             try
             {
-                bl.ReleaseDroneFromDroneCharge(drone.Id, Hours);
+                bl.ReleaseDroneFromDroneCharge(drone.Id);
             }
             catch (DroneException ex)
             {
@@ -268,20 +336,6 @@ namespace PL
             MessageBox.Show("The realese succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
             DataDroneLabel.Content = drone;
-        }
-
-        private void HoursOfChargeTextBox_MouseLeave(object sender, MouseEventArgs e)
-        {
-            int Hours;
-            if (HoursOfChargeTextBox.Text == "" || !HoursOfChargeTextBox.Text.All(char.IsDigit))
-                Hours = -1;
-            else
-                Hours = int.Parse(HoursOfChargeTextBox.Text);
-
-            if (Hours < 0)
-                HoursOfChargeTextBox.Background = Brushes.DarkRed;
-            else
-                HoursOfChargeTextBox.Background = Brushes.White;
         }
 
         private void SendToDeliveryButton_Click(object sender, RoutedEventArgs e)
@@ -304,6 +358,9 @@ namespace PL
             MessageBox.Show("The connection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
             DataDroneLabel.Content = drone;
+
+            SendToDeliveryButton.Visibility = Visibility.Hidden;
+            CollectParcelButton.Visibility = Visibility.Visible;
         }
 
         private void CollectParcelButton_Click(object sender, RoutedEventArgs e)
@@ -321,6 +378,9 @@ namespace PL
             MessageBox.Show("The collection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
             DataDroneLabel.Content = drone;
+
+            CollectParcelButton.Visibility = Visibility.Hidden;
+            SupplyParcelButton.Visibility = Visibility.Visible;
         }
 
         private void SupplyParcelButton_Click(object sender, RoutedEventArgs e)
@@ -343,6 +403,9 @@ namespace PL
             MessageBox.Show("The supply succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
             DataDroneLabel.Content = drone;
+
+            SupplyParcelButton.Visibility = Visibility.Hidden;
+            SendToDeliveryButton.Visibility = Visibility.Visible;
         }
     }
 }

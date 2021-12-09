@@ -217,7 +217,6 @@ namespace IBL
             if (newModel == "")
                 throw new DroneException("ERROR: Model must have value");
 
-
             updateDrone.Model = newModel;
 
             for (int i = 0; i < ListDrones.Count(); i++)
@@ -248,6 +247,7 @@ namespace IBL
             {
                 throw new DroneException(e.Message, e);
             }
+
             if (drone.Status != DroneStatuses.Available)
                 throw new DroneException("ERROR: the drone not available to charge ");
 
@@ -260,22 +260,17 @@ namespace IBL
             {
                 throw new DroneException(e.Message, e);
             }
+
             double distance = Distance(drone.Location, nearStation.Location);
-            if (distance * BatteryAvailable > drone.Battery)
+            if (distance * BatteryAvailable > drone.Battery || distance * BatteryAvailable > 100)
                 throw new DroneException("ERROR: the drone not have battery to go to station charge ");
 
             for (int i = 0; i < ListDrones.Count; i++)
                 if (ListDrones[i].Id == drone.Id)
                 {
                     DroneToList newDrone = ListDrones[i];
-                    if (distance * BatteryAvailable > 100)
-                        newDrone.Battery = 100;
-                    else
-                    {
-                        newDrone.Battery += distance * BatteryAvailable;
-                        newDrone.Battery = (double)System.Math.Round(newDrone.Battery, 3);
-                    }
-
+                    newDrone.Battery -= distance * BatteryAvailable;
+                    newDrone.Battery = (double)System.Math.Round(newDrone.Battery, 3);
                     newDrone.Location = nearStation.Location;
                     newDrone.Status = DroneStatuses.Maintenance;
                     ListDrones[i] = newDrone;
@@ -288,6 +283,7 @@ namespace IBL
             IDAL.DO.DroneCharge newDroneCharge = new DroneCharge();
             newDroneCharge.StationId = nearStation.Id;
             newDroneCharge.DroneId = drone.Id;
+            newDroneCharge.StartCharging = DateTime.Now;
             try
             {
                 dal.AddDroneCharge(newDroneCharge);
@@ -302,7 +298,7 @@ namespace IBL
         /// Release the drone from the drone charge
         /// </summary>
         /// <returns></no returns, release the drone from the drone charge>
-        public void ReleaseDroneFromDroneCharge(int id, int chargeTime)
+        public void ReleaseDroneFromDroneCharge(int id)
         {
             try
             {
@@ -313,47 +309,35 @@ namespace IBL
                 throw new DroneException(e.Message, e);
             }
 
-            if (chargeTime < 0)
-                throw new DroneException("ERROR: the charge time must a positive value!");
-
             if (GetDrone(id).Status != DroneStatuses.Maintenance)
                 throw new DroneException("The drone can not release because he is in maintenance statuses\n");
 
+            double batteryCharge = 0;
             foreach (var elementDroneCharge in dal.GetDronesCharge(droneCharge => true))
             {
                 if (id == elementDroneCharge.DroneId)
                 {
-                    foreach (var elementListDrone in ListDrones)
-                    {
-                        if (elementDroneCharge.DroneId == elementListDrone.Id)
-                        {
-                            foreach (var elementStationToList in GetStations())
-                            {
-                                if (elementDroneCharge.StationId == elementStationToList.Id)
-                                {
-                                    IDAL.DO.Station updateStation = dal.GetStation(elementDroneCharge.StationId);
-                                    updateStation.ChargeSlots++;
-                                    dal.UpdateStation(updateStation);
+                    IDAL.DO.Station updateStation = dal.GetStation(elementDroneCharge.StationId);
+                    updateStation.ChargeSlots++;
+                    dal.UpdateStation(updateStation);
 
-                                    if (chargeTime * ChargingRateOfDrone > 100)
-                                        elementListDrone.Battery = 100;
-                                    else
-                                    {
-                                        elementListDrone.Battery += chargeTime * ChargingRateOfDrone;
-                                        elementListDrone.Battery = (double)System.Math.Round(elementListDrone.Battery, 3);
-                                        if (elementListDrone.Battery > 100)
-                                            elementListDrone.Battery = 100;
-                                    }
-                                        
+                    TimeSpan? chargeTime = DateTime.Now - elementDroneCharge.StartCharging;
+                    batteryCharge = chargeTime.Value.TotalSeconds * (ChargingRateOfDrone / 3600);
 
-                                    elementListDrone.Status = DroneStatuses.Available;
-                                    dal.RemoveDroneCharge(elementDroneCharge);
-                                    return;
-                                }
-                            }
+                    dal.RemoveDroneCharge(elementDroneCharge);
+                }
+            }
 
-                        }
-                    }
+            foreach (var elementDrone in ListDrones)
+            {
+                if (id == elementDrone.Id)
+                {
+                    elementDrone.Battery += batteryCharge;
+                    elementDrone.Battery = (double)System.Math.Round(elementDrone.Battery, 3);
+                    if (elementDrone.Battery > 100)
+                        elementDrone.Battery = 100;
+
+                    elementDrone.Status = DroneStatuses.Available;
                 }
             }
         }

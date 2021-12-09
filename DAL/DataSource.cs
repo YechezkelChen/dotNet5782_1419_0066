@@ -22,7 +22,7 @@ namespace DalObject
             internal static double BatteryLightWeight = 1;
             internal static double BatteryMediumWeight = 1.5;
             internal static double BatteryHeavyWeight = 2;
-            internal static double ChargingRateOfDrone = 1;
+            internal static double ChargingRateOfDrone = 50;
         }
 
         public static void Initialize()
@@ -33,7 +33,7 @@ namespace DalObject
             List<string> customerNames = new List<string>() { "Abraham", "Isaac", "Jacob", "Moshe", "Joseph" };
             List<DateTime?> dates = new List<DateTime?>() {DateTime.Now, null};
 
-            int id = 1000000;
+            int id = 100000;
             for (int i = 0; i < 5; i++)
             {
                 Drones.Add(new Drone

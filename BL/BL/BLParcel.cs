@@ -176,6 +176,8 @@ namespace IBL
             List<ParcelToList> prioritiesParcel = new List<ParcelToList>();
             List<ParcelToList> weightParcel = new List<ParcelToList>();
             Parcel parcelToConnect = new Parcel();
+            double batteryDelivery = 0;
+
             for (int i = (int)Priorities.Emergency; i >= (int)Priorities.Normal; i--)
             {
                 prioritiesParcel = parcelNoDrones.ToList().FindAll(parcel => parcel.Priority == (Priorities)i); // parcels with priority according to the brace
@@ -189,12 +191,11 @@ namespace IBL
 
                         double distanceDelivery = Distance(connectDrone.Location,
                             GetCustomer(GetParcel(parcelToConnect.Id).Sender.Id).Location);
-                        double batteryDelivery = 0;
+
                         batteryDelivery = distanceDelivery * BatteryAvailable;
 
                         distanceDelivery = Distance(GetCustomer(GetParcel(parcelToConnect.Id).Sender.Id).Location,
-                            GetCustomer(GetParcel(parcelToConnect.Id).Target.Id)
-                                .Location); // the distance between the drone and the target
+                            GetCustomer(GetParcel(parcelToConnect.Id).Target.Id).Location); // the distance between the drone and the target
                         if (parcelToConnect.Weight == WeightCategories.Heavy)
                             batteryDelivery += distanceDelivery * BatteryHeavyWeight;
                         if (parcelToConnect.Weight == WeightCategories.Medium)
@@ -269,7 +270,7 @@ namespace IBL
                 if (ListDrones[i].Id == collectionDrone.Id)
                 {
                     DroneToList updateDrone = ListDrones[i];
-                    updateDrone.Battery = Distance(collectionDrone.Location,
+                    updateDrone.Battery -= Distance(collectionDrone.Location,
                         collectionDrone.ParcelByTransfer.PickUpLocation) * BatteryAvailable;
                     updateDrone.Location = collectionDrone.ParcelByTransfer.PickUpLocation;
                     ListDrones[i] = updateDrone;
@@ -300,37 +301,25 @@ namespace IBL
             Parcel parcel = new Parcel();
             parcel = GetParcel(drone.ParcelByTransfer.Id);
 
-            foreach (var elementParcelToList in GetParcels())
+            foreach (var elementParcel in GetParcels())
             {
-                if (elementParcelToList.Id == parcel.Id)
+                if (elementParcel.Id == parcel.Id)
                 {
-                    if (elementParcelToList.ParcelStatuses != ParcelStatuses.PickedUp &&
+                    if (elementParcel.ParcelStatuses != ParcelStatuses.PickedUp &&
                         parcel.DroneInParcel.Id == idDrone)
                         throw new DroneException("ERROR: the drone is not pick-up the parcel yet\n");
 
                     double distance = Distance(drone.Location, GetCustomer(parcel.Target.Id).Location);
 
-                    bool fullBattery = false;
                     if (parcel.Weight == WeightCategories.Heavy)
-                        if (distance * BatteryHeavyWeight > 100)
-                            fullBattery = true;
-                        else
-                            drone.Battery = distance * BatteryHeavyWeight;
-                    
-                        
-                    if (parcel.Weight == WeightCategories.Medium)
-                        if (distance * BatteryHeavyWeight > 100)
-                            fullBattery = true;
-                        else
-                            drone.Battery = distance * BatteryMediumWeight;
-
-                    if (parcel.Weight == WeightCategories.Light)
-                        if (distance * BatteryHeavyWeight > 100) // if the battery is logical
-                            fullBattery = true;
-                        else
-                            drone.Battery = distance * BatteryLightWeight;
-                    if (fullBattery)
-                        drone.Battery = 100;
+                        drone.Battery -= distance * BatteryMediumWeight;
+                    else
+                    {
+                        if (parcel.Weight == WeightCategories.Medium)
+                            drone.Battery -= distance * BatteryHeavyWeight;
+                        else // light
+                            drone.Battery -= distance * BatteryLightWeight;
+                    }
 
                     drone.Location = GetCustomer(parcel.Target.Id).Location;
                     drone.Status = DroneStatuses.Available;
@@ -342,18 +331,15 @@ namespace IBL
                             updateDrone.Battery = drone.Battery;
                             updateDrone.Location = drone.Location;
                             updateDrone.Status = drone.Status;
+                            updateDrone.IdParcel = 0;
                             ListDrones[i] = updateDrone;
                         }
                     }
 
-                    parcel.Delivered = DateTime.Now;
-                    IDAL.DO.Parcel updateParcel = new IDAL.DO.Parcel();
-                    updateParcel = dal.GetParcel(parcel.Id);
-                    updateParcel.Delivered = parcel.Delivered;
+                    IDAL.DO.Parcel updateParcel = dal.GetParcel(parcel.Id);
+                    updateParcel.Delivered = DateTime.Now;
                     dal.UpdateParcel(updateParcel);
-                    return;
                 }
-              
             }
         }
 

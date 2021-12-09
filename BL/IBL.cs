@@ -25,7 +25,7 @@ namespace IBL
         IEnumerable<DroneToList> GetDronesByMaxWeight(WeightCategories weight); // Returning the list of drones with filtering of max weight
         void UpdateDroneModel(int droneId, string newModel); // Update drone data according to user request.
         void SendDroneToDroneCharge(int id);// Sending a drone for charging at a vacant charging station.
-        void ReleaseDroneFromDroneCharge(int id, int chargeTime); // Release drone from charging station.
+        void ReleaseDroneFromDroneCharge(int id); // Release drone from charging station.
 
 
         // Customer

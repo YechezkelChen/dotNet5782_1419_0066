@@ -720,8 +720,6 @@ namespace ConsoleUI_BL
 
             while (true)
             {
-
-
                 do
                 {
                     Console.WriteLine("Enter Id Drone: ");
@@ -749,7 +747,7 @@ namespace ConsoleUI_BL
         /// <returns></no returns, just release the drone from the charge spot in the station>
         private static void ReleaseDroneFromCharge(IBL.IBL bl)
         {
-            int id, chargeTime;
+            int id;
 
             while (true)
             {
@@ -758,14 +756,9 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Enter Id Drone: ");
                 } while (!int.TryParse(Console.ReadLine(), out id));
 
-                do
-                {
-                    Console.WriteLine("Enter the time the drone was in charge:\n ");
-                } while (!int.TryParse(Console.ReadLine(), out chargeTime));
-
                 try
                 {
-                    bl.ReleaseDroneFromDroneCharge(id, chargeTime);
+                    bl.ReleaseDroneFromDroneCharge(id);
                     Console.WriteLine("Success! :)\n");
                     break;
                 }
