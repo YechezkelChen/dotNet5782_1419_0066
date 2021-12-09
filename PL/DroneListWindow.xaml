@@ -16,7 +16,7 @@
             </Grid.RowDefinitions>
             <Grid Name="UpGrid" Grid.Row="0">
                 <Grid.Background>
-                    <ImageBrush ImageSource="images\upGrid.jpg"/>
+                    <ImageBrush ImageSource="images\1.jpg"/>
                 </Grid.Background>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
