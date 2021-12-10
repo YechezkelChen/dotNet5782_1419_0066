@@ -160,6 +160,7 @@ namespace IBL
 
                         drone.ParcelByTransfer.DistanceOfTransfer = Distance(drone.ParcelByTransfer.PickUpLocation,
                             drone.ParcelByTransfer.TargetLocation);
+                        drone.ParcelByTransfer.DistanceOfTransfer = (double)System.Math.Round(drone.ParcelByTransfer.DistanceOfTransfer, 3);
                     }
                 }
             }

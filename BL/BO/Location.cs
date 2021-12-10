@@ -14,7 +14,7 @@ namespace IBL
             public double Latitude { get; set; }
             public override string ToString()
             {
-                return $"Longitude = " + String.Format("{0:0.000}", Longitude) + ", " +
+                return $"Longitude = " + String.Format("{0:0.000}", Longitude) + "\n" +
                        $"Latitude = " + String.Format("{0:0.000}", Latitude) + "\n";
             }
         }

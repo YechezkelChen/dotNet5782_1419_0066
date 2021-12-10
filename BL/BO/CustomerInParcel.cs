@@ -15,7 +15,7 @@ namespace IBL
             public override string ToString()
             {
                 return
-                    $"Id #{Id}: Name = {NameCustomer}";
+                    $"Id #{Id}: \nName = {NameCustomer}";
             }
         }
     }

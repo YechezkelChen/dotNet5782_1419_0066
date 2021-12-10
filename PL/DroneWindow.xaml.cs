@@ -33,6 +33,8 @@ namespace PL
             drone = new Drone();
 
             // hidden irrelevant drone data
+            PresentWeightLabel.Visibility = Visibility.Hidden;
+            PresentStationLabel.Visibility = Visibility.Hidden;
             BatteryLabel.Visibility = Visibility.Hidden;
             BatteryTextBox.Visibility = Visibility.Hidden;
             StatusLabel.Visibility = Visibility.Hidden;
@@ -45,17 +47,11 @@ namespace PL
 
             // hidden irrelevant bottuns 
             UpdateModelButton.Visibility = Visibility.Hidden;
-            //TextUpdateModelLabel.Visibility = Visibility.Hidden;
-            //GetUpdateModelTextBox.Visibility = Visibility.Hidden;
             SendToChargeButton.Visibility = Visibility.Hidden;
             RealeseFromChargeButton.Visibility = Visibility.Hidden;
-            // HoursOfChargeLabel.Visibility = Visibility.Hidden;
-            //HoursOfChargeTextBox.Visibility = Visibility.Hidden;
             SendToDeliveryButton.Visibility = Visibility.Hidden;
             CollectParcelButton.Visibility = Visibility.Hidden;
             SupplyParcelButton.Visibility = Visibility.Hidden;
-
-           // textToDisplay.IsReadOnly = true;
         }
 
         public DroneWindow(IBL.IBL ibl, Drone droneHelp)
@@ -66,42 +62,51 @@ namespace PL
 
             // print data drone
             IdTextBox.Text = drone.Id.ToString();
-            IdTextBox.IsReadOnly = true;
+            IdTextBox.IsEnabled = false;
             ModelTextBox.Text = drone.Model;
-            WeightComboBox.SelectedItem = drone.Weight.ToString();
-            WeightComboBox.IsReadOnly = true;
-            if(drone.Status == DroneStatuses.Maintenance) // שגיאה??
-                StationComboBox.SelectedItem = bl.GetStations().ToList().Find(station => drone.Location == bl.GetStation(station.Id).Location).Id;
-            StationComboBox.IsReadOnly = true;
+            PresentWeightLabel.Text = drone.Weight.ToString();
+            WeightComboBox.IsEnabled = false;
+            PresentWeightLabel.IsEnabled = false;
+
+            if (drone.Status == DroneStatuses.Maintenance)
+                foreach (var elementStation in bl.GetStations())
+                {
+                    Station station = bl.GetStation(elementStation.Id);
+                    if (drone.Location.Longitude == station.Location.Longitude && drone.Location.Latitude == station.Location.Latitude)
+                        PresentStationLabel.Text = station.Id.ToString();
+                }
+
+            StationComboBox.IsEnabled = false;
+            PresentStationLabel.IsEnabled = false;
             BatteryTextBox.Text = drone.Battery.ToString();
-            BatteryTextBox.IsReadOnly = true;
+            BatteryTextBox.IsEnabled = false;
             StatusTextBox.Text = drone.Status.ToString();
-            StatusTextBox.IsReadOnly = true;
+            StatusTextBox.IsEnabled = false;
             LocationTextBox.Text = drone.Location.ToString();
-            LocationTextBox.IsReadOnly = true;
+            LocationTextBox.IsEnabled = false;
 
             // print data parcel in drone
             IdParcelTextBox.Text = drone.ParcelByTransfer.Id.ToString();
-            IdParcelTextBox.IsReadOnly = true;
+            IdParcelTextBox.IsEnabled = false;
             StatusParcelTextBox.Text = drone.ParcelByTransfer.Status.ToString();
-            StatusParcelTextBox.IsReadOnly = true;
+            StatusParcelTextBox.IsEnabled = false;
             PriorityParcelTextBox.Text = drone.ParcelByTransfer.Priority.ToString();
-            PriorityParcelTextBox.IsReadOnly = true;
+            PriorityParcelTextBox.IsEnabled = false;
             WeightParcelTextBox.Text = drone.ParcelByTransfer.Weight.ToString();
-            WeightParcelTextBox.IsReadOnly = true;
-            if (drone.ParcelByTransfer != null)
+            WeightParcelTextBox.IsEnabled = false;
+            if (drone.ParcelByTransfer.Id != 0)
             {
                 SenderInParcelTextBox.Text = drone.ParcelByTransfer.SenderInParcel.ToString();
-                SenderInParcelTextBox.IsReadOnly = true;
                 PickUpLocationParcelTextBox.Text = drone.ParcelByTransfer.PickUpLocation.ToString();
-                PickUpLocationParcelTextBox.IsReadOnly = true;
                 ReceiverInParcelTextBox.Text = drone.ParcelByTransfer.ReceiverInParcel.ToString();
-                ReceiverInParcelTextBox.IsReadOnly = true;
                 TargetLocationParcelTextBox.Text = drone.ParcelByTransfer.TargetLocation.ToString();
-                TargetLocationParcelTextBox.IsReadOnly = true;
                 DistanceOfTransferTextBox.Text = drone.ParcelByTransfer.DistanceOfTransfer.ToString();
-                DistanceOfTransferTextBox.IsReadOnly = true;
             }
+            SenderInParcelTextBox.IsEnabled = false;
+            PickUpLocationParcelTextBox.IsEnabled = false;
+            ReceiverInParcelTextBox.IsEnabled = false;
+            TargetLocationParcelTextBox.IsEnabled = false;
+            DistanceOfTransferTextBox.IsEnabled = false;
 
             // hidden irrelevant bottuns
             AddButton.Visibility = Visibility.Hidden;
@@ -119,7 +124,7 @@ namespace PL
             }
             else
             {
-                if (drone.ParcelByTransfer.Status == true)
+                if (drone.ParcelByTransfer.Status != true)
                 {
                     SendToDeliveryButton.Visibility = Visibility.Hidden;
                     SupplyParcelButton.Visibility = Visibility.Hidden;
@@ -301,7 +306,8 @@ namespace PL
 
             MessageBox.Show("The update is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
-            DataDroneLabel.Content = drone;
+
+            ModelTextBox.Text = drone.Model;
         }
 
         private void SendToChargeButton_Click(object sender, RoutedEventArgs e)
@@ -318,7 +324,20 @@ namespace PL
 
             MessageBox.Show("The send succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
-            DataDroneLabel.Content = drone;
+
+            foreach (var elementStation in bl.GetStations())
+            {
+                Station station = bl.GetStation(elementStation.Id);
+                if (drone.Location.Longitude == station.Location.Longitude && drone.Location.Latitude == station.Location.Latitude)
+                    PresentStationLabel.Text = station.Id.ToString();
+            }
+
+            BatteryTextBox.Text = drone.Battery.ToString();
+            StatusTextBox.Text = drone.Status.ToString();
+            LocationTextBox.Text = drone.Location.ToString();
+
+            SendToChargeButton.Visibility = Visibility.Hidden;
+            RealeseFromChargeButton.Visibility = Visibility.Visible;
         }
 
         private void RealeseFromChargeButton_Click(object sender, RoutedEventArgs e)
@@ -335,7 +354,14 @@ namespace PL
 
             MessageBox.Show("The realese succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
-            DataDroneLabel.Content = drone;
+
+            PresentStationLabel.Text = "";
+            BatteryTextBox.Text = drone.Battery.ToString();
+            StatusTextBox.Text = drone.Status.ToString();
+            LocationTextBox.Text = drone.Location.ToString();
+
+            RealeseFromChargeButton.Visibility = Visibility.Hidden;
+            SendToChargeButton.Visibility = Visibility.Visible;
         }
 
         private void SendToDeliveryButton_Click(object sender, RoutedEventArgs e)
@@ -357,7 +383,20 @@ namespace PL
 
             MessageBox.Show("The connection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
-            DataDroneLabel.Content = drone;
+
+            BatteryTextBox.Text = drone.Battery.ToString();
+            StatusTextBox.Text = drone.Status.ToString();
+            LocationTextBox.Text = drone.Location.ToString();
+
+            IdParcelTextBox.Text = drone.ParcelByTransfer.Id.ToString();
+            StatusParcelTextBox.Text = drone.ParcelByTransfer.Status.ToString();
+            PriorityParcelTextBox.Text = drone.ParcelByTransfer.Priority.ToString();
+            WeightParcelTextBox.Text = drone.ParcelByTransfer.Weight.ToString();
+            SenderInParcelTextBox.Text = drone.ParcelByTransfer.SenderInParcel.ToString();
+            PickUpLocationParcelTextBox.Text = drone.ParcelByTransfer.PickUpLocation.ToString();
+            ReceiverInParcelTextBox.Text = drone.ParcelByTransfer.ReceiverInParcel.ToString();
+            TargetLocationParcelTextBox.Text = drone.ParcelByTransfer.TargetLocation.ToString();
+            DistanceOfTransferTextBox.Text = drone.ParcelByTransfer.DistanceOfTransfer.ToString();
 
             SendToDeliveryButton.Visibility = Visibility.Hidden;
             CollectParcelButton.Visibility = Visibility.Visible;
@@ -377,7 +416,12 @@ namespace PL
 
             MessageBox.Show("The collection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
-            DataDroneLabel.Content = drone;
+
+            BatteryTextBox.Text = drone.Battery.ToString();
+            StatusTextBox.Text = drone.Status.ToString();
+            LocationTextBox.Text = drone.Location.ToString();
+
+            StatusParcelTextBox.Text = drone.ParcelByTransfer.Status.ToString();
 
             CollectParcelButton.Visibility = Visibility.Hidden;
             SupplyParcelButton.Visibility = Visibility.Visible;
@@ -402,7 +446,20 @@ namespace PL
 
             MessageBox.Show("The supply succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
-            DataDroneLabel.Content = drone;
+
+            BatteryTextBox.Text = drone.Battery.ToString();
+            StatusTextBox.Text = drone.Status.ToString();
+            LocationTextBox.Text = drone.Location.ToString();
+
+            IdParcelTextBox.Text = "";
+            StatusParcelTextBox.Text = "";
+            PriorityParcelTextBox.Text = "";
+            WeightParcelTextBox.Text = "";
+            SenderInParcelTextBox.Text = "";
+            PickUpLocationParcelTextBox.Text = "";
+            ReceiverInParcelTextBox.Text = "";
+            TargetLocationParcelTextBox.Text = "";
+            DistanceOfTransferTextBox.Text = "";
 
             SupplyParcelButton.Visibility = Visibility.Hidden;
             SendToDeliveryButton.Visibility = Visibility.Visible;
