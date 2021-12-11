@@ -342,14 +342,12 @@ namespace IBL
                     double distance = Distance(drone.Location, GetCustomer(parcel.Target.Id).Location);
 
                     if (parcel.Weight == WeightCategories.Heavy)
+                        drone.Battery -= distance * BatteryHeavyWeight;
+                    else if (parcel.Weight == WeightCategories.Medium)
                         drone.Battery -= distance * BatteryMediumWeight;
-                    else
-                    {
-                        if (parcel.Weight == WeightCategories.Medium)
-                            drone.Battery -= distance * BatteryHeavyWeight;
-                        else // light
-                            drone.Battery -= distance * BatteryLightWeight;
-                    }
+                    else // light
+                        drone.Battery -= distance * BatteryLightWeight;
+                    
 
                     drone.Location = GetCustomer(parcel.Target.Id).Location;
                     drone.Status = DroneStatuses.Available;
