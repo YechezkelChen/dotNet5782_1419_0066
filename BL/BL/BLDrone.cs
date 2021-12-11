@@ -341,7 +341,7 @@ namespace IBL
         private void CheckDrone(Drone drone)
         {
             if (drone.Id < 100000 || drone.Id > 999999)//Check that it's 6 digits.
-                throw new CustomerException("ERROR: the ID is illegal! ");
+                throw new DroneException("ERROR: the ID is illegal! ");
             if (drone.Model == "")
                 throw new DroneException("ERROR: Model must have value");
         }
