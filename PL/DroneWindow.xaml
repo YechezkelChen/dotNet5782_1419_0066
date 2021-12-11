@@ -10,7 +10,7 @@
         Title="DroneWindow" Height="450" Width="800">
     <Grid x:Name="MainGrid">
         <Grid.Background>
-            <ImageBrush ImageSource="images\3.jpg"/>
+            <ImageBrush ImageSource="images\droneWindow.jpg"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
