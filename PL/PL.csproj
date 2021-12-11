@@ -12,6 +12,7 @@
     <None Remove="images\addDroneGrid.jpg" />
     <None Remove="images\background.jpg" />
     <None Remove="images\dron.jpg" />
+    <None Remove="images\droneWindow.jpg" />
     <None Remove="images\icon.png" />
     <None Remove="images\middleGrid.jpg" />
     <None Remove="images\updateDroneGrid.jpg" />
@@ -24,6 +25,7 @@
 
   <ItemGroup>
     <Resource Include="images\background.jpg" />
+    <Resource Include="images\droneWindow.jpg" />
     <Resource Include="images\icon.png" />
     <Resource Include="images\upGrid.jpg" />
   </ItemGroup>
