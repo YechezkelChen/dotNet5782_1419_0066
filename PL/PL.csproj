@@ -22,12 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="images\3.jpg" />
-    <Resource Include="images\addDroneGrid.jpg" />
     <Resource Include="images\background.jpg" />
     <Resource Include="images\icon.png" />
-    <Resource Include="images\middleGrid.jpg" />
-    <Resource Include="images\updateDroneGrid.jpg" />
     <Resource Include="images\upGrid.jpg" />
   </ItemGroup>
 
