@@ -73,7 +73,6 @@ namespace IBL
                 throw new DroneException(e.Message, e);
             }
 
-            ListDrones.Add(newDroneToList);
             try
             {
                 dal.AddDrone(drone);// add the drone just if the drone not in the data center
@@ -82,6 +81,7 @@ namespace IBL
             {
                 throw new DroneException(e.Message, e);
             }
+            ListDrones.Add(newDroneToList);
 
             try
             {
@@ -252,16 +252,7 @@ namespace IBL
             if (drone.Status != DroneStatuses.Available)
                 throw new DroneException("ERROR: the drone not available to charge ");
 
-            Station nearStation = new Station();
-            try
-            {
-                nearStation = NearStationToDrone(dal.GetDrone(drone.Id));// if the drone is not exist
-            }
-            catch (DroneException e)
-            {
-                throw new DroneException(e.Message, e);
-            }
-
+            Station nearStation = NearStationToDrone(GetDrone(drone.Id));
             double distance = Distance(drone.Location, nearStation.Location);
             if (distance * BatteryAvailable > drone.Battery || distance * BatteryAvailable > 100)
                 throw new DroneException("ERROR: the drone not have battery to go to station charge ");

@@ -19,9 +19,9 @@ namespace DalObject
 
             // km per hour
             internal static double BatteryAvailable = 0.05;
-            internal static double BatteryLightWeight = 1;
-            internal static double BatteryMediumWeight = 1.5;
-            internal static double BatteryHeavyWeight = 2;
+            internal static double BatteryLightWeight = 0.2;
+            internal static double BatteryMediumWeight = 0.4;
+            internal static double BatteryHeavyWeight = 0.5;
             internal static double ChargingRateOfDrone = 50;
         }
 
