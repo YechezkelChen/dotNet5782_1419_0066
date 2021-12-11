@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <Resource Include="images\background.jpg" />
-    <Resource Include="images\droneWindow.jpg" />
+    <Resource Include="images\dronewindow.jpg" />
     <Resource Include="images\icon.png" />
     <Resource Include="images\upGrid.jpg" />
   </ItemGroup>
