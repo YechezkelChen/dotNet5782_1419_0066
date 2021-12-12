@@ -8,7 +8,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
-using IDAL;
 
 
 namespace IBL
@@ -32,8 +31,8 @@ namespace IBL
             DO.Parcel parcel = new DO.Parcel();
             parcel.SenderId = newParcel.Sender.Id;
             parcel.TargetId = newParcel.Target.Id;
-            parcel.Weight = (IDAL.DO.WeightCategories)newParcel.Weight;
-            parcel.Priority = (IDAL.DO.Priorities)newParcel.Priority;
+            parcel.Weight = (DO.WeightCategories)newParcel.Weight;
+            parcel.Priority = (DO.Priorities)newParcel.Priority;
             parcel.DroneId = 0;
             parcel.Requested = DateTime.Now;
             parcel.Scheduled = null;
@@ -203,7 +202,7 @@ namespace IBL
                                           "Please wait for other drones to be available or enter the identity of another available drone.");
            
             
-            DO.Parcel updateParcel = new IDAL.DO.Parcel();
+            DO.Parcel updateParcel = new DO.Parcel();
             try
             {
                 updateParcel = dal.GetParcel(parcelToConnect.Id);

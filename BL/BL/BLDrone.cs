@@ -265,7 +265,7 @@ namespace IBL
             updateStation.ChargeSlots--;
             dal.UpdateStation(updateStation);
 
-            DO.DroneCharge newDroneCharge = new DroneCharge();
+            DO.DroneCharge newDroneCharge = new DO.DroneCharge();
             newDroneCharge.StationId = nearStation.Id;
             newDroneCharge.DroneId = drone.Id;
             newDroneCharge.StartCharging = DateTime.Now;
@@ -302,7 +302,7 @@ namespace IBL
             {
                 if (id == elementDroneCharge.DroneId)
                 {
-                    IDAL.DO.Station updateStation = dal.GetStation(elementDroneCharge.StationId);
+                    DO.Station updateStation = dal.GetStation(elementDroneCharge.StationId);
                     updateStation.ChargeSlots++;
                     dal.UpdateStation(updateStation);
 
@@ -345,7 +345,7 @@ namespace IBL
         /// <param name="droneId"></the drone we search for>
         /// <param name="parcels"></all the parcels in dal>
         /// <returns></return the parcel id if the drone coneccted to some parcel else -1 (not conected)>
-        private int CheckDroneAndParcel(int droneId, IEnumerable<IDAL.DO.Parcel> parcels)
+        private int CheckDroneAndParcel(int droneId, IEnumerable<DO.Parcel> parcels)
         {
             foreach (DO.Parcel elementParcel in parcels)
                 if (elementParcel.DroneId == droneId)
