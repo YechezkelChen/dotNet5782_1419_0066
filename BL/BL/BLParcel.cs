@@ -29,7 +29,7 @@ namespace IBL
             {
                 throw new ParcelException(e.Message, e);
             }
-            IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
+            DO.Parcel parcel = new DO.Parcel();
             parcel.SenderId = newParcel.Sender.Id;
             parcel.TargetId = newParcel.Target.Id;
             parcel.Weight = (IDAL.DO.WeightCategories)newParcel.Weight;
@@ -50,7 +50,7 @@ namespace IBL
         /// <returns></returns>
         public Parcel GetParcel(int id)
         {
-            IDAL.DO.Parcel idalParcel = new IDAL.DO.Parcel();
+            DO.Parcel idalParcel = new DO.Parcel();
             try
             {
                 idalParcel = dal.GetParcel(id);
@@ -202,57 +202,8 @@ namespace IBL
                 throw new ParcelException("There are no packages that the available drone you entered can carry..\n" +
                                           "Please wait for other drones to be available or enter the identity of another available drone.");
            
-            //IEnumerable<ParcelToList> parcelNoDrones = GetParcelsNoDrones();
-            //List<ParcelToList> prioritiesParcel = new List<ParcelToList>();
-            //List<ParcelToList> weightParcel = new List<ParcelToList>();
-            //Parcel parcelToConnect = new Parcel();
-            //double batteryDelivery = 0;
-
-            //for (int i = (int)Priorities.Emergency; i >= (int)Priorities.Normal; i--)
-            //{
-            //    prioritiesParcel = parcelNoDrones.ToList().FindAll(parcel => parcel.Priority == (Priorities)i); // parcels with priority according to the brace
-            //    for (int j = (int) connectDrone.Weight; j >= (int) WeightCategories.Light; j--)
-            //    {
-            //        weightParcel = prioritiesParcel.ToList().FindAll(parcel => parcel.Weight == (WeightCategories) j); // parcels with weight according to the brace
-            //        while (weightParcel.Count() != 0)
-            //        {
-            //            parcelToConnect = new Parcel();
-            //            parcelToConnect = NearParcelToDrone(connectDrone, weightParcel); // find the close station
-
-            //            double distanceDelivery = Distance(connectDrone.Location,
-            //                GetCustomer(GetParcel(parcelToConnect.Id).Sender.Id).Location);
-
-            //            batteryDelivery = distanceDelivery * BatteryAvailable;
-
-            //            distanceDelivery = Distance(GetCustomer(GetParcel(parcelToConnect.Id).Sender.Id).Location,
-            //                GetCustomer(GetParcel(parcelToConnect.Id).Target.Id).Location); // the distance between the drone and the target
-            //            if (parcelToConnect.Weight == WeightCategories.Heavy)
-            //                batteryDelivery += distanceDelivery * BatteryHeavyWeight;
-            //            if (parcelToConnect.Weight == WeightCategories.Medium)
-            //                batteryDelivery += distanceDelivery * BatteryMediumWeight;
-            //            if (parcelToConnect.Weight == WeightCategories.Light)
-            //                batteryDelivery += distanceDelivery * BatteryLightWeight;
-
-            //            distanceDelivery = Distance(GetCustomer(GetParcel(parcelToConnect.Id).Target.Id).Location,
-            //                NearStationToCustomer(dal.GetCustomer(GetParcel(parcelToConnect.Id).Target.Id)).Location);
-            //            batteryDelivery += distanceDelivery * BatteryAvailable;
-
-            //            if (connectDrone.Battery < batteryDelivery) // if there is no enough battery delete the parcel from list
-            //            {
-            //                ParcelToList parcelToRemove = new ParcelToList();
-            //                foreach (var parcelInWeightParcel in weightParcel)
-            //                    if (parcelInWeightParcel.Id == parcelToConnect.Id)
-            //                        parcelToRemove = parcelInWeightParcel;
-
-            //                weightParcel.Remove(parcelToRemove);
-            //            }
-            //            else 
-            //                break;
-            //        }
-            //    }
-            //}
-
-            IDAL.DO.Parcel updateParcel = new IDAL.DO.Parcel();
+            
+            DO.Parcel updateParcel = new IDAL.DO.Parcel();
             try
             {
                 updateParcel = dal.GetParcel(parcelToConnect.Id);
@@ -307,7 +258,7 @@ namespace IBL
                 }
             }
 
-            IDAL.DO.Parcel updateParcel = dal.GetParcel(collectionDrone.ParcelByTransfer.Id);
+            DO.Parcel updateParcel = dal.GetParcel(collectionDrone.ParcelByTransfer.Id);
             updateParcel.PickedUp = DateTime.Now;
             dal.UpdateParcel(updateParcel);
         }
@@ -364,7 +315,7 @@ namespace IBL
                         }
                     }
 
-                    IDAL.DO.Parcel updateParcel = dal.GetParcel(parcel.Id);
+                    DO.Parcel updateParcel = dal.GetParcel(parcel.Id);
                     updateParcel.Delivered = DateTime.Now;
                     dal.UpdateParcel(updateParcel);
                 }

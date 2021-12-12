@@ -6,13 +6,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
-using IDAL;
-using IDAL.DO;
-using Customer = IBL.BO.Customer;
-using Drone = IBL.BO.Drone;
-using Priorities = IBL.BO.Priorities;
-using Station = IBL.BO.Station;
-using WeightCategories = IBL.BO.WeightCategories;
 
 
 namespace IBL
@@ -33,12 +26,12 @@ namespace IBL
             {
                 throw new DroneException(e.Message, e);
             }
-            IDAL.DO.Drone drone = new IDAL.DO.Drone();
+            DO.Drone drone = new DO.Drone();
             DroneToList newDroneToList = new DroneToList();
 
             drone.Id = newDrone.Id;
             drone.Model = newDrone.Model;
-            drone.Weight = (IDAL.DO.WeightCategories)newDrone.Weight;
+            drone.Weight = (DO.WeightCategories)newDrone.Weight;
 
 
             newDroneToList.Id = newDrone.Id;
@@ -50,7 +43,7 @@ namespace IBL
             newDroneToList.IdParcel = 0;
             try
             {
-                IDAL.DO.Station station = dal.GetStation(idStation);// try to find the station the user want to connect the drone to and if the station the
+                DO.Station station = dal.GetStation(idStation);// try to find the station the user want to connect the drone to and if the station the
                 if (station.ChargeSlots == 0) // user ask have place for charge
                     throw new StationException("The station you ask not have more place.");
             }
@@ -97,7 +90,7 @@ namespace IBL
         /// <returns></return the drone>
         public Drone GetDrone(int id)
         {
-            IDAL.DO.Drone idalDrone = new IDAL.DO.Drone();
+            DO.Drone idalDrone = new DO.Drone();
             try
             {
                 idalDrone = dal.GetDrone(id);
@@ -121,7 +114,7 @@ namespace IBL
                     drone.Location = new Location()
                         {Longitude = eleDroneToList.Location.Longitude, Latitude = eleDroneToList.Location.Latitude};
 
-                    IDAL.DO.Parcel parcel = new IDAL.DO.Parcel();
+                    DO.Parcel parcel = new DO.Parcel();
                     drone.ParcelByTransfer = new ParcelByTransfer();
                     try
                     {
@@ -146,7 +139,7 @@ namespace IBL
 
                         drone.ParcelByTransfer.Priority = (Priorities)parcel.Priority;
 
-                        IDAL.DO.Customer customer = dal.GetCustomer(parcel.SenderId);
+                        DO.Customer customer = dal.GetCustomer(parcel.SenderId);
                         drone.ParcelByTransfer.SenderInParcel = new CustomerInParcel()
                             {Id = customer.Id, NameCustomer = customer.Name};
                         drone.ParcelByTransfer.PickUpLocation = new Location()
@@ -205,7 +198,7 @@ namespace IBL
         /// <returns></no returns, update the model of the drone>
         public void UpdateDroneModel(int droneId, string newModel)
         {
-            IDAL.DO.Drone updateDrone = new IDAL.DO.Drone();
+            DO.Drone updateDrone = new DO.Drone();
             try
             {
                 updateDrone = dal.GetDrone(droneId);
@@ -268,11 +261,11 @@ namespace IBL
                     ListDrones[i] = newDrone;
                 }
 
-            IDAL.DO.Station updateStation = dal.GetStation(nearStation.Id);
+            DO.Station updateStation = dal.GetStation(nearStation.Id);
             updateStation.ChargeSlots--;
             dal.UpdateStation(updateStation);
 
-            IDAL.DO.DroneCharge newDroneCharge = new DroneCharge();
+            DO.DroneCharge newDroneCharge = new DroneCharge();
             newDroneCharge.StationId = nearStation.Id;
             newDroneCharge.DroneId = drone.Id;
             newDroneCharge.StartCharging = DateTime.Now;
@@ -354,7 +347,7 @@ namespace IBL
         /// <returns></return the parcel id if the drone coneccted to some parcel else -1 (not conected)>
         private int CheckDroneAndParcel(int droneId, IEnumerable<IDAL.DO.Parcel> parcels)
         {
-            foreach (IDAL.DO.Parcel elementParcel in parcels)
+            foreach (DO.Parcel elementParcel in parcels)
                 if (elementParcel.DroneId == droneId)
                     return elementParcel.Id;
             return 0;
