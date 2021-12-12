@@ -27,7 +27,7 @@ namespace BL
         public BL()
         {
 
-            dal = new DO.DalFactory();
+            dal = new DO.DalFactory("DalObject");
 
             // km per hour
             double[] powerConsumption = dal.GetRequestPowerConsumption();
