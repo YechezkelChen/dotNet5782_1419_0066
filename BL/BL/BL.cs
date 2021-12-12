@@ -10,7 +10,7 @@ using BO;
 
 namespace BL
 {
-    public partial class BL : BlApi.IBL
+    sealed partial class BL : BlApi.IBL
     {
         List<DroneToList> ListDrones = new List<DroneToList>();
 
@@ -20,14 +20,36 @@ namespace BL
 
         Random rand = new Random(DateTime.Now.Millisecond);
 
+        #region singelton
+        internal static volatile Lazy<BL> instance = new Lazy<BL>(() => new BL());
+
+        private static object syncRoot = new object();
+        public static Lazy<BL> Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = new Lazy<BL>(() => new BL());
+                    }
+                }
+
+                return instance;
+            }
+        }
+        static BL() { }
+
         /// <summary>
         /// constractur of the BL
         /// </summary>
         /// <returns></no returns >
-        public BL()
+        BL()
         {
 
-            dal = 
+            dal = dal.GetDal("DalObject");
 
             // km per hour
             double[] powerConsumption = dal.GetRequestPowerConsumption();
@@ -136,6 +158,8 @@ namespace BL
                 ListDrones[i] = drone;
             }
         }
+
+        #endregion
 
         /// <summary>
         /// the distances from "FROM" to "TO"
