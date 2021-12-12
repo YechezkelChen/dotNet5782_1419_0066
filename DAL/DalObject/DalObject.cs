@@ -9,12 +9,35 @@ using DalObject;
 
 namespace DalObject
 {
-    public partial class DalObject : DalApi.IDal
+    sealed partial class DalObject : DalApi.IDal
     {
-        public DalObject()
+        #region singelton
+        internal static volatile Lazy<DalObject> instance = new Lazy<DalObject>(() => new DalObject());
+
+        private static object syncRoot = new object();
+        public static Lazy<DalObject> Instance 
+        { 
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = new Lazy<DalObject>(() => new DalObject());
+                    }
+                }
+
+                return instance;
+            }
+        }
+        static DalObject() { }
+        DalObject()
         {
             DataSource.Initialize();
         }
+
+        #endregion
 
         public double[] GetRequestPowerConsumption()
         {

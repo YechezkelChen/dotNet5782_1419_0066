@@ -8,7 +8,7 @@ using DalObject;
 
 namespace DalObject
 {
-    public partial class DalObject : DalApi.IDal
+    partial class DalObject : DalApi.IDal
     {
         /// <summary>
         /// add a drone to the drone list

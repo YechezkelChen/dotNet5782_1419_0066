@@ -5,12 +5,12 @@ using System.Linq.Expressions;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 
-namespace IBL
+namespace BL
 {
-    public partial class BL : IBL
+    public partial class BL : BlApi.IBL
     {
         List<DroneToList> ListDrones = new List<DroneToList>();
 
@@ -26,7 +26,8 @@ namespace IBL
         /// <returns></no returns >
         public BL()
         {
-            dal = new DalObject.DalObject();
+
+            dal = new DO.DalFactory();
 
             // km per hour
             double[] powerConsumption = dal.GetRequestPowerConsumption();

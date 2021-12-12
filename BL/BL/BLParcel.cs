@@ -7,12 +7,12 @@ using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 
-namespace IBL
+namespace BL
 {
-    public partial class BL : IBL
+    public partial class BL : BlApi.IBL
     {
         /// <summary>
         /// add parcel with all fields to data source with checking 

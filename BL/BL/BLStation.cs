@@ -5,12 +5,12 @@ using System.Linq.Expressions;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 
-namespace IBL
+namespace BL
 {
-    public partial class BL : IBL
+    public partial class BL : BlApi.IBL
     {
         /// <summary>
         ///  add station with all fields to data source with checking 

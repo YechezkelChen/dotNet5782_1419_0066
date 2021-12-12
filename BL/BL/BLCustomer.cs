@@ -6,12 +6,12 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using DalObject;
-using IBL.BO;
+using BO;
 
 
-namespace IBL
+namespace BL
 {
-    public partial class BL : IBL
+    public partial class BL : BlApi.IBL
     {
         /// <summary>
         /// add a customer

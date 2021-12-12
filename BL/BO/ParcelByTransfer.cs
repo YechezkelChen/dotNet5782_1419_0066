@@ -4,34 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL
-{
-    namespace BO
-    { 
-        public class ParcelByTransfer
-        {
-            public int Id { get; set; }
-            public bool Status { get; set; }
-            public Priorities Priority { get; set; }
-            public WeightCategories Weight { get; set; }
-            public CustomerInParcel SenderInParcel { get; set; }//the sender
-            public Location PickUpLocation { get; set; }
-            public CustomerInParcel ReceiverInParcel { get; set; }//the receiver
-            public Location TargetLocation { get; set; }
-            public double DistanceOfTransfer { get; set; }
 
-            public override string ToString()
-            {
-                return $"Id #{Id}:\n" +
-                       $"Parcel status = {Status}\n" +
-                       $"Priority = {Priority}\n" +
-                       $"Weight = {Weight}\n" +
-                       $"Sender in parcel = {SenderInParcel}\n" +
-                       $"Receiver in parcel = {ReceiverInParcel}\n" +
-                       $"Pick up location = {PickUpLocation}" +
-                       $"Target location = {TargetLocation}" +
-                       $"Distance of transfer =" + String.Format("{0:0.00}", DistanceOfTransfer) + "\n";
-            }
+namespace BO
+{
+    public class ParcelByTransfer
+    {
+        public int Id { get; set; }
+        public bool Status { get; set; }
+        public Priorities Priority { get; set; }
+        public WeightCategories Weight { get; set; }
+        public CustomerInParcel SenderInParcel { get; set; }//the sender
+        public Location PickUpLocation { get; set; }
+        public CustomerInParcel ReceiverInParcel { get; set; }//the receiver
+        public Location TargetLocation { get; set; }
+        public double DistanceOfTransfer { get; set; }
+
+        public override string ToString()
+        {
+            return $"Id #{Id}:\n" +
+                   $"Parcel status = {Status}\n" +
+                   $"Priority = {Priority}\n" +
+                   $"Weight = {Weight}\n" +
+                   $"Sender in parcel = {SenderInParcel}\n" +
+                   $"Receiver in parcel = {ReceiverInParcel}\n" +
+                   $"Pick up location = {PickUpLocation}" +
+                   $"Target location = {TargetLocation}" +
+                   $"Distance of transfer =" + String.Format("{0:0.00}", DistanceOfTransfer) + "\n";
         }
     }
 }
