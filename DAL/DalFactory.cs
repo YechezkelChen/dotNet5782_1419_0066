@@ -15,7 +15,7 @@ namespace DalFacade
                 case "DalObject":
                     return Dal.DalObject.Instance.Value;
                 case "DalXml":
-                // return new BObject(); 
+                    //return new BObject();
                 default:
                     throw new Dal.FactoryException($"Please enter one from this 2 strings: 'DalObject' or 'DalXml'");
             }
