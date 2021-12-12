@@ -419,7 +419,7 @@
 //            IEnumerable<Drone> newDrones = dal.GetDrones();
 //            foreach (Drone elementDrone in newDrones)
 //            {
-                
+
 //            }
 
 //            //for (int i = 0; i < newDrones.Length; i++)
@@ -502,3 +502,19 @@
 //        }
 //    }
 //}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleUI
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("hello");
+        }
+    }
+}

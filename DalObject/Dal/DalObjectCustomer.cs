@@ -8,7 +8,7 @@ using DO;
 
 namespace Dal
 {
-    partial class DalObject : DalFacade.IDal
+    partial class DalObject : DalApi.IDal
     {
         /// <summary>
         /// add a customer to the fustomer list

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Dal
 {
-    sealed partial class DalObject : DalFacade.IDal
+    sealed partial class DalObject : DalApi.IDal
     {
         #region singelton
         internal static volatile Lazy<DalObject> instance = new Lazy<DalObject>(() => new DalObject());

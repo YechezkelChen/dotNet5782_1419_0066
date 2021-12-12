@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Channels;
-using IBL;
-using IBL.BO;
-using IDAL.DO;
-using Customer = IBL.BO.Customer;
-using Drone = IBL.BO.Drone;
-using Parcel = IBL.BO.Parcel;
-using Station = IBL.BO.Station;
+using BO;
+using BL;
 
 namespace ConsoleUI_BL
 {
@@ -57,7 +52,7 @@ namespace ConsoleUI_BL
 
         private static void Main(string[] args)
         {
-            IBL.IBL bl = new BL();
+            BlApi.IBL bl = BlApi.BlFactory.GetBl();
             int c, myId;
             Option op;
             EntityOption ep;
@@ -312,7 +307,7 @@ namespace ConsoleUI_BL
         /// read from the user station to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        private static void AddStation(IBL.IBL bl)
+        private static void AddStation(BlApi.IBL bl)
         {
             int num1;
             double num2;
@@ -355,7 +350,7 @@ namespace ConsoleUI_BL
 
                 newStation.ChargeSlots = num1;
 
-                newStation.InCharges = new List<DroneCharge>();
+                newStation.InCharges = new List<DO.DroneCharge>();
 
                 try
                 {
@@ -378,7 +373,7 @@ namespace ConsoleUI_BL
         /// read fron the user drone to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        private static void AddDrone(IBL.IBL bl)
+        private static void AddDrone(BlApi.IBL bl)
         {
             int num;
             Drone newDrone = new Drone();
@@ -403,13 +398,13 @@ namespace ConsoleUI_BL
                 switch (num)
                 {
                     case 1:
-                        newDrone.Weight = IBL.BO.WeightCategories.Light;
+                        newDrone.Weight =WeightCategories.Light;
                         break;
                     case 2:
-                        newDrone.Weight = IBL.BO.WeightCategories.Medium;
+                        newDrone.Weight = WeightCategories.Medium;
                         break;
                     case 3:
-                        newDrone.Weight = IBL.BO.WeightCategories.Heavy;
+                        newDrone.Weight = WeightCategories.Heavy;
                         break;
                     default:
                         break;
@@ -449,7 +444,7 @@ namespace ConsoleUI_BL
         /// read fron the user customer to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        private static void AddCustomer(IBL.IBL bl)
+        private static void AddCustomer(BlApi.IBL bl)
         {
             int num1;
             double num2;
@@ -507,7 +502,7 @@ namespace ConsoleUI_BL
         /// read from the user parcel to insert to list
         /// </summary>
         /// <returns></no returns, just read from user>
-        private static void AddParcel(IBL.IBL bl)
+        private static void AddParcel(BlApi.IBL bl)
         {
             int num;
             Parcel newParcel = new Parcel();
@@ -539,13 +534,13 @@ namespace ConsoleUI_BL
                 switch (num)
                 {
                     case 1:
-                        newParcel.Weight = IBL.BO.WeightCategories.Light;
+                        newParcel.Weight = WeightCategories.Light;
                         break;
                     case 2:
-                        newParcel.Weight = IBL.BO.WeightCategories.Medium;
+                        newParcel.Weight = WeightCategories.Medium;
                         break;
                     case 3:
-                        newParcel.Weight = IBL.BO.WeightCategories.Heavy;
+                        newParcel.Weight = WeightCategories.Heavy;
                         break;
                     default:
                         break;
@@ -561,13 +556,13 @@ namespace ConsoleUI_BL
                 switch (num)
                 {
                     case 1:
-                        newParcel.Priority = IBL.BO.Priorities.Normal;
+                        newParcel.Priority = Priorities.Normal;
                         break;
                     case 2:
-                        newParcel.Priority = IBL.BO.Priorities.Fast;
+                        newParcel.Priority = Priorities.Fast;
                         break;
                     case 3:
-                        newParcel.Priority = IBL.BO.Priorities.Emergency;
+                        newParcel.Priority = Priorities.Emergency;
                         break;
                     default:
                         break;
@@ -593,7 +588,7 @@ namespace ConsoleUI_BL
         /// update the drone model 
         /// </summary>
         /// <returns></no returns, just update the model>
-        private static void UpdateDroneModel(IBL.IBL bl)
+        private static void UpdateDroneModel(BlApi.IBL bl)
         {
             int id;
             string model;
@@ -629,7 +624,7 @@ namespace ConsoleUI_BL
         /// update the data of the station the user ask 
         /// </summary>
         /// <returns></no returns, just update the station>
-        private static void UpdateDataStation(IBL.IBL bl)
+        private static void UpdateDataStation(BlApi.IBL bl)
         {
             int id, chargeSlots;
             string name;
@@ -672,7 +667,7 @@ namespace ConsoleUI_BL
         /// update the data of the customer the user ask 
         /// </summary>
         /// <returns></no returns, just update the customer>
-        private static void UpdateDataCustomer(IBL.IBL bl)
+        private static void UpdateDataCustomer(BlApi.IBL bl)
         {
             int id;
             string name, phone;
@@ -714,7 +709,7 @@ namespace ConsoleUI_BL
         /// send the drone to station with available drone charge
         /// </summary>
         /// <returns></no returns, just send the drone to station with available drone charge>
-        private static void SendDroneToCharge(IBL.IBL bl)
+        private static void SendDroneToCharge(BlApi.IBL bl)
         {
             int id;
 
@@ -745,7 +740,7 @@ namespace ConsoleUI_BL
         /// Release the drone from the charge spot in the station 
         /// </summary>
         /// <returns></no returns, just release the drone from the charge spot in the station>
-        private static void ReleaseDroneFromCharge(IBL.IBL bl)
+        private static void ReleaseDroneFromCharge(BlApi.IBL bl)
         {
             int id;
 
@@ -776,7 +771,7 @@ namespace ConsoleUI_BL
         /// connect the parcel to available drone
         /// </summary>
         /// <returns></no returns, just release connect the parcel to available drone>
-        private static void ConnectParcelToDrone(IBL.IBL bl)
+        private static void ConnectParcelToDrone(BlApi.IBL bl)
         {
             int droneId;
 
@@ -816,7 +811,7 @@ namespace ConsoleUI_BL
         /// Collect a parcel by drone
         /// </summary>
         /// <returns></no returns, just collect a parcel by drone>
-        private static void CollectionParcelByDrone(IBL.IBL bl)
+        private static void CollectionParcelByDrone(BlApi.IBL bl)
         {
             int droneId;
 
@@ -847,7 +842,7 @@ namespace ConsoleUI_BL
         /// Supply a parcel by drone
         /// </summary>
         /// <returns></no returns, supply a parcel by drone>
-        private static void SupplyParcelByDrone(IBL.IBL bl)
+        private static void SupplyParcelByDrone(BlApi.IBL bl)
         {
             int droneId;
 

@@ -14,7 +14,7 @@ namespace BL
     {
         List<DroneToList> ListDrones = new List<DroneToList>();
 
-        DalFacade.IDal dal;
+        DalApi.IDal dal;
 
         double BatteryAvailable, BatteryLightWeight, BatteryMediumWeight, BatteryHeavyWeight, ChargingRateOfDrone;
 
@@ -48,7 +48,7 @@ namespace BL
         /// <returns></no returns >
         BL()
         {
-            dal = DalFacade.DalFactory.GetDal("DalObject");
+            dal = DalApi.DalFactory.GetDal();
 
             // km per hour
             double[] powerConsumption = dal.GetRequestPowerConsumption();

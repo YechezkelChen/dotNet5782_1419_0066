@@ -9,7 +9,7 @@ using DO;
 
 namespace Dal
 {
-    partial class DalObject : DalFacade.IDal
+    partial class DalObject : DalApi.IDal
     {
         /// <summary>
         /// add a parcel to the parcel list and return the new parcel Id that was create
