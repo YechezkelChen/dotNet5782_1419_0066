@@ -10,16 +10,8 @@ namespace BO ///????????????????????????????????????????????
     {
         public BlApi.IBL GetBl()
         {
-            BlApi.IBL bl =  DalObject.DalObject.Instance;
-            // DalXml..............................................................
-
-            // if (dal == "DalObject")
-            return dalObject;
-            //else if(dal == "DalXml")
-            //return DalXml;
-            //else
-            //throw new FactoryException($"Please enter one from this 2 strings: 'DalObject' or 'DalXml'");
-
+            BlApi.IBL bl = BL.BL.Instance.Value;
+            return bl;
         }
     }
 }
