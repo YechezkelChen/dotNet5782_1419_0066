@@ -347,39 +347,5 @@ namespace BL
             if (parcel.Sender.Id == parcel.Target.Id)
                 throw new ParcelException("ERROR: the Target ID and the Sender ID are equals! ");
         }
-
-        /// <summary>
-        /// find the near parcel from all parcels to drone
-        /// </summary>
-        /// <param name="drone"></param>
-        /// <param name="parcels"></param>
-        /// <returns></returns>
-        private Parcel NearParcelToDrone(Drone drone, IEnumerable<ParcelToList> parcels)
-        {
-            List<double> distancesList = new List<double>();
-            Location parcelLocation = new Location();
-            Location droneLocation = drone.Location;
-
-                
-            foreach (var parcel in parcels)
-                if (parcel.ParcelStatuses == ParcelStatuses.Requested)
-                {
-                    var senderParcel = GetCustomer(GetParcel(parcel.Id).Sender.Id);
-                    distancesList.Add(Distance(senderParcel.Location, droneLocation));
-                }
-
-            double minDistance = distancesList.Min();
-
-            Parcel nearparcel = new Parcel();
-            foreach (var parcel in parcels)
-                if (parcel.ParcelStatuses == ParcelStatuses.Requested)
-                {
-                    var senderParcel = GetCustomer(GetParcel(parcel.Id).Sender.Id);
-                    if (minDistance == Distance(senderParcel.Location, droneLocation))
-                        nearparcel = GetParcel(parcel.Id);
-                }
-
-            return nearparcel;
-        }
     }
 }
