@@ -11,7 +11,7 @@ namespace DalApi
     {
         // General
         double[] GetRequestPowerConsumption(); // Return the battery drop rates and charge rate.
-        IDal GetDal(string dal);
+
 
         // Station
         void AddStation(Station newStation); // Adds a station to the list of stations.

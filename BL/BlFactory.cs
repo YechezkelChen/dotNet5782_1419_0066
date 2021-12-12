@@ -8,9 +8,9 @@ namespace BlApi
 {
     public class BlFactory
     {
-        public BlApi.IBL GetBl()
+        public IBL GetBl()
         {
-            BlApi.IBL bl = BL.BL.Instance.Value;
+            IBL bl = BL.BL.Instance.Value;
             return bl;
         }
     }
