@@ -6,7 +6,7 @@ using DO;
 
 namespace Dal
 {
-    partial class DalObject : DalApi.IDal
+    partial class DalObject : DalFacade.IDal
     {
         /// <summary>
         /// add a staion to the list station
