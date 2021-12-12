@@ -6,8 +6,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
-using IDAL;
-using Customer = IDAL.DO.Customer;
 
 
 namespace IBL
@@ -16,7 +14,7 @@ namespace IBL
     {
         List<DroneToList> ListDrones = new List<DroneToList>();
 
-        IDal dal;
+        DalApi.IDal dal;
 
         double BatteryAvailable, BatteryLightWeight, BatteryMediumWeight, BatteryHeavyWeight, ChargingRateOfDrone;
 
@@ -38,7 +36,7 @@ namespace IBL
             BatteryHeavyWeight = powerConsumption[3];
             ChargingRateOfDrone = powerConsumption[4];
 
-            IEnumerable<IDAL.DO.Drone> listDronesIdalDo = dal.GetDrones(drone => true);
+            IEnumerable<DO.Drone> listDronesIdalDo = dal.GetDrones(drone => true);
             foreach (var elementDrone in listDronesIdalDo)
             {
                 DroneToList newDrone = new DroneToList();
@@ -48,7 +46,7 @@ namespace IBL
                 ListDrones.Add(newDrone);
             }
 
-            IEnumerable<IDAL.DO.Parcel> ListParcelsIdalDo = dal.GetParcels(parcel => true);
+            IEnumerable<DO.Parcel> ListParcelsIdalDo = dal.GetParcels(parcel => true);
 
             for (int i = 0; i < ListDrones.Count(); i++)
             {  
@@ -68,11 +66,11 @@ namespace IBL
                             drone.Location = new Location() { Longitude = dal.GetCustomer(parcel.SenderId).Longitude, Latitude = dal.GetCustomer(parcel.SenderId).Latitude }; //the location of the sender
 
                         // the distance between the sender and the target
-                        if (parcel.Weight == IDAL.DO.WeightCategories.Heavy)
+                        if (parcel.Weight == DO.WeightCategories.Heavy)
                             batteryDelivery += Distance(GetCustomer(parcel.SenderId).Location, GetCustomer(parcel.TargetId).Location) * BatteryHeavyWeight;
-                        if (parcel.Weight == IDAL.DO.WeightCategories.Medium)
+                        if (parcel.Weight == DO.WeightCategories.Medium)
                             batteryDelivery += Distance(GetCustomer(parcel.SenderId).Location, GetCustomer(parcel.TargetId).Location) * BatteryMediumWeight;
-                        if (parcel.Weight == IDAL.DO.WeightCategories.Light)
+                        if (parcel.Weight == DO.WeightCategories.Light)
                             batteryDelivery += Distance(GetCustomer(parcel.SenderId).Location, GetCustomer(parcel.TargetId).Location) * BatteryLightWeight;
 
                         batteryDelivery += Distance(GetCustomer(parcel.TargetId).Location, NearStationToCustomer(GetCustomer(parcel.TargetId)).Location) * BatteryAvailable;
@@ -91,7 +89,7 @@ namespace IBL
                 if (drone.Status == DroneStatuses.Maintenance)
                 {
                     drone.Status = DroneStatuses.Available; // for the charge, after he will be in Maintenance.
-                    IEnumerable<IDAL.DO.Station> listStationsIdalDo = dal.GetStations(s => true);
+                    IEnumerable<DO.Station> listStationsIdalDo = dal.GetStations(s => true);
                     int index = rand.Next(0, listStationsIdalDo.Count());
                     drone.Location = new Location() { Longitude = listStationsIdalDo.ElementAt(index).Longitude, Latitude = listStationsIdalDo.ElementAt(index).Latitude };
 
@@ -109,7 +107,7 @@ namespace IBL
 
                 if (drone.Status == DroneStatuses.Available)
                 {
-                    IEnumerable<IDAL.DO.Customer> customersWithDelivery = new List<IDAL.DO.Customer>();
+                    IEnumerable<DO.Customer> customersWithDelivery = new List<DO.Customer>();
                     foreach (var parcel in dal.GetParcels(parcel => true))
                         customersWithDelivery = dal.GetCustomers(customer => customer.Id == parcel.TargetId && parcel.Delivered != null);
 

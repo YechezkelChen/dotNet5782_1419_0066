@@ -1,13 +1,12 @@
 ﻿using System;
-using IDAL.DO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using IDAL;
+using DO;
 
 namespace DalObject
 {
-    public partial class DalObject : IDal
+    public partial class DalObject : DalApi.IDal
     {
         /// <summary>
         /// add a staion to the list station

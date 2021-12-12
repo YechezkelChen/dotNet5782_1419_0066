@@ -4,13 +4,12 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
-using IDAL;
+using DO;
 using DalObject;
 
 namespace DalObject
 {
-    public partial class DalObject : IDal
+    public partial class DalObject : DalApi.IDal
     {
         /// <summary>
         /// add a parcel to the parcel list and return the new parcel Id that was create

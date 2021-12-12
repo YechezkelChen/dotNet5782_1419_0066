@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
-using IDAL;
+using DO;
 using DalObject;
 
 namespace DalObject
 {
-    public partial class DalObject : IDal
+    public partial class DalObject : DalApi.IDal
     {
         /// <summary>
         /// add a drone to the drone list

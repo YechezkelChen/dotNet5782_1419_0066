@@ -1,21 +1,18 @@
 ﻿using System;
 
-namespace IDAL
+namespace DO
 {
-    namespace DO
+    public struct Customer
     {
-        public struct Customer
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
+
+        public override string ToString()
         {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public string Phone { get; set; }
-            public double Longitude { get; set; }
-            public double Latitude { get; set; }
-            
-            public override string ToString()
-            {
-                return $"Id #{Id}: Name = {Name}, Phone = {Phone},Longitude = {Longitude}, Latitude = {Latitude}";
-            }
+            return $"Id #{Id}: Name = {Name}, Phone = {Phone},Longitude = {Longitude}, Latitude = {Latitude}";
         }
     }
 }

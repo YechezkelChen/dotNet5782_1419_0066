@@ -1,7 +1,7 @@
 ﻿using System;
-using IDAL.DO;
-using DalObject;
 using System.Collections.Generic;
+using DalObject;
+using DO;
 
 namespace DalObject
 {
