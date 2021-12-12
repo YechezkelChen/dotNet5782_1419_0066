@@ -12,7 +12,7 @@ using BO;
 
 namespace BL
 {
-    public partial class BL : BlApi.IBL
+    partial class BL : BlApi.IBL
     {
         /// <summary>
         /// add parcel with all fields to data source with checking 
@@ -54,7 +54,7 @@ namespace BL
             {
                 idalParcel = dal.GetParcel(id);
             }
-            catch (DalObject.ParcelException e)
+            catch (Dal.ParcelException e)
             {
                 throw new ParcelException(e.Message, e);
             }
@@ -207,7 +207,7 @@ namespace BL
             {
                 updateParcel = dal.GetParcel(parcelToConnect.Id);
             }
-            catch (DalObject.ParcelException )//if there is not available drone to carry the parcel
+            catch (Dal.ParcelException )//if there is not available drone to carry the parcel
             {
                 throw new ParcelException("There are no packages that the available drone you entered can carry..\n" +
                                           "Please wait for other drones to be available or enter the identity of another available drone.");
@@ -331,7 +331,7 @@ namespace BL
             {
                 dal.GetCustomer(parcel.Sender.Id);
             }
-            catch (DalObject.CustomerException )
+            catch (Dal.CustomerException )
             {
                 throw new ParcelException("ERROR: the Sender customer not found! ");
             }
@@ -339,7 +339,7 @@ namespace BL
             {
                 dal.GetCustomer(parcel.Target.Id);
             }
-            catch (DalObject.CustomerException )
+            catch (Dal.CustomerException )
             {
                 throw new ParcelException("ERROR: the Target customer not found! ");
             }

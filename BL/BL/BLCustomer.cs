@@ -5,13 +5,12 @@ using System.Linq.Expressions;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using DalObject;
 using BO;
 
 
 namespace BL
 {
-    public partial class BL : BlApi.IBL
+    partial class BL : BlApi.IBL
     {
         /// <summary>
         /// add a customer
@@ -48,7 +47,7 @@ namespace BL
             {
                 idalCustomer = dal.GetCustomer(id);// if the customer not in data 
             }
-            catch (DalObject.CustomerException e)
+            catch (Dal.CustomerException e)
             {
                 throw new CustomerException(e.Message, e);
             }
@@ -159,7 +158,7 @@ namespace BL
             {
                 updateCustomer = dal.GetCustomer(id);
             }
-            catch (DalObject.CustomerException e)// if the customer not exist
+            catch (Dal.CustomerException e)// if the customer not exist
             {
                 throw new CustomerException(e.Message, e);
             }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DalObject
+namespace Dal
 {
     [Serializable]
     public class DroneException : Exception

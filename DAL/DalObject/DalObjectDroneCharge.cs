@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DO;
-using DalObject;
 
-namespace DalObject
+
+namespace Dal
 {
     partial class DalObject : DalApi.IDal
     {

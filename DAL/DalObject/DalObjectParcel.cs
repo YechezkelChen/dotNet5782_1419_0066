@@ -5,9 +5,9 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using DO;
-using DalObject;
 
-namespace DalObject
+
+namespace Dal
 {
     partial class DalObject : DalApi.IDal
     {

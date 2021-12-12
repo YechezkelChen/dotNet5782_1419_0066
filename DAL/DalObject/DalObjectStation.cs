@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using DO;
 
-namespace DalObject
+namespace Dal
 {
     partial class DalObject : DalApi.IDal
     {

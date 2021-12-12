@@ -10,7 +10,7 @@ using BO;
 
 namespace BL
 {
-    public partial class BL : BlApi.IBL
+    partial class BL : BlApi.IBL
     {
         /// <summary>
         /// add a drone
@@ -47,7 +47,7 @@ namespace BL
                 if (station.ChargeSlots == 0) // user ask have place for charge
                     throw new StationException("The station you ask not have more place.");
             }
-            catch (DalObject.stationException e)
+            catch (Dal.stationException e)
             {
                 throw new StationException(e.Message, e);
             }
@@ -70,7 +70,7 @@ namespace BL
             {
                 dal.AddDrone(drone);// add the drone just if the drone not in the data center
             }
-            catch (DalObject.DroneException e)
+            catch (Dal.DroneException e)
             {
                 throw new DroneException(e.Message, e);
             }
@@ -95,7 +95,7 @@ namespace BL
             {
                 idalDrone = dal.GetDrone(id);
             }
-            catch (DalObject.DroneException e)
+            catch (Dal.DroneException e)
             {
                 throw new DroneException(e.Message, e);
             }
@@ -120,7 +120,7 @@ namespace BL
                     {
                         parcel = dal.GetParcel(eleDroneToList.IdParcel);
                     }
-                    catch (DalObject.ParcelException )
+                    catch (Dal.ParcelException )
                     {
                         drone.ParcelByTransfer.Status = false;
                         return drone;
@@ -203,7 +203,7 @@ namespace BL
             {
                 updateDrone = dal.GetDrone(droneId);
             }
-            catch (DalObject.DroneException e)
+            catch (Dal.DroneException e)
             {
                 throw new DroneException(e.Message, e);
             }
@@ -273,7 +273,7 @@ namespace BL
             {
                 dal.AddDroneCharge(newDroneCharge);
             }
-            catch (DalObject.DroneChargeException e)
+            catch (Dal.DroneChargeException e)
             {
                 throw new DroneException(e.Message, e);
             }

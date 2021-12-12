@@ -10,7 +10,7 @@ using BO;
 
 namespace BL
 {
-    public partial class BL : BlApi.IBL
+    partial class BL : BlApi.IBL
     {
         /// <summary>
         ///  add station with all fields to data source with checking 
@@ -36,7 +36,7 @@ namespace BL
             {
                 dal.AddStation(station);
             }
-            catch (DalObject.stationException e)
+            catch (Dal.stationException e)
             {
                 throw new StationException(e.Message, e);
             }
@@ -55,7 +55,7 @@ namespace BL
             {
                 idalStation = dal.GetStation(id);
             }
-            catch (DalObject.stationException e)
+            catch (Dal.stationException e)
             {
                 throw new StationException(e.Message, e);
             }
@@ -134,7 +134,7 @@ namespace BL
             {
                 station = dal.GetStation(id);
             }
-            catch (DalObject.stationException e)
+            catch (Dal.stationException e)
             {
                 throw new StationException(e.Message, e);
             }

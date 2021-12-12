@@ -10,7 +10,7 @@ namespace DalApi
     {
         public IDal GetDal(string dal)
         {
-            IDal dalObject = DalObject.DalObject.Instance.Value;
+            IDal dalObject = Dal.DalObject.Instance.Value;
             // DalXml..............................................................
 
            // if (dal == "DalObject")
