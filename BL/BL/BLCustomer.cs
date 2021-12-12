@@ -80,7 +80,7 @@ namespace BL
                     parcelInCustomer.CustomerInDelivery = new CustomerInParcel()
                         {Id = customer.Id, NameCustomer = customer.Name};
 
-                    customer.FromTheCustomerList.Add(parcelInCustomer);
+                    customer.FromTheCustomerList.ToList().Add(parcelInCustomer);
                 }
 
             foreach (var elementParcel in dal.GetParcels(parcel => true))
@@ -102,7 +102,7 @@ namespace BL
                     parcelInCustomer.CustomerInDelivery = new CustomerInParcel()
                         {Id = customer.Id, NameCustomer = customer.Name};
 
-                    customer.ToTheCustomerList.Add(parcelInCustomer);
+                    customer.ToTheCustomerList.ToList().Add(parcelInCustomer);
                 }
 
             return customer;

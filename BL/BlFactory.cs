@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BlApi
 {
-    public class BlFactory
+    public static class BlFactory
     {
-        public IBL GetBl()
+        public static IBL GetBl()
         {
             IBL bl = BL.BL.Instance.Value;
             return bl;

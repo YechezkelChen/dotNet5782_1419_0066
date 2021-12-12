@@ -11,8 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IBL;
-using IBL.BO;
+using BO;
+using BL;
 
 namespace PL
 {
@@ -21,10 +21,10 @@ namespace PL
     /// </summary>
     public partial class DroneWindow : Window
     {
-        private IBL.IBL bl;
+        private BlApi.IBL bl;
         private Drone drone;
 
-        public DroneWindow(IBL.IBL ibl)
+        public DroneWindow(BlApi.IBL ibl)
         {
             InitializeComponent();
             bl = ibl;
@@ -54,7 +54,7 @@ namespace PL
             SupplyParcelButton.Visibility = Visibility.Hidden;
         }
 
-        public DroneWindow(IBL.IBL ibl, Drone droneHelp)
+        public DroneWindow(BlApi.IBL ibl, Drone droneHelp)
         {
             InitializeComponent();
             bl = ibl;

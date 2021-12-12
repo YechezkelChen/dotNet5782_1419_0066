@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DalApi
 {
-    public class DalFactory
+    public static class DalFactory
     {
-        public IDal GetDal(string dal)
+        public static IDal GetDal(string dal)
         {
             IDal dalObject = Dal.DalObject.Instance.Value;
             // DalXml..............................................................

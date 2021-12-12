@@ -68,7 +68,7 @@ namespace BL
             station.InCharges = new List<DO.DroneCharge>();
             foreach (var elementDroneCharge in dal.GetDronesCharge(droneCharge => true))
                 if(elementDroneCharge.StationId == station.Id)
-                    station.InCharges.Add(elementDroneCharge);
+                    station.InCharges.ToList().Add(elementDroneCharge);
 
             return station;
         }

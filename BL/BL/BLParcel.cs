@@ -250,8 +250,8 @@ namespace BL
                 if (ListDrones[i].Id == collectionDrone.Id)
                 {
                     DroneToList updateDrone = ListDrones[i];
-                    updateDrone.Battery -= Distance(collectionDrone.Location,
-                        collectionDrone.ParcelByTransfer.PickUpLocation) * BatteryAvailable;
+                    updateDrone.Battery -= Distance(collectionDrone.Location, collectionDrone.ParcelByTransfer.PickUpLocation) * BatteryAvailable;
+                    updateDrone.Battery = (double)System.Math.Round(updateDrone.Battery, 3);
                     updateDrone.Location = collectionDrone.ParcelByTransfer.PickUpLocation;
                     ListDrones[i] = updateDrone;
                 }
@@ -307,6 +307,7 @@ namespace BL
                         {
                             DroneToList updateDrone = ListDrones[i];
                             updateDrone.Battery = drone.Battery;
+                            updateDrone.Battery = (double)System.Math.Round(updateDrone.Battery, 3);
                             updateDrone.Location = drone.Location;
                             updateDrone.Status = drone.Status;
                             updateDrone.IdParcel = 0;
