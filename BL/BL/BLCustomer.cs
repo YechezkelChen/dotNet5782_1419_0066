@@ -7,14 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using DalObject;
 using IBL.BO;
-using IDAL;
-using IDAL.DO;
-using Customer = IBL.BO.Customer;
-using Drone = IBL.BO.Drone;
-using Parcel = IBL.BO.Parcel;
-using Priorities = IBL.BO.Priorities;
-using Station = IBL.BO.Station;
-using WeightCategories = IBL.BO.WeightCategories;
 
 
 namespace IBL
@@ -36,7 +28,7 @@ namespace IBL
                 throw new CustomerException(e.Message, e);
             }
 
-            IDAL.DO.Customer customer = new IDAL.DO.Customer();
+            DO.Customer customer = new DO.Customer();
             customer.Id = newCustomer.Id * 10 + lastDigitID(newCustomer.Id);
             customer.Name = newCustomer.Name;
             customer.Phone = newCustomer.Phone; 
@@ -51,7 +43,7 @@ namespace IBL
         /// <returns></return the customer>
         public Customer GetCustomer(int id)
         {
-            IDAL.DO.Customer idalCustomer = new IDAL.DO.Customer();
+            DO.Customer idalCustomer = new DO.Customer();
             try
             {
                 idalCustomer = dal.GetCustomer(id);// if the customer not in data 
@@ -162,7 +154,7 @@ namespace IBL
         /// <returns></no returns, update the data of the customer>
         public void UpdateDataCustomer(int id, string name, string phone)
         {
-            IDAL.DO.Customer updateCustomer = new IDAL.DO.Customer();
+            DO.Customer updateCustomer = new DO.Customer();
             try
             {
                 updateCustomer = dal.GetCustomer(id);
