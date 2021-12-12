@@ -19,7 +19,7 @@ namespace Dal
             if (!IsExistDroneCharge(newDroneCharge, DataSource.DroneCharges))
                 DataSource.DroneCharges.Add(newDroneCharge);
             else
-                throw new DroneChargeException("ERROR: the drone charge is exist!\n");
+                throw new IdExistException("ERROR: the drone charge is exist!\n");
         }
 
         public void RemoveDroneCharge(DroneCharge DroneCharge)
@@ -27,7 +27,7 @@ namespace Dal
             if (IsExistDroneCharge(DroneCharge, DataSource.DroneCharges))
                 DataSource.DroneCharges.Remove(DroneCharge);
             else
-                throw new DroneChargeException("ERROR: the drone charge is not exist!\n");
+                throw new IdNotFoundException("ERROR: the drone charge is not found!\n");
         }
 
         /// <summary>

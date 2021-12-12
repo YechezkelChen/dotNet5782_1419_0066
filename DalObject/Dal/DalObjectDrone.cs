@@ -19,7 +19,7 @@ namespace Dal
             if (!IsExistDrone(newDrone, DataSource.Drones))
                 DataSource.Drones.Add(newDrone);
             else
-                throw new DroneException("ERROR: the drone is exist!\n");
+                throw new IdExistException("ERROR: the drone is exist!\n");
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Dal
             }
 
             if (newDrone == null)
-                throw new DroneException("ERROR: Id of drone not found\n");
+                throw new IdNotFoundException("ERROR: Id of drone not found\n");
             return (Drone)newDrone;
         }
 

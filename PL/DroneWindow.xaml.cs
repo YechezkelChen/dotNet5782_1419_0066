@@ -259,7 +259,7 @@ namespace PL
             {
                 bl.AddDrone(drone, stationCharge.Id);
             }
-            catch (DroneException ex)
+            catch (IdException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -298,11 +298,17 @@ namespace PL
             {
                 bl.UpdateDroneModel(drone.Id, drone.Model);
             }
-            catch (DroneException ex)
+            catch (IdException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            catch (ModelException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+                       
 
             MessageBox.Show("The update is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
@@ -316,7 +322,17 @@ namespace PL
             {
                 bl.SendDroneToDroneCharge(drone.Id);
             }
-            catch (DroneException ex)
+            catch (IdException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            catch (StatusDroneException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            catch (BatteryDroneException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -346,7 +362,12 @@ namespace PL
             {
                 bl.ReleaseDroneFromDroneCharge(drone.Id);
             }
-            catch (DroneException ex)
+            catch (IdException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            catch (StatusDroneException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -370,12 +391,17 @@ namespace PL
             {
                 bl.ConnectParcelToDrone(drone.Id);
             }
-            catch (DroneException ex)
+            catch (IdException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            catch (ParcelException ex)
+            catch (StatusDroneException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            catch (NoPackagesToDroneException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -408,7 +434,12 @@ namespace PL
             {
                 bl.CollectionParcelByDrone(drone.Id);
             }
-            catch (DroneException ex)
+            catch (IdException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            catch (StatusDroneException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -433,12 +464,12 @@ namespace PL
             {
                 bl.SupplyParcelByDrone(drone.Id);
             }
-            catch (DroneException ex)
+            catch (IdException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            catch (ParcelException ex)
+            catch (StatusDroneException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;

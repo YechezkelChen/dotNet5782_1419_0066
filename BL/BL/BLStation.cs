@@ -22,9 +22,17 @@ namespace BL
             {
                 CheckStation(newStation);
             }
-            catch (StationException e)
+            catch (IdException e)
             {
-                throw new StationException(e.Message, e);
+                throw new IdException(e.Message, e);
+            }
+            catch (ChargeSlotsException e)
+            {
+                throw new ChargeSlotsException(e.Message, e);
+            }
+            catch (LatitudeException e)
+            {
+                throw new LatitudeException(e.Message, e);
             }
             DO.Station station = new DO.Station();
             station.Id = newStation.Id;
@@ -36,9 +44,9 @@ namespace BL
             {
                 dal.AddStation(station);
             }
-            catch (Dal.stationException e)
+            catch (Dal.IdExistException e)
             {
-                throw new StationException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
         }
 
@@ -55,9 +63,9 @@ namespace BL
             {
                 idalStation = dal.GetStation(id);
             }
-            catch (Dal.stationException e)
+            catch (Dal.IdNotFoundException e)
             {
-                throw new StationException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
 
             Station station = new Station();
@@ -134,13 +142,13 @@ namespace BL
             {
                 station = dal.GetStation(id);
             }
-            catch (Dal.stationException e)
+            catch (Dal.IdNotFoundException e)
             {
-                throw new StationException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
 
             if (name == "" && chargeSlots == -1) // if he don't want to update nothing
-                throw new StationException("ERROR: you must Enter at least one of the following data!\n");
+                throw new NameException("ERROR: you must Enter at least one of the following data!\n");
 
             if (name != "") // if he want to update the name
                 station.Name = name;
@@ -181,21 +189,21 @@ namespace BL
         private void CheckStation(Station station)
         {
             if (station.Id < 100000 || station.Id > 999999)//Check that it's 6 digits.
-                throw new CustomerException("ERROR: the ID is illegal! ");
+                throw new IdException("ERROR: the ID is illegal! ");
 
             if (station.ChargeSlots < 0)
-                throw new StationException("ERROR: the charge slots must have positive or 0 value! ");
+                throw new ChargeSlotsException("ERROR: the charge slots must have positive or 0 value! ");
 
             if (station.Location.Longitude < -1 || station.Location.Longitude > 1)
-                throw new StationException("ERROR: Longitude must to be between -1 to 1");
+                throw new LongitudeException("ERROR: Longitude must to be between -1 to 1");
 
             if (station.Location.Latitude < -1 || station.Location.Latitude > 1)
-                throw new StationException("ERROR: Latitude must to be between -1 to 1");
+                throw new LatitudeException("ERROR: Latitude must to be between -1 to 1");
 
             foreach (var elementStation in dal.GetStations(s => true))
                 if (elementStation.Latitude == station.Location.Latitude &&
                     elementStation.Longitude == station.Location.Longitude)
-                    throw new StationException("ERROR: the location is catch! ");
+                    throw new LatitudeException("ERROR: the location is catch! ");
         }
     }
 }

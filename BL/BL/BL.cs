@@ -123,8 +123,18 @@ namespace BL
                     {
                         SendDroneToDroneCharge(drone.Id);
                     }
-                    catch (DroneException) // there is no throw, for the program continue the constructor.
-                    { }
+                    catch (IdException e) // there is no throw, for the program continue the constructor.
+                    {
+                        throw new IdException(e.Message, e);
+                    }
+                    catch (AvailableDroneException e) // there is no throw, for the program continue the constructor.
+                    {
+                        throw new AvailableDroneException(e.Message, e);
+                    }
+                    catch (BatteryDroneException e) // there is no throw, for the program continue the constructor.
+                    {
+                        throw new BatteryDroneException(e.Message, e);
+                    }
                 }
 
                 if (drone.Status == DroneStatuses.Available)

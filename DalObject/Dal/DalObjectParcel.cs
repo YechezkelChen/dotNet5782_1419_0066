@@ -26,7 +26,7 @@ namespace Dal
                 DataSource.Parcels.Add(newParcel);
             }
             else
-                throw new ParcelException("ERROR: the parcel is exist!\n");
+                throw new IdExistException("ERROR: the parcel is exist!\n");
             return tmp; // return the new number created
         }
 
@@ -45,7 +45,7 @@ namespace Dal
             }
 
             if (newParcel == null)
-                throw new ParcelException("ERROR: Id of parcel not found\n");
+                throw new IdNotFoundException("ERROR: Id of parcel not found\n");
             return (Parcel)newParcel;
         }
 

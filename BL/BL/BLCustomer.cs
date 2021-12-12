@@ -22,9 +22,25 @@ namespace BL
             {
                 CheckCustomer(newCustomer);// check the input of the user
             }
-            catch (CustomerException e)
+            catch (IdException e)
             {
-                throw new CustomerException(e.Message, e);
+                throw new IdException(e.Message, e);
+            }
+            catch (NameException e)
+            {
+                throw new NameException(e.Message, e);
+            }
+            catch (PhoneException e)
+            {
+                throw new PhoneException(e.Message, e);
+            }
+            catch (LongitudeException e)
+            {
+                throw new LongitudeException(e.Message, e);
+            }
+            catch (LatitudeException e)
+            {
+                throw new LatitudeException(e.Message, e);
             }
 
             DO.Customer customer = new DO.Customer();
@@ -47,9 +63,9 @@ namespace BL
             {
                 idalCustomer = dal.GetCustomer(id);// if the customer not in data 
             }
-            catch (Dal.CustomerException e)
+            catch (Dal.IdNotFoundException e)
             {
-                throw new CustomerException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
 
             Customer customer = new Customer();
@@ -158,13 +174,13 @@ namespace BL
             {
                 updateCustomer = dal.GetCustomer(id);
             }
-            catch (Dal.CustomerException e)// if the customer not exist
+            catch (Dal.IdNotFoundException e)// if the customer not exist
             {
-                throw new CustomerException(e.Message, e);
+                throw new IdException(e.Message,e);
             }
 
             if (name == "" && phone == "")// if the user not pur anything
-                throw new CustomerException("ERROR: need one thing at least to change");
+                throw new NameException("ERROR: need one thing at least to change");
 
             // update the data according to the user asks
             if (name != "")
@@ -173,7 +189,7 @@ namespace BL
             if (phone != "")
             {
                 if(phone.Length != 10)
-                    throw new CustomerException("ERROR: Phone must have 10 digits");
+                    throw new PhoneException("ERROR: Phone must have 10 digits");
                 updateCustomer.Phone = phone;
             }
 
@@ -187,18 +203,19 @@ namespace BL
         private void CheckCustomer(Customer customer)
         {
             if(customer.Id < 10000000 || customer.Id > 99999999)//Check that it's 8 digits.
-                throw new CustomerException("ERROR: the ID is illegal! ");
+                throw new IdException("ERROR: the ID is illegal! ");
             if (customer.Name.Length == 0)
-                throw new CustomerException("ERROR: Name must have value");
+                throw new NameException("ERROR: Name must have value");
             int phone;
             if (customer.Phone.Length != 10 || customer.Phone.Substring(0, 2) != "05" ||
                 !int.TryParse(customer.Phone.Substring(0, customer.Phone.Length), out phone)) // check format phone
-                throw new CustomerException("ERROR: Phone must have 10 digits and to begin with the numbers 05");
+                throw new PhoneException("ERROR: Phone must have 10 digits and to begin with the numbers 05");
             if (customer.Location.Longitude < -1 || customer.Location.Longitude > 1)
-                throw new CustomerException("ERROR: Longitude must to be between -1 to 1");
+                throw new LongitudeException("ERROR: Longitude must to be between -1 to 1");
             if (customer.Location.Latitude < -1 || customer.Location.Latitude > 1)
-                throw new CustomerException("ERROR: Latitude must to be between -1 to 1");
+                throw new LatitudeException("ERROR: Latitude must to be between -1 to 1");
         }
+        
 
         /// <summary>
         /// get last digit of the id

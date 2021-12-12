@@ -22,9 +22,13 @@ namespace BL
             {
                 CheckDrone(newDrone);// check the input of the user
             }
-            catch (DroneException e)
+            catch (IdException e)
             {
-                throw new DroneException(e.Message, e);
+                throw new IdException(e.Message, e);
+            }
+            catch(ModelException e)
+            {
+                throw new ModelException(e.Message, e);
             }
             DO.Drone drone = new DO.Drone();
             DroneToList newDroneToList = new DroneToList();
@@ -45,34 +49,30 @@ namespace BL
             {
                 DO.Station station = dal.GetStation(idStation);// try to find the station the user want to connect the drone to and if the station the
                 if (station.ChargeSlots == 0) // user ask have place for charge
-                    throw new StationException("The station you ask not have more place.");
+                    throw new ChargeSlotsException("The station you ask not have more place.");
             }
-            catch (Dal.stationException e)
+            catch (Dal.IdNotFoundException e)
             {
-                throw new StationException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
 
             newDroneToList.Location = new Location();
             newDroneToList.Location.Longitude = dal.GetStation(idStation).Longitude;
             newDroneToList.Location.Latitude = dal.GetStation(idStation).Latitude;
 
-            try
-            {
-                int foundDrone = CheckDroneAndParcel(newDroneToList.Id, dal.GetParcels(parcel => true));//return the id of the parcel
-                newDroneToList.IdParcel = foundDrone;
-            }
-            catch (DroneException e)
-            {
-                throw new DroneException(e.Message, e);
-            }
+           
+            int foundDrone = CheckDroneAndParcel(newDroneToList.Id, dal.GetParcels(parcel => true));//return the id of the parcel
+            if(foundDrone!=0)
+                 newDroneToList.IdParcel = foundDrone;
+            
 
             try
             {
                 dal.AddDrone(drone);// add the drone just if the drone not in the data center
             }
-            catch (Dal.DroneException e)
+            catch (Dal.IdExistException e)
             {
-                throw new DroneException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
             ListDrones.Add(newDroneToList);
 
@@ -80,8 +80,19 @@ namespace BL
             {
                 SendDroneToDroneCharge(newDroneToList.Id);
             }
-            catch (DroneException )
-            { }
+            catch (IdException e)
+            {
+                throw new IdException(e.Message, e);
+            }
+            catch (StatusDroneException e)
+            {
+                throw new StatusDroneException(e.Message, e);
+            }
+            catch (BatteryDroneException e)
+            {
+                throw new BatteryDroneException(e.Message, e);
+            }
+
         }
 
         /// <summary>
@@ -95,9 +106,9 @@ namespace BL
             {
                 idalDrone = dal.GetDrone(id);
             }
-            catch (Dal.DroneException e)
+            catch (Dal.IdNotFoundException e)
             {
-                throw new DroneException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
 
             Drone drone = new Drone();
@@ -120,7 +131,7 @@ namespace BL
                     {
                         parcel = dal.GetParcel(eleDroneToList.IdParcel);
                     }
-                    catch (Dal.ParcelException )
+                    catch (Dal.IdNotFoundException )
                     {
                         drone.ParcelByTransfer.Status = false;
                         return drone;
@@ -203,13 +214,13 @@ namespace BL
             {
                 updateDrone = dal.GetDrone(droneId);
             }
-            catch (Dal.DroneException e)
+            catch (Dal.IdNotFoundException e)
             {
-                throw new DroneException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
             
             if (newModel == "")
-                throw new DroneException("ERROR: Model must have value");
+                throw new ModelException("ERROR: Model must have value");
 
             updateDrone.Model = newModel;
 
@@ -237,18 +248,18 @@ namespace BL
             {
                 drone = GetDrone(id);
             }
-            catch (DroneException e)
+            catch (IdException e)
             {
-                throw new DroneException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
 
             if (drone.Status != DroneStatuses.Available)
-                throw new DroneException("ERROR: the drone not available to charge ");
+                throw new StatusDroneException("ERROR: the drone not available to charge ");
 
             Station nearStation = NearStationToDrone(GetDrone(drone.Id));
             double distance = Distance(drone.Location, nearStation.Location);
             if (distance * BatteryAvailable > drone.Battery || distance * BatteryAvailable > 100)
-                throw new DroneException("ERROR: the drone not have battery to go to station charge ");
+                throw new BatteryDroneException("ERROR: the drone not have battery to go to station charge ");
 
             for (int i = 0; i < ListDrones.Count; i++)
                 if (ListDrones[i].Id == drone.Id)
@@ -273,9 +284,9 @@ namespace BL
             {
                 dal.AddDroneCharge(newDroneCharge);
             }
-            catch (Dal.DroneChargeException e)
+            catch (Dal.IdExistException e)
             {
-                throw new DroneException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
         }
 
@@ -289,13 +300,13 @@ namespace BL
             {
                 GetDrone(id);
             }
-            catch (DroneException e)
+            catch (IdException e)
             {
-                throw new DroneException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
 
             if (GetDrone(id).Status != DroneStatuses.Maintenance)
-                throw new DroneException("The drone can not release because he is in maintenance statuses\n");
+                throw new StatusDroneException("The drone can not release because he is in maintenance status.\n");
 
             double batteryCharge = 0;
             foreach (var elementDroneCharge in dal.GetDronesCharge(droneCharge => true))
@@ -334,9 +345,9 @@ namespace BL
         private void CheckDrone(Drone drone)
         {
             if (drone.Id < 100000 || drone.Id > 999999)//Check that it's 6 digits
-                throw new DroneException("ERROR: the ID is illegal! ");
+                throw new IdException("ERROR: the ID is illegal! ");
             if (drone.Model == "")
-                throw new DroneException("ERROR: Model must have value");
+                throw new ModelException("ERROR: Model must have value");
         }
 
         /// <summary>

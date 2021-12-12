@@ -165,9 +165,9 @@ namespace ConsoleUI_BL
                                 {
                                     Console.WriteLine(bl.GetStation(myId));
                                 }
-                                catch (StationException e)
+                                catch (BL.LongitudeOrLatitudeException e)
                                 {
-                                    Console.WriteLine(e.Message);
+                                    Console.WriteLine((string)e.Message);
                                 }
                                 break;
                             case EntityOption.Drone:
@@ -175,7 +175,7 @@ namespace ConsoleUI_BL
                                 {
                                     Console.WriteLine(bl.GetDrone(myId));
                                 }
-                                catch (DroneException e)
+                                catch (NameOrModelException e)
                                 {
                                     Console.WriteLine(e.Message);
                                 }
@@ -185,7 +185,7 @@ namespace ConsoleUI_BL
                                 {
                                     Console.WriteLine(bl.GetCustomer(myId));
                                 }
-                                catch (CustomerException e)
+                                catch (IdException e)
                                 {
                                     Console.WriteLine(e.Message);
 
@@ -196,7 +196,7 @@ namespace ConsoleUI_BL
                                 {
                                     Console.WriteLine(bl.GetParcel(myId));
                                 }
-                                catch (ParcelException e)
+                                catch (PhoneException e)
                                 {
                                     Console.WriteLine(e.Message);
                                 }
@@ -226,9 +226,9 @@ namespace ConsoleUI_BL
                                     foreach (var elementStation in bl.GetStations())
                                         Console.WriteLine(elementStation);
                                 }
-                                catch (StationException e)
+                                catch (BL.LongitudeOrLatitudeException e)
                                 {
-                                    Console.WriteLine(e.Message);
+                                    Console.WriteLine((string)e.Message);
                                 }
                                 break;
                             case OptionListView.ListDrones:
@@ -237,7 +237,7 @@ namespace ConsoleUI_BL
                                     foreach (var elementDrone in bl.GetDrones())
                                         Console.WriteLine(elementDrone);
                                 }
-                                catch (DroneException e)
+                                catch (NameOrModelException e)
                                 {
                                     Console.WriteLine(e.Message); 
                                 }
@@ -248,7 +248,7 @@ namespace ConsoleUI_BL
                                     foreach (var elementCustomer in bl.GetCustomers())
                                         Console.WriteLine(elementCustomer);
                                 }
-                                catch (CustomerException e)
+                                catch (IdException e)
                                 {
                                     Console.WriteLine(e.Message);
                                 }
@@ -259,7 +259,7 @@ namespace ConsoleUI_BL
                                     foreach (var elementParcel in bl.GetParcels())
                                         Console.WriteLine(elementParcel);
                                 }
-                                catch (ParcelException e)
+                                catch (PhoneException e)
                                 {
                                     Console.WriteLine(e.Message);
                                 }
@@ -270,7 +270,7 @@ namespace ConsoleUI_BL
                                     foreach (var elementParcelsNoDrone in bl.GetParcelsNoDrones())
                                         Console.WriteLine(elementParcelsNoDrone);
                                 }
-                                catch (ParcelException e)
+                                catch (PhoneException e)
                                 {
                                     Console.WriteLine(e.Message);
                                 }
@@ -281,9 +281,9 @@ namespace ConsoleUI_BL
                                     foreach (var elementStationCharge in bl.GetStationsCharge())
                                         Console.WriteLine(elementStationCharge);
                                 }
-                                catch (StationException e)
+                                catch (BL.LongitudeOrLatitudeException e)
                                 {
-                                    Console.WriteLine(e.Message);
+                                    Console.WriteLine((string)e.Message);
                                 }
                                 break;
                             case OptionListView.Exit:
@@ -358,9 +358,9 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Success! :)\n");
                     break;
                 }
-                catch (StationException e)
+                catch (BL.LongitudeOrLatitudeException e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine((string)e.Message);
                     Console.WriteLine("Do you want to add station? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -421,17 +421,17 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Success! :)\n");
                     break;
                 }
-                catch (DroneException e)
+                catch (NameOrModelException e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine((string)e.Message);
                     Console.WriteLine("Do you want to add drone? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
                         break;
                 }
-                catch (StationException e)
+                catch (BL.LongitudeOrLatitudeException e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine((string)e.Message);
                     Console.WriteLine("Do you want to add drone? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -487,7 +487,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Success! :)\n");
                     break;
                 }
-                catch (CustomerException e)
+                catch (IdException e)
                 {
                     Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to add customer? please enter yes or no.");
@@ -574,7 +574,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Success! :)\n");
                     break;
                 }
-                catch (ParcelException e)
+                catch (PhoneException e)
                 {
                     Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to add parcel? please enter yes or no.");
@@ -610,7 +610,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Success! :)\n");
                     break;
                 }
-                catch (DroneException e)
+                catch (NameOrModelException e)
                 {
                     Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to update the model of the drone? please enter yes or no.");
@@ -653,9 +653,9 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Success! :)\n");
                     break;
                 }
-                catch (StationException e)
+                catch (BL.LongitudeOrLatitudeException e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine((string)e.Message);
                     Console.WriteLine("Do you want to update the data of the station? please enter yes or no.");
                     string choice = Console.ReadLine();
                     if (choice != "yes")
@@ -695,7 +695,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Success! :)\n");
                     break;
                 }
-                catch (CustomerException e)
+                catch (IdException e)
                 {
                     Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to update the data of the customer? please enter yes or no.");
@@ -726,7 +726,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Success! :)\n");
                     break;
                 }
-                catch (DroneException e)
+                catch (NameOrModelException e)
                 {
                     Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to send the drone to charge? please enter yes or no.");
@@ -757,7 +757,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Success! :)\n");
                     break;
                 }
-                catch (DroneException e)
+                catch (NameOrModelException e)
                 {
                     Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to release the drone from charge? please enter yes or no.");
@@ -788,7 +788,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Success! :)\n");
                     break;
                 }
-                catch (DroneException e)
+                catch (NameOrModelException e)
                 {
                     Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to connect parcel to drone or do know about drone that can do any connect to some parcel?\n" +
@@ -797,7 +797,7 @@ namespace ConsoleUI_BL
                     if (choice != "yes")
                         break;
                 }
-                catch (ParcelException e)
+                catch (PhoneException e)
                 {
                     Console.WriteLine(e.Message);
                     Console.WriteLine("If you know about some drone ,\n do you want to connect parcel to drone? please enter yes or no.");
@@ -828,7 +828,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Success! :)\n");
                     break;
                 }
-                catch (DroneException e)
+                catch (NameOrModelException e)
                 {
                     Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to collect the parcel by drone? please enter yes or no.");
@@ -859,7 +859,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Success! :)\n");
                     break;
                 }
-                catch (DroneException e)
+                catch (NameOrModelException e)
                 {
                     Console.WriteLine(e.Message);
                     Console.WriteLine("You need to choose drone that pick-up some parcel.\n" +

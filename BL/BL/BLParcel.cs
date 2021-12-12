@@ -24,9 +24,13 @@ namespace BL
             {
                 CheckParcel(newParcel);
             }
-            catch (ParcelException e)
+            catch (IdException e)
             {
-                throw new ParcelException(e.Message, e);
+                throw new IdException(e.Message, e);
+            }
+            catch (CustomerNotFoundException e)
+            {
+                throw new CustomerNotFoundException(e.Message, e);
             }
             DO.Parcel parcel = new DO.Parcel();
             parcel.SenderId = newParcel.Sender.Id;
@@ -54,9 +58,9 @@ namespace BL
             {
                 idalParcel = dal.GetParcel(id);
             }
-            catch (Dal.ParcelException e)
+            catch (Dal.IdNotFoundException e)
             {
-                throw new ParcelException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
 
             Parcel parcel = new Parcel();
@@ -161,13 +165,13 @@ namespace BL
             {
                 connectDrone = GetDrone(droneId);
             }
-            catch (DroneException e)
+            catch (IdException e)
             {
-                throw new DroneException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
 
             if (connectDrone.Status != DroneStatuses.Available)
-                throw new DroneException("ERROR: The drone is not available:\n ");
+                throw new StatusDroneException("ERROR: The drone is not available:\n ");
             
             List<ParcelToList> ParcelsDroneCanCarry = new List<ParcelToList>();
             double distanceDelivery, batteryDelivery;
@@ -198,7 +202,7 @@ namespace BL
             if (ParcelsDroneCanCarry.Count() != 0)
                 parcelToConnect = ParcelsDroneCanCarry.First();
             else
-                throw new ParcelException("There are no packages that the available drone you entered can carry..\n" +
+                throw new NoPackagesToDroneException("There are no packages that the available drone you entered can carry..\n" +
                                           "Please wait for other drones to be available or enter the identity of another available drone.");
            
             
@@ -207,9 +211,9 @@ namespace BL
             {
                 updateParcel = dal.GetParcel(parcelToConnect.Id);
             }
-            catch (Dal.ParcelException )//if there is not available drone to carry the parcel
+            catch (Dal.IdNotFoundException )//if there is not available drone to carry the parcel
             {
-                throw new ParcelException("There are no packages that the available drone you entered can carry..\n" +
+                throw new NoPackagesToDroneException("There are no packages that the available drone you entered can carry..\n" +
                                           "Please wait for other drones to be available or enter the identity of another available drone.");
             }
 
@@ -237,13 +241,13 @@ namespace BL
             {
                 collectionDrone = GetDrone(idDrone);
             }
-            catch (DroneException e)
+            catch (IdException e)
             {
-                throw new DroneException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
 
             if (collectionDrone.Status != DroneStatuses.Delivery && collectionDrone.ParcelByTransfer.Status != true)
-                throw new DroneException("ERROR: The drone is not in delivery so he can not collect any parcel. ");
+                throw new StatusDroneException("ERROR: The drone is not in delivery so he can not collect any parcel. ");
 
             for (int i = 0; i < ListDrones.Count(); i++)
             {
@@ -273,9 +277,9 @@ namespace BL
             {
                 drone = GetDrone(idDrone);
             }
-            catch (DroneException e)
+            catch (IdException e)
             {
-                throw new DroneException(e.Message, e);
+                throw new IdException(e.Message, e);
             }
 
             Parcel parcel = new Parcel();
@@ -287,7 +291,7 @@ namespace BL
                 {
                     if (elementParcel.ParcelStatuses != ParcelStatuses.PickedUp &&
                         parcel.DroneInParcel.Id == idDrone)
-                        throw new DroneException("ERROR: the drone is not pick-up the parcel yet\n");
+                        throw new StatusDroneException("ERROR: the drone is not pick-up the parcel yet\n");
 
                     double distance = Distance(drone.Location, GetCustomer(parcel.Target.Id).Location);
 
@@ -332,20 +336,20 @@ namespace BL
             {
                 dal.GetCustomer(parcel.Sender.Id);
             }
-            catch (Dal.CustomerException )
+            catch (Dal.IdNotFoundException )
             {
-                throw new ParcelException("ERROR: the Sender customer not found! ");
+                throw new CustomerNotFoundException("ERROR: the Sender customer not found! ");
             }
             try
             {
                 dal.GetCustomer(parcel.Target.Id);
             }
-            catch (Dal.CustomerException )
+            catch (Dal.IdNotFoundException )
             {
-                throw new ParcelException("ERROR: the Target customer not found! ");
+                throw new CustomerNotFoundException("ERROR: the Target customer not found! ");
             }
             if (parcel.Sender.Id == parcel.Target.Id)
-                throw new ParcelException("ERROR: the Target ID and the Sender ID are equals! ");
+                throw new CustomerNotFoundException("ERROR: the Target ID and the Sender ID are equals! ");
         }
     }
 }
