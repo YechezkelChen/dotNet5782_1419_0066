@@ -8,9 +8,9 @@ namespace DalApi
 {
     public class DalFactory
     {
-        public DalApi.IDal GetDal(string dal)
+        public IDal GetDal(string dal)
         {
-            DalApi.IDal dalObject = DalObject.DalObject.Instance.Value;
+            IDal dalObject = DalObject.DalObject.Instance.Value;
             // DalXml..............................................................
 
            // if (dal == "DalObject")
