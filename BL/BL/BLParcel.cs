@@ -28,10 +28,7 @@ namespace BL
             {
                 throw new IdException(e.Message, e);
             }
-            catch (CustomerNotFoundException e)
-            {
-                throw new CustomerNotFoundException(e.Message, e);
-            }
+
             DO.Parcel parcel = new DO.Parcel();
             parcel.SenderId = newParcel.Sender.Id;
             parcel.TargetId = newParcel.Target.Id;
@@ -338,7 +335,7 @@ namespace BL
             }
             catch (Dal.IdNotFoundException )
             {
-                throw new CustomerNotFoundException("ERROR: the Sender customer not found! ");
+                throw new IdException("ERROR: the Sender customer not found! ");
             }
             try
             {
@@ -346,10 +343,10 @@ namespace BL
             }
             catch (Dal.IdNotFoundException )
             {
-                throw new CustomerNotFoundException("ERROR: the Target customer not found! ");
+                throw new IdException("ERROR: the Target customer not found! ");
             }
             if (parcel.Sender.Id == parcel.Target.Id)
-                throw new CustomerNotFoundException("ERROR: the Target ID and the Sender ID are equals! ");
+                throw new IdException("ERROR: the Target ID and the Sender ID are equals! ");
         }
     }
 }

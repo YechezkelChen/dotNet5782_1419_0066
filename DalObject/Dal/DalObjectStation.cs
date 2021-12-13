@@ -36,7 +36,7 @@ namespace Dal
             }
 
             if (newStation == null)
-                throw new IdNotFoundException("ERROR: Id of station not found\n");
+                throw new IdNotFoundException("ERROR: the station not found\n");
             return (Station)newStation;
         }
 

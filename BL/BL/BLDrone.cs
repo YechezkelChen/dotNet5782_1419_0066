@@ -49,7 +49,7 @@ namespace BL
             {
                 DO.Station station = dal.GetStation(idStation);// try to find the station the user want to connect the drone to and if the station the
                 if (station.ChargeSlots == 0) // user ask have place for charge
-                    throw new ChargeSlotsException("The station you ask not have more place.");
+                    throw new ChargeSlotsException("ERROR: The station you ask not have more place.");
             }
             catch (Dal.IdNotFoundException e)
             {
@@ -347,7 +347,7 @@ namespace BL
             if (drone.Id < 100000 || drone.Id > 999999)//Check that it's 6 digits
                 throw new IdException("ERROR: the ID is illegal! ");
             if (drone.Model == "")
-                throw new ModelException("ERROR: Model must have value");
+                throw new ModelException("ERROR: model must have value");
         }
 
         /// <summary>

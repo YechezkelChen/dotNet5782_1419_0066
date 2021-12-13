@@ -37,7 +37,7 @@ namespace Dal
             }
 
             if (newDrone == null)
-                throw new IdNotFoundException("ERROR: Id of drone not found\n");
+                throw new IdNotFoundException("ERROR: the drone not found\n");
             return (Drone)newDrone;
         }
 

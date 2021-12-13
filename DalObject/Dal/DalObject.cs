@@ -11,11 +11,31 @@ namespace Dal
     sealed partial class DalObject : DalApi.IDal
     {
         #region singelton
+        //private static readonly Lazy<DalObject> instance = new Lazy<DalObject>(() => new DalObject());
+
+        //private static readonly object syncRoot = new object();
+        //public static DalObject Instance 
+        //{
+        //    get
+        //    {
+        //        if (instance.IsValueCreated)
+        //            return instance.Value;
+
+        //        lock (syncRoot)
+        //            return instance.Value;
+        //    }
+        //}
+        //static DalObject() { }
+        //DalObject()
+        //{
+        //    DataSource.Initialize();
+        //}
+
         internal static volatile Lazy<DalObject> instance = new Lazy<DalObject>(() => new DalObject());
 
         private static object syncRoot = new object();
-        public static Lazy<DalObject> Instance 
-        { 
+        public static DalObject Instance
+        {
             get
             {
                 if (instance == null)
@@ -27,7 +47,7 @@ namespace Dal
                     }
                 }
 
-                return instance;
+                return instance.Value;
             }
         }
         static DalObject() { }

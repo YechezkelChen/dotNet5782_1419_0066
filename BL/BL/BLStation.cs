@@ -30,10 +30,11 @@ namespace BL
             {
                 throw new ChargeSlotsException(e.Message, e);
             }
-            catch (LatitudeException e)
+            catch (LocationException e)
             {
-                throw new LatitudeException(e.Message, e);
+                throw new LocationException(e.Message, e);
             }
+
             DO.Station station = new DO.Station();
             station.Id = newStation.Id;
             station.Name = newStation.Name;
@@ -195,15 +196,15 @@ namespace BL
                 throw new ChargeSlotsException("ERROR: the charge slots must have positive or 0 value! ");
 
             if (station.Location.Longitude < -1 || station.Location.Longitude > 1)
-                throw new LongitudeException("ERROR: Longitude must to be between -1 to 1");
+                throw new LocationException("ERROR: longitude must to be between -1 to 1");
 
             if (station.Location.Latitude < -1 || station.Location.Latitude > 1)
-                throw new LatitudeException("ERROR: Latitude must to be between -1 to 1");
+                throw new LocationException("ERROR: latitude must to be between -1 to 1");
 
             foreach (var elementStation in dal.GetStations(s => true))
                 if (elementStation.Latitude == station.Location.Latitude &&
                     elementStation.Longitude == station.Location.Longitude)
-                    throw new LatitudeException("ERROR: the location is catch! ");
+                    throw new LocationException("ERROR: the location is catch! ");
         }
     }
 }

@@ -34,13 +34,9 @@ namespace BL
             {
                 throw new PhoneException(e.Message, e);
             }
-            catch (LongitudeException e)
+            catch (LocationException e)
             {
-                throw new LongitudeException(e.Message, e);
-            }
-            catch (LatitudeException e)
-            {
-                throw new LatitudeException(e.Message, e);
+                throw new LocationException(e.Message, e);
             }
 
             DO.Customer customer = new DO.Customer();
@@ -61,7 +57,7 @@ namespace BL
             DO.Customer idalCustomer = new DO.Customer();
             try
             {
-                idalCustomer = dal.GetCustomer(id);// if the customer not in data 
+                idalCustomer = dal.GetCustomer(id); // if the customer not in data 
             }
             catch (Dal.IdNotFoundException e)
             {
@@ -205,15 +201,15 @@ namespace BL
             if(customer.Id < 10000000 || customer.Id > 99999999)//Check that it's 8 digits.
                 throw new IdException("ERROR: the ID is illegal! ");
             if (customer.Name.Length == 0)
-                throw new NameException("ERROR: Name must have value");
+                throw new NameException("ERROR: name must have value");
             int phone;
             if (customer.Phone.Length != 10 || customer.Phone.Substring(0, 2) != "05" ||
-                !int.TryParse(customer.Phone.Substring(0, customer.Phone.Length), out phone)) // check format phone
-                throw new PhoneException("ERROR: Phone must have 10 digits and to begin with the numbers 05");
+                !int.TryParse(customer.Phone.Substring(2, customer.Phone.Length), out phone)) // check format phone
+                throw new PhoneException("ERROR: phone must have 10 digits and to begin with the numbers 05");
             if (customer.Location.Longitude < -1 || customer.Location.Longitude > 1)
-                throw new LongitudeException("ERROR: Longitude must to be between -1 to 1");
+                throw new LocationException("ERROR: longitude must to be between -1 to 1");
             if (customer.Location.Latitude < -1 || customer.Location.Latitude > 1)
-                throw new LatitudeException("ERROR: Latitude must to be between -1 to 1");
+                throw new LocationException("ERROR: latitude must to be between -1 to 1");
         }
         
 

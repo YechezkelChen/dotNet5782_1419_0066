@@ -45,7 +45,7 @@ namespace Dal
             }
 
             if (newParcel == null)
-                throw new IdNotFoundException("ERROR: Id of parcel not found\n");
+                throw new IdNotFoundException("ERROR: the parcel not found\n");
             return (Parcel)newParcel;
         }
 

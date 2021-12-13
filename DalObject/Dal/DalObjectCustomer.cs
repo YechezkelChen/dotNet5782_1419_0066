@@ -19,7 +19,7 @@ namespace Dal
             if (!IsExistCustomer(newCustomer, DataSource.Customers))
                 DataSource.Customers.Add(newCustomer);
             else
-                throw new IdExistException("ERROR: The customer is exist.");
+                throw new IdExistException("ERROR: the customer is exist.");
         }
 
         /// <summary>

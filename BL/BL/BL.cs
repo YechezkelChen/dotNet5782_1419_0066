@@ -24,7 +24,7 @@ namespace BL
         internal static volatile Lazy<BL> instance = new Lazy<BL>(() => new BL());
 
         private static object syncRoot = new object();
-        public static Lazy<BL> Instance
+        public static BL Instance
         {
             get
             {
@@ -37,7 +37,7 @@ namespace BL
                     }
                 }
 
-                return instance;
+                return instance.Value;
             }
         }
         static BL() { }
@@ -123,17 +123,8 @@ namespace BL
                     {
                         SendDroneToDroneCharge(drone.Id);
                     }
-                    catch (IdException e) // there is no throw, for the program continue the constructor.
-                    {
-                        throw new IdException(e.Message, e);
-                    }
-                    catch (AvailableDroneException e) // there is no throw, for the program continue the constructor.
-                    {
-                        throw new AvailableDroneException(e.Message, e);
-                    }
                     catch (BatteryDroneException e) // there is no throw, for the program continue the constructor.
                     {
-                        throw new BatteryDroneException(e.Message, e);
                     }
                 }
 
