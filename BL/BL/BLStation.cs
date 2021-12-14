@@ -45,7 +45,7 @@ namespace BL
             {
                 dal.AddStation(station);
             }
-            catch (Dal.IdExistException e)
+            catch (DO.IdExistException e)
             {
                 throw new IdException(e.Message, e);
             }
@@ -64,7 +64,7 @@ namespace BL
             {
                 idalStation = dal.GetStation(id);
             }
-            catch (Dal.IdNotFoundException e)
+            catch (DO.IdNotFoundException e)
             {
                 throw new IdException(e.Message, e);
             }
@@ -143,7 +143,7 @@ namespace BL
             {
                 station = dal.GetStation(id);
             }
-            catch (Dal.IdNotFoundException e)
+            catch (DO.IdNotFoundException e)
             {
                 throw new IdException(e.Message, e);
             }

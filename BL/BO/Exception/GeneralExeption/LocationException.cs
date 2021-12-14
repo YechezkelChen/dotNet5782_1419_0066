@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace BL
+namespace BO
 {
     [Serializable]
-    internal class LocationException : Exception
+    public class LocationException : Exception
     {
         public LocationException()
         {

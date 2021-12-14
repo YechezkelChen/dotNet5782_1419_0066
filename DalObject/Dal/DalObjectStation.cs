@@ -14,10 +14,10 @@ namespace Dal
         /// <param Name="newStation"></the new station the user whants to add to the station's list>
         public void AddStation(Station newStation)
         {
-            if(!IsExistStation(newStation, DataSource.Stations))
+            if(!IsExistStation(newStation.Id))
                 DataSource.Stations.Add(newStation);
             else
-                throw new IdExistException("ERROR: the station exist!\n");
+                throw new IdExistException("ERROR: the station is exist!\n");
         }
 
         /// <summary>
@@ -28,16 +28,13 @@ namespace Dal
         /// <returns></returns>
         public Station GetStation(int stationId)
         {
-            Station? newStation = null;
-            foreach (Station elementStation in DataSource.Stations)
+            if (IsExistStation(stationId))
             {
-                if (elementStation.Id == stationId)
-                    newStation = elementStation;
+                Station station = DataSource.Stations.Find(elementStation => elementStation.Id == stationId);
+                return station;
             }
-
-            if (newStation == null)
-                throw new IdNotFoundException("ERROR: the station not found\n");
-            return (Station)newStation;
+            else
+                throw new IdNotFoundException("ERROR: the station is not found.");
         }
 
         /// <summary>
@@ -63,12 +60,12 @@ namespace Dal
         /// <param Name="s"></the station that we chek if she exist>
         /// <param Name="Stations"></the list of all Stations>
         /// <returns></returns>
-        private bool IsExistStation(Station station, IEnumerable<Station> stations)
+        private bool IsExistStation(int stationId)
         {
-            foreach (Station elementStation in stations)
-                if (elementStation.Id == station.Id)
+            foreach (Station elementStation in DataSource.Stations)
+                if (elementStation.Id == stationId)
                     return true;
-            return false; //the station not exist
+            return false; // the station not exist
         }
     }
 }

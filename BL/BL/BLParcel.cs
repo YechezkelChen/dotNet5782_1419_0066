@@ -55,7 +55,7 @@ namespace BL
             {
                 idalParcel = dal.GetParcel(id);
             }
-            catch (Dal.IdNotFoundException e)
+            catch (DO.IdNotFoundException e)
             {
                 throw new IdException(e.Message, e);
             }
@@ -208,7 +208,7 @@ namespace BL
             {
                 updateParcel = dal.GetParcel(parcelToConnect.Id);
             }
-            catch (Dal.IdNotFoundException )//if there is not available drone to carry the parcel
+            catch (DO.IdNotFoundException )//if there is not available drone to carry the parcel
             {
                 throw new NoPackagesToDroneException("There are no packages that the available drone you entered can carry..\n" +
                                           "Please wait for other drones to be available or enter the identity of another available drone.");
@@ -333,7 +333,7 @@ namespace BL
             {
                 dal.GetCustomer(parcel.Sender.Id);
             }
-            catch (Dal.IdNotFoundException )
+            catch (DO.IdNotFoundException )
             {
                 throw new IdException("ERROR: the Sender customer not found! ");
             }
@@ -341,7 +341,7 @@ namespace BL
             {
                 dal.GetCustomer(parcel.Target.Id);
             }
-            catch (Dal.IdNotFoundException )
+            catch (DO.IdNotFoundException )
             {
                 throw new IdException("ERROR: the Target customer not found! ");
             }

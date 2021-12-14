@@ -19,7 +19,7 @@ namespace Dal
         public int AddParcel(Parcel newParcel)
         {
             int tmp = DataSource.Config.ParcelsId;
-            if (!IsExistParcel(newParcel, DataSource.Parcels))
+            if (!IsExistParcel(newParcel.Id))
             {
                 newParcel.Id = DataSource.Config.ParcelsId; // insert the Parcels new Id
                 DataSource.Config.ParcelsId++; // new Id for the fautre parce Id
@@ -37,16 +37,13 @@ namespace Dal
         /// <returns></returns>
         public Parcel GetParcel(int parcelId)
         {
-            Parcel? newParcel = null;
-            foreach (Parcel elementParcel in DataSource.Parcels)
+            if (IsExistParcel(parcelId))
             {
-                if (elementParcel.Id == parcelId)
-                    newParcel = elementParcel;
+                Parcel parcel = DataSource.Parcels.Find(elementParcel => elementParcel.Id == parcelId);
+                return parcel;
             }
-
-            if (newParcel == null)
-                throw new IdNotFoundException("ERROR: the parcel not found\n");
-            return (Parcel)newParcel;
+            else
+                throw new IdNotFoundException("ERROR: the parcel is not found.");
         }
 
         /// <summary>
@@ -72,12 +69,12 @@ namespace Dal
         /// <param Name="d"></the parcel we check if she is exist>
         /// <param Name="Drones"></the list of Parcels>
         /// <returns></returns>
-        private bool IsExistParcel(Parcel parcel, IEnumerable<Parcel> parcels)
+        private bool IsExistParcel(int parcelId)
         {
-            foreach (Parcel elementParcel in parcels)
-                if (elementParcel.Id == parcel.Id)
+            foreach (Parcel elementParcel in DataSource.Parcels)
+                if (elementParcel.Id == parcelId)
                     return true;
-            return false;//the drone not exist
+            return false; // the parcel not exist
         }
     }
 }

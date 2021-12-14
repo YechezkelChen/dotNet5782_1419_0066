@@ -11,12 +11,12 @@ namespace Dal
     partial class DalObject : DalApi.IDal
     {
         /// <summary>
-        /// add a drone to the drone list
+        /// add a drone to the drones list
         /// </summary>
         /// <param Name="newDrone"></the new drone the user whants to add to the drone's list>
         public void AddDrone(Drone newDrone)
         {
-            if (!IsExistDrone(newDrone, DataSource.Drones))
+            if (!IsExistDrone(newDrone.Id))
                 DataSource.Drones.Add(newDrone);
             else
                 throw new IdExistException("ERROR: the drone is exist!\n");
@@ -29,16 +29,13 @@ namespace Dal
         /// <returns></returns>
         public Drone GetDrone(int droneId)
         {
-            Drone? newDrone = null;
-            foreach (Drone elementDrone in DataSource.Drones)
+            if (IsExistDrone(droneId))
             {
-                if (elementDrone.Id == droneId)
-                    newDrone = elementDrone;
+                Drone drone = DataSource.Drones.Find(elementDrone => elementDrone.Id == droneId);
+                return drone;
             }
-
-            if (newDrone == null)
-                throw new IdNotFoundException("ERROR: the drone not found\n");
-            return (Drone)newDrone;
+            else
+                throw new IdNotFoundException("ERROR: the drone is not found.");
         }
 
         /// <summary>
@@ -64,12 +61,12 @@ namespace Dal
         /// <param Name="d"></the drone we check if she is exist>
         /// <param Name="Drones"></the list od Drones>
         /// <returns></returns>
-        private bool IsExistDrone(Drone drone, IEnumerable<Drone> drones)
+        private bool IsExistDrone(int droneId)
         {
-            foreach (Drone elementDrone in drones)
-                if (elementDrone.Id == drone.Id)
+            foreach (Drone elementDrone in DataSource.Drones)
+                if (elementDrone.Id == droneId)
                     return true;
-            return false;//the drone not exist
+            return false; // the drone not exist
         }
     }
 }

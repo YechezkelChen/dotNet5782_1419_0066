@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace BL
+namespace BO
 {
     [Serializable]
     public class PhoneException : Exception

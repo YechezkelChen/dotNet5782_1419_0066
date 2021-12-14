@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Dal
+namespace DO
 {
     [Serializable]
     public class IdExistException : Exception

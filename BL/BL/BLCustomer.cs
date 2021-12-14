@@ -59,7 +59,7 @@ namespace BL
             {
                 idalCustomer = dal.GetCustomer(id); // if the customer not in data 
             }
-            catch (Dal.IdNotFoundException e)
+            catch (DO.IdNotFoundException e)
             {
                 throw new IdException(e.Message, e);
             }
@@ -170,7 +170,7 @@ namespace BL
             {
                 updateCustomer = dal.GetCustomer(id);
             }
-            catch (Dal.IdNotFoundException e)// if the customer not exist
+            catch (DO.IdNotFoundException e)// if the customer not exist
             {
                 throw new IdException(e.Message,e);
             }

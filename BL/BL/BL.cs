@@ -21,10 +21,10 @@ namespace BL
         Random rand = new Random(DateTime.Now.Millisecond);
 
         #region singelton
-        internal static volatile Lazy<BL> instance = new Lazy<BL>(() => new BL());
+        static volatile Lazy<BL> instance = new Lazy<BL>(() => new BL());
 
-        private static object syncRoot = new object();
-        public static BL Instance
+        static object syncRoot = new object();
+        internal static BL Instance
         {
             get
             {
@@ -123,7 +123,7 @@ namespace BL
                     {
                         SendDroneToDroneCharge(drone.Id);
                     }
-                    catch (BatteryDroneException e) // there is no throw, for the program continue the constructor.
+                    catch (BatteryDroneException) // there is no throw, for the program continue the constructor.
                     {
                     }
                 }

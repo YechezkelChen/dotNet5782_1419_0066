@@ -51,7 +51,7 @@ namespace BL
                 if (station.ChargeSlots == 0) // user ask have place for charge
                     throw new ChargeSlotsException("ERROR: The station you ask not have more place.");
             }
-            catch (Dal.IdNotFoundException e)
+            catch (DO.IdNotFoundException e)
             {
                 throw new IdException(e.Message, e);
             }
@@ -70,7 +70,7 @@ namespace BL
             {
                 dal.AddDrone(drone);// add the drone just if the drone not in the data center
             }
-            catch (Dal.IdExistException e)
+            catch (DO.IdExistException e)
             {
                 throw new IdException(e.Message, e);
             }
@@ -106,7 +106,7 @@ namespace BL
             {
                 idalDrone = dal.GetDrone(id);
             }
-            catch (Dal.IdNotFoundException e)
+            catch (DO.IdNotFoundException e)
             {
                 throw new IdException(e.Message, e);
             }
@@ -131,7 +131,7 @@ namespace BL
                     {
                         parcel = dal.GetParcel(eleDroneToList.IdParcel);
                     }
-                    catch (Dal.IdNotFoundException )
+                    catch (DO.IdNotFoundException )
                     {
                         drone.ParcelByTransfer.Status = false;
                         return drone;
@@ -214,7 +214,7 @@ namespace BL
             {
                 updateDrone = dal.GetDrone(droneId);
             }
-            catch (Dal.IdNotFoundException e)
+            catch (DO.IdNotFoundException e)
             {
                 throw new IdException(e.Message, e);
             }
@@ -284,7 +284,7 @@ namespace BL
             {
                 dal.AddDroneCharge(newDroneCharge);
             }
-            catch (Dal.IdExistException e)
+            catch (DO.IdExistException e)
             {
                 throw new IdException(e.Message, e);
             }
