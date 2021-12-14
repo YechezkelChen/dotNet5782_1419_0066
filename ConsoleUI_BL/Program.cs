@@ -165,9 +165,9 @@ namespace ConsoleUI_BL
                                 {
                                     Console.WriteLine(bl.GetStation(myId));
                                 }
-                                catch (BL.LongitudeOrLatitudeException e)
+                                catch (IdException e)
                                 {
-                                    Console.WriteLine((string)e.Message);
+                                    Console.WriteLine(e.Message);
                                 }
                                 break;
                             case EntityOption.Drone:
@@ -175,7 +175,7 @@ namespace ConsoleUI_BL
                                 {
                                     Console.WriteLine(bl.GetDrone(myId));
                                 }
-                                catch (NameOrModelException e)
+                                catch (IdException e)
                                 {
                                     Console.WriteLine(e.Message);
                                 }
@@ -196,7 +196,7 @@ namespace ConsoleUI_BL
                                 {
                                     Console.WriteLine(bl.GetParcel(myId));
                                 }
-                                catch (PhoneException e)
+                                catch (IdException e)
                                 {
                                     Console.WriteLine(e.Message);
                                 }
@@ -221,70 +221,28 @@ namespace ConsoleUI_BL
                         switch (olv)
                         {
                             case OptionListView.ListStations:
-                                try
-                                {
-                                    foreach (var elementStation in bl.GetStations())
+                                foreach (var elementStation in bl.GetStations())
                                         Console.WriteLine(elementStation);
-                                }
-                                catch (BL.LongitudeOrLatitudeException e)
-                                {
-                                    Console.WriteLine((string)e.Message);
-                                }
                                 break;
                             case OptionListView.ListDrones:
-                                try
-                                {
-                                    foreach (var elementDrone in bl.GetDrones())
+                                foreach (var elementDrone in bl.GetDrones())
                                         Console.WriteLine(elementDrone);
-                                }
-                                catch (NameOrModelException e)
-                                {
-                                    Console.WriteLine(e.Message); 
-                                }
                                 break;
                             case OptionListView.ListCustomers:
-                                try
-                                {
-                                    foreach (var elementCustomer in bl.GetCustomers())
+                                foreach (var elementCustomer in bl.GetCustomers())
                                         Console.WriteLine(elementCustomer);
-                                }
-                                catch (IdException e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                }
                                 break;
                             case OptionListView.ListParcels:
-                                try
-                                {
-                                    foreach (var elementParcel in bl.GetParcels())
+                                foreach (var elementParcel in bl.GetParcels())
                                         Console.WriteLine(elementParcel);
-                                }
-                                catch (PhoneException e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                }
                                 break;
                             case OptionListView.ListParcelsNoDrones:
-                                try
-                                {
-                                    foreach (var elementParcelsNoDrone in bl.GetParcelsNoDrones())
+                                foreach (var elementParcelsNoDrone in bl.GetParcelsNoDrones())
                                         Console.WriteLine(elementParcelsNoDrone);
-                                }
-                                catch (PhoneException e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                }
                                 break;
                             case OptionListView.ListStationsCharge:
-                                try
-                                {
-                                    foreach (var elementStationCharge in bl.GetStationsCharge())
+                                foreach (var elementStationCharge in bl.GetStationsCharge())
                                         Console.WriteLine(elementStationCharge);
-                                }
-                                catch (BL.LongitudeOrLatitudeException e)
-                                {
-                                    Console.WriteLine((string)e.Message);
-                                }
                                 break;
                             case OptionListView.Exit:
                                 break;
@@ -356,16 +314,24 @@ namespace ConsoleUI_BL
                 {
                     bl.AddStation(newStation);
                     Console.WriteLine("Success! :)\n");
-                    break;
+                    return;
                 }
-                catch (BL.LongitudeOrLatitudeException e)
+                catch (IdException e)
                 {
-                    Console.WriteLine((string)e.Message);
-                    Console.WriteLine("Do you want to add station? please enter yes or no.");
-                    string choice = Console.ReadLine();
-                    if (choice != "yes")
-                        break;
+                    Console.WriteLine(e.Message);
                 }
+                catch (ChargeSlotsException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (LocationException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                Console.WriteLine("Do you want to add station? please enter yes or no.");
+                string choice = Console.ReadLine();
+                if (choice != "yes")
+                    break;
             }
         }
 
@@ -398,7 +364,7 @@ namespace ConsoleUI_BL
                 switch (num)
                 {
                     case 1:
-                        newDrone.Weight =WeightCategories.Light;
+                        newDrone.Weight = WeightCategories.Light;
                         break;
                     case 2:
                         newDrone.Weight = WeightCategories.Medium;
@@ -419,24 +385,28 @@ namespace ConsoleUI_BL
                 {
                     bl.AddDrone(newDrone, num);
                     Console.WriteLine("Success! :)\n");
+                    return;
+                }
+                catch (IdException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (ModelException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (StatusDroneException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (BatteryDroneException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                Console.WriteLine("Do you want to add drone? please enter yes or no.");
+                string choice = Console.ReadLine();
+                if (choice != "yes")
                     break;
-                }
-                catch (NameOrModelException e)
-                {
-                    Console.WriteLine((string)e.Message);
-                    Console.WriteLine("Do you want to add drone? please enter yes or no.");
-                    string choice = Console.ReadLine();
-                    if (choice != "yes")
-                        break;
-                }
-                catch (BL.LongitudeOrLatitudeException e)
-                {
-                    Console.WriteLine((string)e.Message);
-                    Console.WriteLine("Do you want to add drone? please enter yes or no.");
-                    string choice = Console.ReadLine();
-                    if (choice != "yes")
-                        break;
-                }
             }
         }
 
@@ -574,7 +544,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Success! :)\n");
                     break;
                 }
-                catch (PhoneException e)
+                catch (IdException e)
                 {
                     Console.WriteLine(e.Message);
                     Console.WriteLine("Do you want to add parcel? please enter yes or no.");
@@ -594,8 +564,6 @@ namespace ConsoleUI_BL
             string model;
             while (true)
             {
-
-
                 do
                 {
                     Console.WriteLine("Enter id drone: ");
@@ -608,16 +576,20 @@ namespace ConsoleUI_BL
                 {
                     bl.UpdateDroneModel(id, model);
                     Console.WriteLine("Success! :)\n");
-                    break;
+                    return;
                 }
-                catch (NameOrModelException e)
+                catch (IdException e)
                 {
                     Console.WriteLine(e.Message);
-                    Console.WriteLine("Do you want to update the model of the drone? please enter yes or no.");
-                    string choice = Console.ReadLine();
-                    if (choice != "yes")
-                        break;
                 }
+                catch (ModelException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                Console.WriteLine("Do you want to update the model of the drone? please enter yes or no.");
+                string choice = Console.ReadLine();
+                if (choice != "yes")
+                    break;
             }
         }
         /// <summary>
@@ -651,16 +623,20 @@ namespace ConsoleUI_BL
                 {
                     bl.UpdateDataStation(id, name, chargeSlots);
                     Console.WriteLine("Success! :)\n");
-                    break;
+                    return;
                 }
-                catch (BL.LongitudeOrLatitudeException e)
+                catch (IdException e)
                 {
-                    Console.WriteLine((string)e.Message);
-                    Console.WriteLine("Do you want to update the data of the station? please enter yes or no.");
-                    string choice = Console.ReadLine();
-                    if (choice != "yes")
-                        break;
+                    Console.WriteLine(e.Message);
                 }
+                catch (NameException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                Console.WriteLine("Do you want to update the data of the station? please enter yes or no.");
+                string choice = Console.ReadLine();
+                if (choice != "yes")
+                    break;
             }
         }
         /// <summary>
@@ -693,18 +669,27 @@ namespace ConsoleUI_BL
                 {
                     bl.UpdateDataCustomer(id, name, phone);
                     Console.WriteLine("Success! :)\n");
-                    break;
+                    return;
                 }
                 catch (IdException e)
                 {
                     Console.WriteLine(e.Message);
-                    Console.WriteLine("Do you want to update the data of the customer? please enter yes or no.");
-                    string choice = Console.ReadLine();
-                    if (choice != "yes")
-                        break;
                 }
+                catch (NameException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (PhoneException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                Console.WriteLine("Do you want to update the data of the customer? please enter yes or no.");
+                string choice = Console.ReadLine();
+                if (choice != "yes")
+                    break;
             }
         }
+
         /// <summary>
         /// send the drone to station with available drone charge
         /// </summary>
@@ -724,18 +709,27 @@ namespace ConsoleUI_BL
                 {
                     bl.SendDroneToDroneCharge(id);
                     Console.WriteLine("Success! :)\n");
-                    break;
+                    return;
                 }
-                catch (NameOrModelException e)
+                catch (IdException e)
                 {
                     Console.WriteLine(e.Message);
-                    Console.WriteLine("Do you want to send the drone to charge? please enter yes or no.");
-                    string choice = Console.ReadLine();
-                    if (choice != "yes")
-                        break;
                 }
+                catch (StatusDroneException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (BatteryDroneException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                Console.WriteLine("Do you want to send the drone to charge? please enter yes or no.");
+                string choice = Console.ReadLine();
+                if (choice != "yes")
+                    break;
             }
         }
+
         /// <summary>
         /// Release the drone from the charge spot in the station 
         /// </summary>
@@ -755,18 +749,23 @@ namespace ConsoleUI_BL
                 {
                     bl.ReleaseDroneFromDroneCharge(id);
                     Console.WriteLine("Success! :)\n");
-                    break;
+                    return;
                 }
-                catch (NameOrModelException e)
+                catch (IdException e)
                 {
                     Console.WriteLine(e.Message);
-                    Console.WriteLine("Do you want to release the drone from charge? please enter yes or no.");
-                    string choice = Console.ReadLine();
-                    if (choice != "yes")
-                        break;
                 }
+                catch (StatusDroneException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                Console.WriteLine("Do you want to release the drone from charge? please enter yes or no.");
+                string choice = Console.ReadLine();
+                if (choice != "yes")
+                    break;
             }
         }
+
         /// <summary>
         /// connect the parcel to available drone
         /// </summary>
@@ -786,25 +785,25 @@ namespace ConsoleUI_BL
                 {
                     bl.ConnectParcelToDrone(droneId);
                     Console.WriteLine("Success! :)\n");
-                    break;
+                    return;
                 }
-                catch (NameOrModelException e)
+                catch (IdException e)
                 {
                     Console.WriteLine(e.Message);
-                    Console.WriteLine("Do you want to connect parcel to drone or do know about drone that can do any connect to some parcel?\n" +
+                }
+                catch (StatusDroneException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (NoPackagesToDroneException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                Console.WriteLine("Do you want to connect parcel to drone or do know about drone that can do any connect to some parcel?\n" +
                                       "if you do please enter yes, else no.");
-                    string choice = Console.ReadLine();
-                    if (choice != "yes")
-                        break;
-                }
-                catch (PhoneException e)
-                {
-                    Console.WriteLine(e.Message);
-                    Console.WriteLine("If you know about some drone ,\n do you want to connect parcel to drone? please enter yes or no.");
-                    string choice = Console.ReadLine();
-                    if (choice != "yes")
-                        break;
-                }
+                string choice = Console.ReadLine();
+                if (choice != "yes")
+                    break;
             }
         }
         /// <summary>
@@ -826,16 +825,20 @@ namespace ConsoleUI_BL
                 {
                     bl.CollectionParcelByDrone(droneId);
                     Console.WriteLine("Success! :)\n");
-                    break;
+                    return;
                 }
-                catch (NameOrModelException e)
+                catch (IdException e)
                 {
                     Console.WriteLine(e.Message);
-                    Console.WriteLine("Do you want to collect the parcel by drone? please enter yes or no.");
-                    string choice = Console.ReadLine();
-                    if (choice != "yes")
-                        break;
                 }
+                catch (StatusDroneException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                Console.WriteLine("Do you want to collect the parcel by drone? please enter yes or no.");
+                string choice = Console.ReadLine();
+                if (choice != "yes")
+                    break;
             }
         }
         /// <summary>
@@ -857,17 +860,21 @@ namespace ConsoleUI_BL
                 {
                     bl.SupplyParcelByDrone(droneId);
                     Console.WriteLine("Success! :)\n");
-                    break;
+                    return;
                 }
-                catch (NameOrModelException e)
+                catch (IdException e)
                 {
                     Console.WriteLine(e.Message);
-                    Console.WriteLine("You need to choose drone that pick-up some parcel.\n" +
-                                      "so do you want to supply parcel by drone? please enter yes or no.");
-                    string choice = Console.ReadLine();
-                    if (choice != "yes")
-                        break;
                 }
+                catch (StatusDroneException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                Console.WriteLine("You need to choose drone that pick-up some parcel.\n" +
+                                  "so do you want to supply parcel by drone? please enter yes or no.");
+                string choice = Console.ReadLine();
+                if (choice != "yes")
+                    break;
             }
         }
     }

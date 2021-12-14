@@ -20,7 +20,7 @@ namespace BL
         {
             try
             {
-                CheckCustomer(newCustomer);// check the input of the user
+                CheckCustomer(newCustomer); // check the input of the user
             }
             catch (IdException e)
             {
@@ -72,7 +72,7 @@ namespace BL
             customer.FromTheCustomerList = new List<ParcelInCustomer>();
             customer.ToTheCustomerList = new List<ParcelInCustomer>();
 
-            foreach (var elementParcel in dal.GetParcels(parcel => true))// accordion to the conditions in the exercise
+            foreach (var elementParcel in dal.GetParcels(parcel => true)) // accordion to the conditions in the exercise
                 if (customer.Id == elementParcel.SenderId)
                 {
                     ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
