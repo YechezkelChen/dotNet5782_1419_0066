@@ -55,6 +55,7 @@ namespace PL
             InitializeComponent();
             bl = ibl;
             drone = droneHelp;
+            DataDroneGrid.DataContext = drone;
             BlockingControls();
             ShowDronesAfterActions();
         }
@@ -104,12 +105,12 @@ namespace PL
                 {
                     case MessageBoxResult.OK:
                         return;
-                    case MessageBoxResult.Cancel:
-                        this.Close();
-                        return;
-                    default:
-                        this.Close();
-                        return;
+                    //case MessageBoxResult.Cancel:
+                    //    this.Close();
+                    //    return;
+                    //default:
+                    //    this.Close();
+                    //    return;
                 }
             }
 
@@ -120,12 +121,12 @@ namespace PL
                 {
                     case MessageBoxResult.OK:
                         return;
-                    case MessageBoxResult.Cancel:
-                        this.Close();
-                        return;
-                    default:
-                        this.Close();
-                        return;
+                    //case MessageBoxResult.Cancel:
+                    //    this.Close();
+                    //    return;
+                    //default:
+                    //    this.Close();
+                    //    return;
                 }
             }
 
@@ -136,12 +137,12 @@ namespace PL
                 {
                     case MessageBoxResult.OK:
                         return;
-                    case MessageBoxResult.Cancel:
-                        this.Close();
-                        return;
-                    default:
-                        this.Close();
-                        return;
+                    //case MessageBoxResult.Cancel:
+                    //    this.Close();
+                    //    return;
+                    //default:
+                    //    this.Close();
+                    //    return;
                 }
             }
             else
@@ -158,12 +159,12 @@ namespace PL
                 {
                     case MessageBoxResult.OK:
                         return;
-                    case MessageBoxResult.Cancel:
-                        this.Close();
-                        return;
-                    default:
-                        this.Close();
-                        return;
+                    //case MessageBoxResult.Cancel:
+                    //    this.Close();
+                    //    return;
+                    //default:
+                    //    this.Close();
+                    //    return;
                 }
             }
             else
@@ -200,14 +201,14 @@ namespace PL
             }
 
             MessageBox.Show("The add is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            CloseWindowButton.Visibility = Visibility.Hidden;
-            this.Close();
+            //CloseWindowButton.Visibility = Visibility.Hidden;
+            //this.Close();
         }
-       
+
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            CloseWindowButton.Visibility = Visibility.Hidden;
-            this.Close();
+            //CloseWindowButton.Visibility = Visibility.Hidden;
+            //this.Close();
         }
 
         private void UpdateModelButton_Click(object sender, RoutedEventArgs e)
@@ -242,7 +243,7 @@ namespace PL
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-                       
+
 
             MessageBox.Show("The update is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
@@ -410,7 +411,7 @@ namespace PL
 
         private void ShowDronesAfterActions()
         {
-            IdTextBox.Text = drone.Id.ToString();
+            //IdTextBox.Text = drone.Id.ToString();
             ModelTextBox.Text = drone.Model;
             PresentWeightLabel.Text = drone.Weight.ToString();
 

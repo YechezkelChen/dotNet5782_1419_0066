@@ -62,6 +62,7 @@ namespace PL
 
         private void ClosePageButton_Click(object sender, RoutedEventArgs e)
         {
+            this.Content = "";
         }
 
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)

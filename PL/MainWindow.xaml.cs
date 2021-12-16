@@ -37,9 +37,11 @@ namespace PL
             if (CloseButton.Visibility != Visibility.Hidden)
                 e.Cancel = true;
         }
-        private void ShowDroneButton_Click(object sender, RoutedEventArgs e)
+        private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Content = new DroneListPage(bl);
+            this.Hide();
+            new ListWindow(bl).ShowDialog();
+            this.Show();
         }
     }
 }

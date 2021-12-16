@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PL"
       mc:Ignorable="d" 
-      d:DesignHeight="640" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="DroneListWindow">
 
     <Grid Name="MainGrid">
@@ -25,14 +25,14 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="StatusLabel" Content="Choose a status :" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40,9,0,0" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Normal"/>
-            <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,9,0,0" Height="27" Width="109" Grid.Column="1" SelectionChanged="StatusSelctor_SelectionChanged" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontStyle="Italic"/>
+            <Label x:Name="StatusLabel" Content="Choose a status :" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" Width="110" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Normal"/>
+            <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="110" Grid.Column="1" SelectionChanged="StatusSelctor_SelectionChanged" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontStyle="Italic"/>
 
-            <Label x:Name="WeightLabel" Content="Choose a weight :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="68,40,0,0" Height="33" Foreground="#FF2F3E46" FontSize="16" FontWeight="Bold" FontFamily="Agency FB"/>
-            <ComboBox Name="WeightSelctor" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,41,0,0" Height="26" Width="109" Grid.Column="1" SelectionChanged="WeightSelctor_SelectionChanged" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontStyle="Italic"/>
+            <Label x:Name="WeightLabel" Content="Choose a weight :" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="30" Width="110" Foreground="#FF2F3E46" FontSize="16" FontWeight="Bold" FontFamily="Agency FB"/>
+            <ComboBox Name="WeightSelctor" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Width="110" Grid.Column="1" SelectionChanged="WeightSelctor_SelectionChanged" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontStyle="Italic"/>
 
-            <Button x:Name="RefreshStatusButton" Content="Refresh status" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,10,0,0" Height="26" Width="79" Grid.Column="1" Click="RefreshStatusButton_Click" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Grid.ColumnSpan="2"/>
-            <Button x:Name="RefreshWeightButton" Content="Refresh weight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="124,0,0,11" Height="26" Width="79" Grid.Column="1" Click="RefreshWeightButton_Click" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Grid.ColumnSpan="2"/>
+            <Button x:Name="RefreshStatusButton" Content="Refresh status" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="110"  Grid.Column="1" Click="RefreshStatusButton_Click" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Grid.ColumnSpan="2" Margin="0,0,175,0"/>
+            <Button x:Name="RefreshWeightButton" Content="Refresh weight" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="110"  Grid.Column="1" Click="RefreshWeightButton_Click" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Grid.ColumnSpan="2" Margin="0,0,175,0"/>
 
             <Button x:Name="AddDroneButton" Content="Add a drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Click="AddDrone_Click" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Height="40" Width="100"/>
 
