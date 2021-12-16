@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for CustomerListPage.xaml
     /// </summary>
-    public partial class Page1 : Page
+    public partial class CustomerListPage : Page
     {
-        public Page1()
+        public CustomerListPage()
         {
             InitializeComponent();
         }
