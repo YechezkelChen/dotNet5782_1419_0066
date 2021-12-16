@@ -25,32 +25,27 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="StatusLabel" Content="Choose a status :" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="40,9,0,0" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Normal"/>
-            <ComboBox Name="StatusSelctor" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,9,0,0" Height="27" Width="109" Grid.Column="1" SelectionChanged="StatusSelctor_SelectionChanged" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontStyle="Italic"/>
+            <Button Name="AvalibleChargeSlots" Content="Avalible charge slots stations" HorizontalAlignment="Center" VerticalAlignment="Center" Height="27" Width="120" Grid.Column="1" Foreground="#FF2F3E46" FontWeight="Bold" FontSize="16" FontFamily="Agency FB" FontStyle="Italic"/>
 
-            <Label x:Name="WeightLabel" Content="Choose a weight :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="68,40,0,0" Height="33" Foreground="#FF2F3E46" FontSize="16" FontWeight="Bold" FontFamily="Agency FB"/>
-            <ComboBox Name="WeightSelctor" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,41,0,0" Height="26" Width="109" Grid.Column="1" SelectionChanged="WeightSelctor_SelectionChanged" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontStyle="Italic"/>
+            <Label x:Name="AmountAvalibleChargeSlotsLabel" Content="Enter amount of available charge slots:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="30" Foreground="#FF2F3E46" FontSize="16" FontWeight="Bold" FontFamily="Agency FB"/>
+            <TextBox Name="AmountAvalibleChargeSlotsSelctor" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="27" Width="110" Grid.Column="0" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontStyle="Italic"/>
 
-            <Button x:Name="ClearStatusButton" Content="Clear status" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,10,0,0" Height="26" Width="79" Grid.Column="1" Click="ClearStatusButton_Click" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Grid.ColumnSpan="2"/>
-            <Button x:Name="ClearWeightButton" Content="Clear weight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="124,0,0,11" Height="26" Width="79" Grid.Column="1" Click="ClearWeightButton_Click" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Grid.ColumnSpan="2"/>
+            <Button x:Name="RefreshStationsButton" Content="Refresh" HorizontalAlignment="Center" VerticalAlignment="Center" Height="27" Width="50" Grid.Column="1" Grid.ColumnSpan="2" Click="RefreshStatusButton_Click" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic"/>
 
-            <Button x:Name="AddDroneButton" Content="Add a drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Click="AddDrone_Click" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Height="40" Width="100"/>
+            <Button x:Name="AddStationButton" Content="Add a station" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Click="AddStation_Click" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Height="40" Width="100"/>
 
             <Button x:Name="ClosePageButton" Content="Close Page" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ClosePageButton_Click" Background="White" Foreground="Red" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" Height="40" Width="100"/>
         </Grid>
 
-        <Label Content="List Drones:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="800" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46" HorizontalContentAlignment="Center"/>
+        <Label Content="List Stations:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="800" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46" HorizontalContentAlignment="Center"/>
 
-        <ListView x:Name="DronesListView" Grid.Row="2" Background="DarkGray" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="20" FontWeight="Normal">
+        <ListView x:Name="StationsListView" Grid.Row="2" Background="DarkGray" MouseDoubleClick="StationsListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="20" FontWeight="Normal">
             <ListView.View>
                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="information">
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="70"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" Header="Model" Width="80"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" Header="Weight" Width="80"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Battery}" Header="Battery" Width="70"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="Status" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=IdParcel}" Header="Parcel in delivery" Width="120"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Location}" Header="Location" Width="260"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="80"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ChargeSlotsAvalible}" Header="Avalible charge slots" Width="140"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ChargeSlotsNotAvalible}" Header="Not avalible charge slots" Width="170"/>
                 </GridView>
             </ListView.View>
         </ListView>
