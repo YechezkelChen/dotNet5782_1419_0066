@@ -19,9 +19,9 @@ namespace PL
     /// <summary>
     /// Interaction logic for ParcelInDrone.xaml
     /// </summary>
-    public partial class ParcelInDrone : Page
+    public partial class ParcelInDronePage : Page
     {
-        public ParcelInDrone(Drone drone)
+        public ParcelInDronePage(Drone drone)
         {
             InitializeComponent();
             Drone shoeDrone = drone;

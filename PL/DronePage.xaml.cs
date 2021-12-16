@@ -450,5 +450,10 @@ namespace PL
                 }
             }
         }
+
+        private void ShowParcelInDrone_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new ParcelInDronePage(drone);
+        }
     }
 }
