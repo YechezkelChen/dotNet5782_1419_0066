@@ -14,11 +14,15 @@ namespace Dal
         /// <param Name="newStation"></the new station the user whants to add to the station's list>
         public void AddStation(Station newStation)
         {
-            if(!IsExistStation(newStation.Id))
+            string check = IsExistStation(newStation.Id);
+            if (check == "not exists")
                 DataSource.Stations.Add(newStation);
-            else
-                throw new IdExistException("ERROR: the station is exist!\n");
+            if (check == "exists")
+                throw new IdExistException("ERROR: the Station is exist");
+            if (check == "was exists")
+                throw new IdExistException("ERROR: the Station was exist");
         }
+
 
         /// <summary>
         /// return the spesifice station the user ask for
@@ -28,14 +32,29 @@ namespace Dal
         /// <returns></returns>
         public Station GetStation(int stationId)
         {
-            if (IsExistStation(stationId))
+            string check = IsExistStation(stationId);
+            Station station = new Station();
+            if (check == "exists")
             {
-                Station station = DataSource.Stations.Find(elementStation => elementStation.Id == stationId);
-                return station;
+                station = DataSource.Stations.Find(elementstation => elementstation.Id == stationId);
             }
-            else
+            if (check == "not exists")
                 throw new IdNotFoundException("ERROR: the station is not found.");
+            if (check == "was exists")
+                throw new IdExistException("ERROR: the station was exist");
+
+            return station;
         }
+        //public Station GetStation(int stationId)
+        //{
+        //    if (IsExistStation(stationId))
+        //    {
+        //        Station station = DataSource.Stations.Find(elementStation => elementStation.Id == stationId);
+        //        return station;
+        //    }
+        //    else
+        //        throw new IdNotFoundException("ERROR: the station is not found.");
+        //}
 
         /// <summary>
         /// return all the list of the station's
@@ -60,12 +79,16 @@ namespace Dal
         /// <param Name="s"></the station that we chek if she exist>
         /// <param Name="Stations"></the list of all Stations>
         /// <returns></returns>
-        private bool IsExistStation(int stationId)
+        private string IsExistStation(int stationId)
         {
             foreach (Station elementStation in DataSource.Stations)
-                if (elementStation.Id == stationId)
-                    return true;
-            return false; // the station not exist
+            {
+                if (elementStation.Id == stationId && elementStation.deleted == false)
+                    return "exists";
+                if (elementStation.Id == stationId && elementStation.deleted == true)
+                    return "was exists";
+            }
+            return "not exists"; // the customer not exist
         }
     }
 }

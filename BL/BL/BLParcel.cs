@@ -39,6 +39,7 @@ namespace BL
             parcel.Scheduled = null;
             parcel.PickedUp = null;
             parcel.Delivered = null;
+            parcel.deleted = false;
             dal.AddParcel(parcel);
         }
 

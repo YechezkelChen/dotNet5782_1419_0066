@@ -36,6 +36,7 @@ namespace BL
             drone.Id = newDrone.Id;
             drone.Model = newDrone.Model;
             drone.Weight = (DO.WeightCategories)newDrone.Weight;
+            drone.deleted = false;
 
 
             newDroneToList.Id = newDrone.Id;

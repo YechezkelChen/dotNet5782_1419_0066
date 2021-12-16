@@ -9,6 +9,8 @@ namespace DO
         public double Longitude { get; set; }
         public double Latitude { get; set; }
         public int ChargeSlots { get; set; }
+        public bool deleted { get; set; }
+
 
         public override string ToString()
         {

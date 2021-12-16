@@ -14,10 +14,13 @@ namespace Dal
         /// <param Name="newCustomer"></the new customer the user whants to add to the customer's list>
         public void AddCustomer(Customer newCustomer)
         {
-            if (!IsExistCustomer(newCustomer.Id))
+            string check = IsExistCustomer(newCustomer.Id);
+            if (check == "not exists")
                 DataSource.Customers.Add(newCustomer);
-            else
-                throw new IdExistException("ERROR: the customer is exist.");
+            if(check == "exists")
+                throw new IdExistException("ERROR: the customer is exist");
+            if(check == "was exists")
+                throw new IdExistException("ERROR: the customer was exist");
         }
 
         /// <summary>
@@ -27,13 +30,18 @@ namespace Dal
         /// <returns></returns>
         public Customer GetCustomer(int customerId)
         {
-            if (IsExistCustomer(customerId))
+            string check = IsExistCustomer(customerId);
+            Customer customer = new Customer();
+            if (check == "exists")
             {
-                Customer customer = DataSource.Customers.Find(elementCustomer => elementCustomer.Id == customerId);
-                return customer;
+                customer = DataSource.Customers.Find(elementCustomer => elementCustomer.Id == customerId);
             }
-            else
-                throw new IdNotFoundException("ERROR: the coustomer is not found.");
+            if (check == "not exists")
+                throw new IdNotFoundException("ERROR: the coustomer is not exit.");
+            if (check == "was exists")
+                throw new IdExistException("ERROR: the customer was exist");
+
+            return customer;
         }
 
         /// <summary>
@@ -59,12 +67,17 @@ namespace Dal
         /// <param Name="d"></the customer we check if she is exist>
         /// <param Name="Drones"></the list od Customers>
         /// <returns></returns>
-        private bool IsExistCustomer(int customerId)
+        private string IsExistCustomer(int customerId)
         {
             foreach (Customer elementCustomer in DataSource.Customers)
-                if (elementCustomer.Id == customerId)
-                    return true;
-            return false; // the customer not exist
+            {
+
+                if (elementCustomer.Id == customerId && elementCustomer.deleted == false)
+                    return "exists";
+                if (elementCustomer.Id == customerId && elementCustomer.deleted == true)
+                    return "was exists";
+            }
+            return "not exists"; // the customer not exist
         }
     }
 }

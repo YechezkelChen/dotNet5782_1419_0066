@@ -16,18 +16,34 @@ namespace Dal
         /// <param Name="newDroneCharge"></the new drone charge the user whants to add to the drone's list>
         public void AddDroneCharge(DroneCharge newDroneCharge)
         {
-            if (!IsExistDroneCharge(newDroneCharge))
+            string check = IsExistDroneCharge(newDroneCharge);
+            if (check == "not exists")
                 DataSource.DroneCharges.Add(newDroneCharge);
-            else
-                throw new IdExistException("ERROR: the drone charge is exist!\n");
+            if (check == "exists")
+                throw new IdExistException("ERROR: the drone charge is exist");
+            if (check == "was exists")
+                throw new IdExistException("ERROR: the drone charge was exist");
         }
 
         public void RemoveDroneCharge(DroneCharge DroneCharge)
         {
-            if (IsExistDroneCharge(DroneCharge))
-                DataSource.DroneCharges.Remove(DroneCharge);
-            else
+            string check = IsExistDroneCharge(DroneCharge);
+            if (check == "not exists")
                 throw new IdNotFoundException("ERROR: the drone charge is not found!\n");
+            if (check == "exists")
+            {
+                for (int i = 0; i < DataSource.DroneCharges.Count(); i++)
+                {
+                    DroneCharge elementDroneCharge = DataSource.DroneCharges[i];
+                    if (elementDroneCharge.DroneId == DroneCharge.DroneId && elementDroneCharge.StationId == DroneCharge.StationId)
+                    {
+                        elementDroneCharge.deleted = true;
+                        DataSource.DroneCharges[i] = elementDroneCharge;
+                    }
+
+                }
+
+            }   
         }
 
         /// <summary>
@@ -40,12 +56,21 @@ namespace Dal
             return dronesCharge;
         }
 
-        private bool IsExistDroneCharge(DroneCharge droneCharge)
+        private string IsExistDroneCharge(DroneCharge droneCharge)
         {
             foreach (DroneCharge elementDroneCharge in DataSource.DroneCharges)
-                if (elementDroneCharge.DroneId == droneCharge.DroneId && elementDroneCharge.StationId == droneCharge.StationId) 
-                    return true;
-            return false;//the drone charge not exist
+            {
+                if (elementDroneCharge.DroneId == droneCharge.DroneId &&
+                    elementDroneCharge.StationId == droneCharge.StationId &&
+                    elementDroneCharge.deleted == false)
+                    return "exists";
+                if (elementDroneCharge.DroneId == droneCharge.DroneId &&
+                   elementDroneCharge.StationId == droneCharge.StationId &&
+                   elementDroneCharge.deleted == true)
+                    return "was exists";
+            }
+                
+            return "not exists";//the drone charge not exist
         }
     }
 }
