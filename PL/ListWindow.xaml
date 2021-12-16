@@ -8,7 +8,7 @@
         Icon="images\icon.png"
         WindowState="Maximized"
         Title="ListWindow">
-    <Grid x:Name="c">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.04*"/>
             <RowDefinition Height="*"/>

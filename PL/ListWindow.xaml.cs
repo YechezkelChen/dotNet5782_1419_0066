@@ -39,7 +39,7 @@ namespace PL
         private void ListTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ListDrones.IsSelected)
-                ShowList.Content = new DroneListPage(bl);
+                ShowList.Content = new DroneListPage(this, bl);
             if (ListStations.IsSelected)
                 ShowList.Content = new StationListPage(bl);
             if (ListCustomers.IsSelected)
