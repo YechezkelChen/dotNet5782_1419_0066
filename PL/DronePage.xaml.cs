@@ -42,9 +42,6 @@ namespace PL
             LocationLabel.Visibility = Visibility.Hidden;
             LocationTextBox.Visibility = Visibility.Hidden;
 
-            // hidden data parcel
-            DataParcelGrid.Visibility = Visibility.Hidden;
-
             // hidden irrelevant bottuns 
             UpdateModelButton.Visibility = Visibility.Hidden;
             SendToChargeButton.Visibility = Visibility.Hidden;
@@ -405,15 +402,6 @@ namespace PL
             BatteryTextBox.IsEnabled = false;
             StatusTextBox.IsEnabled = false;
             LocationTextBox.IsEnabled = false;
-            IdParcelTextBox.IsEnabled = false;
-            StatusParcelTextBox.IsEnabled = false;
-            PriorityParcelTextBox.IsEnabled = false;
-            WeightParcelTextBox.IsEnabled = false;
-            SenderInParcelTextBox.IsEnabled = false;
-            PickUpLocationParcelTextBox.IsEnabled = false;
-            ReceiverInParcelTextBox.IsEnabled = false;
-            TargetLocationParcelTextBox.IsEnabled = false;
-            DistanceOfTransferTextBox.IsEnabled = false;
 
             // hidden irrelevant bottuns
             AddButton.Visibility = Visibility.Hidden;
@@ -437,32 +425,6 @@ namespace PL
             BatteryTextBox.Text = drone.Battery.ToString();
             StatusTextBox.Text = drone.Status.ToString();
             LocationTextBox.Text = drone.Location.ToString();
-
-            // print data parcel in drone
-            if (drone.ParcelByTransfer.Id != 0)
-            {
-                IdParcelTextBox.Text = drone.ParcelByTransfer.Id.ToString();
-                StatusParcelTextBox.Text = drone.ParcelByTransfer.Status.ToString();
-                PriorityParcelTextBox.Text = drone.ParcelByTransfer.Priority.ToString();
-                WeightParcelTextBox.Text = drone.ParcelByTransfer.Weight.ToString();
-                SenderInParcelTextBox.Text = drone.ParcelByTransfer.SenderInParcel.ToString();
-                PickUpLocationParcelTextBox.Text = drone.ParcelByTransfer.PickUpLocation.ToString();
-                ReceiverInParcelTextBox.Text = drone.ParcelByTransfer.ReceiverInParcel.ToString();
-                TargetLocationParcelTextBox.Text = drone.ParcelByTransfer.TargetLocation.ToString();
-                DistanceOfTransferTextBox.Text = drone.ParcelByTransfer.DistanceOfTransfer.ToString();
-            }
-            else
-            {
-                IdParcelTextBox.Text = "";
-                StatusParcelTextBox.Text = "";
-                PriorityParcelTextBox.Text = "";
-                WeightParcelTextBox.Text = "";
-                SenderInParcelTextBox.Text = "";
-                PickUpLocationParcelTextBox.Text = "";
-                ReceiverInParcelTextBox.Text = "";
-                TargetLocationParcelTextBox.Text = "";
-                DistanceOfTransferTextBox.Text = "";
-            }
 
             if (drone.Status == DroneStatuses.Maintenance)
                 SendToChargeButton.Visibility = Visibility.Hidden;

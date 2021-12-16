@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BO;
 
 namespace PL
 {
@@ -20,9 +21,53 @@ namespace PL
     /// </summary>
     public partial class ParcelInDrone : Page
     {
-        public ParcelInDrone()
+        public ParcelInDrone(Drone drone)
         {
             InitializeComponent();
+            Drone shoeDrone = drone;
+            BlockingControls();
+            ShowParcelInDrone(shoeDrone);
+        }
+
+        void BlockingControls()
+        {
+            IdParcelTextBox.IsEnabled = false;
+            StatusParcelTextBox.IsEnabled = false;
+            PriorityParcelTextBox.IsEnabled = false;
+            WeightParcelTextBox.IsEnabled = false;
+            SenderInParcelTextBox.IsEnabled = false;
+            PickUpLocationParcelTextBox.IsEnabled = false;
+            ReceiverInParcelTextBox.IsEnabled = false;
+            TargetLocationParcelTextBox.IsEnabled = false;
+            DistanceOfTransferTextBox.IsEnabled = false;
+        }
+
+        void ShowParcelInDrone(Drone drone)
+        {
+            if (drone.ParcelByTransfer.Id != 0)
+            {
+                IdParcelTextBox.Text = drone.ParcelByTransfer.Id.ToString();
+                StatusParcelTextBox.Text = drone.ParcelByTransfer.Status.ToString();
+                PriorityParcelTextBox.Text = drone.ParcelByTransfer.Priority.ToString();
+                WeightParcelTextBox.Text = drone.ParcelByTransfer.Weight.ToString();
+                SenderInParcelTextBox.Text = drone.ParcelByTransfer.SenderInParcel.ToString();
+                PickUpLocationParcelTextBox.Text = drone.ParcelByTransfer.PickUpLocation.ToString();
+                ReceiverInParcelTextBox.Text = drone.ParcelByTransfer.ReceiverInParcel.ToString();
+                TargetLocationParcelTextBox.Text = drone.ParcelByTransfer.TargetLocation.ToString();
+                DistanceOfTransferTextBox.Text = drone.ParcelByTransfer.DistanceOfTransfer.ToString();
+            }
+            else
+            {
+                IdParcelTextBox.Text = "";
+                StatusParcelTextBox.Text = "";
+                PriorityParcelTextBox.Text = "";
+                WeightParcelTextBox.Text = "";
+                SenderInParcelTextBox.Text = "";
+                PickUpLocationParcelTextBox.Text = "";
+                ReceiverInParcelTextBox.Text = "";
+                TargetLocationParcelTextBox.Text = "";
+                DistanceOfTransferTextBox.Text = "";
+            }
         }
     }
 }
