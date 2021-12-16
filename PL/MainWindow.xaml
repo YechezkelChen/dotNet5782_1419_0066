@@ -5,13 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Icon="images\icon.png"
         xmlns:local="clr-namespace:PL"
+        Closing="CloseWithSpecialButton"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="images\background.jpg"/>
         </Grid.Background>
+        <Button x:Name="CloseButton" Content="Close Window" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Close_Click" Background="White" Foreground="Red" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" Height="40" Width="100"/>
         <Button Name="StartButton" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="100" FontSize="50" Background="#ADE8F4" Click="ShowDroneButton_Click" Foreground="#FF2F3E46" FontWeight="Bold" FontStyle="Italic" FontFamily="Agency FB" Margin="0,199,0,0"/>
         <Label Content="Drone Delivery LTD" HorizontalAlignment="Left" VerticalAlignment="Top" Width="350" Height="80" FontSize="50" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Foreground="#FFCAD2C5"/>
+        <Frame x:Name="Main"/>
     </Grid>
 </Window>

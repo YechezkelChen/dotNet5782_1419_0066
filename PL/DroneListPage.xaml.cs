@@ -19,11 +19,11 @@ namespace PL
     /// <summary>
     /// Interaction logic for DroneListWindow.xaml
     /// </summary>
-    public partial class DroneListWindow : Window
+    public partial class DroneListPage : Page
     {
         private BlApi.IBL bl;
 
-        public DroneListWindow(BlApi.IBL ibl)
+        public DroneListPage(BlApi.IBL ibl)
         {
             InitializeComponent();
             bl = ibl;
@@ -56,31 +56,19 @@ namespace PL
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
-            new DroneWindow(bl).ShowDialog(); //go to the window that can add a drone
-            this.Show();
+            this.Content = new DronePage(bl); //go to the window that can add a drone
             ShowDronesAfterFiltering();
         }
 
-        private void Close_Click(object sender, RoutedEventArgs e)
+        private void ClosePageButton_Click(object sender, RoutedEventArgs e)
         {
-            CloseButton.Visibility = Visibility.Hidden;
-            this.Close();
-        }
-
-        private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (CloseButton.Visibility != Visibility.Hidden)
-                e.Cancel = true;
         }
 
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
             Drone drone = bl.GetDrone(droneToList.Id);
-            this.Hide();
-            new DroneWindow(bl, drone).ShowDialog();
-            this.Show();
+            this.Content = new DronePage(bl, drone);
             ShowDronesAfterFiltering();
         }
 

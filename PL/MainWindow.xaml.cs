@@ -27,11 +27,19 @@ namespace PL
             bl = BlApi.BlFactory.GetBl();
         }
 
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            CloseButton.Visibility = Visibility.Hidden;
+            this.Close();
+        }
+        private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (CloseButton.Visibility != Visibility.Hidden)
+                e.Cancel = true;
+        }
         private void ShowDroneButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
-            new DroneListWindow(bl).ShowDialog();
-            this.Close();
+            this.Content = new DroneListPage(bl);
         }
     }
 }
