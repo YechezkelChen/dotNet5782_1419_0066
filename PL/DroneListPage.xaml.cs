@@ -71,7 +71,7 @@ namespace PL
         {
             DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
             Drone drone = bl.GetDrone(droneToList.Id);
-            this.Content = new DronePage(bl, drone);
+            listWindow.ShowData.Content = new DronePage(bl, drone);
             ShowDronesAfterFiltering();
         }
 
