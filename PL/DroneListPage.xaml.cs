@@ -42,13 +42,13 @@ namespace PL
             ShowDronesAfterFiltering();
         }
 
-        private void ClearStatusButton_Click(object sender, RoutedEventArgs e)
+        private void RefreshStatusButton_Click(object sender, RoutedEventArgs e)
         {
             StatusSelctor.SelectedItem = null;
             ShowDronesAfterFiltering();
         }
 
-        private void ClearWeightButton_Click(object sender, RoutedEventArgs e)
+        private void RefreshWeightButton_Click(object sender, RoutedEventArgs e)
         {
             WeightSelctor.SelectedItem = null;
             ShowDronesAfterFiltering();

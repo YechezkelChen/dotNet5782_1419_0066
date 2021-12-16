@@ -96,7 +96,7 @@ namespace BL
         {
             List<ParcelToList> parcelToLists = new List<ParcelToList>();
             
-            foreach (var idalParcel in dal.GetParcels(parcel => true))
+            foreach (var idalParcel in dal.GetParcels(parcel => true && parcel.deleted == false ))
             {
                 ParcelToList newParcel = new ParcelToList();
                 newParcel.Id = idalParcel.Id;
@@ -128,7 +128,7 @@ namespace BL
         {
             List<ParcelToList> parcelToLists = new List<ParcelToList>();
 
-            foreach (var idalParcel in dal.GetParcels(parcel => parcel.Scheduled == null && parcel.PickedUp == null && parcel.Delivered == null)) // just parcels that dont have them drone.
+            foreach (var idalParcel in dal.GetParcels(parcel => parcel.Scheduled == null && parcel.PickedUp == null && parcel.Delivered == null && parcel.deleted == false)) // just parcels that dont have them drone.
             {
                 ParcelToList newParcel = new ParcelToList();
                 newParcel.Id = idalParcel.Id;

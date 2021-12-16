@@ -136,7 +136,7 @@ namespace BL
         {
             List<CustomerToList> customerToLists = new List<CustomerToList>();
             
-            foreach (var idalCustomer in dal.GetCustomers(customer => true))
+            foreach (var idalCustomer in dal.GetCustomers(customer => true && customer.deleted == false))
             {
                 CustomerToList newCustomer = new CustomerToList();
                 newCustomer.Id = idalCustomer.Id;
@@ -149,7 +149,7 @@ namespace BL
                 newCustomer.TargetParcelDelivered = 0;
                 newCustomer.TargetParcelPickedUp = 0;
 
-                foreach (var elementParcel in dal.GetParcels(parcel => true))
+                foreach (var elementParcel in dal.GetParcels(parcel => true && parcel.deleted == false))
                 {
                     if (elementParcel.SenderId == idalCustomer.Id && elementParcel.Delivered != null)
                         newCustomer.SenderParcelDelivered++;

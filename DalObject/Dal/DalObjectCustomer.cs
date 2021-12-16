@@ -50,7 +50,7 @@ namespace Dal
         /// <returns></returns>
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> customerPredicate)
         {
-            IEnumerable<Customer> customers = DataSource.Customers.FindAll(customerPredicate);
+            IEnumerable<Customer> customers = DataSource.Customers.FindAll(customerPredicate); 
             return customers;
         }
 

@@ -91,7 +91,7 @@ namespace BL
         {
             List<StationToList> stationsToList = new List<StationToList>();
 
-            foreach (var idalStation in dal.GetStations(station => true))
+            foreach (var idalStation in dal.GetStations(station => true && station.deleted == false))
             {
                 Station station = new Station();
                 station = GetStation(idalStation.Id);
@@ -115,7 +115,7 @@ namespace BL
         {
             List<StationToList> stationsToList = new List<StationToList>();
 
-            foreach (var idalStation in dal.GetStations(station => station.ChargeSlots > 0))
+            foreach (var idalStation in dal.GetStations(station => station.ChargeSlots > 0 && station.deleted == false ))
             {
                 Station station = new Station();
                 station = GetStation(idalStation.Id);
