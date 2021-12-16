@@ -18,17 +18,21 @@ namespace Dal
         /// <returns></returns>
         public int AddParcel(Parcel newParcel)
         {
-            int tmp = DataSource.Config.ParcelsId;
-            if (!IsExistParcel(newParcel.Id))
+            int runNumber = DataSource.Config.ParcelsId;
+            string check = IsExistParcel(newParcel.Id);
+            if (check == "not exists")
             {
                 newParcel.Id = DataSource.Config.ParcelsId; // insert the Parcels new Id
-                DataSource.Config.ParcelsId++; // new Id for the fautre parce Id
+                DataSource.Config.ParcelsId++;
                 DataSource.Parcels.Add(newParcel);
             }
-            else
-                throw new IdExistException("ERROR: the parcel is exist!\n");
-            return tmp; // return the new number created
+            if (check == "exists")
+                throw new IdExistException("ERROR: the parcel is exist");
+            if (check == "was exists")
+                throw new IdExistException("ERROR: the parcel was exist");
+            return runNumber;
         }
+
 
         /// <summary>
         /// return the spesifice parcel the user ask for
@@ -37,14 +41,31 @@ namespace Dal
         /// <returns></returns>
         public Parcel GetParcel(int parcelId)
         {
-            if (IsExistParcel(parcelId))
+            string check = IsExistParcel(parcelId);
+            Parcel parcel = new Parcel();
+            if (check == "exists")
             {
-                Parcel parcel = DataSource.Parcels.Find(elementParcel => elementParcel.Id == parcelId);
-                return parcel;
+                parcel = DataSource.Parcels.Find(elementParcel => elementParcel.Id == parcelId);
             }
-            else
+            if (check == "not exists")
                 throw new IdNotFoundException("ERROR: the parcel is not found.");
+            if (check == "was exists")
+                throw new IdExistException("ERROR: the parcel was exist");
+
+            return parcel;
         }
+
+        //public Parcel GetParcel(int parcelId)
+        //{
+
+        //    if (IsExistParcel(parcelId))
+        //    {
+        //        Parcel parcel = DataSource.Parcels.Find(elementParcel => elementParcel.Id == parcelId);
+        //        return parcel;
+        //    }
+        //    else
+        //        throw new IdNotFoundException("ERROR: the parcel is not found.");
+        //}
 
         /// <summary>
         /// return all the parcel in the list
@@ -69,12 +90,16 @@ namespace Dal
         /// <param Name="d"></the parcel we check if she is exist>
         /// <param Name="Drones"></the list of Parcels>
         /// <returns></returns>
-        private bool IsExistParcel(int parcelId)
+        private string IsExistParcel(int parcelId)
         {
             foreach (Parcel elementParcel in DataSource.Parcels)
-                if (elementParcel.Id == parcelId)
-                    return true;
-            return false; // the parcel not exist
+            {
+                if (elementParcel.Id == parcelId && elementParcel.deleted == false)
+                    return "exists";
+                if (elementParcel.Id == parcelId && elementParcel.deleted == true)
+                    return "was exists";
+            }
+            return "not exists"; // the customer not exist
         }
     }
 }

@@ -45,7 +45,15 @@ namespace BL
             customer.Phone = newCustomer.Phone; 
             customer.Longitude = newCustomer.Location.Longitude;
             customer.Latitude = newCustomer.Location.Latitude;
-            dal.AddCustomer(customer);
+            customer.deleted = false;
+            try
+            {
+                dal.AddCustomer(customer);
+            }
+            catch (DO.IdExistException ex)
+            {
+                throw new IdException(ex.Message, ex);
+            }
         }
 
         /// <summary>

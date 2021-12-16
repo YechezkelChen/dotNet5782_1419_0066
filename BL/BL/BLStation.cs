@@ -41,6 +41,7 @@ namespace BL
             station.Longitude = newStation.Location.Longitude;
             station.Latitude = newStation.Location.Latitude;
             station.ChargeSlots = newStation.ChargeSlots;
+            station.deleted = false;
             try
             {
                 dal.AddStation(station);

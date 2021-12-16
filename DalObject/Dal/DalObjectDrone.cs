@@ -16,10 +16,13 @@ namespace Dal
         /// <param Name="newDrone"></the new drone the user whants to add to the drone's list>
         public void AddDrone(Drone newDrone)
         {
-            if (!IsExistDrone(newDrone.Id))
+            string check = IsExistDrone(newDrone.Id);
+            if (check == "not exists")
                 DataSource.Drones.Add(newDrone);
-            else
-                throw new IdExistException("ERROR: the drone is exist!\n");
+            if (check == "exists")
+                throw new IdExistException("ERROR: the drone is exist");
+            if (check == "was exists")
+                throw new IdExistException("ERROR: the drone was exist");
         }
 
         /// <summary>
@@ -29,13 +32,18 @@ namespace Dal
         /// <returns></returns>
         public Drone GetDrone(int droneId)
         {
-            if (IsExistDrone(droneId))
+            string check = IsExistDrone(droneId);
+            Drone drone = new Drone();
+            if (check == "exists")
             {
-                Drone drone = DataSource.Drones.Find(elementDrone => elementDrone.Id == droneId);
-                return drone;
+                drone = DataSource.Drones.Find(elementDrone => elementDrone.Id == droneId);
             }
-            else
+            if(check == "not exists")
                 throw new IdNotFoundException("ERROR: the drone is not found.");
+            if (check == "was exists")
+                throw new IdExistException("ERROR: the drone was exist");
+
+            return drone;
         }
 
         /// <summary>
@@ -61,12 +69,16 @@ namespace Dal
         /// <param Name="d"></the drone we check if she is exist>
         /// <param Name="Drones"></the list od Drones>
         /// <returns></returns>
-        private bool IsExistDrone(int droneId)
+        private string IsExistDrone(int droneId)
         {
             foreach (Drone elementDrone in DataSource.Drones)
-                if (elementDrone.Id == droneId)
-                    return true;
-            return false; // the drone not exist
+            {
+                if (elementDrone.Id == droneId && elementDrone.deleted == false)
+                    return "exists";
+                if (elementDrone.Id == droneId && elementDrone.deleted == true)
+                    return "was exists";
+            }
+            return "not exists"; // the customer not exist
         }
     }
 }
