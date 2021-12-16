@@ -101,5 +101,6 @@ namespace PL
             // Show the list after the filtering
             DronesListView.ItemsSource = drones;
         }
+
     }
 }
