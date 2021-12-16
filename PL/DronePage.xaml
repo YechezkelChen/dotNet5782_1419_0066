@@ -18,7 +18,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="ClosePageButton" Content="Close Page" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="100" Click="ClosePageButton_Click" Foreground="#FF6B0F1A" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Background="White"/>
+        <Button x:Name="ClosePageButton" Content="Close Page" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="100" Click="ClosePageButton_Click" Foreground="#FF6B0F1A" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
 
         <Grid x:Name="DataDroneGrid" Grid.Column="0" MouseLeave="DataDroneGrid_MouseLeave">
             <Grid.RowDefinitions>
@@ -58,8 +58,8 @@
             <TextBox x:Name="LocationTextBox" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="150" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="16" Background="#FFF7F9F4"/>
         </Grid>
 
-        <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="150" Click="AddButton_Click" Foreground="#0096c7" FontFamily="Agency FB" FontSize="30" FontWeight="Bold" FontStyle="Italic" Background="White"/>
-        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="150" Click="CancelButton_Click" FontFamily="Agency FB" Foreground="#FF540804" FontSize="30" FontWeight="Bold" FontStyle="Italic" Background="White"/>
+        <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="150" Click="AddButton_Click" Foreground="#0096c7" FontFamily="Agency FB" FontSize="30" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
+        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="150" Click="CancelButton_Click" FontFamily="Agency FB" Foreground="#FF540804" FontSize="30" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711"/>
 
         <Grid x:Name="ActionsDroneGrid" Grid.Column="2">
             <Grid.RowDefinitions>
@@ -68,15 +68,15 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button x:Name="UpdateModelButton" Content="Update model" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="UpdateModelButton_Click" Background="#90E0EF" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
+            <Button x:Name="UpdateModelButton" Content="Update model" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="UpdateModelButton_Click" Background="#90E0EF" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20" BorderBrush="Black"/>
 
-            <Button x:Name="SendToChargeButton" Content="Send to charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="SendToChargeButton_Click" Background="#90E0EF" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20" />
-            <Button x:Name="RealeseFromChargeButton" Content="Realese from charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="RealeseFromChargeButton_Click" Background="#90E0EF" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
+            <Button x:Name="SendToChargeButton" Content="Send to charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="SendToChargeButton_Click" Background="#90E0EF" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20" BorderBrush="#FF06040B" />
+            <Button x:Name="RealeseFromChargeButton" Content="Realese from charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="RealeseFromChargeButton_Click" Background="#90E0EF" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20" BorderBrush="#FF09050F"/>
 
-            <Button x:Name="SendToDeliveryButton" Content="Send to delivery" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="SendToDeliveryButton_Click" Background="#90E0EF" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
-            <Button x:Name="CollectParcelButton" Content="Collect parcel by the drone" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="CollectParcelButton_Click" Background="#90E0EF" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
-            <Button x:Name="SupplyParcelButton" Content="Supply parcel by the drone" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="SupplyParcelButton_Click" Background="#90E0EF" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
-            <Button x:Name="ShowParcelInDrone" Content="Show Parcel" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Height="53" Background="#90E0EF" FontFamily="Agency FB" FontWeight="Bold"  FontSize="20" Margin="290,0,0,0" Click="ShowParcelInDrone_Click"/>
+            <Button x:Name="SendToDeliveryButton" Content="Send to delivery" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="SendToDeliveryButton_Click" Background="#90E0EF" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20" BorderBrush="#FF020103"/>
+            <Button x:Name="CollectParcelButton" Content="Collect parcel by the drone" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="CollectParcelButton_Click" Background="#90E0EF" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20" BorderBrush="#FF09050F"/>
+            <Button x:Name="SupplyParcelButton" Content="Supply parcel by the drone" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="53" Click="SupplyParcelButton_Click" Background="#90E0EF" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="20" BorderBrush="#FF080311"/>
+            <Button x:Name="ShowParcelInDrone" Content="Show Parcel" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Height="53" Background="#90E0EF" FontFamily="Agency FB" FontWeight="Bold"  FontSize="20" Margin="290,0,0,0" Click="ShowParcelInDrone_Click" BorderBrush="Black"/>
         </Grid>
     </Grid>
 </Page>
