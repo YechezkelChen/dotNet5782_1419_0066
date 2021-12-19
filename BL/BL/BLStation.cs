@@ -75,11 +75,16 @@ namespace BL
             station.Name = idalStation.Name;
             station.Location = new Location() {Longitude = idalStation.Longitude, Latitude = idalStation.Latitude};
             station.ChargeSlots = idalStation.ChargeSlots;
-            station.InCharges = new List<DO.DroneCharge>();
+            station.InCharges = new List<DroneInCharge>();
             foreach (var elementDroneCharge in dal.GetDronesCharge(droneCharge => true))
                 if(elementDroneCharge.StationId == station.Id)
+                {
+                    DroneInCharge droneInCharge = new DroneInCharge();
+                    droneInCharge.Id = elementDroneCharge.DroneId;
+                    droneInCharge.Battery = GetDrone(elementDroneCharge.DroneId).Battery;
                     station.InCharges.ToList().Add(elementDroneCharge);
-
+                }
+                    
             return station;
         }
 

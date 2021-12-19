@@ -14,7 +14,7 @@ namespace BO
         public string Name { get; set; }
         public Location Location { get; set; }
         public int ChargeSlots { get; set; }
-        public IEnumerable<DO.DroneCharge> InCharges { get; set; }
+        public IEnumerable<DroneInCharge> InCharges { get; set; }
         public override string ToString()
         {
             StringBuilder builderDroneChargeListPrint = new StringBuilder();

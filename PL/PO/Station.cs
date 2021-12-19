@@ -37,7 +37,7 @@ namespace PO
             set { ChargeSlots = value; OnPropertyChanged("ChargeSlots"); }
         }
 
-        public IEnumerable<DO.DroneCharge> InCharges
+        public IEnumerable<DroneInCharge> InCharges
         {
             get { return InCharges; }
             set { InCharges = value; OnPropertyChanged("InCharges"); }
