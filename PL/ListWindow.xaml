@@ -10,7 +10,7 @@
         Title="ListWindow">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.04*"/>
+            <RowDefinition Height="0.035*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
     <TabControl x:Name="ListTabControl" Grid.Row="0" SelectionChanged="ListTabControl_SelectionChanged">
