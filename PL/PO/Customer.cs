@@ -10,25 +10,51 @@ namespace PO
 {
     public class Customer : INotifyPropertyChanged
     {
-        private int id;
-        private string Name;
         public int Id
         {
-            get { return id; }
-            set { id = value; OnPropertyChanged("Id"); }
+            get { return Id; }
+            set { Id = value; OnPropertyChanged("Id"); }
         }
         public string Name
         {
-            get { return id; }
+            get { return Name; }
             set
             {
-                id = value; OnPropertyChanged("Id");
+                Name = value; OnPropertyChanged("Name");
             }
         }
-        public string Phone { get; set; }
-        public Location Location { get; set; }
-        public IEnumerable<ParcelInCustomer> FromTheCustomerList { get; set; }
-        public IEnumerable<ParcelInCustomer> ToTheCustomerList { get; set; }
+        public string Phone
+        {
+            get { return Phone; }
+            set
+            {
+                Phone = value; OnPropertyChanged("Phone");
+            }
+        }
+        public Location Location
+        {
+            get { return Location; }
+            set
+            {
+                Location = value; OnPropertyChanged("Location");
+            }
+        }
+        public IEnumerable<ParcelInCustomer> FromTheCustomerList
+        {
+            get { return FromTheCustomerList; }
+            set
+            {
+                FromTheCustomerList = value; OnPropertyChanged("FromTheCustomerList");
+            }
+        }
+        public IEnumerable<ParcelInCustomer> ToTheCustomerList
+        {
+            get { return ToTheCustomerList; }
+            set
+            {
+                ToTheCustomerList = value; OnPropertyChanged("ToTheCustomerList");
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
