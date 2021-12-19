@@ -20,7 +20,7 @@ namespace PL
     /// </summary>
     public partial class StationListPage : Page
     {
-        public StationListPage(BlApi.IBL ibl)
+        public StationListPage()
         {
             InitializeComponent();
         }

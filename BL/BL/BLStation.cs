@@ -82,7 +82,7 @@ namespace BL
                     DroneInCharge droneInCharge = new DroneInCharge();
                     droneInCharge.Id = elementDroneCharge.DroneId;
                     droneInCharge.Battery = GetDrone(elementDroneCharge.DroneId).Battery;
-                    station.InCharges.ToList().Add(elementDroneCharge);
+                    station.InCharges.ToList().Add(droneInCharge);
                 }
                     
             return station;

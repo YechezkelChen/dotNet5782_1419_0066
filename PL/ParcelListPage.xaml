@@ -8,7 +8,51 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ParcelListPage">
 
-    <Grid>
-        
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="30*" x:Name="MiddleRow"/>
+            <RowDefinition Height="400*"/>
+        </Grid.RowDefinitions>
+        <Grid Name="UpGrid" Grid.Row="0">
+            <Grid.Background>
+                <ImageBrush ImageSource="images\upGrid.jpg"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="StatusLabel" Content="Choose a status :" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="110" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Normal"/>
+            <ComboBox Name="StatusSelctor" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" Width="110" Grid.Column="0" Grid.ColumnSpan="2" SelectionChanged="StatusSelctor_SelectionChanged" Background="WhiteSmoke" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontStyle="Italic"/>
+
+            <Label x:Name="WeightLabel" Content="Choose a weight :" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Width="110" Foreground="#FF2F3E46" FontSize="16" FontWeight="Bold" FontFamily="Agency FB"/>
+            <ComboBox Name="WeightSelctor" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="30" Width="110" Grid.Column="0" Grid.ColumnSpan="2" SelectionChanged="WeightSelctor_SelectionChanged" Background="WhiteSmoke" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontStyle="Italic"/>
+
+            <Button x:Name="RefreshStatusButton" Content="Refresh status" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="110"  Grid.Column="1" Click="RefreshStatusButton_Click" Background="WhiteSmoke" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF0D0B11"/>
+            <Button x:Name="RefreshWeightButton" Content="Refresh weight" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="110"  Grid.Column="1" Click="RefreshWeightButton_Click" Background="WhiteSmoke" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF06010F"/>
+
+            <Button x:Name="AddDroneButton" Content="Add a drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Click="AddDrone_Click" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" Height="40" Width="100" BorderBrush="#FF050309" />
+
+            <Button x:Name="ClosePageButton" Content="Close Page" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ClosePageButton_Click" Background="White" Foreground="Red" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" Height="40" Width="100" BorderBrush="#FF0B0811"/>
+        </Grid>
+
+        <Label Content="List Drones:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="800" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46" HorizontalContentAlignment="Center"/>
+
+        <ListView x:Name="DronesListView" Grid.Row="2" Background="Gray" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="20" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
+            <ListView.View>
+                <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="information">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="76"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" Header="Model" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" Header="Weight" Width="110"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Battery}" Header="Battery" Width="111"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="Status" Width="104"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=IdParcel}" Header="Parcel" Width="105"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Location}" Header="Location" Width="150"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>

@@ -24,11 +24,11 @@ namespace PL
         ListWindow listWindow;
         private BlApi.IBL bl;
 
-        public DroneListPage(ListWindow Window, BlApi.IBL ibl)
+        public DroneListPage(ListWindow Window)
         {
             InitializeComponent();
             listWindow = Window;
-            bl = ibl;
+            bl = BlApi.BlFactory.GetBl();
             ShowDronesAfterFiltering();
             StatusSelctor.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
             WeightSelctor.ItemsSource = Enum.GetValues(typeof(WeightCategories));

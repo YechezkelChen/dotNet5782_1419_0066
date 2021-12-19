@@ -20,10 +20,10 @@ namespace PL
     public partial class ListWindow : Window
     {
         BlApi.IBL bl;
-        public ListWindow(BlApi.IBL ibl)
+        public ListWindow()
         {
             InitializeComponent();
-            bl = ibl;
+            bl = BlApi.BlFactory.GetBl();
         }
         //private void Close_Click(object sender, RoutedEventArgs e)
         //{
@@ -39,13 +39,13 @@ namespace PL
         private void ListTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ListDrones.IsSelected)
-                ShowList.Content = new DroneListPage(this, bl);
+                ShowList.Content = new DroneListPage(this);
             if (ListStations.IsSelected)
-                ShowList.Content = new StationListPage(bl);
+                ShowList.Content = new StationListPage();
             if (ListCustomers.IsSelected)
-                ShowList.Content = new CustomerListPage(bl);
+                ShowList.Content = new CustomerListPage();
             if (ListParcels.IsSelected)
-                ShowList.Content = new ParcelListPage(bl);
+                ShowList.Content = new ParcelListPage();
         }
     }
 }

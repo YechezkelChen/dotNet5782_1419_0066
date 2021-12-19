@@ -20,11 +20,9 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        BlApi.IBL bl;
         public MainWindow()
         {
             InitializeComponent();
-            bl = BlApi.BlFactory.GetBl();
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -40,7 +38,7 @@ namespace PL
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            new ListWindow(bl).ShowDialog();
+            new ListWindow().ShowDialog();
             this.Show();
         }
     }
