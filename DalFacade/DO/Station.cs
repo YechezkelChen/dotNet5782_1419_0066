@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DO
+﻿namespace DO
 {
     public struct Station
     {
