@@ -11,37 +11,37 @@ namespace PO
     {
         public int Id
         {
-            get { return Id; }
+            get => Id;
             set { Id = value; OnPropertyChanged("Id"); }
         }
         public string Name
         {
-            get { return Name; }
+            get => Name;
             set { Name = value; OnPropertyChanged("Name"); }
         }
         public string Phone
         {
-            get { return Phone; }
+            get => Phone;
             set { Phone = value; OnPropertyChanged("Phone"); }
         }
         public int SenderParcelDelivered
         {
-            get { return SenderParcelDelivered; }
+            get => SenderParcelDelivered;
             set { SenderParcelDelivered = value; OnPropertyChanged("SenderParcelDelivered"); }
         }
         public int SenderParcelPickedUp
         {
-            get { return SenderParcelPickedUp; }
+            get => SenderParcelPickedUp;
             set { SenderParcelPickedUp = value; OnPropertyChanged("SenderParcelPickedUp"); }
         }
         public int TargetParcelDelivered
         {
-            get { return TargetParcelDelivered; }
+            get => TargetParcelDelivered;
             set { TargetParcelDelivered = value; OnPropertyChanged("TargetParcelDelivered"); }
         }
         public int TargetParcelPickedUp
         {
-            get { return TargetParcelPickedUp; }
+            get => TargetParcelPickedUp;
             set { TargetParcelPickedUp = value; OnPropertyChanged("TargetParcelPickedUp"); }
         }
 

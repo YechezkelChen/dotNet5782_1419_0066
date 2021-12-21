@@ -11,37 +11,37 @@ namespace PO
     {
         public int Id
         {
-            get { return Id; }
+            get => Id;
             set { Id = value; OnPropertyChanged("Id"); }
         }
         public string Model
         {
-            get { return Model; }
+            get => Model;
             set { Model = value; OnPropertyChanged("Model"); }
         }
         public WeightCategories Weight
         {
-            get { return Weight; }
+            get => Weight;
             set { Weight = value; OnPropertyChanged("Weight"); }
         }
         public double Battery
         {
-            get { return Battery; }
+            get => Battery;
             set { Battery = value; OnPropertyChanged("Battery"); }
         }
         public DroneStatuses Status
         {
-            get { return Status; }
+            get => Status;
             set { Status = value; OnPropertyChanged("Status"); }
         }
         public Location Location
         {
-            get { return Location; }
+            get => Location;
             set { Location = value; OnPropertyChanged("Location"); }
         }
         public int IdParcel
         {
-            get { return IdParcel; }
+            get => IdParcel;
             set { IdParcel = value; OnPropertyChanged("IdParcel"); }
         }
 

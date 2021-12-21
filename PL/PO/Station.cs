@@ -12,31 +12,31 @@ namespace PO
     {
         public int Id
         {
-            get { return Id; }
+            get => Id;
             set { Id = value; OnPropertyChanged("Id"); }
         }
 
         public string Name
         {
-            get { return Name; }
+            get => Name;
             set { Name = value; OnPropertyChanged("Name"); }
         }
         public Location Location
         {
-            get { return Location; }
+            get => Location;
             set { Location = value; OnPropertyChanged("Location"); }
         }
 
-
-        public int AvalibleChargeSlots
+        
+        public int AvailableChargeSlots
         {
-            get { return AvalibleChargeSlots; }
-            set { AvalibleChargeSlots = value; OnPropertyChanged("AvalibleChargeSlots"); }
+            get => AvailableChargeSlots;
+            set { AvailableChargeSlots = value; OnPropertyChanged("AvailableChargeSlots"); }
         }
 
         public IEnumerable<DroneInCharge> DronesInCharges
         {
-            get { return DronesInCharges; }
+            get => DronesInCharges;
             set { DronesInCharges = value; OnPropertyChanged("DronesInCharges"); }
         }
 

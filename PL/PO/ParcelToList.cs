@@ -11,32 +11,32 @@ namespace PO
     {
         public int Id
         {
-            get { return Id; }
+            get => Id;
             set { Id = value; OnPropertyChanged("Id"); }
         }
         public string SenderName
         {
-            get { return SenderName; }
+            get => SenderName;
             set { SenderName = value; OnPropertyChanged("SenderName"); }
         }
         public string TargetName
         {
-            get { return TargetName; }
+            get => TargetName;
             set { TargetName = value; OnPropertyChanged("TargetName"); }
         }
         public WeightCategories Weight
         {
-            get { return Weight; }
+            get => Weight;
             set { Weight = value; OnPropertyChanged("Weight"); }
         }
         public Priorities Priority
         {
-            get { return Priority; }
+            get => Priority;
             set { Priority = value; OnPropertyChanged("Priority"); }
         }
         public ParcelStatuses Status
         {
-            get { return Status; }
+            get => Status;
             set { Status = value; OnPropertyChanged("Status"); }
         }
 

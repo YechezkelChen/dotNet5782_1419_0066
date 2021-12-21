@@ -12,57 +12,57 @@ namespace PO
     {
         public int Id
         {
-            get { return Id; }
+            get => Id;
             set { Id = value; OnPropertyChanged("Id"); }
         }
 
         public CustomerInParcel Sender
         {
-            get { return Sender; }
+            get => Sender;
             set { Sender = value; OnPropertyChanged("Sender"); }
         }
         public CustomerInParcel Target
         {
-            get { return Target; }
+            get => Target;
             set { Target = value; OnPropertyChanged("Target"); }
         }
 
         public WeightCategories Weight
         {
-            get { return Weight; }
+            get => Weight;
             set { Weight = value; OnPropertyChanged("Weight"); }
         }
 
         public Priorities Priority
         {
-            get { return Priority; }
+            get => Priority;
             set { Priority = value; OnPropertyChanged("Priority"); }
         }
 
         public DroneInParcel DroneInParcel
         {
-            get { return DroneInParcel; }
+            get => DroneInParcel;
             set { DroneInParcel = value; OnPropertyChanged("DroneInParcel"); }
         }
 
         public DateTime? Requested
         {
-            get { return Requested; }
+            get => Requested;
             set { Requested = value; OnPropertyChanged("Requested"); }
         }
         public DateTime? Scheduled
         {
-            get { return Scheduled; }
+            get => Scheduled;
             set { Scheduled = value; OnPropertyChanged("Scheduled"); }
         }
         public DateTime? PickedUp
         {
-            get { return PickedUp; }
+            get => PickedUp;
             set { PickedUp = value; OnPropertyChanged("PickedUp"); }
         }
         public DateTime? Delivered
         {
-            get { return Delivered; }
+            get => Delivered;
             set { Delivered = value; OnPropertyChanged("Delivered"); }
         }
 

@@ -11,12 +11,12 @@ namespace PO
     {
         public double Longitude
         {
-            get { return Longitude; }
+            get => Longitude;
             set { Longitude = value; OnPropertyChanged("Longitude"); }
         }
         public double Latitude
         {
-            get { return Latitude; }
+            get => Latitude;
             set { Latitude = value; OnPropertyChanged("Latitude"); }
         }
 

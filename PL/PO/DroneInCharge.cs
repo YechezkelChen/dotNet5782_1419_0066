@@ -11,12 +11,12 @@ namespace PO
     {
         public int Id
         {
-            get { return Id; }
+            get => Id;
             set { Id = value; OnPropertyChanged("Id"); }
         }
         public double Battery
         {
-            get { return Battery; }
+            get => Battery;
             set { Battery = value; OnPropertyChanged("Battery"); }
         }
 

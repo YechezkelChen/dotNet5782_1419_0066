@@ -11,22 +11,22 @@ namespace PO
     {
         public int Id
         {
-            get { return Id; }
+            get => Id;
             set { Id = value; OnPropertyChanged("Id"); }
         }
         public string Name
         {
-            get { return Name; }
+            get => Name;
             set { Name = value; OnPropertyChanged("Name"); }
         }
-        public int AvalibleChargeSlots
+        public int AvailableChargeSlots
         {
-            get { return AvalibleChargeSlots; }
-            set { AvalibleChargeSlots = value; OnPropertyChanged("AvalibleChargeSlots"); }
+            get => AvailableChargeSlots;
+            set { AvailableChargeSlots = value; OnPropertyChanged("AvailableChargeSlots"); }
         }
         public int NotAvailableChargeSlots
         {
-            get { return NotAvailableChargeSlots; }
+            get => NotAvailableChargeSlots;
             set { NotAvailableChargeSlots = value; OnPropertyChanged("NotAvailableChargeSlots"); }
         }
 

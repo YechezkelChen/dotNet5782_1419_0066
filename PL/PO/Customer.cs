@@ -12,12 +12,12 @@ namespace PO
     {
         public int Id
         {
-            get { return Id; }
+            get => Id;
             set { Id = value; OnPropertyChanged("Id"); }
         }
         public string Name
         {
-            get { return Name; }
+            get => Name;
             set
             {
                 Name = value; OnPropertyChanged("Name");
@@ -25,7 +25,7 @@ namespace PO
         }
         public string Phone
         {
-            get { return Phone; }
+            get => Phone;
             set
             {
                 Phone = value; OnPropertyChanged("Phone");
@@ -33,7 +33,7 @@ namespace PO
         }
         public Location Location
         {
-            get { return Location; }
+            get => Location;
             set
             {
                 Location = value; OnPropertyChanged("Location");
@@ -41,7 +41,7 @@ namespace PO
         }
         public IEnumerable<ParcelInCustomer> FromTheCustomerList
         {
-            get { return FromTheCustomerList; }
+            get => FromTheCustomerList;
             set
             {
                 FromTheCustomerList = value; OnPropertyChanged("FromTheCustomerList");
@@ -49,7 +49,7 @@ namespace PO
         }
         public IEnumerable<ParcelInCustomer> ToTheCustomerList
         {
-            get { return ToTheCustomerList; }
+            get => ToTheCustomerList;
             set
             {
                 ToTheCustomerList = value; OnPropertyChanged("ToTheCustomerList");

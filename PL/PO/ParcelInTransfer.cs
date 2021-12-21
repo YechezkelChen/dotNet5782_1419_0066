@@ -11,47 +11,47 @@ namespace PO
     {
         public int Id
         {
-            get { return Id; }
+            get => Id;
             set { Id = value; OnPropertyChanged("Id"); }
         }
         public bool OnTheWay
         {
-            get { return OnTheWay; }
+            get => OnTheWay;
             set { OnTheWay = value; OnPropertyChanged("OnTheWay"); }
         }
         public Priorities Priority
         {
-            get { return Priority; }
+            get => Priority;
             set { Priority = value; OnPropertyChanged("Priority"); }
         }
         public WeightCategories Weight
         {
-            get { return Weight; }
+            get => Weight;
             set { Weight = value; OnPropertyChanged("Weight"); }
         }
         public CustomerInParcel Sender
         {
-            get { return Sender; }
+            get => Sender;
             set { Sender = value; OnPropertyChanged("Sender"); }
         }
         public CustomerInParcel Target
         {
-            get { return Target; }
+            get => Target;
             set { Target = value; OnPropertyChanged("Target"); }
         }
         public Location PickUpLocation
         {
-            get { return PickUpLocation; }
+            get => PickUpLocation;
             set { PickUpLocation = value; OnPropertyChanged("PickUpLocation"); }
         }
         public Location TargetLocation
         {
-            get { return TargetLocation; }
+            get => TargetLocation;
             set { TargetLocation = value; OnPropertyChanged("TargetLocation"); }
         }
         public double DistanceOfTransfer
         {
-            get { return DistanceOfTransfer; }
+            get => DistanceOfTransfer;
             set { DistanceOfTransfer = value; OnPropertyChanged("DistanceOfTransfer"); }
         }
 
