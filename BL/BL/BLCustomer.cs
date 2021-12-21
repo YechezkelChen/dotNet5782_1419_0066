@@ -40,12 +40,12 @@ namespace BL
             }
 
             DO.Customer customer = new DO.Customer();
-            customer.Id = newCustomer.Id * 10 + lastDigitID(newCustomer.Id);
+            customer.Id = newCustomer.Id * 10 + lastDigitID(newCustomer.Id); // Add check digit to Id
             customer.Name = newCustomer.Name;
             customer.Phone = newCustomer.Phone; 
             customer.Longitude = newCustomer.Location.Longitude;
             customer.Latitude = newCustomer.Location.Latitude;
-            customer.deleted = false;
+            customer.Deleted = false;
             try
             {
                 dal.AddCustomer(customer);
@@ -60,12 +60,12 @@ namespace BL
         /// get a customer
         /// </summary>
         /// <returns></return the customer>
-        public Customer GetCustomer(int id)
+        public Customer GetCustomer(int customerId)
         {
-            DO.Customer idalCustomer = new DO.Customer();
+            DO.Customer dalCustomer = new DO.Customer();
             try
             {
-                idalCustomer = dal.GetCustomer(id); // if the customer not in data 
+                dalCustomer = dal.GetCustomer(customerId);
             }
             catch (DO.IdNotFoundException e)
             {
@@ -73,58 +73,34 @@ namespace BL
             }
 
             Customer customer = new Customer();
-            customer.Id = idalCustomer.Id;
-            customer.Name = idalCustomer.Name;
-            customer.Phone = idalCustomer.Phone;
-            customer.Location = new Location() {Longitude = idalCustomer.Longitude, Latitude = idalCustomer.Latitude};
-            customer.FromTheCustomerList = new List<ParcelInCustomer>();
-            customer.ToTheCustomerList = new List<ParcelInCustomer>();
+            customer.Id = dalCustomer.Id;
+            customer.Name = dalCustomer.Name;
+            customer.Phone = dalCustomer.Phone;
+            customer.Location = new Location() {Longitude = dalCustomer.Longitude, Latitude = dalCustomer.Latitude};
 
-            foreach (var elementParcel in dal.GetParcels(parcel => true)) // accordion to the conditions in the exercise
-                if (customer.Id == elementParcel.SenderId)
-                {
-                    ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
-                    parcelInCustomer.Id = elementParcel.Id;
-                    parcelInCustomer.Weight = (WeightCategories)elementParcel.Weight;
-                    parcelInCustomer.Priority = (Priorities)elementParcel.Priority;
+            customer.FromTheCustomerList = from parcelToList in GetParcels()
+                                           let parcel = GetParcel(parcelToList.Id)
+                                           where customer.Id == parcel.Sender.Id
+                                           select new ParcelInCustomer
+                                           {
+                                               Id = parcelToList.Id,
+                                               Weight = parcelToList.Weight,
+                                               Priority = parcelToList.Priority,
+                                               Status = parcelToList.Status,
+                                               CustomerInDelivery = new CustomerInParcel() { Id = parcel.Target.Id, Name = parcel.Target.Name }
+                                           };
 
-                    if (elementParcel.Requested != null)
-                        parcelInCustomer.Status = ParcelStatuses.Requested;
-                    if (elementParcel.Scheduled != null)
-                        parcelInCustomer.Status = ParcelStatuses.Scheduled;
-                    if (elementParcel.PickedUp != null)
-                        parcelInCustomer.Status = ParcelStatuses.PickedUp;
-                    if (elementParcel.Delivered != null)
-                        parcelInCustomer.Status = ParcelStatuses.Delivered;
-
-                    parcelInCustomer.CustomerInDelivery = new CustomerInParcel()
-                        {Id = customer.Id, NameCustomer = customer.Name};
-
-                    customer.FromTheCustomerList.ToList().Add(parcelInCustomer);
-                }
-
-            foreach (var elementParcel in dal.GetParcels(parcel => true))
-                if (customer.Id == elementParcel.TargetId)
-                {
-                    ParcelInCustomer parcelInCustomer = new ParcelInCustomer();
-                    parcelInCustomer.Id = elementParcel.Id;
-                    parcelInCustomer.Weight = (WeightCategories)elementParcel.Weight;
-                    parcelInCustomer.Priority = (Priorities)elementParcel.Priority;
-                    if (elementParcel.Delivered != null)
-                        parcelInCustomer.Status = ParcelStatuses.Delivered;
-                    if (elementParcel.PickedUp != null)
-                        parcelInCustomer.Status = ParcelStatuses.PickedUp;
-                    if (elementParcel.Scheduled != null)
-                        parcelInCustomer.Status = ParcelStatuses.Scheduled;
-                    if (elementParcel.Requested != null)
-                        parcelInCustomer.Status = ParcelStatuses.Requested;
-
-                    parcelInCustomer.CustomerInDelivery = new CustomerInParcel()
-                        {Id = customer.Id, NameCustomer = customer.Name};
-
-                    customer.ToTheCustomerList.ToList().Add(parcelInCustomer);
-                }
-
+            customer.ToTheCustomerList = from parcelToList in GetParcels()
+                                         let parcel = GetParcel(parcelToList.Id)
+                                         where customer.Id == parcel.Target.Id
+                                         select new ParcelInCustomer
+                                         {
+                                             Id = parcelToList.Id,
+                                             Weight = parcelToList.Weight,
+                                             Priority = parcelToList.Priority,
+                                             Status = parcelToList.Status,
+                                             CustomerInDelivery = new CustomerInParcel() { Id = parcel.Sender.Id, Name = parcel.Sender.Name }
+                                         };
             return customer;
         }
 
@@ -134,37 +110,18 @@ namespace BL
         /// <returns></return all customers>
         public IEnumerable<CustomerToList> GetCustomers()
         {
-            List<CustomerToList> customerToLists = new List<CustomerToList>();
-            
-            foreach (var idalCustomer in dal.GetCustomers(customer => true && customer.deleted == false))
-            {
-                CustomerToList newCustomer = new CustomerToList();
-                newCustomer.Id = idalCustomer.Id;
-                newCustomer.Name = idalCustomer.Name;
-                newCustomer.Phone = idalCustomer.Phone;
-
-                // zero the variables
-                newCustomer.SenderParcelDelivered = 0;
-                newCustomer.SenderParcelPickedUp = 0;
-                newCustomer.TargetParcelDelivered = 0;
-                newCustomer.TargetParcelPickedUp = 0;
-
-                foreach (var elementParcel in dal.GetParcels(parcel => true && parcel.deleted == false))
-                {
-                    if (elementParcel.SenderId == idalCustomer.Id && elementParcel.Delivered != null)
-                        newCustomer.SenderParcelDelivered++;
-                    else if (elementParcel.SenderId == idalCustomer.Id && elementParcel.PickedUp != null)
-                        newCustomer.SenderParcelPickedUp++;
-                    if (elementParcel.TargetId == idalCustomer.Id && elementParcel.Delivered != null)
-                        newCustomer.TargetParcelDelivered++;
-                    else if (elementParcel.TargetId == idalCustomer.Id && elementParcel.PickedUp != null)
-                        newCustomer.TargetParcelPickedUp++;
-                }
-
-                customerToLists.Add(newCustomer);
-            }
-
-            return customerToLists;
+            return from dalCustomer in dal.GetCustomers(customer => customer.Deleted == false)
+                   let customer = GetCustomer(dalCustomer.Id)
+                   select new CustomerToList
+                   {
+                       Id = dalCustomer.Id,
+                       Name = dalCustomer.Name,
+                       Phone = dalCustomer.Phone,
+                       SenderParcelDelivered = customer.FromTheCustomerList.Where(parcel => parcel.Status == ParcelStatuses.Delivered).Count(),
+                       SenderParcelPickedUp = customer.FromTheCustomerList.Where(parcel => parcel.Status == ParcelStatuses.PickedUp).Count(),
+                       TargetParcelDelivered = customer.ToTheCustomerList.Where(parcel => parcel.Status == ParcelStatuses.Delivered).Count(),
+                       TargetParcelPickedUp = customer.ToTheCustomerList.Where(parcel => parcel.Status == ParcelStatuses.PickedUp).Count()
+                   };
         }
 
         /// <summary>
@@ -178,15 +135,14 @@ namespace BL
             {
                 updateCustomer = dal.GetCustomer(id);
             }
-            catch (DO.IdNotFoundException e)// if the customer not exist
+            catch (DO.IdNotFoundException e) // if the customer not exist
             {
                 throw new IdException(e.Message,e);
             }
 
-            if (name == "" && phone == "")// if the user not pur anything
+            if (name == "" && phone == "") // if the user not put anything
                 throw new NameException("ERROR: need one thing at least to change");
 
-            // update the data according to the user asks
             if (name != "")
                 updateCustomer.Name = name;
 
@@ -197,7 +153,7 @@ namespace BL
                 updateCustomer.Phone = phone;
             }
 
-            dal.UpdateCustomer(updateCustomer);// update the data center
+            dal.UpdateCustomer(updateCustomer); // update the data center
         }
 
         /// <summary>
@@ -206,7 +162,7 @@ namespace BL
         /// <returns></no returns, just check the input of the user>
         private void CheckCustomer(Customer customer)
         {
-            if(customer.Id < 10000000 || customer.Id > 99999999)//Check that it's 8 digits.
+            if(customer.Id < 10000000 || customer.Id > 99999999) // Check that it's 8 digits.
                 throw new IdException("ERROR: the ID is illegal! ");
             if (customer.Name.Length == 0)
                 throw new NameException("ERROR: name must have value");
@@ -220,7 +176,6 @@ namespace BL
                 throw new LocationException("ERROR: latitude must to be between -1 to 1");
         }
         
-
         /// <summary>
         /// get last digit of the id
         /// </summary>

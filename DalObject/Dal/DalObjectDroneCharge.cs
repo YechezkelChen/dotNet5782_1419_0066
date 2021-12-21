@@ -37,7 +37,7 @@ namespace Dal
                     DroneCharge elementDroneCharge = DataSource.DroneCharges[i];
                     if (elementDroneCharge.DroneId == DroneCharge.DroneId && elementDroneCharge.StationId == DroneCharge.StationId)
                     {
-                        elementDroneCharge.deleted = true;
+                        elementDroneCharge.Deleted = true;
                         DataSource.DroneCharges[i] = elementDroneCharge;
                     }
 
@@ -52,7 +52,7 @@ namespace Dal
         /// <returns></returns>
         public IEnumerable<DroneCharge> GetDronesCharge(Predicate<DroneCharge> droneChargePredicate)
         {
-            IEnumerable<DroneCharge> dronesCharge = DataSource.DroneCharges.FindAll(droneChargePredicate);
+            IEnumerable<DroneCharge> dronesCharge = DataSource.DroneCharges.Where(dronesCharge => droneChargePredicate(dronesCharge));
             return dronesCharge;
         }
 
@@ -62,11 +62,11 @@ namespace Dal
             {
                 if (elementDroneCharge.DroneId == droneCharge.DroneId &&
                     elementDroneCharge.StationId == droneCharge.StationId &&
-                    elementDroneCharge.deleted == false)
+                    elementDroneCharge.Deleted == false)
                     return "exists";
                 if (elementDroneCharge.DroneId == droneCharge.DroneId &&
                    elementDroneCharge.StationId == droneCharge.StationId &&
-                   elementDroneCharge.deleted == true)
+                   elementDroneCharge.Deleted == true)
                     return "was exists";
             }
                 

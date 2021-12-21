@@ -53,7 +53,7 @@ namespace Dal
                     Name = stationNames[rand.Next(0, 5)],
                     Longitude = rand.NextDouble(),
                     Latitude = rand.NextDouble(),
-                    ChargeSlots = rand.Next(0, 10)
+                    AvailableChargeSlots = rand.Next(0, 10)
                 });
                 id += 10;
             }

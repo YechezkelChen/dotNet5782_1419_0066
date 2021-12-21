@@ -11,12 +11,12 @@ namespace BO
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int ChargeSlotsAvailable { get; set; }
-        public int ChargeSlotsNotAvailable { get; set; }
+        public int AvalibleChargeSlots { get; set; }
+        public int NotAvailableChargeSlots { get; set; }
         public override string ToString()
         {
-            return $"Id #{Id}: Name = {Name}, Charge slots available = {ChargeSlotsAvailable}, " +
-                    $"charge slots not available = {ChargeSlotsNotAvailable}";
+            return $"Id #{Id}: Name = {Name}, Available charge slots = {AvalibleChargeSlots}, " +
+                    $"Not available charge slots = {NotAvailableChargeSlots}";
         }
     }
 }

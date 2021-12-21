@@ -50,7 +50,7 @@ namespace Dal
         /// <returns></returns>
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> customerPredicate)
         {
-            IEnumerable<Customer> customers = DataSource.Customers.FindAll(customerPredicate); 
+            IEnumerable<Customer> customers = DataSource.Customers.Where(customer => customerPredicate(customer)); 
             return customers;
         }
 
@@ -72,9 +72,9 @@ namespace Dal
             foreach (Customer elementCustomer in DataSource.Customers)
             {
 
-                if (elementCustomer.Id == customerId && elementCustomer.deleted == false)
+                if (elementCustomer.Id == customerId && elementCustomer.Deleted == false)
                     return "exists";
-                if (elementCustomer.Id == customerId && elementCustomer.deleted == true)
+                if (elementCustomer.Id == customerId && elementCustomer.Deleted == true)
                     return "was exists";
             }
             return "not exists"; // the customer not exist

@@ -241,7 +241,7 @@ namespace ConsoleUI_BL
                                         Console.WriteLine(elementParcelsNoDrone);
                                 break;
                             case OptionListView.ListStationsCharge:
-                                foreach (var elementStationCharge in bl.GetStationsCharge())
+                                foreach (var elementStationCharge in bl.GetStationsWithAvailableCharge())
                                         Console.WriteLine(elementStationCharge);
                                 break;
                             case OptionListView.Exit:
@@ -306,9 +306,9 @@ namespace ConsoleUI_BL
 
                 } while (!int.TryParse(Console.ReadLine(), out num1));
 
-                newStation.ChargeSlots = num1;
+                newStation.AvalibleChargeSlots = num1;
 
-                newStation.InCharges = new List<DO.DroneCharge>();
+                newStation.DronesInCharges = new List<DO.DroneCharge>();
 
                 try
                 {

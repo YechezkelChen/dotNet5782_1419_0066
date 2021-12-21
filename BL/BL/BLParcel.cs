@@ -39,22 +39,29 @@ namespace BL
             parcel.Scheduled = null;
             parcel.PickedUp = null;
             parcel.Delivered = null;
-            parcel.deleted = false;
-            dal.AddParcel(parcel);
+            parcel.Deleted = false;
+            try
+            {
+                dal.AddParcel(parcel); // add the parcel just if the parcel not in the dataSource
+            }
+            catch (DO.IdExistException e)
+            {
+                throw new IdException(e.Message, e);
+            }
         }
 
         /// <summary>
         /// send id of parcel and checking that it exist.
         /// make special entity and return it
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="parcelId"></param>
         /// <returns></returns>
-        public Parcel GetParcel(int id)
+        public Parcel GetParcel(int parcelId)
         {
-            DO.Parcel idalParcel = new DO.Parcel();
+            DO.Parcel dalParcel = new DO.Parcel();
             try
             {
-                idalParcel = dal.GetParcel(id);
+                dalParcel = dal.GetParcel(parcelId);
             }
             catch (DO.IdNotFoundException e)
             {
@@ -62,28 +69,29 @@ namespace BL
             }
 
             Parcel parcel = new Parcel();
-            parcel.Id = idalParcel.Id;
-            parcel.Sender = new CustomerInParcel()
-                {Id = idalParcel.SenderId, NameCustomer = GetCustomer(idalParcel.SenderId).Name};
-            parcel.Target = new CustomerInParcel()
-                { Id = idalParcel.TargetId, NameCustomer = GetCustomer(idalParcel.TargetId).Name };
-            parcel.Weight = (WeightCategories)idalParcel.Weight;
-            parcel.Priority = (Priorities)idalParcel.Priority;
+            parcel.Id = dalParcel.Id;
+            parcel.Sender = new CustomerInParcel() { Id = dalParcel.SenderId, Name = GetCustomer(dalParcel.SenderId).Name };
+            parcel.Target = new CustomerInParcel() { Id = dalParcel.TargetId, Name = GetCustomer(dalParcel.TargetId).Name };
+            parcel.Weight = (WeightCategories)dalParcel.Weight;
+            parcel.Priority = (Priorities)dalParcel.Priority;
 
-            parcel.DroneInParcel = new DroneInParcel()
-            { Id = 0, Battery = 0, Location = new Location() { Longitude = 0, Latitude = 0 } };
-
-            foreach (var elementDrone in ListDrones)
-                if (elementDrone.Id == idalParcel.DroneId)
-                {
+            foreach (var drone in ListDrones)
+                if (drone.Id == dalParcel.DroneId)
                     parcel.DroneInParcel = new DroneInParcel()
-                        {Id = elementDrone.Id, Battery = elementDrone.Battery, Location = elementDrone.Location};
-                }
+                    {
+                        Id = drone.Id,
+                        Battery = drone.Battery,
+                        Location = new Location()
+                        {
+                            Longitude = drone.Location.Longitude,
+                            Latitude = drone.Location.Latitude
+                        }
+                    };
 
-            parcel.Requested = idalParcel.Requested;
-            parcel.Scheduled = idalParcel.Scheduled;
-            parcel.PickedUp = idalParcel.PickedUp;
-            parcel.Delivered = idalParcel.Delivered;
+            parcel.Requested = dalParcel.Requested;
+            parcel.Scheduled = dalParcel.Scheduled;
+            parcel.PickedUp = dalParcel.PickedUp;
+            parcel.Delivered = dalParcel.Delivered;
 
             return parcel;
         }
@@ -94,30 +102,45 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<ParcelToList> GetParcels()
         {
-            List<ParcelToList> parcelToLists = new List<ParcelToList>();
-            
-            foreach (var idalParcel in dal.GetParcels(parcel => true && parcel.deleted == false ))
+            //return from dalParcel in dal.GetParcels(parcel => parcel.Deleted == false)
+            //       let parcel = GetParcel(dalParcel.Id)
+            //       select new ParcelToList
+            //       {
+            //           Id = dalParcel.Id,
+            //           SenderName = parcel.Sender.Name,
+            //           TargetName = parcel.Target.Name,
+            //           Weight = parcel.Weight,
+            //           Priority = parcel.Priority,
+            //           Status = 
+            //       }
+
+
+            // Must use list and foreach because we need to find out what the status of the parcel is
+            List<ParcelToList> parcels = new List<ParcelToList>();
+            foreach (var dalParcel in dal.GetParcels(parcel => parcel.Deleted == false ))
             {
+                Parcel parcel = GetParcel(dalParcel.Id);
                 ParcelToList newParcel = new ParcelToList();
-                newParcel.Id = idalParcel.Id;
-                newParcel.SenderName = GetCustomer(idalParcel.SenderId).Name;
-                newParcel.TargetName = GetCustomer(idalParcel.TargetId).Name;
-                newParcel.Weight = (WeightCategories)idalParcel.Weight;
-                newParcel.Priority = (Priorities)idalParcel.Priority;
 
-                if (idalParcel.Requested != null)
-                    newParcel.ParcelStatuses = ParcelStatuses.Requested;
-                if (idalParcel.Scheduled != null)
-                    newParcel.ParcelStatuses = ParcelStatuses.Scheduled;
-                if (idalParcel.PickedUp != null)
-                    newParcel.ParcelStatuses = ParcelStatuses.PickedUp;
-                if (idalParcel.Delivered != null)
-                    newParcel.ParcelStatuses = ParcelStatuses.Delivered;
+                newParcel.Id = dalParcel.Id;
+                newParcel.SenderName = parcel.Sender.Name;
+                newParcel.TargetName = parcel.Target.Name;
+                newParcel.Weight = parcel.Weight;
+                newParcel.Priority = parcel.Priority;
 
-                parcelToLists.Add(newParcel);
+                if (dalParcel.Requested != null)
+                    newParcel.Status = ParcelStatuses.Requested;
+                if (dalParcel.Scheduled != null)
+                    newParcel.Status = ParcelStatuses.Scheduled;
+                if (dalParcel.PickedUp != null)
+                    newParcel.Status = ParcelStatuses.PickedUp;
+                if (dalParcel.Delivered != null)
+                    newParcel.Status = ParcelStatuses.Delivered;
+
+                parcels.Add(newParcel);
             }
 
-            return parcelToLists;
+            return parcels;
         }
 
         /// <summary>
@@ -126,202 +149,9 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<ParcelToList> GetParcelsNoDrones()
         {
-            List<ParcelToList> parcelToLists = new List<ParcelToList>();
-
-            foreach (var idalParcel in dal.GetParcels(parcel => parcel.Scheduled == null && parcel.PickedUp == null && parcel.Delivered == null && parcel.deleted == false)) // just parcels that dont have them drone.
-            {
-                ParcelToList newParcel = new ParcelToList();
-                newParcel.Id = idalParcel.Id;
-                newParcel.SenderName = GetCustomer(idalParcel.SenderId).Name;
-                newParcel.TargetName = GetCustomer(idalParcel.TargetId).Name;
-                newParcel.Weight = (WeightCategories)idalParcel.Weight;
-                newParcel.Priority = (Priorities)idalParcel.Priority;
-
-                if (idalParcel.Requested != null)
-                    newParcel.ParcelStatuses = ParcelStatuses.Requested;
-                if (idalParcel.Scheduled != null)
-                    newParcel.ParcelStatuses = ParcelStatuses.Scheduled;
-                if (idalParcel.PickedUp != null)
-                    newParcel.ParcelStatuses = ParcelStatuses.PickedUp;
-                if (idalParcel.Delivered != null)
-                    newParcel.ParcelStatuses = ParcelStatuses.Delivered;
-
-                parcelToLists.Add(newParcel);
-            }
-
-            return parcelToLists;
-        }
-
-        /// <summary>
-        /// find parcel in the data conditions and connect it to the drone
-        /// </summary>
-        /// <param name="droneId"></param>
-        public void ConnectParcelToDrone(int droneId)
-        {
-            Drone connectDrone = new Drone();
-            try
-            {
-                connectDrone = GetDrone(droneId);
-            }
-            catch (IdException e)
-            {
-                throw new IdException(e.Message, e);
-            }
-
-            if (connectDrone.Status != DroneStatuses.Available)
-                throw new StatusDroneException("ERROR: The drone is not available:\n ");
-            
-            List<ParcelToList> ParcelsDroneCanCarry = new List<ParcelToList>();
-            double distanceDelivery, batteryDelivery;
-            foreach (var parcel in GetParcelsNoDrones())
-            {
-                distanceDelivery = Distance(connectDrone.Location, GetCustomer(GetParcel(parcel.Id).Sender.Id).Location);
-                batteryDelivery = distanceDelivery * BatteryAvailable;
-
-                distanceDelivery = Distance(GetCustomer(GetParcel(parcel.Id).Sender.Id).Location, GetCustomer(GetParcel(parcel.Id).Target.Id).Location); // the distance between the drone and the target
-                if (parcel.Weight == WeightCategories.Heavy)
-                    batteryDelivery += distanceDelivery * BatteryHeavyWeight;
-                if (parcel.Weight == WeightCategories.Medium)
-                    batteryDelivery += distanceDelivery * BatteryMediumWeight;
-                if (parcel.Weight == WeightCategories.Light)
-                    batteryDelivery += distanceDelivery * BatteryLightWeight;
-
-                distanceDelivery = Distance(GetCustomer(GetParcel(parcel.Id).Target.Id).Location, NearStationToCustomer(GetCustomer(GetParcel(parcel.Id).Target.Id)).Location);
-                batteryDelivery += distanceDelivery * BatteryAvailable;
-
-                if (connectDrone.Battery >= batteryDelivery) // if there is enough battery add the parcel to list
-                    ParcelsDroneCanCarry.Add(parcel);
-            }
-
-            ParcelsDroneCanCarry.OrderBy(parcel => parcel.Priority).ThenBy(parcel => parcel.Weight); // sort by priority and after by weight.
-            ParcelsDroneCanCarry.OrderByDescending(parcel => Distance(connectDrone.Location, GetCustomer(GetParcel(parcel.Id).Sender.Id).Location)); // sort by min distance.
-
-            ParcelToList parcelToConnect = new ParcelToList();
-            if (ParcelsDroneCanCarry.Count() != 0)
-                parcelToConnect = ParcelsDroneCanCarry.First();
-            else
-                throw new NoPackagesToDroneException("There are no packages that the available drone you entered can carry..\n" +
-                                          "Please wait for other drones to be available or enter the identity of another available drone.");
-           
-            
-            DO.Parcel updateParcel = new DO.Parcel();
-            try
-            {
-                updateParcel = dal.GetParcel(parcelToConnect.Id);
-            }
-            catch (DO.IdNotFoundException )//if there is not available drone to carry the parcel
-            {
-                throw new NoPackagesToDroneException("There are no packages that the available drone you entered can carry..\n" +
-                                          "Please wait for other drones to be available or enter the identity of another available drone.");
-            }
-
-            foreach (var drone in ListDrones)
-                if (drone.Id == connectDrone.Id)
-                {
-                    drone.Status = DroneStatuses.Delivery;
-                    drone.IdParcel = updateParcel.Id;
-                }
-
-            updateParcel.DroneId = connectDrone.Id;
-            updateParcel.Scheduled = DateTime.Now;
-             
-            dal.UpdateParcel(updateParcel);
-        }
-
-        /// <summary>
-        /// Collection the parcel by the drone
-        /// </summary>
-        /// <param name="idDrone"></param>
-        public void CollectionParcelByDrone(int idDrone)
-        {
-            Drone collectionDrone = new Drone();
-            try
-            {
-                collectionDrone = GetDrone(idDrone);
-            }
-            catch (IdException e)
-            {
-                throw new IdException(e.Message, e);
-            }
-
-            if (collectionDrone.Status != DroneStatuses.Delivery && collectionDrone.ParcelByTransfer.Status != true)
-                throw new StatusDroneException("ERROR: The drone is not in delivery so he can not collect any parcel. ");
-
-            for (int i = 0; i < ListDrones.Count(); i++)
-            {
-                if (ListDrones[i].Id == collectionDrone.Id)
-                {
-                    DroneToList updateDrone = ListDrones[i];
-                    updateDrone.Battery -= Distance(collectionDrone.Location, collectionDrone.ParcelByTransfer.PickUpLocation) * BatteryAvailable;
-                    updateDrone.Battery = (double)System.Math.Round(updateDrone.Battery, 3);
-                    updateDrone.Location = collectionDrone.ParcelByTransfer.PickUpLocation;
-                    ListDrones[i] = updateDrone;
-                }
-            }
-
-            DO.Parcel updateParcel = dal.GetParcel(collectionDrone.ParcelByTransfer.Id);
-            updateParcel.PickedUp = DateTime.Now;
-            dal.UpdateParcel(updateParcel);
-        }
-
-        /// <summary>
-        /// Supply parcel by drone
-        /// </summary>
-        /// <param name="idDrone"></the id of the drone>
-        public void SupplyParcelByDrone(int idDrone)
-        {
-            Drone drone = new Drone();
-            try
-            {
-                drone = GetDrone(idDrone);
-            }
-            catch (IdException e)
-            {
-                throw new IdException(e.Message, e);
-            }
-
-            Parcel parcel = new Parcel();
-            parcel = GetParcel(drone.ParcelByTransfer.Id);
-
-            foreach (var elementParcel in GetParcels())
-            {
-                if (elementParcel.Id == parcel.Id)
-                {
-                    if (elementParcel.ParcelStatuses != ParcelStatuses.PickedUp &&
-                        parcel.DroneInParcel.Id == idDrone)
-                        throw new StatusDroneException("ERROR: the drone is not pick-up the parcel yet\n");
-
-                    double distance = Distance(drone.Location, GetCustomer(parcel.Target.Id).Location);
-
-                    if (parcel.Weight == WeightCategories.Heavy)
-                        drone.Battery -= distance * BatteryHeavyWeight;
-                    else if (parcel.Weight == WeightCategories.Medium)
-                        drone.Battery -= distance * BatteryMediumWeight;
-                    else // light
-                        drone.Battery -= distance * BatteryLightWeight;
-                    
-
-                    drone.Location = GetCustomer(parcel.Target.Id).Location;
-                    drone.Status = DroneStatuses.Available;
-                    for (int i = 0; i < ListDrones.Count(); i++)
-                    {
-                        if (ListDrones[i].Id == drone.Id)
-                        {
-                            DroneToList updateDrone = ListDrones[i];
-                            updateDrone.Battery = drone.Battery;
-                            updateDrone.Battery = (double)System.Math.Round(updateDrone.Battery, 3);
-                            updateDrone.Location = drone.Location;
-                            updateDrone.Status = drone.Status;
-                            updateDrone.IdParcel = 0;
-                            ListDrones[i] = updateDrone;
-                        }
-                    }
-
-                    DO.Parcel updateParcel = dal.GetParcel(parcel.Id);
-                    updateParcel.Delivered = DateTime.Now;
-                    dal.UpdateParcel(updateParcel);
-                }
-            }
+            return from parcel in GetParcels()
+                   where parcel.Status == ParcelStatuses.Requested // just parcels that dont have them drone.
+                   select parcel;
         }
 
         /// <summary>
@@ -336,7 +166,7 @@ namespace BL
             }
             catch (DO.IdNotFoundException )
             {
-                throw new IdException("ERROR: the Sender customer not found! ");
+                throw new IdException("ERROR: the sender customer not found! ");
             }
             try
             {
@@ -344,10 +174,10 @@ namespace BL
             }
             catch (DO.IdNotFoundException )
             {
-                throw new IdException("ERROR: the Target customer not found! ");
+                throw new IdException("ERROR: the target customer not found! ");
             }
             if (parcel.Sender.Id == parcel.Target.Id)
-                throw new IdException("ERROR: the Target ID and the Sender ID are equals! ");
+                throw new IdException("ERROR: the sender customer and the target customer are same! ");
         }
     }
 }

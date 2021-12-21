@@ -19,15 +19,15 @@ namespace PO
             get { return Name; }
             set { Name = value; OnPropertyChanged("Name"); }
         }
-        public int ChargeSlotsAvailable
+        public int AvalibleChargeSlots
         {
-            get { return ChargeSlotsAvailable; }
-            set { ChargeSlotsAvailable = value; OnPropertyChanged("ChargeSlotsAvailable"); }
+            get { return AvalibleChargeSlots; }
+            set { AvalibleChargeSlots = value; OnPropertyChanged("AvalibleChargeSlots"); }
         }
-        public int ChargeSlotsNotAvailable
+        public int NotAvailableChargeSlots
         {
-            get { return ChargeSlotsNotAvailable; }
-            set { ChargeSlotsNotAvailable = value; OnPropertyChanged("ChargeSlotsNotAvailable"); }
+            get { return NotAvailableChargeSlots; }
+            set { NotAvailableChargeSlots = value; OnPropertyChanged("NotAvailableChargeSlots"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

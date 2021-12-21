@@ -14,11 +14,11 @@ namespace BO
         public string TargetName { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
-        public ParcelStatuses ParcelStatuses { get; set; }
+        public ParcelStatuses Status { get; set; }
         public override string ToString()
         {
             return $"Id #{Id}: Sender name = {SenderName},Target name = {TargetName}," +
-                   $"Weight = {Weight},  Priority = {Priority}, Parcel statuses = {ParcelStatuses}";
+                   $"Weight = {Weight},  Priority = {Priority}, Status = {Status}";
         }
     }
 }

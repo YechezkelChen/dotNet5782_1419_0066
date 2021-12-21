@@ -29,7 +29,7 @@ namespace PL
             InitializeComponent();
             bl = ibl;
             WeightComboBox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            StationComboBox.ItemsSource = bl.GetStationsCharge();
+            StationComboBox.ItemsSource = bl.GetStationsWithAvailableCharge();
             drone = new Drone();
 
             // hidden irrelevant drone data
@@ -439,7 +439,7 @@ namespace PL
             }
             else
             {
-                if (drone.ParcelByTransfer.Status != true)
+                if (drone.ParcelByTransfer.OnTheWay != true)
                 {
                     SendToDeliveryButton.Visibility = Visibility.Hidden;
                     SupplyParcelButton.Visibility = Visibility.Hidden;

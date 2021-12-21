@@ -52,7 +52,7 @@ namespace Dal
         /// <returns></returns>
         public IEnumerable<Drone> GetDrones(Predicate<Drone> dronePredicate)
         {
-            IEnumerable<Drone> drones = DataSource.Drones.FindAll(dronePredicate);
+            IEnumerable<Drone> drones = DataSource.Drones.Where(drone => dronePredicate(drone));
             return drones;
         }
 
@@ -73,9 +73,9 @@ namespace Dal
         {
             foreach (Drone elementDrone in DataSource.Drones)
             {
-                if (elementDrone.Id == droneId && elementDrone.deleted == false)
+                if (elementDrone.Id == droneId && elementDrone.Deleted == false)
                     return "exists";
-                if (elementDrone.Id == droneId && elementDrone.deleted == true)
+                if (elementDrone.Id == droneId && elementDrone.Deleted == true)
                     return "was exists";
             }
             return "not exists"; // the customer not exist

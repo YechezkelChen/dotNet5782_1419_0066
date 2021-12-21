@@ -43,7 +43,7 @@ namespace PO
             set { Status = value; OnPropertyChanged("Status"); }
         }
 
-        public ParcelByTransfer ParcelByTransfer
+        public ParcelInTransfer ParcelByTransfer
         {
             get { return  ParcelByTransfer; }
             set { ParcelByTransfer = value; OnPropertyChanged("Status"); }

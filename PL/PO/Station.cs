@@ -31,16 +31,16 @@ namespace PO
         }
 
 
-        public int ChargeSlots
+        public int AvalibleChargeSlots
         {
-            get { return ChargeSlots; }
-            set { ChargeSlots = value; OnPropertyChanged("ChargeSlots"); }
+            get { return AvalibleChargeSlots; }
+            set { AvalibleChargeSlots = value; OnPropertyChanged("AvalibleChargeSlots"); }
         }
 
-        public IEnumerable<DroneInCharge> InCharges
+        public IEnumerable<DroneInCharge> DronesInCharges
         {
-            get { return InCharges; }
-            set { InCharges = value; OnPropertyChanged("InCharges"); }
+            get { return DronesInCharges; }
+            set { DronesInCharges = value; OnPropertyChanged("DronesInCharges"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -23,7 +23,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Button x:Name="AvailableStationsButton" Content="Available stations" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="0" Height="25" Width="130" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF0D0B11"/>
@@ -31,7 +30,6 @@
             <Button x:Name="AddStationButton" Content="Add Station" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Height="40" Width="130" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
             <Button x:Name="UpdateStationButton" Content="Update Station" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Height="40" Width="130" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
             <Button x:Name="RemoveStationButton" Content="Remove Station" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Height="40" Width="130" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
-            <Button x:Name="ClosePageButton" Content="Close Page" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Height="40" Width="130" Foreground="Red" FontSize="16" FontFamily="Agency FB" Background="White" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF0B0811"/>
         </Grid>
 
         <Label Content="List Stations:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="800" FontFamily="Agency FB" FontSize="19" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46" HorizontalContentAlignment="Center"/>

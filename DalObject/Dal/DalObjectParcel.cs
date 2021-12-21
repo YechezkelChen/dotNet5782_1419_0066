@@ -73,7 +73,7 @@ namespace Dal
         /// <returns></returns>
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> parcelPredicate)
         {
-            IEnumerable<Parcel> parcels = DataSource.Parcels.FindAll(parcelPredicate);
+            IEnumerable<Parcel> parcels = DataSource.Parcels.Where(parcel => parcelPredicate(parcel));
             return parcels;
         }
 
@@ -94,9 +94,9 @@ namespace Dal
         {
             foreach (Parcel elementParcel in DataSource.Parcels)
             {
-                if (elementParcel.Id == parcelId && elementParcel.deleted == false)
+                if (elementParcel.Id == parcelId && elementParcel.Deleted == false)
                     return "exists";
-                if (elementParcel.Id == parcelId && elementParcel.deleted == true)
+                if (elementParcel.Id == parcelId && elementParcel.Deleted == true)
                     return "was exists";
             }
             return "not exists"; // the customer not exist

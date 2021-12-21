@@ -45,16 +45,6 @@ namespace Dal
 
             return station;
         }
-        //public Station GetStation(int stationId)
-        //{
-        //    if (IsExistStation(stationId))
-        //    {
-        //        Station station = DataSource.Stations.Find(elementStation => elementStation.Id == stationId);
-        //        return station;
-        //    }
-        //    else
-        //        throw new IdNotFoundException("ERROR: the station is not found.");
-        //}
 
         /// <summary>
         /// return all the list of the station's
@@ -62,7 +52,7 @@ namespace Dal
         /// <returns></returns>
         public IEnumerable<Station> GetStations(Predicate<Station> stationPredicate)
         {
-            IEnumerable<Station> stations = DataSource.Stations.FindAll(stationPredicate);
+            IEnumerable<Station> stations = DataSource.Stations.Where(station => stationPredicate(station));
             return stations;
         }
 
@@ -83,9 +73,9 @@ namespace Dal
         {
             foreach (Station elementStation in DataSource.Stations)
             {
-                if (elementStation.Id == stationId && elementStation.deleted == false)
+                if (elementStation.Id == stationId && elementStation.Deleted == false)
                     return "exists";
-                if (elementStation.Id == stationId && elementStation.deleted == true)
+                if (elementStation.Id == stationId && elementStation.Deleted == true)
                     return "was exists";
             }
             return "not exists"; // the customer not exist

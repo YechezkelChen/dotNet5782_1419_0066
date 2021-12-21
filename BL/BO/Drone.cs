@@ -12,7 +12,7 @@ namespace BO
         public WeightCategories Weight { get; set; }
         public double Battery { get; set; }
         public DroneStatuses Status { get; set; }
-        public ParcelByTransfer ParcelByTransfer { get; set; }
+        public ParcelInTransfer ParcelByTransfer { get; set; }
         public Location Location { get; set; }
 
         public override string ToString()

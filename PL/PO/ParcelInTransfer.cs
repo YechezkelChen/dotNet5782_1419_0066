@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace PO
 {
-    public class ParcelByTransfer : INotifyPropertyChanged
+    public class ParcelInTransfer : INotifyPropertyChanged
     {
         public int Id
         {
             get { return Id; }
             set { Id = value; OnPropertyChanged("Id"); }
         }
-        public bool Status
+        public bool OnTheWay
         {
-            get { return Status; }
-            set { Status = value; OnPropertyChanged("Status"); }
+            get { return OnTheWay; }
+            set { OnTheWay = value; OnPropertyChanged("OnTheWay"); }
         }
         public Priorities Priority
         {
@@ -29,20 +29,20 @@ namespace PO
             get { return Weight; }
             set { Weight = value; OnPropertyChanged("Weight"); }
         }
-        public CustomerInParcel SenderInParcel
+        public CustomerInParcel Sender
         {
-            get { return SenderInParcel; }
-            set { SenderInParcel = value; OnPropertyChanged("SenderInParcel"); }
+            get { return Sender; }
+            set { Sender = value; OnPropertyChanged("Sender"); }
+        }
+        public CustomerInParcel Target
+        {
+            get { return Target; }
+            set { Target = value; OnPropertyChanged("Target"); }
         }
         public Location PickUpLocation
         {
             get { return PickUpLocation; }
             set { PickUpLocation = value; OnPropertyChanged("PickUpLocation"); }
-        }
-        public CustomerInParcel ReceiverInParcel
-        {
-            get { return ReceiverInParcel; }
-            set { ReceiverInParcel = value; OnPropertyChanged("ReceiverInParcel"); }
         }
         public Location TargetLocation
         {

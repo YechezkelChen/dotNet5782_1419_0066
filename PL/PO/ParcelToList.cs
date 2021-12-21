@@ -34,10 +34,10 @@ namespace PO
             get { return Priority; }
             set { Priority = value; OnPropertyChanged("Priority"); }
         }
-        public ParcelStatuses ParcelStatuses
+        public ParcelStatuses Status
         {
-            get { return ParcelStatuses; }
-            set { ParcelStatuses = value; OnPropertyChanged("ParcelStatuses"); }
+            get { return Status; }
+            set { Status = value; OnPropertyChanged("Status"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

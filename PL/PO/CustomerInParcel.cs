@@ -14,12 +14,12 @@ namespace PO
             get { return Id; }
             set { Id = value; OnPropertyChanged("Id"); }
         }
-        public string NameCustomer
+        public string Name
         {
-            get { return NameCustomer; }
+            get { return Name; }
             set
             {
-                NameCustomer = value; OnPropertyChanged("NameCustomer");
+                Name = value; OnPropertyChanged("Name");
             }
         }
 

@@ -40,8 +40,8 @@ namespace BL
             station.Name = newStation.Name;
             station.Longitude = newStation.Location.Longitude;
             station.Latitude = newStation.Location.Latitude;
-            station.ChargeSlots = newStation.ChargeSlots;
-            station.deleted = false;
+            station.AvailableChargeSlots = newStation.AvalibleChargeSlots;
+            station.Deleted = false;
             try
             {
                 dal.AddStation(station);
@@ -56,14 +56,14 @@ namespace BL
         /// send id of station and checking that it exist.
         /// make special entity and return it
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="stationId"></param>
         /// <returns></returns>
-        public Station GetStation(int id)
+        public Station GetStation(int stationId)
         {
-            DO.Station idalStation = new DO.Station();
+            DO.Station dalStation = new DO.Station();
             try
             {
-                idalStation = dal.GetStation(id);
+                dalStation = dal.GetStation(stationId);
             }
             catch (DO.IdNotFoundException e)
             {
@@ -71,20 +71,19 @@ namespace BL
             }
 
             Station station = new Station();
-            station.Id = idalStation.Id;
-            station.Name = idalStation.Name;
-            station.Location = new Location() {Longitude = idalStation.Longitude, Latitude = idalStation.Latitude};
-            station.ChargeSlots = idalStation.ChargeSlots;
-            station.InCharges = new List<DroneInCharge>();
-            foreach (var elementDroneCharge in dal.GetDronesCharge(droneCharge => true))
-                if(elementDroneCharge.StationId == station.Id)
-                {
-                    DroneInCharge droneInCharge = new DroneInCharge();
-                    droneInCharge.Id = elementDroneCharge.DroneId;
-                    droneInCharge.Battery = GetDrone(elementDroneCharge.DroneId).Battery;
-                    station.InCharges.ToList().Add(droneInCharge);
-                }
-                    
+            station.Id = dalStation.Id;
+            station.Name = dalStation.Name;
+            station.Location = new Location() {Longitude = dalStation.Longitude, Latitude = dalStation.Latitude};
+            station.AvalibleChargeSlots = dalStation.AvailableChargeSlots;
+
+            station.DronesInCharges = from droneCharge in dal.GetDronesCharge(droneCharge => droneCharge.Deleted == false)
+                                      where droneCharge.StationId == station.Id
+                                      let drone = GetDrone(droneCharge.DroneId)
+                                      select new DroneInCharge
+                                      {
+                                          Id = droneCharge.DroneId,
+                                          Battery = drone.Battery
+                                      };                    
             return station;
         }
 
@@ -94,46 +93,26 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<StationToList> GetStations()
         {
-            List<StationToList> stationsToList = new List<StationToList>();
-
-            foreach (var idalStation in dal.GetStations(station => true && station.deleted == false))
-            {
-                Station station = new Station();
-                station = GetStation(idalStation.Id);
-                StationToList newStationToList = new StationToList();
-                newStationToList.Id = idalStation.Id;
-                newStationToList.Name = idalStation.Name;
-                newStationToList.ChargeSlotsAvailable = idalStation.ChargeSlots;
-                newStationToList.ChargeSlotsNotAvailable = station.InCharges.Count();
-
-                stationsToList.Add(newStationToList);
-            }
-
-            return stationsToList;
+            return from dalStation in dal.GetStations(station => station.Deleted == false)
+                   let station = GetStation(dalStation.Id)
+                   select new StationToList
+                   {
+                       Id = dalStation.Id,
+                       Name = dalStation.Name,
+                       AvalibleChargeSlots = dalStation.AvailableChargeSlots,
+                       NotAvailableChargeSlots = station.DronesInCharges.Count()
+                   };
         }
 
         /// <summary>
         /// Returning the list of stations with available charging position in a special entity "Station to list".
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<StationToList> GetStationsCharge()
+        public IEnumerable<StationToList> GetStationsWithAvailableCharge()
         {
-            List<StationToList> stationsToList = new List<StationToList>();
-
-            foreach (var idalStation in dal.GetStations(station => station.ChargeSlots > 0 && station.deleted == false ))
-            {
-                Station station = new Station();
-                station = GetStation(idalStation.Id);
-                StationToList newStationToList = new StationToList();
-                newStationToList.Id = idalStation.Id;
-                newStationToList.Name = idalStation.Name;
-                newStationToList.ChargeSlotsAvailable = idalStation.ChargeSlots;
-                newStationToList.ChargeSlotsNotAvailable = station.InCharges.Count();
-
-                stationsToList.Add(newStationToList);
-            }
-
-            return stationsToList;
+            return from station in GetStations()
+                   where station.AvalibleChargeSlots > 0
+                   select station;
         }
 
         /// <summary>
@@ -144,10 +123,10 @@ namespace BL
         /// <param name="chargeSlots"></param>
         public void UpdateDataStation(int id, string name, int chargeSlots)
         {
-            DO.Station station = new DO.Station();
+            DO.Station updateStation = new DO.Station();
             try
             {
-                station = dal.GetStation(id);
+                updateStation = dal.GetStation(id);
             }
             catch (DO.IdNotFoundException e)
             {
@@ -158,35 +137,11 @@ namespace BL
                 throw new NameException("ERROR: you must Enter at least one of the following data!\n");
 
             if (name != "") // if he want to update the name
-                station.Name = name;
+                updateStation.Name = name;
             if (chargeSlots != -1) // if he want to update the number of charge slots
-                station.ChargeSlots = chargeSlots;
+                updateStation.AvailableChargeSlots = chargeSlots;
 
-            dal.UpdateStation(station);
-        }
-
-        /// <summary>
-        ///  find the near station from all stations to drone
-        /// </summary>
-        /// <param name="drone"></param>
-        /// <returns></returns>
-        private Station NearStationToDrone(Drone drone)
-        {
-            IEnumerable<StationToList> nearStation = new List<StationToList>();
-            nearStation = GetStations().OrderByDescending(station => Distance(GetStation(station.Id).Location, drone.Location));
-            return GetStation(nearStation.First().Id);
-        }
-
-        /// <summary>
-        ///   find the near station from all stations to customer
-        /// </summary>
-        /// <param name="customer"></param>
-        /// <returns></returns>
-        private Station NearStationToCustomer(Customer customer)
-        {
-            IEnumerable<StationToList> nearStation = new List<StationToList>();
-            nearStation = GetStations().OrderByDescending(station => Distance(GetStation(station.Id).Location, customer.Location));
-            return GetStation(nearStation.First().Id);
+            dal.UpdateStation(updateStation);
         }
 
         /// <summary>
@@ -195,22 +150,14 @@ namespace BL
         /// <param name="station"></param>
         private void CheckStation(Station station)
         {
-            if (station.Id < 100000 || station.Id > 999999)//Check that it's 6 digits.
+            if (station.Id < 100000 || station.Id > 999999) // Check that it's 6 digits.
                 throw new IdException("ERROR: the ID is illegal! ");
-
-            if (station.ChargeSlots < 0)
+            if (station.AvalibleChargeSlots < 0)
                 throw new ChargeSlotsException("ERROR: the charge slots must have positive or 0 value! ");
-
             if (station.Location.Longitude < -1 || station.Location.Longitude > 1)
                 throw new LocationException("ERROR: longitude must to be between -1 to 1");
-
             if (station.Location.Latitude < -1 || station.Location.Latitude > 1)
                 throw new LocationException("ERROR: latitude must to be between -1 to 1");
-
-            foreach (var elementStation in dal.GetStations(s => true))
-                if (elementStation.Latitude == station.Location.Latitude &&
-                    elementStation.Longitude == station.Location.Longitude)
-                    throw new LocationException("ERROR: the location is catch! ");
         }
     }
 }
