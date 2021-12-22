@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace PO
 {
@@ -8,14 +9,14 @@ namespace PO
         public double Longitude
         {
             get => longitude;
-            set { longitude = value; OnPropertyChanged("longitude"); }
+            set { longitude = Math.Round(value, 2); OnPropertyChanged("longitude"); }
         }
 
         private double latitude;
         public double Latitude
         {
             get => latitude;
-            set { latitude = value; OnPropertyChanged("latitude"); }
+            set { latitude = Math.Round(value, 2); OnPropertyChanged("latitude"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

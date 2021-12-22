@@ -320,7 +320,7 @@ namespace BL
                                        where drone.Weight >= parcel.Weight && drone.Battery >= BatteryDelivery(drone, parcel, sender, target)
                                        select parcel;
 
-            ParcelToList parcelToConnect = parcelsDroneCanCarry.First();
+            ParcelToList parcelToConnect = parcelsDroneCanCarry.FirstOrDefault();
             if (parcelToConnect is null)
                 throw new NoPackagesToDroneException("There are no parcels that the drone you entered can carry.");
 

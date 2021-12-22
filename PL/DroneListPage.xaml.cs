@@ -24,13 +24,14 @@ namespace PL
             listWindow = window;
             bl = BlApi.BlFactory.GetBl();
             drones = new ObservableCollection<DroneToList>();
-            DronesListView.ItemsSource = drones;
+            //DronesListView.ItemsSource = drones;
             DronesListView.DataContext = drones;
             foreach (var drone in bl.GetDrones())
             {
                 DroneToList newDrone = new DroneToList();
-                newDrone.Location = new Location();
                 listWindow.CopyPropertiesTo(drone, newDrone);
+                newDrone.Location = new Location();
+                listWindow.CopyPropertiesTo(drone.Location, newDrone.Location);
                 drones.Add(newDrone);
             }
 
@@ -43,30 +44,30 @@ namespace PL
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowDronesAfterFiltering();
+            //ShowDronesAfterFiltering();
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowDronesAfterFiltering();
+            //ShowDronesAfterFiltering();
         }
 
         private void RefreshStatusButton_Click(object sender, RoutedEventArgs e)
         {
             StatusSelector.SelectedItem = null;
-            ShowDronesAfterFiltering();
+            //ShowDronesAfterFiltering();
         }
 
         private void RefreshWeightButton_Click(object sender, RoutedEventArgs e)
         {
             WeightSelector.SelectedItem = null;
-            ShowDronesAfterFiltering();
+            //ShowDronesAfterFiltering();
         }
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
             listWindow.ShowData.Content = new DronePage(listWindow, drones);//go to the window that can add a drone
-            ShowDronesAfterFiltering();
+            //ShowDronesAfterFiltering();
         }
 
         private void ClosePageButton_Click(object sender, RoutedEventArgs e)
@@ -79,7 +80,7 @@ namespace PL
             DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
             BO.Drone drone = bl.GetDrone(droneToList.Id);
             listWindow.ShowData.Content = new DronePage(listWindow, drone, drones);
-            ShowDronesAfterFiltering();
+            //ShowDronesAfterFiltering();
         }
 
         private void ShowDronesAfterFiltering()
