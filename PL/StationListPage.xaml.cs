@@ -26,5 +26,10 @@ namespace PL
         {
             InitializeComponent();
         }
+
+        private void StationsListView_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }
