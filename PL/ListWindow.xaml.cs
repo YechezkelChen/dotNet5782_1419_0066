@@ -19,11 +19,9 @@ namespace PL
     /// </summary>
     public partial class ListWindow : Window
     {
-        BlApi.IBL bl;
         public ListWindow()
         {
             InitializeComponent();
-            bl = BlApi.BlFactory.GetBl();
         }
         private void ListTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

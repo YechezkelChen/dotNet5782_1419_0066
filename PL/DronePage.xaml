@@ -55,7 +55,7 @@
             <TextBox x:Name="LocationTextBox" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4"/>
         </Grid>
 
-        <Button x:Name="ParcelDataButton" Content="Parcel data" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="110" Click="CancelButton_Click" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711"/>
+        <Button x:Name="ParcelDataButton" Content="Parcel data" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="110" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Click="ParcelDataButton_Click"/>
 
         <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="AddButton_Click" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
         <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="CancelButton_Click" FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711"/>

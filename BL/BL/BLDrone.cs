@@ -313,14 +313,14 @@ namespace BL
             if (drone.Status != DroneStatuses.Available)
                 throw new StatusDroneException("ERROR: The drone is not available:\n ");
 
-            var ParcelsDroneCanCarry = from parcel in GetParcelsNoDrones()
+            var parcelsDroneCanCarry = from parcel in GetParcelsNoDrones()
                                        let sender = GetCustomer(GetParcel(parcel.Id).Sender.Id)
                                        let target = GetCustomer(GetParcel(parcel.Id).Target.Id)
-                                       orderby parcel.Priority, parcel.Weight, Distance(drone.Location, sender.Location) descending
-                                       where drone.Battery >= BatteryDelivery(drone, parcel, sender, target)
+                                       orderby parcel.Priority descending , parcel.Weight descending , Distance(drone.Location, sender.Location)
+                                       where drone.Weight >= parcel.Weight && drone.Battery >= BatteryDelivery(drone, parcel, sender, target)
                                        select parcel;
 
-            ParcelToList parcelToConnect = ParcelsDroneCanCarry.First();
+            ParcelToList parcelToConnect = parcelsDroneCanCarry.First();
             if (parcelToConnect is null)
                 throw new NoPackagesToDroneException("There are no parcels that the drone you entered can carry.");
 

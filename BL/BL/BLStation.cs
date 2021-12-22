@@ -78,7 +78,7 @@ namespace BL
                                       {
                                           Id = droneCharge.DroneId,
                                           Battery = drone.Battery
-                                      };                    
+                                      };                   
             return station;
         }
 

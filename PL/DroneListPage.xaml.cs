@@ -24,10 +24,10 @@ namespace PL
         ListWindow listWindow;
         private BlApi.IBL bl;
 
-        public DroneListPage(ListWindow Window)
+        public DroneListPage(ListWindow window)
         {
             InitializeComponent();
-            listWindow = Window;
+            listWindow = window;
             bl = BlApi.BlFactory.GetBl();
             ShowDronesAfterFiltering();
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
@@ -58,7 +58,7 @@ namespace PL
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-            listWindow.ShowData.Content = new DronePage(bl); //go to the window that can add a drone
+            listWindow.ShowData.Content = new DronePage(listWindow); //go to the window that can add a drone
             ShowDronesAfterFiltering();
         }
 
@@ -71,7 +71,7 @@ namespace PL
         {
             DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
             Drone drone = bl.GetDrone(droneToList.Id);
-            listWindow.ShowData.Content = new DronePage(bl, drone);
+            listWindow.ShowData.Content = new DronePage(listWindow, drone);
             ShowDronesAfterFiltering();
         }
 

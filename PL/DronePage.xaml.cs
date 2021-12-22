@@ -21,13 +21,13 @@ namespace PL
     /// </summary>
     public partial class DronePage : Page
     {
-        private BlApi.IBL bl;
+        private BlApi.IBL bl = BlApi.BlFactory.GetBl();
         private Drone drone;
-
-        public DronePage(BlApi.IBL ibl)
+        private ListWindow listWindow;
+        public DronePage(ListWindow window)
         {
             InitializeComponent();
-            bl = ibl;
+            listWindow = window;
             WeightComboBox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StationComboBox.ItemsSource = bl.GetStationsWithAvailableCharge();
             drone = new Drone();
@@ -50,10 +50,10 @@ namespace PL
             CollectParcelButton.Visibility = Visibility.Hidden;
             SupplyParcelButton.Visibility = Visibility.Hidden;
         }
-        public DronePage(BlApi.IBL ibl, Drone droneHelp)
+        public DronePage(ListWindow window, Drone droneHelp)
         {
             InitializeComponent();
-            bl = ibl;
+            listWindow = window;
             drone = droneHelp;
             DataDroneGrid.DataContext = drone;
             BlockingControls();
@@ -453,9 +453,9 @@ namespace PL
             }
         }
 
-        private void ShowParcelInDrone_Click(object sender, RoutedEventArgs e)
+        private void ParcelDataButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Content = new ParcelInDronePage(drone);
+            listWindow.ShowData.Content = new ParcelInDronePage(drone);
         }
     }
 }
