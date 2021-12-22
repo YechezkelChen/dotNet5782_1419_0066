@@ -24,14 +24,13 @@ namespace PL
             listWindow = window;
             bl = BlApi.BlFactory.GetBl();
             drones = new ObservableCollection<DroneToList>();
+            DronesListView.DataContext = drones;
             foreach (var drone in bl.GetDrones())
             {
                 DroneToList newDrone = new DroneToList();
                 listWindow.CopyPropertiesTo(drone, newDrone);
                 drones.Add(newDrone);
             }
-
-            DronesListView.DataContext = drones;
             //ShowDronesAfterFiltering();
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));

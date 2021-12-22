@@ -41,16 +41,16 @@
 
         <Label Content="List Drones:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="800" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46" HorizontalContentAlignment="Center"/>
 
-        <ListView x:Name="DronesListView" Grid.Row="2" Background="Gray" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="18" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
+        <ListView x:Name="DronesListView" ItemsSource="{Binding ElementName=drones, Path=drones}" Grid.Row="2" Background="Gray" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="18" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
             <ListView.View>
                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="information">
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="76"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" Header="Model" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" Header="Weight" Width="110"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Battery}" Header="Battery" Width="111"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="Status" Width="104"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=IdParcel}" Header="Parcel" Width="105"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Location}" Header="Location" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ElementName=drones, Path=Id}" Header="ID" Width="76"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ElementName=drones, Path=Model}" Header="Model" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ElementName=drones, Path=Weight}" Header="Weight" Width="110"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ElementName=drones, Path=Battery}" Header="Battery" Width="111"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ElementName=drones, Path=Status}" Header="Status" Width="104"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ElementName=drones, Path=IdParcel}" Header="Parcel" Width="105"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ElementName=drones, Path=Location}" Header="Location" Width="150"/>
                 </GridView>
             </ListView.View>
         </ListView>
