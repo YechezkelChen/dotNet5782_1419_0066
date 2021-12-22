@@ -9,6 +9,47 @@
       Title="CustomerPage">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="ClosePageButton" Content="Close" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="70" Click="ClosePageButton_Click" Foreground="Red" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
+
+        <Grid x:Name="DataCustomerGrid" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Name="DataCustomerLabel" Content="Data customer:" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
+
+            <Label Name="IdLabel" Content="ID:" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+            <TextBox x:Name="IdTextBox" Text="{Binding Id}" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2"/>
+
+            <Label Name="NameLabel" Grid.Row="2" Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+            <TextBox x:Name="NameTextBox" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4"/>
+
+            <Label Name="PhoneLabel" Grid.Row="3" Content="Phone:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+            <TextBox x:Name="PhoneTextBox" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4"/>
+
+            <Label Name="LocationLabel" Grid.Row="4" Content="Location:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+            <TextBox x:Name="LocationTextBox" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4"/>
+
+            <Button x:Name="ParcelFromTheCustomerButton" Content="Parcels sent" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="110" Grid.Row="5" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711"/>
+
+            <Button x:Name="ParcelToTheCustomerButton" Content="Parcels accepted" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="110" Grid.Row="6" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711"/>
+        </Grid>
+
+        <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="AddButton_Click" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
+        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="CancelButton_Click" FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711"/>
+
+        <Button x:Name="UpdateCustomerDataButton" Content="Update Customer" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="160" Height="53" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black"/>
     </Grid>
 </Page>

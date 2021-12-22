@@ -20,9 +20,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="AddCustomerButton" Content="Add customer" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="110" Grid.Column="0" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
+            <Button x:Name="AddCustomerButton" Content="Add customer" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="150" Grid.Column="0" Foreground="#2F3E46" FontSize="18" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
 
-            <Button x:Name="RemoveCustomerButton" Content="Remove customer" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="111" Grid.Column="1" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
+            <Button x:Name="RemoveCustomerButton" Content="Remove customer" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="150" Grid.Column="1" Foreground="#2F3E46" FontSize="18" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
         </Grid>
 
         <Label Content="List Customers:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="800" FontFamily="Agency FB" FontSize="19" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46" HorizontalContentAlignment="Center"/>
@@ -33,10 +33,10 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="80"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="90"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Phone}" Header="Phone" Width="95"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=SenderParcelDelivered}" Header="Parcels send and delivered" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=SenderParcelPickedUp}" Header="Parcels send and picked up" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=TargetParcelDelivered}" Header="Parcels he received and delivered" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=TargetParcelPickedUp}" Header="Parcels he received and picked up" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=SenderParcelDelivered}" Header="Send-Delivered" Width="135"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=SenderParcelPickedUp}" Header="Send-Picked up" Width="140"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TargetParcelDelivered}" Header="Received-Delivered" Width="155"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TargetParcelPickedUp}" Header="Received-Picked up" Width="160"/>
                 </GridView>
             </ListView.View>
         </ListView>

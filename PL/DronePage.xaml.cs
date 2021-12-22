@@ -65,7 +65,7 @@ namespace PL
             this.Content = "";
         }
 
-        private void DataDroneGrid_MouseLeave(object sender, MouseEventArgs e)
+        private void IdTextBox_MouseLeave(object sender, MouseEventArgs e)
         {
             int id;
             if (IdTextBox.Text == "" || !IdTextBox.Text.All(char.IsDigit))
@@ -84,7 +84,6 @@ namespace PL
                 IdTextBox.Foreground = Brushes.SlateGray;
             }
         }
-
         private void ModelTextBox_MouseLeave(object sender, MouseEventArgs e)
         {
             string model = ModelTextBox.Text;
@@ -208,8 +207,7 @@ namespace PL
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            //CloseWindowButton.Visibility = Visibility.Hidden;
-            //this.Close();
+            this.Content = "";
         }
 
         private void UpdateModelButton_Click(object sender, RoutedEventArgs e)
@@ -455,7 +453,7 @@ namespace PL
 
         private void ParcelDataButton_Click(object sender, RoutedEventArgs e)
         {
-            listWindow.ShowData.Content = new ParcelInDronePage(drone);
+            listWindow.ShowData.Content = new ParcelInDronePage(listWindow, drone);
         }
     }
 }

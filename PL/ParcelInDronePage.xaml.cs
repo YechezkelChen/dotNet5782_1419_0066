@@ -21,14 +21,21 @@ namespace PL
     /// </summary>
     public partial class ParcelInDronePage : Page
     {
-        public ParcelInDronePage(Drone drone)
+        private Drone drone;
+        private ListWindow listWindow;
+        public ParcelInDronePage(ListWindow window, Drone droneHelp)
         {
             InitializeComponent();
-            Drone shoeDrone = drone;
+            listWindow = window;
+            drone = droneHelp;
             BlockingControls();
-            ShowParcelInDrone(shoeDrone);
+            ShowParcelInDrone();
         }
 
+        private void ClosePageButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new DronePage(listWindow, drone);
+        }
         void BlockingControls()
         {
             IdParcelTextBox.IsEnabled = false;
@@ -42,7 +49,7 @@ namespace PL
             DistanceOfTransferTextBox.IsEnabled = false;
         }
 
-        void ShowParcelInDrone(Drone drone)
+        void ShowParcelInDrone()
         {
             if (drone.ParcelByTransfer is null)
             {
