@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button x:Name="ClosePageButton" Content="Close" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="70" Click="ClosePageButton_Click" Foreground="Red" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
+        <!--<Button x:Name="ClosePageButton" Content="Close" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="70" Click="ClosePageButton_Click" Foreground="Red" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>-->
 
         <Label Name="DataCustomerLabel" Content="Data customer:" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
 

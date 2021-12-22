@@ -4,11 +4,14 @@ namespace PO
 {
     public class DroneToList : INotifyPropertyChanged
     {
+        private int id;
         public int Id
         {
-            get => Id;
-            set { Id = value; OnPropertyChanged("Id"); }
+            get => id;
+            set { id = value; OnPropertyChanged("id"); }
         }
+
+        private string model;
         public string Model
         {
             get => Model;

@@ -308,7 +308,7 @@ namespace ConsoleUI_BL
 
                 newStation.AvalibleChargeSlots = num1;
 
-                newStation.DronesInCharges = new List<DO.DroneCharge>();
+                newStation.DronesInCharges = new List<DroneInCharge>();
 
                 try
                 {

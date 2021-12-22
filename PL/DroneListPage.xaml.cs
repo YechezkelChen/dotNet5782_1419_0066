@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using BO;
-
+using PO;
 
 namespace PL
 {
@@ -23,16 +16,28 @@ namespace PL
     {
         ListWindow listWindow;
         private BlApi.IBL bl;
+        private ObservableCollection<DroneToList> drones;
 
         public DroneListPage(ListWindow window)
         {
             InitializeComponent();
             listWindow = window;
             bl = BlApi.BlFactory.GetBl();
-            ShowDronesAfterFiltering();
+            drones = new ObservableCollection<DroneToList>();
+            foreach (var drone in bl.GetDrones())
+            {
+                DroneToList newDrone = new DroneToList();
+                listWindow.CopyPropertiesTo(drone, newDrone);
+                drones.Add(newDrone);
+            }
+
+            DronesListView.DataContext = drones;
+            //ShowDronesAfterFiltering();
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
+
+
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -70,15 +75,15 @@ namespace PL
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
-            Drone drone = bl.GetDrone(droneToList.Id);
+            BO.Drone drone = bl.GetDrone(droneToList.Id);
             listWindow.ShowData.Content = new DronePage(listWindow, drone);
             ShowDronesAfterFiltering();
         }
 
         private void ShowDronesAfterFiltering()
         {
-            IEnumerable<DroneToList> drones = new List<DroneToList>();
-            IEnumerable<DroneToList> dronesFiltering = new List<DroneToList>();
+            IEnumerable<BO.DroneToList> drones = new List<BO.DroneToList>();
+            IEnumerable<BO.DroneToList> dronesFiltering = new List<BO.DroneToList>();
 
             drones = bl.GetDrones();
 
@@ -86,7 +91,7 @@ namespace PL
             if (StatusSelector.SelectedItem == null)
                 dronesFiltering = bl.GetDrones();
             else
-                dronesFiltering = bl.GetDronesByStatus((DroneStatuses)StatusSelector.SelectedItem);
+                dronesFiltering = bl.GetDronesByStatus((BO.DroneStatuses)StatusSelector.SelectedItem);
 
             drones = dronesFiltering.ToList().FindAll(drone => drones.ToList().Find(d => d.Id == drone.Id) != null);
 
@@ -94,7 +99,7 @@ namespace PL
             if (WeightSelector.SelectedItem == null)
                 dronesFiltering = bl.GetDrones();
             else
-                dronesFiltering = bl.GetDronesByMaxWeight((WeightCategories)WeightSelector.SelectedItem);
+                dronesFiltering = bl.GetDronesByMaxWeight((BO.WeightCategories)WeightSelector.SelectedItem);
 
             drones = dronesFiltering.ToList().FindAll(drone => drones.ToList().Find(d => d.Id == drone.Id) != null);
             
