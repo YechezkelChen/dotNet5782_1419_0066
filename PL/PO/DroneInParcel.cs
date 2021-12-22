@@ -4,23 +4,25 @@ namespace PO
 {
     public class DroneInParcel : INotifyPropertyChanged
     {
+        private int id;
         public int Id
         {
-            get => Id;
-            set { Id = value; OnPropertyChanged("Id"); }
+            get => id;
+            set { id = value; OnPropertyChanged("id"); }
         }
 
-        
+        private double battery;
         public double Battery
         {
-            get => Battery;
-            set { Battery = value; OnPropertyChanged("Battery"); }
+            get => battery;
+            set { battery = value; OnPropertyChanged("battery"); }
         }
 
+        private Location location;
         public Location Location
         {
-            get => Location;
-            set { Location = value; OnPropertyChanged("Status"); }
+            get => location;
+            set { location = value; OnPropertyChanged("location"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

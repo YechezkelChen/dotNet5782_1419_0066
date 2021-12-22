@@ -4,15 +4,18 @@ namespace PO
 {
     public class Location : INotifyPropertyChanged
     {
+        private double longitude;
         public double Longitude
         {
-            get => Longitude;
-            set { Longitude = value; OnPropertyChanged("Longitude"); }
+            get => longitude;
+            set { longitude = value; OnPropertyChanged("longitude"); }
         }
+
+        private double latitude;
         public double Latitude
         {
-            get => Latitude;
-            set { Latitude = value; OnPropertyChanged("Latitude"); }
+            get => latitude;
+            set { latitude = value; OnPropertyChanged("latitude"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

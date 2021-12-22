@@ -5,49 +5,60 @@ namespace PO
 {
     public class Customer : INotifyPropertyChanged
     {
+        private int id;
         public int Id
         {
-            get => Id;
-            set { Id = value; OnPropertyChanged("Id"); }
+            get => id;
+            set { id = value; OnPropertyChanged("id"); }
         }
+
+        private string name;
         public string Name
         {
-            get => Name;
+            get => name;
             set
             {
-                Name = value; OnPropertyChanged("Name");
+                name = value; OnPropertyChanged("name");
             }
         }
+
+        private string phone;
         public string Phone
         {
-            get => Phone;
+            get => phone;
             set
             {
-                Phone = value; OnPropertyChanged("Phone");
+                phone = value; OnPropertyChanged("phone");
             }
         }
+
+        private Location location;
         public Location Location
         {
-            get => Location;
+            get => location;
             set
             {
-                Location = value; OnPropertyChanged("Location");
+                location = value; OnPropertyChanged("location");
             }
         }
+
+        public IEnumerable<ParcelInCustomer> fromTheCustomerList;
         public IEnumerable<ParcelInCustomer> FromTheCustomerList
         {
-            get => FromTheCustomerList;
+            get => fromTheCustomerList;
             set
             {
-                FromTheCustomerList = value; OnPropertyChanged("FromTheCustomerList");
+                fromTheCustomerList = value; OnPropertyChanged("fromTheCustomerList");
             }
         }
+
+        private IEnumerable<ParcelInCustomer> toTheCustomerList;
         public IEnumerable<ParcelInCustomer> ToTheCustomerList
         {
-            get => ToTheCustomerList;
+            get => toTheCustomerList;
             set
             {
-                ToTheCustomerList = value; OnPropertyChanged("ToTheCustomerList");
+                toTheCustomerList = value; OnPropertyChanged("toTheCustomerList");
             }
         }
 

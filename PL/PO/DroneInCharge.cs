@@ -4,15 +4,18 @@ namespace PO
 {
     public class DroneInCharge : INotifyPropertyChanged
     {
+        private int id;
         public int Id
         {
-            get => Id;
-            set { Id = value; OnPropertyChanged("Id"); }
+            get => id;
+            set { id = value; OnPropertyChanged("id"); }
         }
+
+        private double battery;
         public double Battery
         {
-            get => Battery;
-            set { Battery = value; OnPropertyChanged("Battery"); }
+            get => battery;
+            set { battery = value; OnPropertyChanged("battery"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

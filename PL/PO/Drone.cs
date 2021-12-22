@@ -5,46 +5,53 @@ namespace PO
 {
     public class Drone : INotifyPropertyChanged
     {
+        private int id;
         public int Id
         {
-            get => Id;
-            set { Id = value; OnPropertyChanged("Id"); }
+            get => id;
+            set { id = value; OnPropertyChanged("id"); }
         }
 
+        private string model;
         public String Model
         {
-            get => Model;
-            set { Model = value; OnPropertyChanged("Model"); }
+            get => model;
+            set { model = value; OnPropertyChanged("model"); }
         }
 
+        private WeightCategories weight;
         public WeightCategories Weight
         {
-            get => Weight;
-            set { Weight = value; OnPropertyChanged("Weight"); }
+            get => weight;
+            set { weight = value; OnPropertyChanged("weight"); }
         }
 
+        private double battery;
         public double Battery
         {
-            get => Battery;
-            set { Battery = value; OnPropertyChanged("Battery"); }
+            get => battery;
+            set { battery = value; OnPropertyChanged("battery"); }
         }
 
+        private DroneStatuses status;
         public DroneStatuses Status
         {
-            get => Status;
-            set { Status = value; OnPropertyChanged("Status"); }
+            get => status;
+            set { status = value; OnPropertyChanged("status"); }
         }
 
+        private ParcelInTransfer parcelByTransfer;
         public ParcelInTransfer ParcelByTransfer
         {
-            get => ParcelByTransfer;
-            set { ParcelByTransfer = value; OnPropertyChanged("Status"); }
+            get => parcelByTransfer;
+            set { parcelByTransfer = value; OnPropertyChanged("parcelByTransfer"); }
         }
 
+        private Location location;
         public Location Location
         {
-            get => Location;
-            set { Location = value; OnPropertyChanged("Status"); }
+            get => location;
+            set { location = value; OnPropertyChanged("location"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
