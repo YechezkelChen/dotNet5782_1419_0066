@@ -25,27 +25,27 @@ namespace PL
             InitializeComponent();
             bl = BlApi.BlFactory.GetBl();
         }
-        //private void Close_Click(object sender, RoutedEventArgs e)
-        //{
-        //    CloseButton.Visibility = Visibility.Hidden;
-        //    this.Close();
-        //}
-        //private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)
-        //{
-        //    if (CloseButton.Visibility != Visibility.Hidden)
-        //        e.Cancel = true;
-        //}
-
         private void ListTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ShowData.Content = "";
             if (ListDrones.IsSelected)
                 ShowList.Content = new DroneListPage(this);
             if (ListStations.IsSelected)
-                ShowList.Content = new StationListPage();
+                ShowList.Content = new StationListPage(this);
             if (ListCustomers.IsSelected)
-                ShowList.Content = new CustomerListPage();
+                ShowList.Content = new CustomerListPage(this);
             if (ListParcels.IsSelected)
-                ShowList.Content = new ParcelListPage();
+                ShowList.Content = new ParcelListPage(this);
+            if (CloseWindow.IsSelected)
+            {
+                CloseWindow.Visibility = Visibility.Hidden;
+                this.Close();
+            }
+        }
+        private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (CloseWindow.Visibility != Visibility.Hidden)
+                e.Cancel = true;
         }
     }
 }

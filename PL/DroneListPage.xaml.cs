@@ -30,29 +30,29 @@ namespace PL
             listWindow = Window;
             bl = BlApi.BlFactory.GetBl();
             ShowDronesAfterFiltering();
-            StatusSelctor.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
-            WeightSelctor.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
 
-        private void StatusSelctor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ShowDronesAfterFiltering();
         }
 
-        private void WeightSelctor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ShowDronesAfterFiltering();
         }
 
         private void RefreshStatusButton_Click(object sender, RoutedEventArgs e)
         {
-            StatusSelctor.SelectedItem = null;
+            StatusSelector.SelectedItem = null;
             ShowDronesAfterFiltering();
         }
 
         private void RefreshWeightButton_Click(object sender, RoutedEventArgs e)
         {
-            WeightSelctor.SelectedItem = null;
+            WeightSelector.SelectedItem = null;
             ShowDronesAfterFiltering();
         }
 
@@ -83,18 +83,18 @@ namespace PL
             drones = bl.GetDrones();
 
             // Filtering of status.
-            if (StatusSelctor.SelectedItem == null)
+            if (StatusSelector.SelectedItem == null)
                 dronesFiltering = bl.GetDrones();
             else
-                dronesFiltering = bl.GetDronesByStatus((DroneStatuses)StatusSelctor.SelectedItem);
+                dronesFiltering = bl.GetDronesByStatus((DroneStatuses)StatusSelector.SelectedItem);
 
             drones = dronesFiltering.ToList().FindAll(drone => drones.ToList().Find(d => d.Id == drone.Id) != null);
 
             // Filterig of max weight
-            if (WeightSelctor.SelectedItem == null)
+            if (WeightSelector.SelectedItem == null)
                 dronesFiltering = bl.GetDrones();
             else
-                dronesFiltering = bl.GetDronesByMaxWeight((WeightCategories)WeightSelctor.SelectedItem);
+                dronesFiltering = bl.GetDronesByMaxWeight((WeightCategories)WeightSelector.SelectedItem);
 
             drones = dronesFiltering.ToList().FindAll(drone => drones.ToList().Find(d => d.Id == drone.Id) != null);
             

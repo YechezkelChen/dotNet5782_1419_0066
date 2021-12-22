@@ -64,8 +64,8 @@ namespace BL
 
             Parcel parcel = new Parcel();
             parcel.Id = dalParcel.Id;
-            parcel.Sender = new CustomerInParcel() { Id = dalParcel.SenderId, Name = GetCustomer(dalParcel.SenderId).Name };
-            parcel.Target = new CustomerInParcel() { Id = dalParcel.TargetId, Name = GetCustomer(dalParcel.TargetId).Name };
+            parcel.Sender = new CustomerInParcel() { Id = dalParcel.SenderId, Name = dal.GetCustomer(dalParcel.SenderId).Name };
+            parcel.Target = new CustomerInParcel() { Id = dalParcel.TargetId, Name = dal.GetCustomer(dalParcel.TargetId).Name };
             parcel.Weight = (WeightCategories)dalParcel.Weight;
             parcel.Priority = (Priorities)dalParcel.Priority;
 
@@ -113,14 +113,13 @@ namespace BL
             List<ParcelToList> parcels = new List<ParcelToList>();
             foreach (var dalParcel in dal.GetParcels(parcel => parcel.Deleted == false ))
             {
-                Parcel parcel = GetParcel(dalParcel.Id);
                 ParcelToList newParcel = new ParcelToList();
 
                 newParcel.Id = dalParcel.Id;
-                newParcel.SenderName = parcel.Sender.Name;
-                newParcel.TargetName = parcel.Target.Name;
-                newParcel.Weight = parcel.Weight;
-                newParcel.Priority = parcel.Priority;
+                newParcel.SenderName = dal.GetCustomer(dalParcel.SenderId).Name;
+                newParcel.TargetName = dal.GetCustomer(dalParcel.TargetId).Name;
+                newParcel.Weight = (WeightCategories)dalParcel.Weight;
+                newParcel.Priority = (Priorities)dalParcel.Priority;
 
                 if (dalParcel.Requested != null)
                     newParcel.Status = ParcelStatuses.Requested;

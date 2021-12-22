@@ -8,47 +8,52 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ParcelListPage">
 
-    <Grid Name="MainGrid">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60*"/>
-            <RowDefinition Height="30*" x:Name="MiddleRow"/>
+            <RowDefinition Height="30*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" Grid.Row="0">
-            <Grid.Background>
-                <ImageBrush ImageSource="images\upGrid.jpg"/>
-            </Grid.Background>
+        <Grid Name="UpGrid" Grid.Row="0" Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="0.7*"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="GroupParcelsButtom" Content="Group parcels" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="110"  Grid.Column="0" Click="RefreshStatusButton_Click" Background="WhiteSmoke" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF0D0B11"/>
+            <Label x:Name="StatusLabel" Content="Status:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="65" Grid.Column="0" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Normal" HorizontalContentAlignment="Center"/>
+            <ComboBox Name="StatusSelector" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="95" Grid.Column="0" Background="WhiteSmoke" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontStyle="Italic"/>
+            <Button x:Name="RefreshStatusButton" Content="Refresh" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="30" Width="80"  Grid.Column="0" Background="WhiteSmoke" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF0D0B11"/>
 
-            
+            <Label x:Name="DateLabel" Content="Date:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="65" Grid.Column="1" Foreground="#FF2F3E46" FontSize="16" FontWeight="Bold" FontFamily="Agency FB" HorizontalContentAlignment="Center"/>
+            <ComboBox Name="DateSelector" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="95" Grid.Column="1" Background="WhiteSmoke" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontStyle="Italic"/>
+            <Button x:Name="RefreshDateButton" Content="Refresh" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="30" Width="80"  Grid.Column="1" Background="WhiteSmoke" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF06010F"/>
 
-            <Button x:Name="RefreshStatusButton" Content="Refresh status" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="110"  Grid.Column="1" Click="RefreshStatusButton_Click" Background="WhiteSmoke" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF0D0B11"/>
-            <Button x:Name="RefreshWeightButton" Content="Refresh weight" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="110"  Grid.Column="1" Click="RefreshWeightButton_Click" Background="WhiteSmoke" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF06010F"/>
+            <Label x:Name="GroupCustomersButton" Content="Group by:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="120" Grid.Column="2" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
+            <ComboBox Name="CustomerSelector" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="95" Grid.Column="2" Background="WhiteSmoke" Foreground="#FF2F3E46" FontSize="16" FontFamily="Agency FB" FontStyle="Italic">
+                <ComboBoxItem Content="Sender"/>
+                <ComboBoxItem Content="Target"/>
+            </ComboBox>
+            <Button x:Name="RefreshGroupButton" Content="Refresh" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="30" Width="80"  Grid.Column="2" Background="WhiteSmoke" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF06010F"/>
 
-            <Button x:Name="AddDroneButton" Content="Add a drone" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Click="AddDrone_Click" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" Height="40" Width="100" BorderBrush="#FF050309" />
+            <Button x:Name="AddParcelButton" Content="Add parcel" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="110" Grid.Column="3" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
 
-            <Button x:Name="ClosePageButton" Content="Close Page" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ClosePageButton_Click" Background="White" Foreground="Red" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" Height="40" Width="100" BorderBrush="#FF0B0811"/>
+            <Button x:Name="RemoveParcelButton" Content="Remove parcel" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="111" Grid.Column="4" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
         </Grid>
 
-        <Label Content="List Parcel:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="800" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46" HorizontalContentAlignment="Center"/>
+        <Label Content="List Parcels:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="800" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46" HorizontalContentAlignment="Center"/>
 
-        <ListView x:Name="ParcelsListView" Grid.Row="2" Background="Gray" MouseDoubleClick="ParcelListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="20" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
+        <ListView x:Name="ParcelsListView" Grid.Row="2" Background="Gray" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="15" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
             <ListView.View>
                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="information">
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="76"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" Header="Model" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" Header="Weight" Width="110"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Battery}" Header="Battery" Width="111"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="Status" Width="104"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=IdParcel}" Header="Parcel" Width="105"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Location}" Header="Location" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=SenderName}" Header="Sender name" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TargetName}" Header="Target name" Width="110"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" Header="Weight" Width="111"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Priority}" Header="Priority" Width="104"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="Status" Width="105"/>
                 </GridView>
             </ListView.View>
         </ListView>

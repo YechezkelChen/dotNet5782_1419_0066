@@ -45,8 +45,8 @@ namespace PL
             // hidden irrelevant bottuns 
             UpdateModelButton.Visibility = Visibility.Hidden;
             SendToChargeButton.Visibility = Visibility.Hidden;
-            RealeseFromChargeButton.Visibility = Visibility.Hidden;
-            SendToDeliveryButton.Visibility = Visibility.Hidden;
+            ReleaseFromChargeButton.Visibility = Visibility.Hidden;
+            ConnectParcelButton.Visibility = Visibility.Hidden;
             CollectParcelButton.Visibility = Visibility.Hidden;
             SupplyParcelButton.Visibility = Visibility.Hidden;
         }
@@ -62,6 +62,7 @@ namespace PL
 
         private void ClosePageButton_Click(object sender, RoutedEventArgs e)
         {
+            this.Content = "";
         }
 
         private void DataDroneGrid_MouseLeave(object sender, MouseEventArgs e)
@@ -284,11 +285,11 @@ namespace PL
             }
 
             SendToChargeButton.Visibility = Visibility.Hidden;
-            RealeseFromChargeButton.Visibility = Visibility.Visible;
+            ReleaseFromChargeButton.Visibility = Visibility.Visible;
             ShowDronesAfterActions();
         }
 
-        private void RealeseFromChargeButton_Click(object sender, RoutedEventArgs e)
+        private void ReleaseFromChargeButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -308,12 +309,12 @@ namespace PL
             MessageBox.Show("The realese succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
-            RealeseFromChargeButton.Visibility = Visibility.Hidden;
+            ReleaseFromChargeButton.Visibility = Visibility.Hidden;
             SendToChargeButton.Visibility = Visibility.Visible;
             ShowDronesAfterActions();
         }
 
-        private void SendToDeliveryButton_Click(object sender, RoutedEventArgs e)
+        private void ConnectParcelButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -338,7 +339,7 @@ namespace PL
             MessageBox.Show("The connection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
-            SendToDeliveryButton.Visibility = Visibility.Hidden;
+            ConnectParcelButton.Visibility = Visibility.Hidden;
             CollectParcelButton.Visibility = Visibility.Visible;
             ShowDronesAfterActions();
         }
@@ -389,7 +390,7 @@ namespace PL
             drone = bl.GetDrone(drone.Id);
 
             SupplyParcelButton.Visibility = Visibility.Hidden;
-            SendToDeliveryButton.Visibility = Visibility.Visible;
+            ConnectParcelButton.Visibility = Visibility.Visible;
             ShowDronesAfterActions();
         }
 
@@ -430,7 +431,7 @@ namespace PL
             if (drone.Status == DroneStatuses.Maintenance)
                 SendToChargeButton.Visibility = Visibility.Hidden;
             else
-                RealeseFromChargeButton.Visibility = Visibility.Hidden;
+                ReleaseFromChargeButton.Visibility = Visibility.Hidden;
 
             if (drone.Status != DroneStatuses.Delivery)
             {
@@ -441,12 +442,12 @@ namespace PL
             {
                 if (drone.ParcelByTransfer.OnTheWay != true)
                 {
-                    SendToDeliveryButton.Visibility = Visibility.Hidden;
+                    ConnectParcelButton.Visibility = Visibility.Hidden;
                     SupplyParcelButton.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    SendToDeliveryButton.Visibility = Visibility.Hidden;
+                    ConnectParcelButton.Visibility = Visibility.Hidden;
                     CollectParcelButton.Visibility = Visibility.Hidden;
                 }
             }

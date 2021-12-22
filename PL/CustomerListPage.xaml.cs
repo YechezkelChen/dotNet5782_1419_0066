@@ -20,7 +20,9 @@ namespace PL
     /// </summary>
     public partial class CustomerListPage : Page
     {
-        public CustomerListPage()
+        ListWindow listWindow;
+        private BlApi.IBL bl;
+        public CustomerListPage(ListWindow Window)
         {
             InitializeComponent();
         }

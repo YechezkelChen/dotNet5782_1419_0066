@@ -8,33 +8,30 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="StationListPage">
 
-    <Grid Name="MainGrid">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60*"/>
-            <RowDefinition Height="30*" x:Name="MiddleRow"/>
+            <RowDefinition Height="30*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" Grid.Row="0">
-            <Grid.Background>
-                <ImageBrush ImageSource="images\upGrid.jpg"/>
-            </Grid.Background>
+        <Grid Name="UpGrid" Grid.Row="0" Background="White">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="AvailableStationsButton" Content="Available stations" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="0" Height="25" Width="130" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF0D0B11"/>
-            <Button x:Name="RefreshButton" Content="Refresh" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="0" Height="25" Width="130" Foreground="Red" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF06010F"/>
-            <Button x:Name="AddStationButton" Content="Add Station" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Height="40" Width="130" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
-            <Button x:Name="UpdateStationButton" Content="Update Station" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Height="40" Width="130" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
-            <Button x:Name="RemoveStationButton" Content="Remove Station" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Height="40" Width="130" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
+            <Button x:Name="GroupByAvailableStationsButton" Content="Group By Available Stations" HorizontalAlignment="Center" VerticalAlignment="Top" Height="35" Width="120" Grid.Column="0" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
+            <Button x:Name="RefreshGroupButton" Content="Refresh" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="30" Width="80"  Grid.Column="0" Background="WhiteSmoke" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF06010F"/>
+
+            <Button x:Name="AddStationButton" Content="Add station" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="110" Grid.Column="1" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
+
+            <Button x:Name="RemoveStationButton" Content="Remove station" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="111" Grid.Column="2" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
         </Grid>
 
         <Label Content="List Stations:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="800" FontFamily="Agency FB" FontSize="19" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46" HorizontalContentAlignment="Center"/>
 
-        <ListView x:Name="StationsListView" Grid.Row="2" Background="Gray" MouseDoubleClick="StationsListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="20" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
+        <ListView x:Name="StationsListView" Grid.Row="2" Background="Gray" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="15" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
             <ListView.View>
                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="information">
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="76"/>

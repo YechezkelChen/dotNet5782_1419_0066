@@ -20,13 +20,11 @@ namespace PL
     /// </summary>
     public partial class StationListPage : Page
     {
-        ListWindow listWindow; // ?????????????????????????????????????????????
+        ListWindow listWindow;
         private BlApi.IBL bl;
-        public StationListPage()
+        public StationListPage(ListWindow Window)
         {
             InitializeComponent();
-            bl = BlApi.BlFactory.GetBl();
-
         }
     }
 }
