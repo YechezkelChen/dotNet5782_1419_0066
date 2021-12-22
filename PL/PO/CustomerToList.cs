@@ -4,40 +4,53 @@ namespace PO
 {
     public class CustomerToList : INotifyPropertyChanged
     {
+        private int id;
         public int Id
         {
-            get => Id;
-            set { Id = value; OnPropertyChanged("Id"); }
+            get => id;
+            set { id = value; OnPropertyChanged("id"); }
         }
+
+        private string name;
         public string Name
         {
-            get => Name;
-            set { Name = value; OnPropertyChanged("Name"); }
+            get => name;
+            set { name = value; OnPropertyChanged("name"); }
         }
+
+        private string phone;
         public string Phone
         {
-            get => Phone;
-            set { Phone = value; OnPropertyChanged("Phone"); }
+            get => phone;
+            set { phone = value; OnPropertyChanged("phone"); }
         }
+
+        private int senderParcelDelivered;
         public int SenderParcelDelivered
         {
-            get => SenderParcelDelivered;
-            set { SenderParcelDelivered = value; OnPropertyChanged("SenderParcelDelivered"); }
+            get => senderParcelDelivered;
+            set { senderParcelDelivered = value; OnPropertyChanged("senderParcelDelivered"); }
         }
+
+        private int senderParcelPickedUp;
         public int SenderParcelPickedUp
         {
-            get => SenderParcelPickedUp;
-            set { SenderParcelPickedUp = value; OnPropertyChanged("SenderParcelPickedUp"); }
+            get => senderParcelPickedUp;
+            set { senderParcelPickedUp = value; OnPropertyChanged("senderParcelPickedUp"); }
         }
+
+        private int targetParcelDelivered;
         public int TargetParcelDelivered
         {
-            get => TargetParcelDelivered;
-            set { TargetParcelDelivered = value; OnPropertyChanged("TargetParcelDelivered"); }
+            get => targetParcelDelivered;
+            set { targetParcelDelivered = value; OnPropertyChanged("targetParcelDelivered"); }
         }
+
+        private int targetParcelPickedUp;
         public int TargetParcelPickedUp
         {
-            get => TargetParcelPickedUp;
-            set { TargetParcelPickedUp = value; OnPropertyChanged("TargetParcelPickedUp"); }
+            get => targetParcelPickedUp;
+            set { targetParcelPickedUp = value; OnPropertyChanged("targetParcelPickedUp"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

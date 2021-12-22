@@ -4,17 +4,20 @@ namespace PO
 {
     public class CustomerInParcel : INotifyPropertyChanged
     {
+        private int id;
         public int Id
         {
-            get => Id;
-            set { Id = value; OnPropertyChanged("Id"); }
+            get => id;
+            set { id = value; OnPropertyChanged("id"); }
         }
+
+        private string name;
         public string Name
         {
-            get => Name;
+            get => name;
             set
             {
-                Name = value; OnPropertyChanged("Name");
+                name = value; OnPropertyChanged("name");
             }
         }
 

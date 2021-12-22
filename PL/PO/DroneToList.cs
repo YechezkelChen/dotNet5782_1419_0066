@@ -14,33 +14,43 @@ namespace PO
         private string model;
         public string Model
         {
-            get => Model;
-            set { Model = value; OnPropertyChanged("Model"); }
+            get => model;
+            set { model = value; OnPropertyChanged("model"); }
         }
+
+        private WeightCategories weight;
         public WeightCategories Weight
         {
-            get => Weight;
-            set { Weight = value; OnPropertyChanged("Weight"); }
+            get => weight;
+            set { weight = value; OnPropertyChanged("weight"); }
         }
+
+        private double battery;
         public double Battery
         {
-            get => Battery;
-            set { Battery = value; OnPropertyChanged("Battery"); }
+            get => battery;
+            set { battery = value; OnPropertyChanged("battery"); }
         }
+
+        private DroneStatuses status;
         public DroneStatuses Status
         {
-            get => Status;
-            set { Status = value; OnPropertyChanged("Status"); }
+            get => status;
+            set { status = value; OnPropertyChanged("status"); }
         }
+
+        private Location location;
         public Location Location
         {
-            get => Location;
-            set { Location = value; OnPropertyChanged("Location"); }
+            get => location;
+            set { location = value; OnPropertyChanged("location"); }
         }
+
+        private int idParcel;
         public int IdParcel
         {
-            get => IdParcel;
-            set { IdParcel = value; OnPropertyChanged("IdParcel"); }
+            get => idParcel;
+            set { idParcel = value; OnPropertyChanged("idParcel"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
