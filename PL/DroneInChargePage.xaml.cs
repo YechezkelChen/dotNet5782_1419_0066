@@ -17,22 +17,24 @@ using BO;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for StationListPage.xaml
+    /// Interaction logic for DroneInChargePage.xaml
     /// </summary>
-    public partial class StationListPage : Page
+    public partial class DroneInChargePage : Page
     {
         ListWindow listWindow;
         private BlApi.IBL bl;
-        public StationListPage(ListWindow Window)
+        public DroneInChargePage(Station station)
         {
             InitializeComponent();
+            Station shoeStation = station;
+
         }
 
-        private void StationsListView_MouseEnter(object sender, MouseEventArgs e)
+        private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            StationToList stationToList = (StationToList)StationsListView.SelectedItem;
-            Station station = bl.GetStation(stationToList.Id);
-            listWindow.ShowData.Content = new StationPage(listWindow, station);
+            DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
+            Drone drone = bl.GetDrone(droneToList.Id);
+            listWindow.ShowData.Content = new DronePage(listWindow, drone);
             ShowDronesAfterFiltering();
         }
     }

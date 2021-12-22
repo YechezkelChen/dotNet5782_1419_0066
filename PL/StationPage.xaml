@@ -9,6 +9,60 @@
       Title="StationPage">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="ClosePageButton" Content="Close" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="70" Click="ClosePageButton_Click" Foreground="Red" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
+        <Grid x:Name="DataStationGrid" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Name="DataStationLabel" Content="Data station:" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
+
+            <Label Name="IdLabel" Content="ID:" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+            <TextBox x:Name="IdTextBox" Text="{Binding Id}" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" MouseLeave="IdTextBox_MouseLeave"/>
+
+            <Label Name="NameLabel" Content="Name:" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+            <TextBox x:Name="NameTextBox" Text="{Binding Name}" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" MouseLeave="NameTextBox_MouseLeave" Margin="261,0,0,0"/>
+
+            <Label Name="LongitudeLabel" Grid.Row="3" Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+            <TextBox x:Name="LongitudeTextBox" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" MouseLeave="LongitudeTextBox_MouseLeave" Margin="261,0,0,0"/>
+
+            <Label Name="LatitudeLabel" Content="Latitude:" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+            <TextBox x:Name="LatitudeTextBox" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" MouseLeave="LatitudeTextBox_MouseLeave" Margin="261,0,0,0"/>
+
+            <Label Name="AvailableChargeSlotsLabel" Content="Available Charge Slots:" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="129" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+            <TextBox x:Name="AvailableChargeSlotsTextBox" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" MouseLeave="AvailableChargeSlotsTextBox_Mouseleave" Margin="261,0,0,0"/>
+            <Button Name="DroneInChargeButtom" Content="Click here to see the drones in charge" HorizontalAlignment="Left" Grid.Row="7" VerticalAlignment="Top" Width="272" BorderBrush="#FF050406" Background="#FF0D0716" FontFamily="Agency FB" Click="DroneInChargeButtom_Click" Margin="56,9,0,0" />
+
+        </Grid>
+
+
+
+
+        <Grid x:Name="ActionsStationGrid" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="AddButton" Content="Add the station" HorizontalAlignment="Left" VerticalAlignment="Center" Height="56" Width="160" Click="AddButton_Click" Foreground="#FF3E4C2E"  FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Margin="109,0,0,0"/>
+
+            <Button x:Name="UpdateStationButton" Content="Update the station" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="54" Click="UpdateStationlButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black" Margin="109,0,0,0"/>
+
+            <Button x:Name="DeleteStationButton" Content="Delete the station" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="54" Click="DeleteStationButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF06040B" Margin="109,0,0,0" />
+
+        </Grid>
     </Grid>
 </Page>
