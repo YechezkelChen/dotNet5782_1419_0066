@@ -8,7 +8,25 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DroneInParcelPage">
 
-    <Grid>
-        
+    <Grid x:Name="DataDroneGrid" Grid.Column="0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="ClosePageButton" Content="Close" HorizontalAlignment="Right" Grid.Row="0" VerticalAlignment="Top" Height="30" Width="70" Click="ClosePageButton_Click" Foreground="Red" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Grid.ColumnSpan="2" Margin="0,0,38,0"/>
+        <Label Name="DataDroneLabel" Grid.Row="0" Content="Data drone in parcel:" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="151" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
+
+        <Label Name="IdLabel" Content="ID:" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+        <TextBox x:Name="IdTextBox" Text="{Binding Id}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2"/>
+
+        <Label Name="BatteryLabel" Content="Battery:" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Margin="0,32,0,0"/>
+        <TextBox x:Name="BatteryTextBox" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" Margin="0,32,0,0"/>
+
+        <Label Name="LocationLabel" Content="Location:" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="101" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+        <TextBox x:Name="LocationTextBox" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4"/>
     </Grid>
 </Page>
