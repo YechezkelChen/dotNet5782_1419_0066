@@ -5,34 +5,39 @@ namespace PO
 {
     public class Station : INotifyPropertyChanged
     {
+        private int id;
         public int Id
         {
-            get => Id;
-            set { Id = value; OnPropertyChanged("Id"); }
+            get => id;
+            set { id = value; OnPropertyChanged("id"); }
         }
 
+        private string name;
         public string Name
         {
-            get => Name;
-            set { Name = value; OnPropertyChanged("Name"); }
+            get => name;
+            set { name = value; OnPropertyChanged("name"); }
         }
+
+        private Location location;
         public Location Location
         {
-            get => Location;
-            set { Location = value; OnPropertyChanged("Location"); }
+            get => location;
+            set { location = value; OnPropertyChanged("location"); }
         }
 
-        
+        private int availableChargeSlots;
         public int AvailableChargeSlots
         {
-            get => AvailableChargeSlots;
-            set { AvailableChargeSlots = value; OnPropertyChanged("AvailableChargeSlots"); }
+            get => availableChargeSlots;
+            set { availableChargeSlots = value; OnPropertyChanged("availableChargeSlots"); }
         }
 
+        private IEnumerable<DroneInCharge> dronesInCharges;
         public IEnumerable<DroneInCharge> DronesInCharges
         {
-            get => DronesInCharges;
-            set { DronesInCharges = value; OnPropertyChanged("DronesInCharges"); }
+            get => dronesInCharges;
+            set { dronesInCharges = value; OnPropertyChanged("dronesInCharges"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

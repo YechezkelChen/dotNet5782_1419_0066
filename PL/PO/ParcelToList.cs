@@ -4,35 +4,46 @@ namespace PO
 {
     public class ParcelToList : INotifyPropertyChanged
     {
+        private int id;
         public int Id
         {
-            get => Id;
-            set { Id = value; OnPropertyChanged("Id"); }
+            get => id;
+            set { id = value; OnPropertyChanged("id"); }
         }
+
+        private string senderName;
         public string SenderName
         {
-            get => SenderName;
-            set { SenderName = value; OnPropertyChanged("SenderName"); }
+            get => senderName;
+            set { senderName = value; OnPropertyChanged("senderName"); }
         }
+
+        private string targetName;
         public string TargetName
         {
-            get => TargetName;
-            set { TargetName = value; OnPropertyChanged("TargetName"); }
+            get => targetName;
+            set { targetName = value; OnPropertyChanged("targetName"); }
         }
+
+        private WeightCategories weight;
         public WeightCategories Weight
         {
-            get => Weight;
-            set { Weight = value; OnPropertyChanged("Weight"); }
+            get => weight;
+            set { weight = value; OnPropertyChanged("weight"); }
         }
+
+        private Priorities priority;
         public Priorities Priority
         {
-            get => Priority;
-            set { Priority = value; OnPropertyChanged("Priority"); }
+            get => priority;
+            set { priority = value; OnPropertyChanged("priority"); }
         }
+
+        private ParcelStatuses status;
         public ParcelStatuses Status
         {
-            get => Status;
-            set { Status = value; OnPropertyChanged("Status"); }
+            get => status;
+            set { status = value; OnPropertyChanged("status"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

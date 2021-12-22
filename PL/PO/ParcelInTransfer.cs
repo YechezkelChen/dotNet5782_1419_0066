@@ -4,50 +4,67 @@ namespace PO
 {
     public class ParcelInTransfer : INotifyPropertyChanged
     {
+        private int id;
         public int Id
         {
-            get => Id;
-            set { Id = value; OnPropertyChanged("Id"); }
+            get => id;
+            set { id = value; OnPropertyChanged("id"); }
         }
+
+        private bool onTheWay;
         public bool OnTheWay
         {
-            get => OnTheWay;
-            set { OnTheWay = value; OnPropertyChanged("OnTheWay"); }
+            get => onTheWay;
+            set { onTheWay = value; OnPropertyChanged("onTheWay"); }
         }
+
+        private Priorities priority;
         public Priorities Priority
         {
-            get => Priority;
-            set { Priority = value; OnPropertyChanged("Priority"); }
+            get => priority;
+            set { priority = value; OnPropertyChanged("priority"); }
         }
+
+        private WeightCategories weight;
         public WeightCategories Weight
         {
-            get => Weight;
-            set { Weight = value; OnPropertyChanged("Weight"); }
+            get => weight;
+            set { weight = value; OnPropertyChanged("weight"); }
         }
+
+        private CustomerInParcel sender;
         public CustomerInParcel Sender
         {
-            get => Sender;
-            set { Sender = value; OnPropertyChanged("Sender"); }
+            get => sender;
+            set { sender = value; OnPropertyChanged("sender"); }
         }
+
+        private CustomerInParcel target;
         public CustomerInParcel Target
         {
-            get => Target;
-            set { Target = value; OnPropertyChanged("Target"); }
+            get => target;
+            set { target = value; OnPropertyChanged("target"); }
         }
+
+        private Location pickUpLocation;
         public Location PickUpLocation
         {
-            get => PickUpLocation;
-            set { PickUpLocation = value; OnPropertyChanged("PickUpLocation"); }
+            get => pickUpLocation;
+            set { pickUpLocation = value; OnPropertyChanged("pickUpLocation"); }
         }
+
+        private Location targetLocation;
         public Location TargetLocation
         {
-            get => TargetLocation;
-            set { TargetLocation = value; OnPropertyChanged("TargetLocation"); }
+            get => targetLocation;
+            set { targetLocation = value; OnPropertyChanged("targetLocation"); }
         }
+
+        private double distanceOfTransfer;
         public double DistanceOfTransfer
         {
-            get => DistanceOfTransfer;
-            set { DistanceOfTransfer = value; OnPropertyChanged("DistanceOfTransfer"); }
+            get => distanceOfTransfer;
+            set { distanceOfTransfer = value; OnPropertyChanged("distanceOfTransfer"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

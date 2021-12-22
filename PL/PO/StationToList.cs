@@ -4,25 +4,32 @@ namespace PO
 {
     public class StationToList : INotifyPropertyChanged
     {
+        private int id;
         public int Id
         {
-            get => Id;
-            set { Id = value; OnPropertyChanged("Id"); }
+            get => id;
+            set { id = value; OnPropertyChanged("id"); }
         }
+
+        private string name;
         public string Name
         {
-            get => Name;
-            set { Name = value; OnPropertyChanged("Name"); }
+            get => name;
+            set { name = value; OnPropertyChanged("name"); }
         }
+
+        private int availableChargeSlots;
         public int AvailableChargeSlots
         {
-            get => AvailableChargeSlots;
-            set { AvailableChargeSlots = value; OnPropertyChanged("AvailableChargeSlots"); }
+            get => availableChargeSlots;
+            set { availableChargeSlots = value; OnPropertyChanged("availableChargeSlots"); }
         }
+
+        private int notAvailableChargeSlots;
         public int NotAvailableChargeSlots
         {
-            get => NotAvailableChargeSlots;
-            set { NotAvailableChargeSlots = value; OnPropertyChanged("NotAvailableChargeSlots"); }
+            get => notAvailableChargeSlots;
+            set { notAvailableChargeSlots = value; OnPropertyChanged("notAvailableChargeSlots"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

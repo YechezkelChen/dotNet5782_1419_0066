@@ -5,60 +5,74 @@ namespace PO
 {
     public class Parcel : INotifyPropertyChanged
     {
+        private int id;
         public int Id
         {
-            get => Id;
-            set { Id = value; OnPropertyChanged("Id"); }
+            get => id;
+            set { id = value; OnPropertyChanged("id"); }
         }
 
+        private CustomerInParcel sender;
         public CustomerInParcel Sender
         {
-            get => Sender;
-            set { Sender = value; OnPropertyChanged("Sender"); }
+            get => sender;
+            set { sender = value; OnPropertyChanged("sender"); }
         }
+
+        private CustomerInParcel target;
         public CustomerInParcel Target
         {
-            get => Target;
-            set { Target = value; OnPropertyChanged("Target"); }
+            get => target;
+            set { target = value; OnPropertyChanged("target"); }
         }
 
+        private WeightCategories weight;
         public WeightCategories Weight
         {
-            get => Weight;
-            set { Weight = value; OnPropertyChanged("Weight"); }
+            get => weight;
+            set { weight = value; OnPropertyChanged("weight"); }
         }
 
+        private Priorities priority;
         public Priorities Priority
         {
-            get => Priority;
-            set { Priority = value; OnPropertyChanged("Priority"); }
+            get => priority;
+            set { priority = value; OnPropertyChanged("priority"); }
         }
 
+        private DroneInParcel droneInParcel;
         public DroneInParcel DroneInParcel
         {
-            get => DroneInParcel;
-            set { DroneInParcel = value; OnPropertyChanged("DroneInParcel"); }
+            get => droneInParcel;
+            set { droneInParcel = value; OnPropertyChanged("droneInParcel"); }
         }
 
+        private DateTime? requested;
         public DateTime? Requested
         {
-            get => Requested;
-            set { Requested = value; OnPropertyChanged("Requested"); }
+            get => requested;
+            set { requested = value; OnPropertyChanged("requested"); }
         }
+
+        private DateTime? scheduled;
         public DateTime? Scheduled
         {
-            get => Scheduled;
-            set { Scheduled = value; OnPropertyChanged("Scheduled"); }
+            get => scheduled;
+            set { scheduled = value; OnPropertyChanged("scheduled"); }
         }
+
+        private DateTime? pickedUp;
         public DateTime? PickedUp
         {
-            get => PickedUp;
-            set { PickedUp = value; OnPropertyChanged("PickedUp"); }
+            get => pickedUp;
+            set { pickedUp = value; OnPropertyChanged("pickedUp"); }
         }
+
+        private DateTime? delivered;
         public DateTime? Delivered
         {
-            get => Delivered;
-            set { Delivered = value; OnPropertyChanged("Delivered"); }
+            get => delivered;
+            set { delivered = value; OnPropertyChanged("delivered"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
