@@ -24,13 +24,16 @@ namespace PL
             listWindow = window;
             bl = BlApi.BlFactory.GetBl();
             drones = new ObservableCollection<DroneToList>();
+            DronesListView.ItemsSource = drones;
             DronesListView.DataContext = drones;
             foreach (var drone in bl.GetDrones())
             {
                 DroneToList newDrone = new DroneToList();
+                newDrone.Location = new Location();
                 listWindow.CopyPropertiesTo(drone, newDrone);
                 drones.Add(newDrone);
             }
+
             //ShowDronesAfterFiltering();
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
@@ -62,7 +65,7 @@ namespace PL
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-            listWindow.ShowData.Content = new DronePage(listWindow); //go to the window that can add a drone
+            listWindow.ShowData.Content = new DronePage(listWindow, drones);//go to the window that can add a drone
             ShowDronesAfterFiltering();
         }
 
@@ -75,7 +78,7 @@ namespace PL
         {
             DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
             BO.Drone drone = bl.GetDrone(droneToList.Id);
-            listWindow.ShowData.Content = new DronePage(listWindow, drone);
+            listWindow.ShowData.Content = new DronePage(listWindow, drone, drones);
             ShowDronesAfterFiltering();
         }
 

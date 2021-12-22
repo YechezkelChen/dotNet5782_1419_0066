@@ -20,9 +20,9 @@ namespace PL
 
         private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
-            Drone drone = bl.GetDrone(droneToList.Id);
-            listWindow.ShowData.Content = new DronePage(listWindow, drone);
+            //DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
+            //Drone drone = bl.GetDrone(droneToList.Id);
+            //listWindow.ShowData.Content = new DronePage(listWindow, drone, drones);
             //ShowDronesAfterFiltering();
         }
     }

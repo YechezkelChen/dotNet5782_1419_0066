@@ -22,7 +22,7 @@ namespace PL
 
         private void ClosePageButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Content = new DronePage(listWindow, drone);
+            //this.Content = new DronePage(listWindow, drone, drones);
         }
         void BlockingControls()
         {
