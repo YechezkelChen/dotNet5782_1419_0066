@@ -27,7 +27,9 @@ namespace BlApi
         void CollectionParcelByDrone(int droneId); // Sending the desired drone (according to id) to collect the parcel from its place.
         void SupplyParcelByDrone(int droneId); // Sending the drone (according to id) deliver the parcel to the destination of the parcel.
 
-        
+        //DroneInCharge
+        void RemoveDroneInCharge(Station station, DroneInCharge droneInCharge);
+
         // Customer
         void AddCustomer(Customer newCustomer); // Adds a customer to the list of customers.
         Customer GetCustomer(int customerId); // Returning a customer according to the id of the customer.

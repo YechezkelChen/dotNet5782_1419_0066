@@ -52,6 +52,24 @@ namespace Dal
             return parcel;
         }
 
+
+        public void RemoveParcel(Parcel parcel)
+        {
+            if (parcel.DroneId != 0)
+                throw new IdNotFoundException("ERROR: the parcel connect to drone!\n");
+
+            for (int i = 0; i < DataSource.Parcels.Count(); i++)
+            {
+                Parcel elementParcel = DataSource.Parcels[i];
+                if (elementParcel.Id == parcel.Id)
+                {
+                    elementParcel.Deleted = true;
+                    DataSource.Parcels[i] = elementParcel;
+                }
+            }
+        }
+
+
         //public Parcel GetParcel(int parcelId)
         //{
 

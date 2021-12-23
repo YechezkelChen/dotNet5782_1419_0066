@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BO;
 
@@ -153,6 +154,22 @@ namespace BL
                 throw new LocationException("ERROR: longitude must to be between -1 to 1");
             if (station.Location.Latitude < -1 || station.Location.Latitude > 1)
                 throw new LocationException("ERROR: latitude must to be between -1 to 1");
+        }
+
+        public void RemoveDroneInCharge(Station station , DroneInCharge droneInCharge)
+        {
+            DO.DroneCharge droneCharge = new DO.DroneCharge();
+            droneCharge.DroneId = station.DronesInCharges.FirstOrDefault(droneCharge => droneCharge.Id == droneInCharge.Id).Id;
+            droneCharge.StationId = station.Id;
+            droneCharge.Deleted = true;
+            try
+            {
+                dal.RemoveDroneCharge(droneCharge);
+            }
+            catch (DO.IdNotFoundException e)
+            {
+                throw new IdException(e.Message, e);
+            }
         }
     }
 }
