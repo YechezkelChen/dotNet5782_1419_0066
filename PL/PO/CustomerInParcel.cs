@@ -21,6 +21,12 @@ namespace PO
             }
         }
 
+        public override string ToString()
+        {
+            return
+                $"Id #{id}: \nName = {name}";
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {

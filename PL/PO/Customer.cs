@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text;
 
 namespace PO
 {
@@ -60,6 +61,21 @@ namespace PO
             {
                 toTheCustomerList = value; OnPropertyChanged("toTheCustomerList");
             }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder builderFromTheCustomerList = new StringBuilder();
+            StringBuilder builderToTheCustomerList = new StringBuilder();
+            foreach (var parcelInCustomer in fromTheCustomerList)
+                builderFromTheCustomerList.Append(parcelInCustomer).Append(", ");
+            foreach (var parcelToCustomer in toTheCustomerList)
+                builderToTheCustomerList.Append(parcelToCustomer).Append(", ");
+
+            return
+                $"Id #{id}: Name = {name}, Phone = {phone}, Location = {location}" +
+                $"Parcels the customer sent = {builderFromTheCustomerList}\n" +
+                $"Parcels the customer need to receive = {builderToTheCustomerList}.";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

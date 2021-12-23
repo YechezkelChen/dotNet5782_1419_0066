@@ -46,6 +46,12 @@ namespace PO
             set { status = value; OnPropertyChanged("status"); }
         }
 
+        public override string ToString()
+        {
+            return $"Id #{id}: Sender name = {senderName},Target name = {targetName}," +
+                   $"Weight = {weight},  Priority = {priority}, Status = {status}";
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {

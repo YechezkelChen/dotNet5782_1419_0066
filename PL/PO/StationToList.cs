@@ -32,6 +32,12 @@ namespace PO
             set { notAvailableChargeSlots = value; OnPropertyChanged("notAvailableChargeSlots"); }
         }
 
+        public override string ToString()
+        {
+            return $"Id #{id}: Name = {name}, Available charge slots = {availableChargeSlots}, " +
+                   $"Not available charge slots = {notAvailableChargeSlots}";
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {

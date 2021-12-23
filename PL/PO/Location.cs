@@ -19,6 +19,12 @@ namespace PO
             set { latitude = Math.Round(value, 2); OnPropertyChanged("latitude"); }
         }
 
+        public override string ToString()
+        {
+            return $"Longitude = " + String.Format("{0:0.000}", longitude) + "\n" +
+                   $"Latitude = " + String.Format("{0:0.000}", latitude) + "\n";
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
