@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace PO
 {
@@ -65,6 +66,19 @@ namespace PO
         {
             get => distanceOfTransfer;
             set { distanceOfTransfer = value; OnPropertyChanged("distanceOfTransfer"); }
+        }
+
+        public override string ToString()
+        {
+            return $"Id #{id}:\n" +
+                   $"On the way = {onTheWay}\n" +
+                   $"Priority = {priority}\n" +
+                   $"Weight = {weight}\n" +
+                   $"Sender = {sender}\n" +
+                   $"Target = {target}\n" +
+                   $"Pick up location = {pickUpLocation}" +
+                   $"Target location = {targetLocation}" +
+                   $"Distance of transfer =" + String.Format("{0:0.00}", distanceOfTransfer) + "\n";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

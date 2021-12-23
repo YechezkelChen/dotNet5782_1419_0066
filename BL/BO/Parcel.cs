@@ -17,7 +17,7 @@ namespace BO
         public DateTime? Delivered { get; set; }
         public override string ToString()
         {
-            return $"Id #{Id}: SenderId = {Sender}, TargetId = {Target}, Weight = {Weight}," +
+            return $"Id #{Id}: Sender = {Sender}, Target = {Target}, Weight = {Weight}," +
                    $" Priority = {Priority}, Drone in Parcel = {DroneInParcel}, Requested = {Requested}," +
                    $" Scheduled = {Scheduled}, PickedUp = {PickedUp},Delivered = {Delivered},";
         }

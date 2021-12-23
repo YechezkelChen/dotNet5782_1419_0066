@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text;
 
 namespace PO
 {
@@ -38,6 +39,15 @@ namespace PO
         {
             get => dronesInCharges;
             set { dronesInCharges = value; OnPropertyChanged("dronesInCharges"); }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder builderDroneChargeListPrint = new StringBuilder();
+            foreach (var elementInCharge in DronesInCharges)
+                builderDroneChargeListPrint.Append(elementInCharge).Append(", ");
+            return $"Id #{id}: Name = {name},Location = {location}, " +
+                   $"Avalible charge slots = {availableChargeSlots}, Drones in charges = {builderDroneChargeListPrint}.";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

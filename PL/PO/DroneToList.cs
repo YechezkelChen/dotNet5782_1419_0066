@@ -53,6 +53,14 @@ namespace PO
             set { idParcel = value; OnPropertyChanged("idParcel"); }
         }
 
+        public override string ToString()
+        {
+            return
+                $"Id #{id}: Model = {model}, Weight = {weight}, " +
+                $"Battery = {battery}, " +
+                $"Parcel in delivery = { idParcel}, Drone Statues = {status}, Location = {location}";
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {

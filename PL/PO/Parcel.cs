@@ -75,6 +75,13 @@ namespace PO
             set { delivered = value; OnPropertyChanged("delivered"); }
         }
 
+        public override string ToString()
+        {
+            return $"Id #{id}: Sender = {sender}, Target = {target}, Weight = {weight}," +
+                   $" Priority = {priority}, Drone in Parcel = {droneInParcel}, Requested = {requested}," +
+                   $" Scheduled = {scheduled}, PickedUp = {pickedUp},Delivered = {delivered},";
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {

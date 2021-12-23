@@ -54,6 +54,18 @@ namespace PO
             set { location = value; OnPropertyChanged("location"); }
         }
 
+        public override string ToString()
+        {
+            return
+                $"Id #{id}:\n" +
+                $"Model = {model}\n" +
+                $"Weight = {weight}\n" +
+                $"Battery = {battery}\n" +
+                $"Status = {status}\n" +
+                $"DeliveryByTransfer = {parcelByTransfer}" +
+                $"Location = {location}";
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {

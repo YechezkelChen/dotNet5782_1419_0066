@@ -18,6 +18,13 @@ namespace PO
             set { battery = value; OnPropertyChanged("battery"); }
         }
 
+        public override string ToString()
+        {
+            return
+                $"Id #{id}:" +
+                $"Battery = {battery}\n";
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {

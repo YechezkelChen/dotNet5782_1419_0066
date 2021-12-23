@@ -39,6 +39,12 @@ namespace PO
             set { customerInDelivery = value; OnPropertyChanged("customerInDelivery"); }
         }
 
+        public override string ToString()
+        {
+            return $"Id #{id}: Weight = {weight}, Priority = {priority}, " +
+                   $" Status = {status}, Customer in delivery = {customerInDelivery}";
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
