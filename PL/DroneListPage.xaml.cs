@@ -24,8 +24,7 @@ namespace PL
             listWindow = window;
             bl = BlApi.BlFactory.GetBl();
             drones = new ObservableCollection<DroneToList>();
-            //DronesListView.ItemsSource = drones;
-            DronesListView.DataContext = drones;
+            DronesListView.ItemsSource = drones;
             foreach (var drone in bl.GetDrones())
             {
                 DroneToList newDrone = new DroneToList();

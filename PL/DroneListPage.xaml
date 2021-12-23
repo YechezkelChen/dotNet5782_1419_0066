@@ -43,7 +43,7 @@
 
 
 
-        <ListBox x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="2" Background="Gray" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="30" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
+        <!--<ListBox x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="2" Background="Gray" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="30" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -65,9 +65,9 @@
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </ListBox>
+        </ListBox>-->
 
-        <!--<ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="2" Background="Gray" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="18" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
+        <ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="2" Background="Gray" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="18" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
             <ListView.View>
                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="information">
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="76"/>
@@ -79,6 +79,6 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Location}" Header="Location" Width="150"/>
                 </GridView>
             </ListView.View>
-        </ListView>-->
+        </ListView>
     </Grid>
 </Page>
