@@ -1,6 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Controls;
 using System.Windows.Input;
-using BO;
+using PO;
 
 namespace PL
 {
@@ -9,19 +10,23 @@ namespace PL
     /// </summary>
     public partial class StationListPage : Page
     {
-        ListWindow listWindow;
-        private BlApi.IBL bl;
-        public StationListPage(ListWindow Window)
+        private BlApi.IBL bl = BlApi.BlFactory.GetBl();
+        private BO.Station station;
+        private ListWindow listWindow;
+        private ObservableCollection<StationToList> stations;
+        public StationListPage(ListWindow window)
         {
             InitializeComponent();
-        }
-
-        private void StationsListView_MouseEnter(object sender, MouseEventArgs e)
-        {
-            StationToList stationToList = (StationToList)StationsListView.SelectedItem;
-            Station station = bl.GetStation(stationToList.Id);
-            listWindow.ShowData.Content = new StationPage(listWindow, station);
-            //ShowDronesAfterFiltering();
+            listWindow = window;
+            bl = BlApi.BlFactory.GetBl();
+            stations = new ObservableCollection<StationToList>();
+            StationsListView.ItemsSource = stations;
+            foreach (var station in bl.GetStations())
+            {
+                StationToList newStation = new StationToList();
+                listWindow.CopyPropertiesTo(station, newStation);
+                stations.Add(newStation);
+            }
         }
     }
 }

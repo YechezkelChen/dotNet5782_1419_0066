@@ -31,13 +31,13 @@
 
         <Label Content="List Stations:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="800" FontFamily="Agency FB" FontSize="19" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46" HorizontalContentAlignment="Center"/>
 
-        <ListView x:Name="StationsListView" Grid.Row="2" Background="Gray" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="15" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" MouseEnter="StationsListView_MouseEnter" >
+        <ListView x:Name="StationsListView" ItemsSource="{Binding}" Grid.Row="2" Background="Gray" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="15" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414">
             <ListView.View>
                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="information">
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="76"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ChargeSlotsAvailable}" Header="ChargeSlotsAvailable" Width="200"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ChargeSlotsNotAvailable}" Header="ChargeSlotsNotAvailable" Width="220"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=AvailableChargeSlots}" Header="ChargeSlotsAvailable" Width="200"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=NotAvailableChargeSlots}" Header="ChargeSlotsNotAvailable" Width="220"/>
                 </GridView>
             </ListView.View>
         </ListView>

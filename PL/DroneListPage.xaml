@@ -41,32 +41,6 @@
 
         <Label Content="List Drones:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="800" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46" HorizontalContentAlignment="Center"/>
 
-
-
-        <!--<ListBox x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="2" Background="Gray" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="30" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Id}"/>
-                        <TextBlock Text="    "/>
-                        <TextBlock Text="{Binding Model}"/>
-                        <TextBlock Text="    "/>
-                        <TextBlock Text="{Binding Weight}"/>
-                        <TextBlock Text="    "/>
-                        <TextBlock Text="{Binding Battery}"/>
-                        <TextBlock Text="    "/>
-                        <TextBlock Text="{Binding Status}"/>
-                        <TextBlock Text="    "/>
-                        <TextBlock Text="{Binding IdParcel}"/>
-                        <TextBlock Text="    "/>
-                        <TextBlock Text="{Binding Location.Longitude}"/>
-                        <TextBlock Text="    "/>
-                        <TextBlock Text="{Binding Location.Latitude}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->
-
         <ListView x:Name="DronesListView" ItemsSource="{Binding}" Grid.Row="2" Background="Gray" MouseDoubleClick="DronesListView_MouseDoubleClick" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="18" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
             <ListView.View>
                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="information">

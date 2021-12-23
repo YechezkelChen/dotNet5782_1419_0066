@@ -45,7 +45,7 @@
 
         <Label Content="List Parcels:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="800" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46" HorizontalContentAlignment="Center"/>
 
-        <ListView x:Name="ParcelsListView" Grid.Row="2" Background="Gray" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="15" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
+        <ListView x:Name="ParcelsListView" ItemsSource="{Binding}" Grid.Row="2" Background="Gray" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="15" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
             <ListView.View>
                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="information">
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="76"/>
