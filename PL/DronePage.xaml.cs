@@ -395,7 +395,7 @@ namespace PL
 
         private void BlockingControls()
         {
-            IdTextBox.IsEnabled = false;
+            //IdTextBox.IsEnabled = false;
             WeightComboBox.IsEnabled = false;
             PresentWeightLabel.IsEnabled = false;
             StationComboBox.IsEnabled = false;

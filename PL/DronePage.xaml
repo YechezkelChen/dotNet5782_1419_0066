@@ -7,6 +7,11 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DroneWindow">
+    <Page.Resources>
+        <local:NotConverter x:Key="NotConverter" />
+        <local:MultiConverter x:Key="MultiConverter" />
+        <local:FromTextToIsEnable x:Key="FromTextToIsEnable" />
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -32,7 +37,7 @@
             <Label Name="DataDroneLabel" Content="Data drone:" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
 
             <Label Name="IdLabel" Content="ID:" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="IdTextBox" Text="{Binding Id}" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" MouseLeave="IdTextBox_MouseLeave"/>
+            <TextBox x:Name="IdTextBox" Text="{Binding Id}" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" MouseLeave="IdTextBox_MouseLeave" IsEnabled="{Binding ElementName=IdTextBox, Path=Text, Converter={StaticResource FromTextToIsEnable}, UpdateSourceTrigger=LostFocus}"/>
 
             <Label Name="ModelLabel" Grid.Row="2" Content="Model:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
             <TextBox x:Name="ModelTextBox" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" MouseLeave="ModelTextBox_MouseLeave"/>
@@ -55,17 +60,18 @@
             <TextBox x:Name="LocationTextBox" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4"/>
         </Grid>
 
-        <Button x:Name="ParcelDataButton" Content="Parcel data" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="110" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Click="ParcelDataButton_Click" Visibility="{Binding ElementName=CollectParcelButton, Converter={StaticResource NotConverter}, Path=Visibility}"/>
-        <!--<Button.Visibility>
-            <MultiBinding Converter="{}">
-                <Binding ElementName="CollectParcelButton" Path=" not Visibility"/>
-                <Binding ElementName="SupplyParcelButton" Path="Visibility"/>
-            </MultiBinding>
-        </Button.Visibility>-->
+        <Button x:Name="ParcelDataButton" Content="Parcel data" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="110" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Click="ParcelDataButton_Click">
+            <Button.Visibility>
+                <MultiBinding Converter="{StaticResource MultiConverter}">
+                    <Binding ElementName="ConnectParcelButton" Path="IsVisible"/>
+                    <Binding ElementName="AddButton" Path="IsVisible"/>
+                </MultiBinding>
+            </Button.Visibility>
+        </Button>
 
 
 
-        <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="AddButton_Click" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
+        <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="AddButton_Click" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Visibility="{Binding ElementName=IdTextBox, Path=IsEnabled}"/>
         <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="CancelButton_Click" FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711"/>
 
         <Grid x:Name="ActionsDroneGrid" Grid.Column="2">
