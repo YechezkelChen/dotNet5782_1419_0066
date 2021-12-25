@@ -37,7 +37,7 @@
             <Label Name="DataDroneLabel" Content="Data drone:" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
 
             <Label Name="IdLabel" Content="ID:" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="IdTextBox" Text="{Binding Id}" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" MouseLeave="IdTextBox_MouseLeave" IsEnabled="{Binding ElementName=IdTextBox, Path=Text, Converter={StaticResource FromTextToIsEnable}, UpdateSourceTrigger=LostFocus}"/>
+            <TextBox x:Name="IdTextBox" Text="{Binding Id}" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" MouseLeave="IdTextBox_MouseLeave" IsEnabled="{Binding ElementName=IdTextBox, Path=Text, UpdateSourceTrigger=Explicit, Converter={StaticResource FromTextToIsEnable}}"/>
 
             <Label Name="ModelLabel" Grid.Row="2" Content="Model:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
             <TextBox x:Name="ModelTextBox" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" MouseLeave="ModelTextBox_MouseLeave"/>

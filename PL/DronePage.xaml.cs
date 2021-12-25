@@ -95,6 +95,8 @@ namespace PL
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            IdTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+
             if (drone.Id == 0)
             {
                 MessageBoxResult result = MessageBox.Show("Id is illegal!, please enter legal id with 6 digits to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
