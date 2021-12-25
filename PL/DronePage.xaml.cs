@@ -96,7 +96,7 @@ namespace PL
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             drone.Id = int.Parse(IdTextBox.Text);
-            
+            drone.Model = ModelTextBox.Text;
 
             if (drone.Model == "")
             {
