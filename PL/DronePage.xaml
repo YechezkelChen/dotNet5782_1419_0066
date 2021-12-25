@@ -10,7 +10,9 @@
     <Page.Resources>
         <local:NotConverter x:Key="NotConverter" />
         <local:MultiConverter x:Key="MultiConverter" />
-        <local:FromTextToIsEnable x:Key="FromTextToIsEnable" />
+        <local:FromColorTextToIsEnable x:Key="FromColorTextToIsEnable" />
+        <local:IdTextToColor x:Key="TextToColor" />
+        <local:ModelOrNameTextToColor x:Key="ModelOrNameTextToColor" />
     </Page.Resources>
 
     <Grid>
@@ -37,10 +39,10 @@
             <Label Name="DataDroneLabel" Content="Data drone:" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
 
             <Label Name="IdLabel" Content="ID:" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="IdTextBox" Text="{Binding Id}" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" MouseLeave="IdTextBox_MouseLeave" IsEnabled="{Binding ElementName=IdTextBox, Path=Text, UpdateSourceTrigger=Explicit, Mode=TwoWay, Converter={StaticResource FromTextToIsEnable}}"/>
+            <TextBox x:Name="IdTextBox" Text="{Binding Id}" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground= "{Binding ElementName=IdTextBox, Path=Text, Converter={StaticResource TextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible, UpdateSourceTrigger=LostFocus}"/>
 
             <Label Name="ModelLabel" Grid.Row="2" Content="Model:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="ModelTextBox" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" MouseLeave="ModelTextBox_MouseLeave"/>
+            <TextBox x:Name="ModelTextBox" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=ModelTextBox, Path=Text, Converter={StaticResource ModelOrNameTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" MouseLeave="ModelTextBox_MouseLeave"/>
 
             <Label Name="WeightLabel" Content="Weight:" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
             <ComboBox Name="WeightComboBox" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
@@ -71,7 +73,14 @@
 
 
 
-        <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="AddButton_Click" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Visibility="{Binding ElementName=IdTextBox, Path=IsEnabled}"/>
+        <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="AddButton_Click" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black">
+            <Button.IsEnabled>
+                <MultiBinding Converter="{StaticResource FromColorTextToIsEnable}">
+                    <Binding ElementName="IdTextBox" Path="Foreground" />
+                    <Binding ElementName="ModelTextBox" Path="Foreground" />
+                </MultiBinding>
+            </Button.IsEnabled>
+        </Button>
         <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="CancelButton_Click" FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711"/>
 
         <Grid x:Name="ActionsDroneGrid" Grid.Column="2">

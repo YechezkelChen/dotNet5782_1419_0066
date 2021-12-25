@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace PL
 {
@@ -35,14 +36,50 @@ namespace PL
         }
     }
 
-    public class FromTextToIsEnable : IValueConverter
+    public class FromColorTextToIsEnable : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            return values.Cast<SolidColorBrush>().Any(x =>  x == Brushes.Red) ? false : true;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class IdTextToColor : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int id;
+            if (value.ToString() == "" || !value.ToString().All(char.IsDigit))
+                id = 0;
+            else
+                id = int.Parse(value.ToString());
+
+            if (id < 100000 || id > 999999) // Check that it's 6 digits.
+                return Brushes.Red;
+            else
+                return Brushes.SlateGray;
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ModelOrNameTextToColor : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value.ToString() == "")
-                return true;
+                return Brushes.Red;
             else
-                return false;
+                return Brushes.SlateGray;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
