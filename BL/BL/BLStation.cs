@@ -94,7 +94,7 @@ namespace BL
                    {
                        Id = dalStation.Id,
                        Name = dalStation.Name,
-                       AvalibleChargeSlots = dalStation.AvailableChargeSlots,
+                       AvailableChargeSlots = dalStation.AvailableChargeSlots,
                        NotAvailableChargeSlots = station.DronesInCharges.Count()
                    };
         }
@@ -106,7 +106,7 @@ namespace BL
         public IEnumerable<StationToList> GetStationsWithAvailableCharge()
         {
             return from station in GetStations()
-                   where station.AvalibleChargeSlots > 0
+                   where station.AvailableChargeSlots > 0
                    select station;
         }
 

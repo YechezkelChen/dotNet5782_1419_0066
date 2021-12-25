@@ -25,7 +25,39 @@ namespace PL
             bl = BlApi.BlFactory.GetBl();
             drones = new ObservableCollection<DroneToList>();
             DronesListView.ItemsSource = drones;
-            foreach (var drone in bl.GetDrones())
+            DronesData();
+
+            //ShowDronesAfterFiltering();
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+        }
+
+        private void DronesData()
+        {
+            drones.Clear();
+            IEnumerable<BO.DroneToList> dronesData = new List<BO.DroneToList>();
+            IEnumerable<BO.DroneToList> dronesFiltering = new List<BO.DroneToList>();
+
+            dronesData = bl.GetDrones();
+
+            // Filtering of status.
+            if (StatusSelector.SelectedItem == null)
+                dronesFiltering = bl.GetDrones();
+            else
+                dronesFiltering = bl.GetDronesByStatus((BO.DroneStatuses)StatusSelector.SelectedItem);
+
+            dronesData = dronesFiltering.ToList().FindAll(drone => dronesData.ToList().Find(d => d.Id == drone.Id) != null);
+
+            // Filtering of max weight
+            if (WeightSelector.SelectedItem == null)
+                dronesFiltering = bl.GetDrones();
+            else
+                dronesFiltering = bl.GetDronesByMaxWeight((BO.WeightCategories)WeightSelector.SelectedItem);
+
+            dronesData = dronesFiltering.ToList().FindAll(drone => dronesData.ToList().Find(d => d.Id == drone.Id) != null);
+
+            // Show the list after the filtering
+            foreach (var drone in dronesData)
             {
                 DroneToList newDrone = new DroneToList();
                 listWindow.CopyPropertiesTo(drone, newDrone);
@@ -33,40 +65,33 @@ namespace PL
                 listWindow.CopyPropertiesTo(drone.Location, newDrone.Location);
                 drones.Add(newDrone);
             }
-
-            //ShowDronesAfterFiltering();
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
-
-
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //ShowDronesAfterFiltering();
+            DronesData();
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //ShowDronesAfterFiltering();
+            DronesData();
         }
 
         private void RefreshStatusButton_Click(object sender, RoutedEventArgs e)
         {
             StatusSelector.SelectedItem = null;
-            //ShowDronesAfterFiltering();
+            DronesData();
         }
 
         private void RefreshWeightButton_Click(object sender, RoutedEventArgs e)
         {
             WeightSelector.SelectedItem = null;
-            //ShowDronesAfterFiltering();
+            DronesData();
         }
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
             listWindow.ShowData.Content = new DronePage(listWindow, drones);//go to the window that can add a drone
-            //ShowDronesAfterFiltering();
         }
 
         private void ClosePageButton_Click(object sender, RoutedEventArgs e)
