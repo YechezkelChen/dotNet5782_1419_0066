@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace PL
 {
-    class ConverterVisibilityToBoolean : IValueConverter
+    public class NotConverter : IValueConverter
     {
          public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
          {
