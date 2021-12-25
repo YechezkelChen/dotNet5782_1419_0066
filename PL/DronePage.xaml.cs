@@ -185,7 +185,7 @@ namespace PL
             }
 
 
-            MessageBox.Show("The update is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The update is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
             ShowDronesAfterActions();
@@ -213,7 +213,7 @@ namespace PL
                 return;
             }
 
-            MessageBox.Show("The send succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The send success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
             foreach (var elementStation in bl.GetStations())
@@ -245,7 +245,7 @@ namespace PL
                 return;
             }
 
-            MessageBox.Show("The realese succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The release success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
             ReleaseFromChargeButton.Visibility = Visibility.Hidden;
@@ -275,7 +275,7 @@ namespace PL
                 return;
             }
 
-            MessageBox.Show("The connection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The connection success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
             ConnectParcelButton.Visibility = Visibility.Hidden;
@@ -300,7 +300,7 @@ namespace PL
                 return;
             }
 
-            MessageBox.Show("The collection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The collection success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
             CollectParcelButton.Visibility = Visibility.Hidden;
@@ -325,7 +325,7 @@ namespace PL
                 return;
             }
 
-            MessageBox.Show("The supply succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The supply success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
             SupplyParcelButton.Visibility = Visibility.Hidden;
