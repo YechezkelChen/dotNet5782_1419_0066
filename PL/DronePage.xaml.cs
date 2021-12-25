@@ -98,21 +98,6 @@ namespace PL
             drone.Id = int.Parse(IdTextBox.Text);
             drone.Model = ModelTextBox.Text;
 
-            if (drone.Model == "")
-            {
-                MessageBoxResult result = MessageBox.Show("Model must have value, please enter legal model to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                switch (result)
-                {
-                    case MessageBoxResult.OK:
-                        return;
-                    //case MessageBoxResult.Cancel:
-                    //    this.Close();
-                    //    return;
-                    //default:
-                    //    this.Close();
-                    //    return;
-                }
-            }
 
             if (WeightComboBox.SelectedItem == null)
             {
