@@ -384,8 +384,8 @@ namespace PL
         private void ShowDronesAfterActions()
         {
             //IdTextBox.Text = drone.Id.ToString();
-            ModelTextBox.Text = drone.Model;
-            PresentWeightLabel.Text = drone.Weight.ToString();
+            //ModelTextBox.Text = drone.Model;
+           // PresentWeightLabel.Text = drone.Weight.ToString();
 
             if (drone.Status == BO.DroneStatuses.Maintenance)
                 foreach (var elementStation in bl.GetStations())
@@ -395,9 +395,9 @@ namespace PL
                         PresentStationLabel.Text = station.Id.ToString();
                 }
 
-            BatteryTextBox.Text = drone.Battery.ToString();
-            StatusTextBox.Text = drone.Status.ToString();
-            LocationTextBox.Text = drone.Location.ToString();
+            //BatteryTextBox.Text = drone.Battery.ToString();
+            //StatusTextBox.Text = drone.Status.ToString();
+            //LocationTextBox.Text = drone.Location.ToString();
 
             if (drone.Status == BO.DroneStatuses.Maintenance)
                 SendToChargeButton.Visibility = Visibility.Hidden;
