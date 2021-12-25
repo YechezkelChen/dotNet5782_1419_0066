@@ -95,7 +95,7 @@ namespace PL
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            IdTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            IdTextBox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
 
             if (drone.Id == 0)
             {
