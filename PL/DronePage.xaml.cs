@@ -62,37 +62,6 @@ namespace PL
             this.Content = "";
         }
 
-        private void IdTextBox_MouseLeave(object sender, MouseEventArgs e)
-        {
-            int id;
-            if (IdTextBox.Text == "" || !IdTextBox.Text.All(char.IsDigit))
-                id = 0;
-            else
-                id = int.Parse(IdTextBox.Text);
-
-            if (id < 100000 || id > 999999) // Check that it's 6 digits.
-            {
-                IdTextBox.Foreground = Brushes.Red;
-                drone.Id = 0;
-            }
-            else
-            {
-                drone.Id = id;
-                IdTextBox.Foreground = Brushes.SlateGray;
-            }
-        }
-        private void ModelTextBox_MouseLeave(object sender, MouseEventArgs e)
-        {
-            string model = ModelTextBox.Text;
-            if (model == "")
-                ModelTextBox.Foreground = Brushes.Red;
-            else
-            {
-                drone.Model = model;
-                ModelTextBox.Foreground = Brushes.SlateGray;
-            }
-        }
-
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             drone.Id = int.Parse(IdTextBox.Text);
@@ -105,17 +74,17 @@ namespace PL
                 switch (result)
                 {
                     case MessageBoxResult.OK:
+                        return; 
+                    case MessageBoxResult.Cancel:
+                        this.Content = "";
                         return;
-                    //case MessageBoxResult.Cancel:
-                    //    this.Close();
-                    //    return;
-                    //default:
-                    //    this.Close();
-                    //    return;
+                    default:
+                        this.Content = "";
+                        return;
                 }
             }
-            else
-                drone.Weight = (BO.WeightCategories)WeightComboBox.SelectedItem;
+
+            drone.Weight = (BO.WeightCategories)WeightComboBox.SelectedItem;
 
             if (StationComboBox.ItemsSource == null)
                 MessageBox.Show("There is no station with a free standing to put the drone for charging", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -128,16 +97,16 @@ namespace PL
                 {
                     case MessageBoxResult.OK:
                         return;
-                    //case MessageBoxResult.Cancel:
-                    //    this.Close();
-                    //    return;
-                    //default:
-                    //    this.Close();
-                    //    return;
+                    case MessageBoxResult.Cancel:
+                        this.Content = "";
+                        return;
+                    default:
+                        this.Content = "";
+                        return;
                 }
             }
-            else
-                stationCharge = (BO.StationToList)StationComboBox.SelectedItem;
+
+            stationCharge = (BO.StationToList)StationComboBox.SelectedItem;
 
             try
             {
@@ -169,13 +138,12 @@ namespace PL
                 return;
             }
 
-            MessageBox.Show("The add is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The add is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             DroneToList newDrone = new DroneToList();
             newDrone.Location = new Location();
             listWindow.CopyPropertiesTo(bl.GetDrone(drone.Id), newDrone);
             drones.Add(newDrone);
-            //CloseWindowButton.Visibility = Visibility.Hidden;
-            //this.Close();
+            this.Content = "";
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
