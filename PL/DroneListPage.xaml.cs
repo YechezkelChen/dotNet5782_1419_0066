@@ -27,7 +27,6 @@ namespace PL
             DronesListView.ItemsSource = drones;
             DronesData();
 
-            //ShowDronesAfterFiltering();
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
         }
@@ -115,34 +114,6 @@ namespace PL
             DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
             BO.Drone drone = bl.GetDrone(droneToList.Id);
             listWindow.ShowData.Content = new DronePage(listWindow, drone, drones);
-            //ShowDronesAfterFiltering();
-        }
-
-        private void ShowDronesAfterFiltering()
-        {
-            IEnumerable<BO.DroneToList> drones = new List<BO.DroneToList>();
-            IEnumerable<BO.DroneToList> dronesFiltering = new List<BO.DroneToList>();
-
-            drones = bl.GetDrones();
-
-            // Filtering of status.
-            if (StatusSelector.SelectedItem == null)
-                dronesFiltering = bl.GetDrones();
-            else
-                dronesFiltering = bl.GetDronesByStatus((BO.DroneStatuses)StatusSelector.SelectedItem);
-
-            drones = dronesFiltering.ToList().FindAll(drone => drones.ToList().Find(d => d.Id == drone.Id) != null);
-
-            // Filterig of max weight
-            if (WeightSelector.SelectedItem == null)
-                dronesFiltering = bl.GetDrones();
-            else
-                dronesFiltering = bl.GetDronesByMaxWeight((BO.WeightCategories)WeightSelector.SelectedItem);
-
-            drones = dronesFiltering.ToList().FindAll(drone => drones.ToList().Find(d => d.Id == drone.Id) != null);
-            
-            // Show the list after the filtering
-            DronesListView.ItemsSource = drones;
         }
     }
 }

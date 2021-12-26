@@ -170,7 +170,7 @@ namespace BL
         /// <summary>
         /// Update the model of the drone
         /// </summary>
-        /// <returns></no returns, update the model of the drone>
+        /// <returns></no returns, update the model of the drone>5
         public void UpdateDroneModel(int droneId, string newModel)
         {
             DO.Drone updateDrone = new DO.Drone();

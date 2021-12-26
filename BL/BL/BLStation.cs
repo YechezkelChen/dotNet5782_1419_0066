@@ -110,12 +110,19 @@ namespace BL
                    select station;
         }
 
+        public IEnumerable<IGrouping<StationToList, StationToList>> GetStationsByGroupAvailableStations()
+        {
+            return (IEnumerable<IGrouping<StationToList, StationToList>>) from station in GetStations()
+                group station by station.AvailableChargeSlots into newStation
+                select newStation;
+        }
+
         /// <summary>
-        /// update the parameters that user want to update(name, chargeSlots)
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
-        /// <param name="chargeSlots"></param>
+            /// update the parameters that user want to update(name, chargeSlots)
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="name"></param>
+            /// <param name="chargeSlots"></param>
         public void UpdateDataStation(int id, string name, int chargeSlots)
         {
             DO.Station updateStation = new DO.Station();

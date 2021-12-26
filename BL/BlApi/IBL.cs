@@ -12,6 +12,7 @@ namespace BlApi
         Station GetStation(int stationId); // Returning a station according to the id of the station.
         IEnumerable<StationToList> GetStations(); // Returning the list of stations in a special entity "Station to list".
         IEnumerable<StationToList> GetStationsWithAvailableCharge(); // Returning the list of stations with available charging position in a special entity "Station to list".
+        IEnumerable<IGrouping<StationToList, StationToList>> GetStationsByGroupAvailableStations(); // Returning the list of stations with grouping of available stations
         void UpdateDataStation(int id, string name, int chargeSlots); // Update station data according to user request.
 
 
