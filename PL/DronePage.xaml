@@ -15,6 +15,7 @@
         <local:ModelOrNameTextToColor x:Key="ModelOrNameTextToColor" />
         <local:ComboBoxToColor x:Key="ComboBoxToColor" />
         <local:StatusToVisibility x:Key="StatusToVisibility" />
+        <local:ContentToVisibility x:Key="ContentToVisibility" />
     </Page.Resources>
 
     <Grid>
@@ -102,8 +103,8 @@
                 </Button.IsEnabled>
             </Button>
 
-            <Button x:Name="SendToChargeButton" Content="Send to charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="SendToChargeButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF06040B" Visibility="{Binding Path=Status, Converter={StaticResource StatusToVisibility}}"/>
-            <Button x:Name="ReleaseFromChargeButton" Content="Release from charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="ReleaseFromChargeButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF09050F" Visibility="{Binding Path=Status, Converter={StaticResource StatusToVisibility}}"/>
+            <Button x:Name="SendReleaseChargeButton" Content="{Binding Path=Status, Converter={StaticResource StatusToVisibility}}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="SendReleaseChargeButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF06040B" Visibility="{Binding ElementName=SendReleaseChargeButton, Path=Content, Converter={StaticResource ContentToVisibility}}"/>
+            <!--<Button x:Name="ReleaseFromChargeButton" Content="Release from charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="ReleaseFromChargeButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF09050F" Visibility="{Binding Path=Status, Converter={StaticResource StatusToVisibility}}"/>-->
 
             <Button x:Name="ConnectParcelButton" Content="Connect Parcel" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="ConnectParcelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF020103"/>
             <Button x:Name="CollectParcelButton" Content="Collect parcel" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="CollectParcelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF09050F"/>

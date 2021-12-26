@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+using BO;
 
 namespace PL
 {
@@ -109,9 +110,29 @@ namespace PL
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value.ToString() == "Available")
-                return Visibility.Visible;
+                return "Send to charge";
+            if (value.ToString() == "Maintenance")
+                return "Release from charge";
             else
-                return Visibility.Hidden;
+                return "";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ContentToVisibility : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is null)
+                return false;
+            if (value.ToString() == "")
+                return false;
+            else
+                return true;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
