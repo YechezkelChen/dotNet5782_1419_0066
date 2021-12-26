@@ -95,9 +95,20 @@ namespace PL
         private void StationPage_DroneData(object sender, RoutedEventArgs e)
         {
             droneInChargePage = new DroneInChargePage(station);
-            droneInChargePage.DronesListView.MouseDoubleClick += DroneListPage_Actions;
+            droneInChargePage.DronesListView.MouseDoubleClick += DroneInCharge_Actions;
             ShowData.Content = droneInChargePage;
         }
+
+        private void DroneInCharge_Actions(object sender, MouseButtonEventArgs e)
+        {
+            ObservableCollection<PO.DroneToList> drones = new ObservableCollection<DroneToList>();
+            BO.DroneInCharge droneInCharge = (BO.DroneInCharge)droneInChargePage.DronesListView.SelectedItem;
+            drone = bl.GetDrone(droneInCharge.Id);
+            dronePage = new DronePage(drone, drones);
+            dronePage.ParcelDataButton.Click += DronePage_DataParcel;
+            ShowData.Content = dronePage;
+        }
+
         private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (CloseWindow.Visibility != Visibility.Hidden)
