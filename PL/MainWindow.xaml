@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Icon="images\icon.png"
         Closing="CloseWithSpecialButton"
-        Title="MainWindow" Height="650" Width="1200">
+        Title="MainWindow" Height="650" Width="1200"
+        WindowStartupLocation="CenterScreen">
 
     <Grid>
         <Grid.Background>
