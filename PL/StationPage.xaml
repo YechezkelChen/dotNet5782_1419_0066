@@ -54,7 +54,7 @@
 
             <Button x:Name="UpdateStationButton" Content="Update the station" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="54" Click="UpdateStationlButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black" Margin="109,0,0,0"/>
 
-            <!--<Button x:Name="DeleteStationButton" Content="Delete the station" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="54" Click="DeleteStationButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF06040B" Margin="109,0,0,0" />-->
+            <!--<Button x:Name="DeleteStationButton" Content="Delete thestation" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="54" Click="DeleteStationButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF06040B" Margin="109,0,0,0" />-->
 
         </Grid>
     </Grid>
