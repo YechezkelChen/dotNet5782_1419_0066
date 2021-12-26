@@ -50,7 +50,7 @@
             <TextBox Name="PresentWeightLabel" Text="{Binding Path=Weight}" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
 
             <Label Name="StationLabel" Content="Station ID:" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <ComboBox Name="StationComboBox" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="{Binding ElementName=WeightComboBox, Path=SelectedItem, Converter={StaticResource ComboBoxToColor}}" FontFamily="Agency FB" FontSize="15"/>
+            <ComboBox Name="StationComboBox" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="{Binding ElementName=StationComboBox, Path=SelectedItem, Converter={StaticResource ComboBoxToColor}}" FontFamily="Agency FB" FontSize="15"/>
             <TextBox Name="PresentStationLabel" Text="{Binding Path=StationId}" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
 
             <Label Name="BatteryLabel" Content="Battery:" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>

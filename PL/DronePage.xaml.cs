@@ -66,46 +66,12 @@ namespace PL
         {
             drone.Id = int.Parse(IdTextBox.Text);
             drone.Model = ModelTextBox.Text;
-
-
-            if (WeightComboBox.SelectedItem == null)
-            {
-                MessageBoxResult result = MessageBox.Show("Weight must have value, please choose weight to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                switch (result)
-                {
-                    case MessageBoxResult.OK:
-                        return; 
-                    case MessageBoxResult.Cancel:
-                        this.Content = "";
-                        return;
-                    default:
-                        this.Content = "";
-                        return;
-                }
-            }
-
             drone.Weight = (BO.WeightCategories)WeightComboBox.SelectedItem;
 
             if (StationComboBox.ItemsSource == null)
                 MessageBox.Show("There is no station with a free standing to put the drone for charging", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
 
             BO.StationToList stationCharge = new BO.StationToList();
-            if (StationComboBox.SelectedItem == null)
-            {
-                MessageBoxResult result = MessageBox.Show("Drone must have station to charge, please choose station to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                switch (result)
-                {
-                    case MessageBoxResult.OK:
-                        return;
-                    case MessageBoxResult.Cancel:
-                        this.Content = "";
-                        return;
-                    default:
-                        this.Content = "";
-                        return;
-                }
-            }
-
             stationCharge = (BO.StationToList)StationComboBox.SelectedItem;
 
             try
