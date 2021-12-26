@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,14 +15,12 @@ namespace PL
     /// </summary>
     public partial class DroneListPage : Page
     {
-        ListWindow listWindow;
         private BlApi.IBL bl;
         private ObservableCollection<DroneToList> drones;
 
-        public DroneListPage(ListWindow window)
+        public DroneListPage()
         {
             InitializeComponent();
-            listWindow = window;
             bl = BlApi.BlFactory.GetBl();
             drones = new ObservableCollection<DroneToList>();
             DronesListView.ItemsSource = drones;
@@ -59,9 +58,9 @@ namespace PL
             foreach (var drone in dronesData)
             {
                 DroneToList newDrone = new DroneToList();
-                listWindow.CopyPropertiesTo(drone, newDrone);
+                CopyPropertiesTo(drone, newDrone);
                 newDrone.Location = new Location();
-                listWindow.CopyPropertiesTo(drone.Location, newDrone.Location);
+                CopyPropertiesTo(drone.Location, newDrone.Location);
                 drones.Add(newDrone);
             }
         }
@@ -99,21 +98,17 @@ namespace PL
             DronesData();
         }
 
-        //private void AddDrone_Click(object sender, RoutedEventArgs e)
-        //{
-        //    listWindow.ShowData.Content = new DronePage(listWindow, drones);//go to the window that can add a drone
-        //}
-
-        private void ClosePageButton_Click(object sender, RoutedEventArgs e)
+        public void CopyPropertiesTo<T, S>(S from, T to)
         {
-            this.Content = "";
+            foreach (PropertyInfo propTo in to.GetType().GetProperties())
+            {
+                PropertyInfo propFrom = typeof(S).GetProperty(propTo.Name);
+                if (propFrom == null)
+                    continue;
+                var value = propFrom.GetValue(from, null);
+                if (value is ValueType || value is string)
+                    propTo.SetValue(to, value);
+            }
         }
-
-        //private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //    DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
-        //    BO.Drone drone = bl.GetDrone(droneToList.Id);
-        //    listWindow.ShowData.Content = new DronePage(listWindow, drone, drones);
-        //}
     }
 }

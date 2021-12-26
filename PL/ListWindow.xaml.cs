@@ -14,13 +14,15 @@ namespace PL
     public partial class ListWindow : Window
     {
         private BlApi.IBL bl;
-        DroneListPage droneListPage;
+        private DroneListPage droneListPage;
+        private DronePage dronePage;
+        private BO.Drone drone;
 
         public ListWindow()
         {
             InitializeComponent();
             bl = BlApi.BlFactory.GetBl();
-            droneListPage = new DroneListPage(this);
+            droneListPage = new DroneListPage();
         }
         private void ListTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -47,14 +49,20 @@ namespace PL
         private void DroneListPage_Add(object sender, RoutedEventArgs e)
         {
             ObservableCollection<PO.DroneToList> drones = new ObservableCollection<DroneToList>();
-            ShowData.Content = new DronePage(this, drones);//go to the window that can add a drone
+            ShowData.Content = new DronePage(drones);//go to the window that can add a drone
         }
         private void DroneListPage_Actions(object sender, MouseButtonEventArgs e)
         {
             ObservableCollection<PO.DroneToList> drones = new ObservableCollection<DroneToList>();
             DroneToList droneToList = (DroneToList)droneListPage.DronesListView.SelectedItem;
-            BO.Drone drone = bl.GetDrone(droneToList.Id);
-            ShowData.Content = new DronePage(this, drone, drones);
+            drone = bl.GetDrone(droneToList.Id);
+            dronePage = new DronePage(drone, drones);
+            dronePage.ParcelDataButton.Click += DronePage_DataParcel;
+            ShowData.Content = dronePage;
+        }
+        private void DronePage_DataParcel(object sender, RoutedEventArgs e)
+        {
+            ShowData.Content = new ParcelInDronePage(drone);
         }
 
         private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)

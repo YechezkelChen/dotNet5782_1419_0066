@@ -63,7 +63,7 @@
             <TextBox x:Name="LocationTextBox" Text="{Binding Path=Location}" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
         </Grid>
 
-        <Button x:Name="ParcelDataButton" Content="Parcel data" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="110" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Click="ParcelDataButton_Click">
+        <Button x:Name="ParcelDataButton" Content="Parcel data" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="110" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711">
             <Button.Visibility>
                 <MultiBinding Converter="{StaticResource MultiConverter}">
                     <Binding ElementName="ConnectParcelButton" Path="IsVisible"/>

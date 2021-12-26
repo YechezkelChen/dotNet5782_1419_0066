@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,14 +17,12 @@ namespace PL
     public partial class DronePage : Page
     {
         private BlApi.IBL bl = BlApi.BlFactory.GetBl();
-        private ListWindow listWindow;
         private ObservableCollection<DroneToList> drones;
         private BO.Drone drone;
 
-        public DronePage(ListWindow window, ObservableCollection<DroneToList> drones)
+        public DronePage(ObservableCollection<DroneToList> drones)
         {
             InitializeComponent();
-            listWindow = window;
             this.drones = drones;
             drone = new BO.Drone();
 
@@ -32,10 +31,9 @@ namespace PL
 
             UpdateModelButton.Visibility = Visibility.Hidden; // help for all the things in xmal
         }
-        public DronePage(ListWindow window, BO.Drone drone, ObservableCollection<DroneToList> drones)
+        public DronePage(BO.Drone drone, ObservableCollection<DroneToList> drones)
         {
             InitializeComponent();
-            listWindow = window;
             this.drones = drones;
             this.drone = drone;
 
@@ -97,7 +95,7 @@ namespace PL
             MessageBox.Show("The add is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             DroneToList newDrone = new DroneToList();
             newDrone.Location = new Location();
-            listWindow.CopyPropertiesTo(bl.GetDrone(drone.Id), newDrone);
+            CopyPropertiesTo(bl.GetDrone(drone.Id), newDrone);
             drones.Add(newDrone);
             this.Content = "";
         }
@@ -312,9 +310,21 @@ namespace PL
             }
         }
 
-        private void ParcelDataButton_Click(object sender, RoutedEventArgs e)
+        //private void ParcelDataButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    listWindow.ShowData.Content = new ParcelInDronePage(listWindow, drone);
+        //}
+        public void CopyPropertiesTo<T, S>(S from, T to)
         {
-            listWindow.ShowData.Content = new ParcelInDronePage(listWindow, drone);
+            foreach (PropertyInfo propTo in to.GetType().GetProperties())
+            {
+                PropertyInfo propFrom = typeof(S).GetProperty(propTo.Name);
+                if (propFrom == null)
+                    continue;
+                var value = propFrom.GetValue(from, null);
+                if (value is ValueType || value is string)
+                    propTo.SetValue(to, value);
+            }
         }
     }
 }
