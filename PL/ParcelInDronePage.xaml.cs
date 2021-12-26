@@ -9,8 +9,8 @@ namespace PL
     /// </summary>
     public partial class ParcelInDronePage : Page
     {
-        private Drone drone;
         private ListWindow listWindow;
+        private Drone drone;
         public ParcelInDronePage(ListWindow window, Drone droneHelp)
         {
             InitializeComponent();

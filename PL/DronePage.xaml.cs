@@ -44,7 +44,7 @@ namespace PL
 
             AddButton.Visibility = Visibility.Hidden; // help for all the things in xmal
 
-            ShowDronesAfterActions();
+            FixButtonsAfterActions();
         }
 
         private void ClosePageButton_Click(object sender, RoutedEventArgs e)
@@ -127,7 +127,7 @@ namespace PL
             MessageBox.Show("The update is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
-            ShowDronesAfterActions();
+            FixButtonsAfterActions();
         }
 
         private void SendToChargeButton_Click(object sender, RoutedEventArgs e)
@@ -164,7 +164,7 @@ namespace PL
 
             SendToChargeButton.Visibility = Visibility.Hidden;
             ReleaseFromChargeButton.Visibility = Visibility.Visible;
-            ShowDronesAfterActions();
+            FixButtonsAfterActions();
         }
 
         private void ReleaseFromChargeButton_Click(object sender, RoutedEventArgs e)
@@ -189,7 +189,7 @@ namespace PL
 
             ReleaseFromChargeButton.Visibility = Visibility.Hidden;
             SendToChargeButton.Visibility = Visibility.Visible;
-            ShowDronesAfterActions();
+            FixButtonsAfterActions();
         }
 
         private void ConnectParcelButton_Click(object sender, RoutedEventArgs e)
@@ -219,7 +219,7 @@ namespace PL
 
             ConnectParcelButton.Visibility = Visibility.Hidden;
             CollectParcelButton.Visibility = Visibility.Visible;
-            ShowDronesAfterActions();
+            FixButtonsAfterActions();
         }
 
         private void CollectParcelButton_Click(object sender, RoutedEventArgs e)
@@ -244,7 +244,7 @@ namespace PL
 
             CollectParcelButton.Visibility = Visibility.Hidden;
             SupplyParcelButton.Visibility = Visibility.Visible;
-            ShowDronesAfterActions();
+            FixButtonsAfterActions();
         }
 
         private void SupplyParcelButton_Click(object sender, RoutedEventArgs e)
@@ -269,10 +269,10 @@ namespace PL
 
             SupplyParcelButton.Visibility = Visibility.Hidden;
             ConnectParcelButton.Visibility = Visibility.Visible;
-            ShowDronesAfterActions();
+            FixButtonsAfterActions();
         }
 
-        private void ShowDronesAfterActions()
+        private void FixButtonsAfterActions()
         {
             //IdTextBox.Text = drone.Id.ToString();
             //ModelTextBox.Text = drone.Model;
@@ -290,28 +290,25 @@ namespace PL
             //StatusTextBox.Text = drone.Status.ToString();
             //LocationTextBox.Text = drone.Location.ToString();
 
-            if (drone.Status == BO.DroneStatuses.Maintenance)
+            if (drone.Status != BO.DroneStatuses.Available)
                 SendToChargeButton.Visibility = Visibility.Hidden;
-            else
+            if (drone.Status != BO.DroneStatuses.Maintenance)
                 ReleaseFromChargeButton.Visibility = Visibility.Hidden;
 
-            if (drone.Status != BO.DroneStatuses.Delivery)
+            // Hidden all
+            ConnectParcelButton.Visibility = Visibility.Hidden;
+            CollectParcelButton.Visibility = Visibility.Hidden;
+            SupplyParcelButton.Visibility = Visibility.Hidden;
+            // then:
+
+            if (drone.Status == BO.DroneStatuses.Available)
+                ConnectParcelButton.Visibility = Visibility.Visible;
+            if (drone.Status == BO.DroneStatuses.Delivery)
             {
-                CollectParcelButton.Visibility = Visibility.Hidden;
-                SupplyParcelButton.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                if (drone.ParcelByTransfer.OnTheWay != true)
-                {
-                    ConnectParcelButton.Visibility = Visibility.Hidden;
-                    SupplyParcelButton.Visibility = Visibility.Hidden;
-                }
+                if (drone.ParcelByTransfer.OnTheWay == false)
+                    CollectParcelButton.Visibility = Visibility.Visible;
                 else
-                {
-                    ConnectParcelButton.Visibility = Visibility.Hidden;
-                    CollectParcelButton.Visibility = Visibility.Hidden;
-                }
+                    SupplyParcelButton.Visibility = Visibility.Visible;
             }
         }
 
