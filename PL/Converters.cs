@@ -140,4 +140,23 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+    public class ParcelToVisibility : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var x = new BO.ParcelInTransfer();
+            x.
+            if (value.Status != BO.DroneStatuses.Delivery)
+                return "Send to charge";
+            if (value.ToString() == "Maintenance")
+                return "Release from charge";
+            else
+                return "";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

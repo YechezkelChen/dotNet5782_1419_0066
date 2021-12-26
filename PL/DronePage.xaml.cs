@@ -42,9 +42,9 @@ namespace PL
             UpdateModelButton.Visibility = Visibility.Hidden;
             //SendToChargeButton.Visibility = Visibility.Hidden;
             //ReleaseFromChargeButton.Visibility = Visibility.Hidden;
-            ConnectParcelButton.Visibility = Visibility.Hidden;
-            CollectParcelButton.Visibility = Visibility.Hidden;
-            SupplyParcelButton.Visibility = Visibility.Hidden;
+            //ConnectParcelButton.Visibility = Visibility.Hidden;
+            //CollectParcelButton.Visibility = Visibility.Hidden;
+            //SupplyParcelButton.Visibility = Visibility.Hidden;
         }
         public DronePage(ListWindow window, BO.Drone drone, ObservableCollection<DroneToList> drones)
         {
@@ -200,6 +200,89 @@ namespace PL
                 MessageBox.Show("The release success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 drone = bl.GetDrone(drone.Id);
 
+                ShowDronesAfterActions();
+            }
+        }
+
+        private void ConnectCollectSupplyParcelButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ConnectCollectSupplyParcelButton.Content == "ConnectParcel")
+            {
+                try
+                {
+                    bl.ConnectParcelToDrone(drone.Id);
+                }
+                catch (BO.IdException ex)
+                {
+                    MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                catch (BO.StatusDroneException ex)
+                {
+                    MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                catch (BO.NoPackagesToDroneException ex)
+                {
+                    MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                MessageBox.Show("The connection success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                drone = bl.GetDrone(drone.Id);
+
+                //ConnectParcelButton.Visibility = Visibility.Hidden;
+                //CollectParcelButton.Visibility = Visibility.Visible;
+                ShowDronesAfterActions();
+            }
+
+            if (ConnectCollectSupplyParcelButton.Content == "CollectParcel")
+            {
+                try
+                {
+                    bl.CollectionParcelByDrone(drone.Id);
+                }
+                catch (BO.IdException ex)
+                {
+                    MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                catch (BO.StatusDroneException ex)
+                {
+                    MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                MessageBox.Show("The collection success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                drone = bl.GetDrone(drone.Id);
+
+                //CollectParcelButton.Visibility = Visibility.Hidden;
+                //SupplyParcelButton.Visibility = Visibility.Visible;
+                ShowDronesAfterActions();
+            }
+
+            if (ConnectCollectSupplyParcelButton.Content == "SupplyParcel")
+            {
+                try
+                {
+                    bl.SupplyParcelByDrone(drone.Id);
+                }
+                catch (BO.IdException ex)
+                {
+                    MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                catch (BO.StatusDroneException ex)
+                {
+                    MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                MessageBox.Show("The supply success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                drone = bl.GetDrone(drone.Id);
+
+                //SupplyParcelButton.Visibility = Visibility.Hidden;
+                //ConnectParcelButton.Visibility = Visibility.Visible;
                 ShowDronesAfterActions();
             }
         }
