@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
-using BO;
 
 namespace PL
 {
@@ -97,61 +96,6 @@ namespace PL
                 return Brushes.Red;
             else
                 return Brushes.SlateGray;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class StatusToVisibility : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value.ToString() == "Available")
-                return "Send to charge";
-            if (value.ToString() == "Maintenance")
-                return "Release from charge";
-            else
-                return "";
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class ContentToVisibility : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is null)
-                return Visibility.Hidden;
-            if (value.ToString() == "")
-                return Visibility.Hidden;
-            else
-                return Visibility.Visible;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-    public class ParcelToVisibility : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var x = new BO.ParcelInTransfer();
-            x.
-            if (value.Status != BO.DroneStatuses.Delivery)
-                return "Send to charge";
-            if (value.ToString() == "Maintenance")
-                return "Release from charge";
-            else
-                return "";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
