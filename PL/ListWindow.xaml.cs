@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using PO;
 
 namespace PL
 {
@@ -18,7 +20,11 @@ namespace PL
         {
             ShowData.Content = "";
             if (ListDrones.IsSelected)
-                ShowList.Content = new DroneListPage(this);
+            {
+                DroneListPage droneListPage = new DroneListPage(this);
+                droneListPage.AddDroneButton.Click += DroneListPage_Add;
+                ShowList.Content = droneListPage;
+            }
             if (ListStations.IsSelected)
                 ShowList.Content = new StationListPage(this);
             if (ListCustomers.IsSelected)
@@ -31,6 +37,13 @@ namespace PL
                 this.Close();
             }
         }
+
+        private void DroneListPage_Add(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<PO.DroneToList> drones = new ObservableCollection<DroneToList>();
+            ShowData.Content = new DronePage(this, drones);//go to the window that can add a drone
+        }
+
         private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (CloseWindow.Visibility != Visibility.Hidden)

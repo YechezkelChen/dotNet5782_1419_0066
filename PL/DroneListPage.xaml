@@ -33,7 +33,7 @@
             <Button x:Name="GroupByStatusButton" Content="Group by status" HorizontalAlignment="Center" VerticalAlignment="Top" Height="35" Width="120" Grid.Column="2" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" Click="GroupByStatusButton_Click" />
             <Button x:Name="RefreshGroupButton" Content="Refresh" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="30" Width="80"  Grid.Column="2" Background="WhiteSmoke" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF06010F" Click="RefreshGroupButton_Click"/>
 
-            <Button x:Name="AddDroneButton" Content="Add drone" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="110" Grid.Column="3" Click="AddDrone_Click" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
+            <Button x:Name="AddDroneButton" Content="Add drone" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="110" Grid.Column="3" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
         </Grid>
 
         <Label Content="List Drones:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="800" FontFamily="Agency FB" FontSize="20" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46" HorizontalContentAlignment="Center"/>

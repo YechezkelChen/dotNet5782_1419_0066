@@ -99,10 +99,10 @@ namespace PL
             DronesData();
         }
 
-        private void AddDrone_Click(object sender, RoutedEventArgs e)
-        {
-            listWindow.ShowData.Content = new DronePage(listWindow, drones);//go to the window that can add a drone
-        }
+        //private void AddDrone_Click(object sender, RoutedEventArgs e)
+        //{
+        //    listWindow.ShowData.Content = new DronePage(listWindow, drones);//go to the window that can add a drone
+        //}
 
         private void ClosePageButton_Click(object sender, RoutedEventArgs e)
         {
