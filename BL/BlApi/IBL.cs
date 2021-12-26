@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BO;
 
 
@@ -20,6 +21,7 @@ namespace BlApi
         IEnumerable<DroneToList> GetDrones(); // Returning the list of drones in a special entity "Drone to list".
         IEnumerable<DroneToList> GetDronesByStatus(DroneStatuses status); // Returning the list of drones with filtering of status
         IEnumerable<DroneToList> GetDronesByMaxWeight(WeightCategories weight); // Returning the list of drones with filtering of max weight
+        IEnumerable<IGrouping<DroneToList, DroneToList>> GetDronesByGroupStatus(); // Returning the list of drones with grouping of status
         void UpdateDroneModel(int droneId, string newModel); // Update drone data according to user request.
         void SendDroneToDroneCharge(int droneId);// Sending a drone for charging at a vacant charging station.
         void ReleaseDroneFromDroneCharge(int droneId); // Release drone from charging station.

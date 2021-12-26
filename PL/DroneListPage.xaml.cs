@@ -77,6 +77,11 @@ namespace PL
             DronesData();
         }
 
+        private void GroupByStatusButton_Click(object sender, RoutedEventArgs e)
+        {
+            DronesListView.ItemsSource = bl.GetDronesByGroupStatus();
+        }
+
         private void RefreshStatusButton_Click(object sender, RoutedEventArgs e)
         {
             StatusSelector.SelectedItem = null;
@@ -86,6 +91,12 @@ namespace PL
         private void RefreshWeightButton_Click(object sender, RoutedEventArgs e)
         {
             WeightSelector.SelectedItem = null;
+            DronesData();
+        }
+
+        private void RefreshGroupButton_Click(object sender, RoutedEventArgs e)
+        {
+            DronesListView.ItemsSource = drones;
             DronesData();
         }
 
@@ -133,6 +144,5 @@ namespace PL
             // Show the list after the filtering
             DronesListView.ItemsSource = drones;
         }
-
     }
 }

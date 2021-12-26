@@ -160,6 +160,13 @@ namespace BL
             return drones;
         }
 
+        public IEnumerable<IGrouping<DroneToList, DroneToList>> GetDronesByGroupStatus()
+        {
+            return (IEnumerable<IGrouping<DroneToList, DroneToList>>) from drone in GetDrones()
+                                                                      group drone by drone.Status into newDrone
+                                                                      select newDrone;
+        }
+
         /// <summary>
         /// Update the model of the drone
         /// </summary>
