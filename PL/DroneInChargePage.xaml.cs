@@ -9,21 +9,14 @@ namespace PL
     /// </summary>
     public partial class DroneInChargePage : Page
     {
-        ListWindow listWindow;
         private BlApi.IBL bl;
+        private Station station;
         public DroneInChargePage(Station station)
         {
             InitializeComponent();
-            Station shoeStation = station;
+            this.station = station;
+            DronesListView.ItemsSource = station.DronesInCharges;
 
-        }
-
-        private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            //DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
-            //Drone drone = bl.GetDrone(droneToList.Id);
-            //listWindow.ShowData.Content = new DronePage(listWindow, drone, drones);
-            //ShowDronesAfterFiltering();
         }
     }
 }
