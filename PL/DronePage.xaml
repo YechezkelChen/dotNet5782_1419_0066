@@ -68,6 +68,7 @@
                 <MultiBinding Converter="{StaticResource MultiConverter}">
                     <Binding ElementName="ConnectParcelButton" Path="IsVisible"/>
                     <Binding ElementName="AddButton" Path="IsVisible"/>
+                    <Binding ElementName="ReleaseFromChargeButton" Path="IsVisible"/>
                 </MultiBinding>
             </Button.Visibility>
         </Button>
