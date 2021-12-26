@@ -7,6 +7,14 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DroneWindow">
+    <Page.Resources>
+        <local:NotConverter x:Key="NotConverter" />
+        <local:MultiConverter x:Key="MultiConverter" />
+        <local:FromColorTextToIsEnable x:Key="FromColorTextToIsEnable" />
+        <local:IdTextToColor x:Key="TextToColor" />
+        <local:ModelOrNameTextToColor x:Key="ModelOrNameTextToColor" />
+        <local:ComboBoxToColor x:Key="ComboBoxToColor" />
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -32,33 +40,51 @@
             <Label Name="DataDroneLabel" Content="Data drone:" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
 
             <Label Name="IdLabel" Content="ID:" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="IdTextBox" Text="{Binding Id}" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" MouseLeave="IdTextBox_MouseLeave"/>
+            <TextBox x:Name="IdTextBox" Text="{Binding Path=Id}" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground= "{Binding ElementName=IdTextBox, Path=Text, Converter={StaticResource TextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible, UpdateSourceTrigger=LostFocus}"/>
 
             <Label Name="ModelLabel" Grid.Row="2" Content="Model:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="ModelTextBox" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" MouseLeave="ModelTextBox_MouseLeave"/>
+            <TextBox x:Name="ModelTextBox" Text="{Binding Path=Model}" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=ModelTextBox, Path=Text, Converter={StaticResource ModelOrNameTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" />
 
             <Label Name="WeightLabel" Content="Weight:" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <ComboBox Name="WeightComboBox" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox Name="PresentWeightLabel" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+            <ComboBox Name="WeightComboBox" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="{Binding ElementName=WeightComboBox, Path=SelectedItem, Converter={StaticResource ComboBoxToColor}}" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <TextBox Name="PresentWeightLabel" Text="{Binding Path=Weight}" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
 
             <Label Name="StationLabel" Content="Station ID:" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <ComboBox Name="StationComboBox" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox Name="PresentStationLabel" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+            <ComboBox Name="StationComboBox" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="{Binding ElementName=StationComboBox, Path=SelectedItem, Converter={StaticResource ComboBoxToColor}}" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <TextBox Name="PresentStationLabel" Text="{Binding Path=StationId}" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
 
-            <Label Name="BatteryLabel" Content="Battery:" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="BatteryTextBox" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4"/>
+            <Label Name="BatteryLabel" Content="Battery:" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox x:Name="BatteryTextBox" Text="{Binding Path=Battery}" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
 
-            <Label Name="StatusLabel" Content="Status:" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="StatusTextBox" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4"/>
+            <Label Name="StatusLabel" Content="Status:" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox x:Name="StatusTextBox" Text="{Binding Path=Status}" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
 
-            <Label Name="LocationLabel" Content="Location:" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="LocationTextBox" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4"/>
+            <Label Name="LocationLabel" Content="Location:" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox x:Name="LocationTextBox" Text="{Binding Path=Location}" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
         </Grid>
 
-        <Button x:Name="ParcelDataButton" Content="Parcel data" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="110" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Click="ParcelDataButton_Click"/>
+        <Button x:Name="ParcelDataButton" Content="Parcel data" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="110" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Click="ParcelDataButton_Click">
+            <Button.Visibility>
+                <MultiBinding Converter="{StaticResource MultiConverter}">
+                    <Binding ElementName="ConnectParcelButton" Path="IsVisible"/>
+                    <Binding ElementName="AddButton" Path="IsVisible"/>
+                </MultiBinding>
+            </Button.Visibility>
+        </Button>
 
-        <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="AddButton_Click" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
-        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="CancelButton_Click" FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711"/>
+
+
+        <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="AddButton_Click" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black">
+            <Button.IsEnabled>
+                <MultiBinding Converter="{StaticResource FromColorTextToIsEnable}">
+                    <Binding ElementName="IdTextBox" Path="Foreground" />
+                    <Binding ElementName="ModelTextBox" Path="Foreground" />
+                    <Binding ElementName="WeightComboBox" Path="Foreground" />
+                    <Binding ElementName="StationComboBox" Path="Foreground" />
+                </MultiBinding>
+            </Button.IsEnabled>
+        </Button>
+        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="CancelButton_Click" FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
         <Grid x:Name="ActionsDroneGrid" Grid.Column="2">
             <Grid.RowDefinitions>
@@ -67,14 +93,20 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button x:Name="UpdateModelButton" Content="Update model" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="UpdateModelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black"/>
+            <Button x:Name="UpdateModelButton" Content="Update model" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="UpdateModelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource FromColorTextToIsEnable}">
+                        <Binding ElementName="ModelTextBox" Path="Foreground" />
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
 
-            <Button x:Name="SendToChargeButton" Content="Send to charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="SendToChargeButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF06040B" />
-            <Button x:Name="ReleaseFromChargeButton" Content="Release from charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="ReleaseFromChargeButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF09050F"/>
+            <Button x:Name="SendToChargeButton" Content="Send to charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="SendToChargeButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF06040B"  Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Button x:Name="ReleaseFromChargeButton" Content="Release from charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="ReleaseFromChargeButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF09050F" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-            <Button x:Name="ConnectParcelButton" Content="Connect Parcel" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="ConnectParcelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF020103"/>
-            <Button x:Name="CollectParcelButton" Content="Collect parcel" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="CollectParcelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF09050F"/>
-            <Button x:Name="SupplyParcelButton" Content="Supply parcel" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="SupplyParcelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF080311"/>
+            <Button x:Name="ConnectParcelButton" Content="Connect Parcel" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="ConnectParcelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF020103" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Button x:Name="CollectParcelButton" Content="Collect parcel" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="CollectParcelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF09050F" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Button x:Name="SupplyParcelButton" Content="Supply parcel" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="SupplyParcelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF080311" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </Grid>
     </Grid>
 </Page>

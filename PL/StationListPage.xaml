@@ -18,26 +18,23 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="GroupByAvailableStationsButton" Content="Group By Available Stations" HorizontalAlignment="Center" VerticalAlignment="Top" Height="35" Width="120" Grid.Column="0" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
-            <Button x:Name="RefreshGroupButton" Content="Refresh" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="30" Width="80"  Grid.Column="0" Background="WhiteSmoke" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF06010F"/>
+            <Button x:Name="GroupByAvailableStationsButton" Content="Group By Available Stations" HorizontalAlignment="Center" VerticalAlignment="Top" Height="35" Width="120" Grid.Column="0" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" Click="GroupByAvailableStationsButton_Click" />
+            <Button x:Name="RefreshGroupButton" Content="Refresh" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="30" Width="80"  Grid.Column="0" Background="WhiteSmoke" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF06010F" Click="RefreshGroupButton_Click"/>
 
-            <Button x:Name="AddStationButton" Content="Add station" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="110" Grid.Column="1" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
-
-            <Button x:Name="RemoveStationButton" Content="Remove station" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="111" Grid.Column="2" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" />
+            <Button x:Name="AddStationButton" Content="Add station" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="110" Grid.Column="1" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" Click="AddStationButton_Click" />
         </Grid>
 
         <Label Content="List Stations:" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="auto" Width="800" FontFamily="Agency FB" FontSize="19" FontWeight="Bold" FontStyle="Italic" Foreground="#2F3E46" HorizontalContentAlignment="Center"/>
 
-        <ListView x:Name="StationsListView" ItemsSource="{Binding}" Grid.Row="2" Background="Gray" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="15" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414">
+        <ListView x:Name="StationsListView" ItemsSource="{Binding}" Grid.Row="2" Background="Gray" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="15" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" MouseDoubleClick="StationsListView_MouseDoubleClick">
             <ListView.View>
                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="information">
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="76"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=AvailableChargeSlots}" Header="ChargeSlotsAvailable" Width="200"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=NotAvailableChargeSlots}" Header="ChargeSlotsNotAvailable" Width="220"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=AvailableChargeSlots}" Header="Available charge slots" Width="200"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=NotAvailableChargeSlots}" Header="Not available charge slots" Width="220"/>
                 </GridView>
             </ListView.View>
         </ListView>

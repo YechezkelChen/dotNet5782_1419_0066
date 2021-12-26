@@ -95,7 +95,7 @@ namespace BL
                    {
                        Id = dalStation.Id,
                        Name = dalStation.Name,
-                       AvalibleChargeSlots = dalStation.AvailableChargeSlots,
+                       AvailableChargeSlots = dalStation.AvailableChargeSlots,
                        NotAvailableChargeSlots = station.DronesInCharges.Count()
                    };
         }
@@ -107,16 +107,23 @@ namespace BL
         public IEnumerable<StationToList> GetStationsWithAvailableCharge()
         {
             return from station in GetStations()
-                   where station.AvalibleChargeSlots > 0
+                   where station.AvailableChargeSlots > 0
                    select station;
         }
 
+        public IEnumerable<IGrouping<StationToList, StationToList>> GetStationsByGroupAvailableStations()
+        {
+            return (IEnumerable<IGrouping<StationToList, StationToList>>) from station in GetStations()
+                group station by station.AvailableChargeSlots into newStation
+                select newStation;
+        }
+
         /// <summary>
-        /// update the parameters that user want to update(name, chargeSlots)
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
-        /// <param name="chargeSlots"></param>
+            /// update the parameters that user want to update(name, chargeSlots)
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="name"></param>
+            /// <param name="chargeSlots"></param>
         public void UpdateDataStation(int id, string name, int chargeSlots)
         {
             DO.Station updateStation = new DO.Station();

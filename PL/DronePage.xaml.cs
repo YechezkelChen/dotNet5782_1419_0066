@@ -16,45 +16,35 @@ namespace PL
     public partial class DronePage : Page
     {
         private BlApi.IBL bl = BlApi.BlFactory.GetBl();
-        private BO.Drone drone;
         private ListWindow listWindow;
         private ObservableCollection<DroneToList> drones;
+        private BO.Drone drone;
+
         public DronePage(ListWindow window, ObservableCollection<DroneToList> drones)
         {
             InitializeComponent();
             listWindow = window;
             this.drones = drones;
-            WeightComboBox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            StationComboBox.ItemsSource = bl.GetStationsWithAvailableCharge();
             drone = new BO.Drone();
 
-            // hidden irrelevant drone data
-            PresentWeightLabel.Visibility = Visibility.Hidden;
-            PresentStationLabel.Visibility = Visibility.Hidden;
-            BatteryLabel.Visibility = Visibility.Hidden;
-            BatteryTextBox.Visibility = Visibility.Hidden;
-            StatusLabel.Visibility = Visibility.Hidden;
-            StatusTextBox.Visibility = Visibility.Hidden;
-            LocationLabel.Visibility = Visibility.Hidden;
-            LocationTextBox.Visibility = Visibility.Hidden;
+            WeightComboBox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            StationComboBox.ItemsSource = bl.GetStationsWithAvailableCharge();
 
-            // hidden irrelevant bottuns 
-            UpdateModelButton.Visibility = Visibility.Hidden;
-            SendToChargeButton.Visibility = Visibility.Hidden;
-            ReleaseFromChargeButton.Visibility = Visibility.Hidden;
-            ConnectParcelButton.Visibility = Visibility.Hidden;
-            CollectParcelButton.Visibility = Visibility.Hidden;
-            SupplyParcelButton.Visibility = Visibility.Hidden;
+            UpdateModelButton.Visibility = Visibility.Hidden; // help for all the things in xmal
         }
-        public DronePage(ListWindow window, BO.Drone droneHelp, ObservableCollection<DroneToList> drones)
+        public DronePage(ListWindow window, BO.Drone drone, ObservableCollection<DroneToList> drones)
         {
             InitializeComponent();
             listWindow = window;
-            drone = droneHelp;
             this.drones = drones;
+            this.drone = drone;
+
             DataDroneGrid.DataContext = drone;
-            BlockingControls();
-            ShowDronesAfterActions();
+            ActionsDroneGrid.DataContext = drone;
+
+            AddButton.Visibility = Visibility.Hidden; // help for all the things in xmal
+
+            FixButtonsAfterActions();
         }
 
         private void ClosePageButton_Click(object sender, RoutedEventArgs e)
@@ -62,110 +52,17 @@ namespace PL
             this.Content = "";
         }
 
-        private void IdTextBox_MouseLeave(object sender, MouseEventArgs e)
-        {
-            int id;
-            if (IdTextBox.Text == "" || !IdTextBox.Text.All(char.IsDigit))
-                id = 0;
-            else
-                id = int.Parse(IdTextBox.Text);
-
-            if (id < 100000 || id > 999999) // Check that it's 6 digits.
-            {
-                IdTextBox.Foreground = Brushes.Red;
-                drone.Id = 0;
-            }
-            else
-            {
-                drone.Id = id;
-                IdTextBox.Foreground = Brushes.SlateGray;
-            }
-        }
-        private void ModelTextBox_MouseLeave(object sender, MouseEventArgs e)
-        {
-            string model = ModelTextBox.Text;
-            if (model == "")
-                ModelTextBox.Foreground = Brushes.Red;
-            else
-            {
-                drone.Model = model;
-                ModelTextBox.Foreground = Brushes.SlateGray;
-            }
-        }
-
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (drone.Id == 0)
-            {
-                MessageBoxResult result = MessageBox.Show("Id is illegal!, please enter legal id with 6 digits to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                switch (result)
-                {
-                    case MessageBoxResult.OK:
-                        return;
-                    //case MessageBoxResult.Cancel:
-                    //    this.Close();
-                    //    return;
-                    //default:
-                    //    this.Close();
-                    //    return;
-                }
-            }
-
-            if (drone.Model == "")
-            {
-                MessageBoxResult result = MessageBox.Show("Model must have value, please enter legal model to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                switch (result)
-                {
-                    case MessageBoxResult.OK:
-                        return;
-                    //case MessageBoxResult.Cancel:
-                    //    this.Close();
-                    //    return;
-                    //default:
-                    //    this.Close();
-                    //    return;
-                }
-            }
-
-            if (WeightComboBox.SelectedItem == null)
-            {
-                MessageBoxResult result = MessageBox.Show("Weight must have value, please choose weight to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                switch (result)
-                {
-                    case MessageBoxResult.OK:
-                        return;
-                    //case MessageBoxResult.Cancel:
-                    //    this.Close();
-                    //    return;
-                    //default:
-                    //    this.Close();
-                    //    return;
-                }
-            }
-            else
-                drone.Weight = (BO.WeightCategories)WeightComboBox.SelectedItem;
+            drone.Id = int.Parse(IdTextBox.Text);
+            drone.Model = ModelTextBox.Text;
+            drone.Weight = (BO.WeightCategories)WeightComboBox.SelectedItem;
 
             if (StationComboBox.ItemsSource == null)
                 MessageBox.Show("There is no station with a free standing to put the drone for charging", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
 
             BO.StationToList stationCharge = new BO.StationToList();
-            if (StationComboBox.SelectedItem == null)
-            {
-                MessageBoxResult result = MessageBox.Show("Drone must have station to charge, please choose station to continue, or Cancel to stop the adding", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                switch (result)
-                {
-                    case MessageBoxResult.OK:
-                        return;
-                    //case MessageBoxResult.Cancel:
-                    //    this.Close();
-                    //    return;
-                    //default:
-                    //    this.Close();
-                    //    return;
-                }
-            }
-            else
-                stationCharge = (BO.StationToList)StationComboBox.SelectedItem;
+            stationCharge = (BO.StationToList)StationComboBox.SelectedItem;
 
             try
             {
@@ -197,13 +94,12 @@ namespace PL
                 return;
             }
 
-            MessageBox.Show("The add is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The add is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             DroneToList newDrone = new DroneToList();
             newDrone.Location = new Location();
             listWindow.CopyPropertiesTo(bl.GetDrone(drone.Id), newDrone);
             drones.Add(newDrone);
-            //CloseWindowButton.Visibility = Visibility.Hidden;
-            //this.Close();
+            this.Content = "";
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -213,22 +109,6 @@ namespace PL
 
         private void UpdateModelButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ModelTextBox.Foreground == Brushes.Red)
-            {
-                MessageBoxResult result = MessageBox.Show("Model must have value, please enter legal model to continue, or Cancel to stop the update", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                switch (result)
-                {
-                    case MessageBoxResult.OK:
-                        return;
-                    case MessageBoxResult.Cancel:
-                        ModelTextBox.Clear();
-                        return;
-                    default:
-                        ModelTextBox.Clear();
-                        return;
-                }
-            }
-
             try
             {
                 bl.UpdateDroneModel(drone.Id, drone.Model);
@@ -244,11 +124,10 @@ namespace PL
                 return;
             }
 
-
-            MessageBox.Show("The update is succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The update is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
-            ShowDronesAfterActions();
+            FixButtonsAfterActions();
         }
 
         private void SendToChargeButton_Click(object sender, RoutedEventArgs e)
@@ -273,7 +152,7 @@ namespace PL
                 return;
             }
 
-            MessageBox.Show("The send succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The send success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
             foreach (var elementStation in bl.GetStations())
@@ -285,7 +164,7 @@ namespace PL
 
             SendToChargeButton.Visibility = Visibility.Hidden;
             ReleaseFromChargeButton.Visibility = Visibility.Visible;
-            ShowDronesAfterActions();
+            FixButtonsAfterActions();
         }
 
         private void ReleaseFromChargeButton_Click(object sender, RoutedEventArgs e)
@@ -305,12 +184,12 @@ namespace PL
                 return;
             }
 
-            MessageBox.Show("The realese succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The release success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
             ReleaseFromChargeButton.Visibility = Visibility.Hidden;
             SendToChargeButton.Visibility = Visibility.Visible;
-            ShowDronesAfterActions();
+            FixButtonsAfterActions();
         }
 
         private void ConnectParcelButton_Click(object sender, RoutedEventArgs e)
@@ -335,12 +214,12 @@ namespace PL
                 return;
             }
 
-            MessageBox.Show("The connection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The connection success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
             ConnectParcelButton.Visibility = Visibility.Hidden;
             CollectParcelButton.Visibility = Visibility.Visible;
-            ShowDronesAfterActions();
+            FixButtonsAfterActions();
         }
 
         private void CollectParcelButton_Click(object sender, RoutedEventArgs e)
@@ -360,12 +239,12 @@ namespace PL
                 return;
             }
 
-            MessageBox.Show("The collection succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The collection success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
             CollectParcelButton.Visibility = Visibility.Hidden;
             SupplyParcelButton.Visibility = Visibility.Visible;
-            ShowDronesAfterActions();
+            FixButtonsAfterActions();
         }
 
         private void SupplyParcelButton_Click(object sender, RoutedEventArgs e)
@@ -385,35 +264,19 @@ namespace PL
                 return;
             }
 
-            MessageBox.Show("The supply succesid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("The supply success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
 
             SupplyParcelButton.Visibility = Visibility.Hidden;
             ConnectParcelButton.Visibility = Visibility.Visible;
-            ShowDronesAfterActions();
+            FixButtonsAfterActions();
         }
 
-        private void BlockingControls()
-        {
-            IdTextBox.IsEnabled = false;
-            WeightComboBox.IsEnabled = false;
-            PresentWeightLabel.IsEnabled = false;
-            StationComboBox.IsEnabled = false;
-            PresentStationLabel.IsEnabled = false;
-            BatteryTextBox.IsEnabled = false;
-            StatusTextBox.IsEnabled = false;
-            LocationTextBox.IsEnabled = false;
-
-            // hidden irrelevant bottuns
-            AddButton.Visibility = Visibility.Hidden;
-            CancelButton.Visibility = Visibility.Hidden;
-        }
-
-        private void ShowDronesAfterActions()
+        private void FixButtonsAfterActions()
         {
             //IdTextBox.Text = drone.Id.ToString();
-            ModelTextBox.Text = drone.Model;
-            PresentWeightLabel.Text = drone.Weight.ToString();
+            //ModelTextBox.Text = drone.Model;
+           // PresentWeightLabel.Text = drone.Weight.ToString();
 
             if (drone.Status == BO.DroneStatuses.Maintenance)
                 foreach (var elementStation in bl.GetStations())
@@ -423,32 +286,29 @@ namespace PL
                         PresentStationLabel.Text = station.Id.ToString();
                 }
 
-            BatteryTextBox.Text = drone.Battery.ToString();
-            StatusTextBox.Text = drone.Status.ToString();
-            LocationTextBox.Text = drone.Location.ToString();
+            //BatteryTextBox.Text = drone.Battery.ToString();
+            //StatusTextBox.Text = drone.Status.ToString();
+            //LocationTextBox.Text = drone.Location.ToString();
 
-            if (drone.Status == BO.DroneStatuses.Maintenance)
+            if (drone.Status != BO.DroneStatuses.Available)
                 SendToChargeButton.Visibility = Visibility.Hidden;
-            else
+            if (drone.Status != BO.DroneStatuses.Maintenance)
                 ReleaseFromChargeButton.Visibility = Visibility.Hidden;
 
-            if (drone.Status != BO.DroneStatuses.Delivery)
+            // Hidden all
+            ConnectParcelButton.Visibility = Visibility.Hidden;
+            CollectParcelButton.Visibility = Visibility.Hidden;
+            SupplyParcelButton.Visibility = Visibility.Hidden;
+            // then:
+
+            if (drone.Status == BO.DroneStatuses.Available)
+                ConnectParcelButton.Visibility = Visibility.Visible;
+            if (drone.Status == BO.DroneStatuses.Delivery)
             {
-                CollectParcelButton.Visibility = Visibility.Hidden;
-                SupplyParcelButton.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                if (drone.ParcelByTransfer.OnTheWay != true)
-                {
-                    ConnectParcelButton.Visibility = Visibility.Hidden;
-                    SupplyParcelButton.Visibility = Visibility.Hidden;
-                }
+                if (drone.ParcelByTransfer.OnTheWay == false)
+                    CollectParcelButton.Visibility = Visibility.Visible;
                 else
-                {
-                    ConnectParcelButton.Visibility = Visibility.Hidden;
-                    CollectParcelButton.Visibility = Visibility.Hidden;
-                }
+                    SupplyParcelButton.Visibility = Visibility.Visible;
             }
         }
 

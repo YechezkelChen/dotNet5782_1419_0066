@@ -34,7 +34,7 @@ namespace Dal
             List<DateTime?> dates = new List<DateTime?>() {DateTime.Now, null};
 
             int id = 100000;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Drones.Add(new Drone
                 {
@@ -45,7 +45,7 @@ namespace Dal
                 id += 10;
             }
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Stations.Add(new Station
                 {
