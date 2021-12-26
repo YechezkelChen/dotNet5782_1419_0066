@@ -11,30 +11,17 @@ namespace PL
     {
         private ListWindow listWindow;
         private Drone drone;
-        public ParcelInDronePage(ListWindow window, Drone droneHelp)
+        public ParcelInDronePage(ListWindow window, Drone drone)
         {
             InitializeComponent();
             listWindow = window;
-            drone = droneHelp;
-            BlockingControls();
+            this.drone = drone;
             ShowParcelInDrone();
         }
 
         private void ClosePageButton_Click(object sender, RoutedEventArgs e)
         {
-            //this.Content = new DronePage(listWindow, drone, drones);
-        }
-        void BlockingControls()
-        {
-            IdParcelTextBox.IsEnabled = false;
-            StatusParcelTextBox.IsEnabled = false;
-            PriorityParcelTextBox.IsEnabled = false;
-            WeightParcelTextBox.IsEnabled = false;
-            SenderInParcelTextBox.IsEnabled = false;
-            PickUpLocationParcelTextBox.IsEnabled = false;
-            ReceiverInParcelTextBox.IsEnabled = false;
-            TargetLocationParcelTextBox.IsEnabled = false;
-            DistanceOfTransferTextBox.IsEnabled = false;
+            //listWindow.ShowData.Content = new DronePage(listWindow, drone);
         }
 
         void ShowParcelInDrone()

@@ -27,30 +27,30 @@
         <Label Name="DataParcelLabel" Content="Data parcel in drone:" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="220" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="30"/>
 
         <Label Name="IdParcelLabel" Content="ID:" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
-        <TextBox x:Name="IdParcelTextBox" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2"/>
+        <TextBox x:Name="IdParcelTextBox" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2" IsEnabled="False"/>
 
         <Label Name="StatusParcelLabel" Content="Status:" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
-        <TextBox x:Name="StatusParcelTextBox" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2"/>
+        <TextBox x:Name="StatusParcelTextBox" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2" IsEnabled="False"/>
 
         <Label Name="PriorityParcelLabel" Content="Priority:" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
-        <TextBox x:Name="PriorityParcelTextBox" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2"/>
+        <TextBox x:Name="PriorityParcelTextBox" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2" IsEnabled="False"/>
 
         <Label Name="WeightParcelLabel" Content="Weight:" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
-        <TextBox x:Name="WeightParcelTextBox" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2"/>
+        <TextBox x:Name="WeightParcelTextBox" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2" IsEnabled="False"/>
 
         <Label Name="SenderInParcelLabel" Content="Sender:" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
-        <TextBox x:Name="SenderInParcelTextBox" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="16" Background="#FFF5F7F2"/>
+        <TextBox x:Name="SenderInParcelTextBox" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="16" Background="#FFF5F7F2" IsEnabled="False"/>
 
         <Label Name="PickUpLocationParcelLabel" Content="Pick up location:" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
-        <TextBox x:Name="PickUpLocationParcelTextBox" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="16" Background="#FFF5F7F2"/>
+        <TextBox x:Name="PickUpLocationParcelTextBox" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="16" Background="#FFF5F7F2" IsEnabled="False"/>
 
         <Label Name="ReceiverInParcelLabel" Content="Receiver:" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
-        <TextBox x:Name="ReceiverInParcelTextBox" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="16" Background="#FFF5F7F2"/>
+        <TextBox x:Name="ReceiverInParcelTextBox" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="16" Background="#FFF5F7F2" IsEnabled="False"/>
 
         <Label Name="TargetLocationParcelLabel" Content="Target location:" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
-        <TextBox x:Name="TargetLocationParcelTextBox" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="16" Background="#FFF5F7F2"/>
+        <TextBox x:Name="TargetLocationParcelTextBox" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="16" Background="#FFF5F7F2" IsEnabled="False"/>
 
         <Label Name="DistanceOfTransferLabel" Content="Distance transfer:" Grid.Row="9" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
-        <TextBox x:Name="DistanceOfTransferTextBox" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2"/>
+        <TextBox x:Name="DistanceOfTransferTextBox" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2" IsEnabled="False"/>
     </Grid>
 </Page>
