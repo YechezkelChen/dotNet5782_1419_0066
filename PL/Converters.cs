@@ -103,4 +103,20 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+
+    public class StatusToVisibility : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value.ToString() == "Available")
+                return Visibility.Visible;
+            else
+                return Visibility.Hidden;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

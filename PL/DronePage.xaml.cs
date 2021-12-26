@@ -53,6 +53,7 @@ namespace PL
             this.drone = drone;
             this.drones = drones;
             DataDroneGrid.DataContext = drone;
+            ActionsDroneGrid.DataContext = drone;
             AddButton.Visibility = Visibility.Hidden;
             //BlockingControls();
             ShowDronesAfterActions();
@@ -317,9 +318,9 @@ namespace PL
             //StatusTextBox.Text = drone.Status.ToString();
             //LocationTextBox.Text = drone.Location.ToString();
 
-            if (drone.Status == BO.DroneStatuses.Maintenance)
-                SendToChargeButton.Visibility = Visibility.Hidden;
-            else
+            //if (drone.Status == BO.DroneStatuses.Maintenance)
+            //    SendToChargeButton.Visibility = Visibility.Hidden;
+            //else
                 ReleaseFromChargeButton.Visibility = Visibility.Hidden;
 
             if (drone.Status != BO.DroneStatuses.Delivery)
