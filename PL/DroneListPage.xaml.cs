@@ -109,11 +109,11 @@ namespace PL
             this.Content = "";
         }
 
-        private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
-            BO.Drone drone = bl.GetDrone(droneToList.Id);
-            listWindow.ShowData.Content = new DronePage(listWindow, drone, drones);
-        }
+        //private void DronesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        //{
+        //    DroneToList droneToList = (DroneToList)DronesListView.SelectedItem;
+        //    BO.Drone drone = bl.GetDrone(droneToList.Id);
+        //    listWindow.ShowData.Content = new DronePage(listWindow, drone, drones);
+        //}
     }
 }
