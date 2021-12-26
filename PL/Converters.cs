@@ -87,4 +87,20 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+
+    public class ComboBoxToColor : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return Brushes.Red;
+            else
+                return Brushes.SlateGray;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
