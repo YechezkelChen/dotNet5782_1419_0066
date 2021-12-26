@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using BO;
+using PO;
 
 namespace PL
 {
@@ -16,7 +16,7 @@ namespace PL
         private BlApi.IBL bl = BlApi.BlFactory.GetBl();
         private ListWindow listWindow;
         private ObservableCollection<StationToList> stations;
-        private Station station;
+        private BO.Station station;
 
         public StationPage(ListWindow window, ObservableCollection<StationToList> stations)
         {
@@ -26,7 +26,7 @@ namespace PL
             station = new BO.Station();
         }
 
-        public StationPage(ListWindow window, Station station, ObservableCollection<StationToList> stations)
+        public StationPage(ListWindow window, BO.Station station, ObservableCollection<StationToList> stations)
         {
             InitializeComponent();
             listWindow = window;
