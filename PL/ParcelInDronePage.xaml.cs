@@ -16,7 +16,7 @@ namespace PL
             InitializeComponent();
             listWindow = window;
             this.drone = drone;
-            this.DataContext = drone.ParcelByTransfer;
+            DataParcelGrid.DataContext = drone.ParcelByTransfer;
             ShowParcelInDrone();
         }
 
@@ -33,9 +33,9 @@ namespace PL
             //WeightParcelTextBox.Text = drone.ParcelByTransfer.Weight.ToString();
             //SenderInParcelTextBox.Text = drone.ParcelByTransfer.Sender.ToString();
             //PickUpLocationParcelTextBox.Text = drone.ParcelByTransfer.PickUpLocation.ToString();
-            ReceiverInParcelTextBox.Text = drone.ParcelByTransfer.Target.ToString();
-            TargetLocationParcelTextBox.Text = drone.ParcelByTransfer.TargetLocation.ToString();
-            DistanceOfTransferTextBox.Text = drone.ParcelByTransfer.DistanceOfTransfer.ToString();
+            //ReceiverInParcelTextBox.Text = drone.ParcelByTransfer.Target.ToString();
+            //TargetLocationParcelTextBox.Text = drone.ParcelByTransfer.TargetLocation.ToString();
+            //DistanceOfTransferTextBox.Text = drone.ParcelByTransfer.DistanceOfTransfer.ToString();
         }
     }
 }
