@@ -25,28 +25,25 @@ namespace PL
             InitializeComponent();
             listWindow = window;
             this.drones = drones;
-            WeightComboBox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            StationComboBox.ItemsSource = bl.GetStationsWithAvailableCharge();
             drone = new BO.Drone();
 
-            // hidden irrelevant buttons 
-            UpdateModelButton.Visibility = Visibility.Hidden;
-            //SendToChargeButton.Visibility = Visibility.Hidden;
-            ReleaseFromChargeButton.Visibility = Visibility.Hidden;
-            ConnectParcelButton.Visibility = Visibility.Hidden;
-            CollectParcelButton.Visibility = Visibility.Hidden;
-            SupplyParcelButton.Visibility = Visibility.Hidden;
+            WeightComboBox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            StationComboBox.ItemsSource = bl.GetStationsWithAvailableCharge();
+
+            UpdateModelButton.Visibility = Visibility.Hidden; // help for all the things in xmal
         }
         public DronePage(ListWindow window, BO.Drone drone, ObservableCollection<DroneToList> drones)
         {
             InitializeComponent();
             listWindow = window;
-            this.drone = drone;
             this.drones = drones;
+            this.drone = drone;
+
             DataDroneGrid.DataContext = drone;
             ActionsDroneGrid.DataContext = drone;
-            AddButton.Visibility = Visibility.Hidden;
-            //BlockingControls();
+
+            AddButton.Visibility = Visibility.Hidden; // help for all the things in xmal
+
             ShowDronesAfterActions();
         }
 
@@ -275,22 +272,6 @@ namespace PL
             ShowDronesAfterActions();
         }
 
-        private void BlockingControls()
-        {
-            //IdTextBox.IsEnabled = false;
-            WeightComboBox.IsEnabled = false;
-            PresentWeightLabel.IsEnabled = false;
-            StationComboBox.IsEnabled = false;
-            PresentStationLabel.IsEnabled = false;
-            BatteryTextBox.IsEnabled = false;
-            StatusTextBox.IsEnabled = false;
-            LocationTextBox.IsEnabled = false;
-
-            // hidden irrelevant bottuns
-            AddButton.Visibility = Visibility.Hidden;
-            CancelButton.Visibility = Visibility.Hidden;
-        }
-
         private void ShowDronesAfterActions()
         {
             //IdTextBox.Text = drone.Id.ToString();
@@ -309,9 +290,9 @@ namespace PL
             //StatusTextBox.Text = drone.Status.ToString();
             //LocationTextBox.Text = drone.Location.ToString();
 
-            //if (drone.Status == BO.DroneStatuses.Maintenance)
-            //    SendToChargeButton.Visibility = Visibility.Hidden;
-            //else
+            if (drone.Status == BO.DroneStatuses.Maintenance)
+                SendToChargeButton.Visibility = Visibility.Hidden;
+            else
                 ReleaseFromChargeButton.Visibility = Visibility.Hidden;
 
             if (drone.Status != BO.DroneStatuses.Delivery)
