@@ -14,22 +14,19 @@ namespace PL
     public partial class StationPage : Page
     {
         private BlApi.IBL bl = BlApi.BlFactory.GetBl();
-        private ListWindow listWindow;
         private ObservableCollection<StationToList> stations;
         private BO.Station station;
 
-        public StationPage(ListWindow window, ObservableCollection<StationToList> stations)
+        public StationPage(ObservableCollection<StationToList> stations)
         {
             InitializeComponent();
-            listWindow = window;
             this.stations = stations;
             station = new BO.Station();
         }
 
-        public StationPage(ListWindow window, BO.Station station, ObservableCollection<StationToList> stations)
+        public StationPage(BO.Station station, ObservableCollection<StationToList> stations)
         {
             InitializeComponent();
-            listWindow = window;
             this.stations = stations;
             this.station = station;
         }
