@@ -26,6 +26,7 @@ namespace PL
 
         private void StationsData()
         {
+            stations.Clear();
             foreach (var station in bl.GetStations())
             {
                 StationToList newStation = new StationToList();

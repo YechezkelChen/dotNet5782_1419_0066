@@ -20,7 +20,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="GroupByAvailableStationsButton" Content="Group By Available Stations" HorizontalAlignment="Center" VerticalAlignment="Top" Height="35" Width="120" Grid.Column="0" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" Click="GroupByAvailableStationsButton_Click" />
+            <Button x:Name="GroupByAvailableStationsButton" Content="Group By Available Stations" HorizontalAlignment="Center" VerticalAlignment="Top" Height="35" Width="185" Grid.Column="0" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" Click="GroupByAvailableStationsButton_Click" />
             <Button x:Name="RefreshGroupButton" Content="Refresh" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="30" Width="80"  Grid.Column="0" Background="WhiteSmoke" Foreground="#FF6B0F1A" FontSize="16" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF06010F" Click="RefreshGroupButton_Click"/>
 
             <Button x:Name="AddStationButton" Content="Add station" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="110" Grid.Column="1" Foreground="#2F3E46" FontSize="16" FontFamily="Agency FB" Background="WhiteSmoke" FontWeight="Bold" FontStyle="Italic" BorderBrush="#FF050309" Click="AddStationButton_Click" />

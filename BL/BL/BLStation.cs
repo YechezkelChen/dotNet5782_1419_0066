@@ -111,11 +111,18 @@ namespace BL
                    select station;
         }
 
-        public IEnumerable<IGrouping<StationToList, StationToList>> GetStationsByGroupAvailableStations()
+        public IEnumerable<StationToList> GetStationsByGroupAvailableStations()
         {
-            return (IEnumerable<IGrouping<StationToList, StationToList>>) from station in GetStations()
+            var groups = from station in GetStations()
                 group station by station.AvailableChargeSlots into newStation
                 select newStation;
+
+            List<StationToList> stations = new List<StationToList>();
+            foreach (var group in groups)
+            foreach (var station in group)
+                stations.Add(station);
+
+            return stations;
         }
 
         /// <summary>

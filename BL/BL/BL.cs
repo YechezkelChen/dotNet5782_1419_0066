@@ -111,7 +111,7 @@ namespace BL
 
                 if (drone.Status == DroneStatuses.Maintenance)
                 {
-                    IEnumerable<DO.Station> stationList = dal.GetStations(station => station.Deleted == false);
+                    IEnumerable<DO.Station> stationList = dal.GetStations(station => station.Deleted == false && station.AvailableChargeSlots > 0);
                     int index = rand.Next(0, stationList.Count());
                     DO.Station station = stationList.ElementAt(index);
                     drone.Location = new Location() { Longitude = station.Longitude, Latitude = station.Latitude };

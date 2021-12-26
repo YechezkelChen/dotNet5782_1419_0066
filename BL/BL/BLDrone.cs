@@ -160,11 +160,18 @@ namespace BL
             return drones;
         }
 
-        public IEnumerable<IGrouping<DroneToList, DroneToList>> GetDronesByGroupStatus()
+        public IEnumerable<DroneToList> GetDronesByGroupStatus()
         {
-            return (IEnumerable<IGrouping<DroneToList, DroneToList>>) from drone in GetDrones()
-                                                                      group drone by drone.Status into newDrone
-                                                                      select newDrone;
+            var groups = from drone in GetDrones()
+                group drone by drone.Status into newDrone
+                select newDrone;
+
+            List<DroneToList> drones = new List<DroneToList>();
+            foreach (var group in groups)
+                foreach (var drone in group)
+                    drones.Add(drone);
+
+            return drones;
         }
 
         /// <summary>
