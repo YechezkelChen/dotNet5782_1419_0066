@@ -42,8 +42,8 @@ namespace PL
             {
                 stationListPage.AddStationButton.Click += StationListPage_Add;
                 stationListPage.StationsListView.MouseDoubleClick += StationListPage_Actions;
+                ShowList.Content = stationListPage;
             }
-                ShowList.Content = new StationListPage(this);
             if (ListCustomers.IsSelected)
                 ShowList.Content = new CustomerListPage(this);
             if (ListParcels.IsSelected)
@@ -83,11 +83,11 @@ namespace PL
         }
         private void StationListPage_Actions(object sender, MouseButtonEventArgs e)
         {
-            ObservableCollection<PO.StationToList> drones = new ObservableCollection<StationToList>();
+            ObservableCollection<PO.StationToList> stations = new ObservableCollection<StationToList>();
             StationToList stationToList = (StationToList)stationListPage.StationsListView.SelectedItem;
             station = bl.GetStation(stationToList.Id);
-            stationPage = new DronePage(station, stations);
-            ShowData.Content = dronePage;
+            stationPage = new StationPage(station, stations);
+            ShowData.Content = stationPage;
         }
 
         private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)
