@@ -21,6 +21,8 @@ namespace PL
         private StationListPage stationListPage;
         private StationPage stationPage;
         private BO.Station station;
+
+        private DroneInChargePage droneInChargePage;
         public ListWindow()
         {
             InitializeComponent();
@@ -87,15 +89,20 @@ namespace PL
             StationToList stationToList = (StationToList)stationListPage.StationsListView.SelectedItem;
             station = bl.GetStation(stationToList.Id);
             stationPage = new StationPage(station, stations);
+            stationPage.DroneDataButton.Click += StationPage_DroneData;
             ShowData.Content = stationPage;
         }
-
+        private void StationPage_DroneData(object sender, RoutedEventArgs e)
+        {
+            droneInChargePage = new DroneInChargePage(station);
+            droneInChargePage.DronesListView.MouseDoubleClick += DroneListPage_Actions;
+            ShowData.Content = droneInChargePage;
+        }
         private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (CloseWindow.Visibility != Visibility.Hidden)
                 e.Cancel = true;
         }
-
         public void CopyPropertiesTo<T, S>(S from, T to)
         {
             foreach (PropertyInfo propTo in to.GetType().GetProperties())
