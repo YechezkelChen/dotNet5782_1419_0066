@@ -29,14 +29,14 @@ namespace PL
             drone = new BO.Drone();
 
             // hidden irrelevant drone data
-            PresentWeightLabel.Visibility = Visibility.Hidden;
-            PresentStationLabel.Visibility = Visibility.Hidden;
-            BatteryLabel.Visibility = Visibility.Hidden;
-            BatteryTextBox.Visibility = Visibility.Hidden;
-            StatusLabel.Visibility = Visibility.Hidden;
-            StatusTextBox.Visibility = Visibility.Hidden;
-            LocationLabel.Visibility = Visibility.Hidden;
-            LocationTextBox.Visibility = Visibility.Hidden;
+            //PresentWeightLabel.Visibility = Visibility.Hidden;
+            //PresentStationLabel.Visibility = Visibility.Hidden;
+            //BatteryLabel.Visibility = Visibility.Hidden;
+            //BatteryTextBox.Visibility = Visibility.Hidden;
+            //StatusLabel.Visibility = Visibility.Hidden;
+            //StatusTextBox.Visibility = Visibility.Hidden;
+            //LocationLabel.Visibility = Visibility.Hidden;
+            //LocationTextBox.Visibility = Visibility.Hidden;
 
             // hidden irrelevant bottuns 
             UpdateModelButton.Visibility = Visibility.Hidden;
@@ -53,7 +53,8 @@ namespace PL
             this.drone = drone;
             this.drones = drones;
             DataDroneGrid.DataContext = drone;
-            BlockingControls();
+            AddButton.Visibility = Visibility.Hidden;
+            //BlockingControls();
             ShowDronesAfterActions();
         }
 
@@ -119,22 +120,6 @@ namespace PL
 
         private void UpdateModelButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ModelTextBox.Foreground == Brushes.Red)
-            {
-                MessageBoxResult result = MessageBox.Show("Model must have value, please enter legal model to continue, or Cancel to stop the update", "ERROR", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                switch (result)
-                {
-                    case MessageBoxResult.OK:
-                        return;
-                    case MessageBoxResult.Cancel:
-                        ModelTextBox.Clear();
-                        return;
-                    default:
-                        ModelTextBox.Clear();
-                        return;
-                }
-            }
-
             try
             {
                 bl.UpdateDroneModel(drone.Id, drone.Model);
@@ -149,7 +134,6 @@ namespace PL
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
 
             MessageBox.Show("The update is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             drone = bl.GetDrone(drone.Id);
