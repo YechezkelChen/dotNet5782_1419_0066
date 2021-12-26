@@ -8,16 +8,15 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DroneInParcelPage">
 
-    <Grid x:Name="DataDroneGrid" Grid.Column="0">
-
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button x:Name="ClosePageButton" Content="Close" HorizontalAlignment="Right" Grid.Row="0" VerticalAlignment="Top" Height="30" Width="70" Click="ClosePageButton_Click" Foreground="Red" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Grid.ColumnSpan="2" Margin="0,0,38,0"/>
+        <Button x:Name="ClosePageButton" Content="Close" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="70" Click="ClosePageButton_Click" Foreground="Red" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
+
         <Label Name="DataDroneLabel" Grid.Row="0" Content="Data drone in parcel:" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="151" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
 
         <Label Name="IdLabel" Content="ID:" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
