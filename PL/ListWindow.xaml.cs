@@ -18,11 +18,15 @@ namespace PL
         private DronePage dronePage;
         private BO.Drone drone;
 
+        private StationListPage stationListPage;
+        private StationPage stationPage;
+        private BO.Station station;
         public ListWindow()
         {
             InitializeComponent();
             bl = BlApi.BlFactory.GetBl();
             droneListPage = new DroneListPage();
+            stationListPage = new StationListPage();
         }
         private void ListTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -33,7 +37,12 @@ namespace PL
                 droneListPage.DronesListView.MouseDoubleClick += DroneListPage_Actions;
                 ShowList.Content = droneListPage;
             }
+
             if (ListStations.IsSelected)
+            {
+                stationListPage.AddStationButton.Click += StationListPage_Add;
+                stationListPage.StationsListView.MouseDoubleClick += StationListPage_Actions;
+            }
                 ShowList.Content = new StationListPage(this);
             if (ListCustomers.IsSelected)
                 ShowList.Content = new CustomerListPage(this);
@@ -49,7 +58,8 @@ namespace PL
         private void DroneListPage_Add(object sender, RoutedEventArgs e)
         {
             ObservableCollection<PO.DroneToList> drones = new ObservableCollection<DroneToList>();
-            ShowData.Content = new DronePage(drones);//go to the window that can add a drone
+            dronePage = new DronePage(drones);
+            ShowData.Content = dronePage;//go to the window that can add a drone
         }
         private void DroneListPage_Actions(object sender, MouseButtonEventArgs e)
         {
@@ -63,6 +73,21 @@ namespace PL
         private void DronePage_DataParcel(object sender, RoutedEventArgs e)
         {
             ShowData.Content = new ParcelInDronePage(drone);
+        }
+
+        private void StationListPage_Add(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<PO.StationToList> stations = new ObservableCollection<StationToList>();
+            stationPage = new StationPage(stations);
+            ShowData.Content = stationPage; //go to the window that can add a station        
+        }
+        private void StationListPage_Actions(object sender, MouseButtonEventArgs e)
+        {
+            ObservableCollection<PO.StationToList> drones = new ObservableCollection<StationToList>();
+            StationToList stationToList = (StationToList)stationListPage.StationsListView.SelectedItem;
+            station = bl.GetStation(stationToList.Id);
+            stationPage = new DronePage(station, stations);
+            ShowData.Content = dronePage;
         }
 
         private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)
