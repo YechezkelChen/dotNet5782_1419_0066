@@ -41,7 +41,7 @@ namespace BlApi
 
 
         // Parcel 
-        void AddParcel(Parcel newParcel); // Adds a parcel to the list of parcels.
+        int AddParcel(Parcel newParcel); // Adds a parcel to the list of parcels.
         Parcel GetParcel(int parcelId); // Returning a parcel according to the id of the parcel.
         IEnumerable<ParcelToList> GetParcels(); // Returning the list of parcels in a special entity "Parcel to list".
         IEnumerable<ParcelToList> GetParcelsNoDrones(); // Returning the list of parcels with no drones in a special entity "Parcel to list".

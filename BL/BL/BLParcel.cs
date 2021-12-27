@@ -12,7 +12,7 @@ namespace BL
         /// add parcel with all fields to data source with checking 
         /// </summary>
         /// <param name="newParcel"></param>
-        public void AddParcel(Parcel newParcel)
+        public int AddParcel(Parcel newParcel)
         {
             try
             {
@@ -34,14 +34,18 @@ namespace BL
             parcel.PickedUp = null;
             parcel.Delivered = null;
             parcel.Deleted = false;
+
+            int idParcel;
             try
             {
-                dal.AddParcel(parcel); // add the parcel just if the parcel not in the dataSource
+                idParcel = dal.AddParcel(parcel); // add the parcel just if the parcel not in the dataSource
             }
             catch (DO.IdExistException e)
             {
                 throw new IdException(e.Message, e);
             }
+
+            return idParcel;
         }
 
         /// <summary>
