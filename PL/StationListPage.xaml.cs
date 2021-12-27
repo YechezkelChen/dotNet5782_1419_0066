@@ -12,15 +12,14 @@ namespace PL
     /// </summary>
     public partial class StationListPage : Page
     {
-        private BlApi.IBL bl;
+        private BlApi.IBL bl = BlApi.BlFactory.GetBl();
         private ObservableCollection<StationToList> stations;
 
-        public StationListPage()
+        public StationListPage(ObservableCollection<StationToList> stations)
         {
             InitializeComponent();
-            bl = BlApi.BlFactory.GetBl();
-            stations = new ObservableCollection<StationToList>();
-            StationsListView.ItemsSource = stations;
+            this.stations = stations;
+            StationsListView.ItemsSource = this.stations;
             StationsData();
         }
 

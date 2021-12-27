@@ -35,6 +35,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Label Name="DataDroneLabel" Content="Data drone:" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
@@ -59,8 +60,11 @@
             <Label Name="StatusLabel" Content="Status:" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <TextBox x:Name="StatusTextBox" Text="{Binding Path=Status}" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
 
-            <Label Name="LocationLabel" Content="Location:" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <TextBox x:Name="LocationTextBox" Text="{Binding Path=Location}" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
+            <Label Name="LongitudeLabel" Grid.Row="7" Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox x:Name="LongitudeTextBox" Text="{Binding Path=Location.Longitude}" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
+
+            <Label Name="LatitudeLabel" Grid.Row="8" Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox x:Name="LatitudeTextBox" Text="{Binding Path=Location.Latitude}" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
         </Grid>
 
         <Button x:Name="ParcelDataButton" Content="Parcel data" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="110" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711">

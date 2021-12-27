@@ -130,6 +130,7 @@ namespace PL
             MessageBox.Show("The update is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
             FixButtonsAfterActions();
+            UpdateListDrones(drone);
         }
 
         private void SendToChargeButton_Click(object sender, RoutedEventArgs e)
@@ -163,6 +164,7 @@ namespace PL
             CopyPropertiesTo(boDrone.Location, drone.Location);
 
             FixButtonsAfterActions();
+            UpdateListDrones(drone);
         }
 
         private void ReleaseFromChargeButton_Click(object sender, RoutedEventArgs e)
@@ -190,6 +192,7 @@ namespace PL
             drone.Status = DroneStatuses.Available;
 
             FixButtonsAfterActions();
+            UpdateListDrones(drone);
         }
 
         private void ConnectParcelButton_Click(object sender, RoutedEventArgs e)
@@ -223,6 +226,7 @@ namespace PL
             CopyPropertiesTo(boDrone.ParcelByTransfer, drone.ParcelByTransfer);
 
             FixButtonsAfterActions();
+            UpdateListDrones(drone);
         }
 
         private void CollectParcelButton_Click(object sender, RoutedEventArgs e)
@@ -249,8 +253,10 @@ namespace PL
             drone.Battery = boDrone.Battery;
             drone.Location = new Location();
             CopyPropertiesTo(boDrone.Location, drone.Location);
+            drone.ParcelByTransfer.OnTheWay = true;
 
             FixButtonsAfterActions();
+            UpdateListDrones(drone);
         }
 
         private void SupplyParcelButton_Click(object sender, RoutedEventArgs e)
@@ -275,11 +281,13 @@ namespace PL
             // Update the view
             BO.Drone boDrone = bl.GetDrone(drone.Id);
             drone.Battery = boDrone.Battery;
+            drone.Status = DroneStatuses.Available;
             drone.Location = new Location();
             CopyPropertiesTo(boDrone.Location, drone.Location);
             drone.ParcelByTransfer = null;
 
             FixButtonsAfterActions();
+            UpdateListDrones(drone);
         }
 
         private void FixButtonsAfterActions()
@@ -321,6 +329,18 @@ namespace PL
             }
         }
 
+        private void UpdateListDrones(Drone updateDrone)
+        {
+            for (int i = 0; i < drones.Count(); i++)
+                if (drones[i].Id == updateDrone.Id)
+                {
+                    DroneToList newDrone = drones[i];
+                    CopyPropertiesTo(updateDrone, newDrone);
+                    newDrone.Location = new Location();
+                    CopyPropertiesTo(updateDrone.Location, newDrone.Location);
+                    drones[i] = newDrone;
+                }
+        }
         public void CopyPropertiesTo<T, S>(S from, T to)
         {
             foreach (PropertyInfo propTo in to.GetType().GetProperties())

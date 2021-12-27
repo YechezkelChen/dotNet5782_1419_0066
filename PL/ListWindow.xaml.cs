@@ -22,8 +22,9 @@ namespace PL
         private Drone drone;
 
         // Station:
-        private StationListPage stationListPage = new StationListPage();
+        private StationListPage stationListPage
         private StationPage stationPage;
+        private ObservableCollection<PO.StationToList> stations = new ObservableCollection<StationToList>();
         private BO.Station station;
 
         private DroneInChargePage droneInChargePage;
@@ -48,6 +49,7 @@ namespace PL
 
             if (ListStations.IsSelected)
             {
+                stationListPage = new StationListPage(stations);
                 stationListPage.AddStationButton.Click += StationListPage_Add;
                 stationListPage.StationsListView.MouseDoubleClick += StationListPage_Actions;
                 ShowList.Content = stationListPage;
@@ -67,7 +69,6 @@ namespace PL
                 this.Close();
             }
         }
-
         private void DroneListPage_Add(object sender, RoutedEventArgs e)
         {
             dronePage = new DronePage(drones);
@@ -83,7 +84,6 @@ namespace PL
             dronePage.ParcelDataButton.Click += DronePage_DataParcel;
             ShowData.Content = dronePage;
         }
-
         private void DronePage_DataParcel(object sender, RoutedEventArgs e)
         {
             ShowData.Content = new ParcelInDronePage(drone);
@@ -110,10 +110,8 @@ namespace PL
 
             return poDrone;
         }
-
         private void StationListPage_Add(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<PO.StationToList> stations = new ObservableCollection<StationToList>();
             stationPage = new StationPage(stations);
             ShowData.Content = stationPage; //go to the window that can add a station        
         }
@@ -132,7 +130,6 @@ namespace PL
             droneInChargePage.DronesListView.MouseDoubleClick += DroneInCharge_Actions;
             ShowData.Content = droneInChargePage;
         }
-
         private void DroneInCharge_Actions(object sender, MouseButtonEventArgs e)
         {
             BO.DroneInCharge droneInCharge = (BO.DroneInCharge)droneInChargePage.DronesListView.SelectedItem;
@@ -143,7 +140,6 @@ namespace PL
             dronePage.ParcelDataButton.Click += DronePage_DataParcel;
             ShowData.Content = dronePage;
         }
-
         private void CustomerListPage_Add(object sender, RoutedEventArgs e)
         {
             ObservableCollection<PO.CustomerToList> customers = new ObservableCollection<CustomerToList>();
@@ -159,12 +155,10 @@ namespace PL
             customerPage.ParcelFromTheCustomerButton.Click += CustomerPage_DataSendParcel;
             ShowData.Content = customerPage;
         }
-
         private void CustomerPage_DataSendParcel(object sender, RoutedEventArgs routedEventArgs)
         {
             ShowData.Content = new ParcelInCustomerPage(customer);
         }
-
         private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (CloseWindow.Visibility != Visibility.Hidden)
