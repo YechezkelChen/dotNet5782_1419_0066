@@ -28,8 +28,8 @@ namespace PL
 
         private DroneInChargePage droneInChargePage;
 
-        private CustomerListPage customerListPage;
-        private CustomerPage customerPage = new CustomerPage();
+        private CustomerListPage customerListPage = new CustomerListPage();
+        private CustomerPage customerPage;
         private BO.Customer customer;
         public ListWindow()
         {
