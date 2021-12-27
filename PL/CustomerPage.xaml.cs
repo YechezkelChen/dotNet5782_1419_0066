@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using BO;
+using Customer = PO.Customer;
+using CustomerInParcel = PO.CustomerInParcel;
 using CustomerToList = PO.CustomerToList;
+using ParcelInCustomer = PO.ParcelInCustomer;
 
 namespace PL
 {
@@ -15,23 +19,23 @@ namespace PL
     {
         private BlApi.IBL bl = BlApi.BlFactory.GetBl();
         private ObservableCollection<CustomerToList> customers;
-        private BO.Customer customer;
+        private Customer customer = new Customer();
         
         public CustomerPage(ObservableCollection<CustomerToList> customers)
         {
             InitializeComponent();
             this.customers = customers;
-            customer = new BO.Customer();
 
             ParcelFromTheCustomerButton.Visibility = Visibility.Hidden;
             ParcelToTheCustomerButton.Visibility = Visibility.Hidden;
             UpdateCustomerDataButton.Visibility = Visibility.Hidden;
         }
-        public CustomerPage(BO.Customer customer, ObservableCollection<CustomerToList> customers)
+        public CustomerPage(Customer customer, ObservableCollection<CustomerToList> customers)
         {
             InitializeComponent();
             this.customers = customers;
             this.customer = customer;
+
             DataCustomerGrid.DataContext = customer;
             AddButton.Visibility = Visibility.Hidden;
         }
@@ -42,16 +46,16 @@ namespace PL
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-
-            customer.Id = int.Parse(IdTextBox.Text);
-            customer.Name = NameTextBox.Text;
-            customer.Phone = PhoneTextBox.Text;
-            customer.Location = new Location();
-            customer.Location.Latitude = Convert.ToDouble(LatitudeTextBox.Text);
-            customer.Location.Longitude = Convert.ToDouble(LongitudeTextBox.Text);
+            BO.Customer boCustomer = new BO.Customer();
+            boCustomer.Id = int.Parse(IdTextBox.Text);
+            boCustomer.Name = NameTextBox.Text;
+            boCustomer.Phone = PhoneTextBox.Text;
+            boCustomer.Location = new BO.Location();
+            boCustomer.Location.Latitude = Convert.ToDouble(LatitudeTextBox.Text);
+            boCustomer.Location.Longitude = Convert.ToDouble(LongitudeTextBox.Text);
             try
             {
-                bl.AddCustomer(customer);
+                bl.AddCustomer(boCustomer);
             }
             catch (BO.IdException ex)
             {
@@ -73,13 +77,15 @@ namespace PL
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-           
+            
+            MessageBox.Show("You have a new customer!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            MessageBox.Show("The add is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            CustomerToList newCustomerToList = new CustomerToList();
-            customer.Id = customer.Id *10 + lastDigitID(customer.Id);
-            CopyPropertiesTo(bl.GetCustomer(customer.Id), newCustomerToList);
-            customers.Add(newCustomerToList);
+            // Update the view
+            CustomerToList newCustomer = new CustomerToList();
+            boCustomer.Id = boCustomer.Id * 10 + lastDigitID(customer.Id);
+            boCustomer = bl.GetCustomer(boCustomer.Id);
+            CopyPropertiesTo(boCustomer, newCustomer);
+            customers.Add(newCustomer);
             this.Content = "";
         }
 
@@ -101,14 +107,24 @@ namespace PL
             }
 
             MessageBox.Show("The update is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            customer = bl.GetCustomer(customer.Id);
+
+            UpdateListCustomers(customer);
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Content = "";
         }
-
+        private void UpdateListCustomers(Customer updateCustomer)
+        {
+            for (int i = 0; i < customers.Count; i++)
+                if (customers[i].Id == updateCustomer.Id)
+                {
+                    CustomerToList newCustomer = customers[i];
+                    CopyPropertiesTo(updateCustomer, newCustomer);
+                    customers[i] = newCustomer;
+                }
+        }
         public void CopyPropertiesTo<T, S>(S from, T to)
         {
             foreach (PropertyInfo propTo in to.GetType().GetProperties())

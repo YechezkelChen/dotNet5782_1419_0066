@@ -19,7 +19,7 @@ namespace PL
         {
             InitializeComponent();
             this.stations = stations;
-            StationsListView.ItemsSource = this.stations;
+            StationsListView.DataContext = this.stations;
             StationsData();
         }
 
@@ -44,18 +44,6 @@ namespace PL
             StationsListView.ItemsSource = stations;
             StationsData();
         }
-
-        //private void AddStationButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        //{
-        //    //listWindow.ShowData.Content = new StationPage(listWindow, stations);
-        //}
-
-        //private void StationsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //    StationToList stationToList = (StationToList)StationsListView.SelectedItem;
-        //    BO.Station station = bl.GetStation(stationToList.Id);
-        //    listWindow.ShowData.Content = new StationPage(listWindow, station, stations);
-        //}
 
         public void CopyPropertiesTo<T, S>(S from, T to)
         {

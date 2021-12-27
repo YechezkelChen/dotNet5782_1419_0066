@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
-using BO;
+using PO;
 
 namespace PL
 {
@@ -9,14 +9,14 @@ namespace PL
     /// </summary>
     public partial class DroneInChargePage : Page
     {
-        private BlApi.IBL bl;
-        private Station station;
+        private BlApi.IBL bl = BlApi.BlFactory.GetBl();
+        private Station station = new Station();
+
         public DroneInChargePage(Station station)
         {
             InitializeComponent();
             this.station = station;
             DronesListView.ItemsSource = station.DronesInCharges;
-
         }
     }
 }

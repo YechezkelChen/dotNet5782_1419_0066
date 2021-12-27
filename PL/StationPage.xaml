@@ -15,10 +15,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!--<Button x:Name="ClosePageButton" Content="Close" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="70" Click="ClosePageButton_Click" Foreground="Red" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>-->
+        <Button x:Name="ClosePageButton" Content="Close" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="70" Foreground="Red" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
+        
         <Grid x:Name="DataStationGrid" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -32,8 +34,11 @@
             <Label Name="NameLabel" Content="Name:" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
             <TextBox x:Name="NameTextBox" Text="{Binding Name}" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2"/>
 
-            <Label Name="LocationLabel" Grid.Row="3" Content="Location:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="LocationTextBox" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4"/>
+            <Label Name="LongitudeLabel" Grid.Row="3" Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" />
+            <TextBox x:Name="LongitudeTextBox" Text="{Binding Path=Location.Longitude}" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" />
+
+            <Label Name="LatitudeLabel" Grid.Row="4" Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" />
+            <TextBox x:Name="LatitudeTextBox" Text="{Binding Path=Location.Latitude}" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4"/>
 
             <Label Name="AvailableChargeSlotsLabel" Content="Available Charge Slots:" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="129" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
             <TextBox x:Name="AvailableChargeSlotsTextBox" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4"/>
@@ -49,6 +54,7 @@
             </Grid.RowDefinitions>
 
             <Button x:Name="AddButton" Content="Add the station" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E"  FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
+           
             <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711"/>
 
             <Button x:Name="UpdateStationButton" Content="Update the station" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black"/>

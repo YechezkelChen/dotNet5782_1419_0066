@@ -15,31 +15,25 @@ namespace PL
     /// </summary>
     public partial class CustomerListPage : Page
     {
-        private BlApi.IBL bl;
-        //private BO.Customer customer;
-        //private ListWindow listWindow;
+        private BlApi.IBL bl = BlApi.BlFactory.GetBl();
         private ObservableCollection<CustomerToList> customers;
 
-        public CustomerListPage()
+        public CustomerListPage(ObservableCollection<CustomerToList> customers)
         {
             InitializeComponent();
-            bl = BlApi.BlFactory.GetBl();
-            customers = new ObservableCollection<CustomerToList>();
-            CustomersListView.ItemsSource = customers;
+            this.customers = customers;
+            CustomersListView.DataContext = customers;
             CustomersData();
         }
 
         private void CustomersData()
         {
             customers.Clear();
-            IEnumerable<BO.CustomerToList> customersData = new List<BO.CustomerToList>();
-            customersData = bl.GetCustomers();
-            // Show the list after the filtering
-            foreach (var customer in customersData)
+            foreach (var customer in bl.GetCustomers())
             {
-                CustomerToList newCustomerToList = new CustomerToList();
-                CopyPropertiesTo(customer, newCustomerToList);
-                customers.Add(newCustomerToList);
+                CustomerToList newCustomer = new CustomerToList();
+                CopyPropertiesTo(customer, newCustomer);
+                customers.Add(newCustomer);
             }
         }
 
@@ -55,21 +49,5 @@ namespace PL
                     propTo.SetValue(to, value);
             }
         }
-
-        //public CustomerListPage(ListWindow window)
-        //{
-        //    InitializeComponent();
-        //    listWindow = window;
-        //    bl = BlApi.BlFactory.GetBl();
-        //    customers = new ObservableCollection<CustomerToList>();
-        //    CustomersListView.ItemsSource = customers;
-        //    foreach (var customer in bl.GetCustomers())
-        //    {
-        //        CustomerToList newCustomer = new CustomerToList();
-        //        listWindow.CopyPropertiesTo(customer, newCustomer);
-        //        customers.Add(newCustomer);
-        //    }
-        //}
-
     }
 }

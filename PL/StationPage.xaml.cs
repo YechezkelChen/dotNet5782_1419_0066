@@ -15,16 +15,15 @@ namespace PL
     {
         private BlApi.IBL bl = BlApi.BlFactory.GetBl();
         private ObservableCollection<StationToList> stations;
-        private BO.Station station;
+        private Station station = new Station();
 
         public StationPage(ObservableCollection<StationToList> stations)
         {
             InitializeComponent();
             this.stations = stations;
-            station = new BO.Station();
         }
 
-        public StationPage(BO.Station station, ObservableCollection<StationToList> stations)
+        public StationPage(Station station, ObservableCollection<StationToList> stations)
         {
             InitializeComponent();
             this.stations = stations;
