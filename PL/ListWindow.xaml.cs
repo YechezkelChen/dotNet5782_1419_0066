@@ -31,10 +31,17 @@ namespace PL
 
         private DroneInChargePage droneInChargePage;
 
+        //Customer:
         private CustomerListPage customerListPage;
         private CustomerPage customerPage;
         ObservableCollection<CustomerToList> customers = new ObservableCollection<CustomerToList>();
         private Customer customer;
+
+        //Parcel:
+        private ParcelListPage parcelListPage;
+        private ParcelPage parcelPage;
+        ObservableCollection<ParcelToList> parcels = new ObservableCollection<ParcelToList>();
+        private Parcel parcel;
 
         public ListWindow()
         {
@@ -66,8 +73,15 @@ namespace PL
                 customerListPage.CustomersListView.MouseDoubleClick += CustomerListPage_Actions;
                 ShowList.Content = customerListPage;
             }
+
             if (ListParcels.IsSelected)
-                ShowList.Content = new ParcelListPage(this);
+            {
+                parcelListPage = new ParcelListPage(parcels);
+                ParcelListPage.AddParcelButton.Click += ParcelListPage_Add;
+                ParcelListPage.ParcelsListView.MouseDoubleClick += ParcelListPage_Actions;
+                ShowList.Content = parcelListPage;
+            }
+                
             if (CloseWindow.IsSelected)
             {
                 CloseWindow.Visibility = Visibility.Hidden;
@@ -215,7 +229,38 @@ namespace PL
 
             return poCustomer;
         }
+        private void ParcelListPage_Add(object sender, RoutedEventArgs e)
+        {
+            parcelPage = new ParcelPage(parcels);
+            ShowData.Content = parcelPage; // go to the window that can add a parcel
+        }
+        private void ParcelListPage_Actions(object sender, MouseButtonEventArgs e)
+        {
+            ParcelToList parcelToList = (ParcelToList)parcelListPage.ParcelsListView.SelectedItem;
+            BO.Parcel boParcel = new BO.Parcel();
+            boParcel = bl.GetParcel(parcelToList.Id);
+            parcel = CopyBoParcelToPoParcel(boParcel, parcel);
+            parcelPage = new ParcelPage(parcel, parcels);
+            parcelPage.SenderButton.Click += CustomerPage_DataSender;
+            parcelPage.TargetButton.Click += CustomerPage_DataTarget;
+            parcelPage.DroneDataButton.Click += DronePage_DataDroneInParcel;
+            ShowData.Content = customerPage;
+        }
 
+        private void CustomerPage_DataSender(object sender, RoutedEventArgs e)
+        {
+            ShowData.Content = new CustomerInParcelPage();
+        }
+
+        private void CustomerPage_DataTarget(object sender, RoutedEventArgs e)
+        {
+            ShowData.Content = new CustomerInParcelPage();
+        }
+
+        private void DronePage_DataDroneInParcel(object sender, RoutedEventArgs e)
+        {
+            ShowData.Content = new DroneInParcelPage();
+        }
         private Parcel CopyBoParcelToPoParcel(BO.Parcel boParcel, Parcel poParcel)
         {
             poParcel = new Parcel();
