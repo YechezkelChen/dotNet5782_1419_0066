@@ -163,7 +163,7 @@ namespace BL
                 throw new NameException("ERROR: name must have value");
             int phone;
             if (customer.Phone.Length != 10 || customer.Phone.Substring(0, 2) != "05" ||
-                !int.TryParse(customer.Phone.Substring(2, customer.Phone.Length), out phone)) // check format phone
+                !int.TryParse(customer.Phone.Substring(2, customer.Phone.Length-2 ), out phone)) // check format phone
                 throw new PhoneException("ERROR: phone must have 10 digits and to begin with the numbers 05");
             if (customer.Location.Longitude < -1 || customer.Location.Longitude > 1)
                 throw new LocationException("ERROR: longitude must to be between -1 to 1");

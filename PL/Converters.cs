@@ -72,6 +72,29 @@ namespace PL
         }
     }
 
+    public class IdCustomerTextToColor : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int id;
+            if (value.ToString() == "" || !value.ToString().All(char.IsDigit))
+                id = 0;
+            else
+                id = int.Parse(value.ToString());
+
+            if (id < 10000000 || id > 99999999) // Check that it's 6 digits.
+                return Brushes.Red;
+            else
+                return Brushes.SlateGray;
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class ModelOrNameTextToColor : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -103,4 +126,25 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+
+    //public class PhoneTextToColor : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        int phone;
+    //        //if (customer.Phone.Length != 10 || customer.Phone.Substring(0, 2) != "05" ||
+    //        //    !int.TryParse(customer.Phone.Substring(2, customer.Phone.Length), out phone)) // check format phone
+
+    //        if (value.ToString() == "")
+    //            return Brushes.Red;
+    //        else
+    //            return Brushes.SlateGray;
+
+    //    }
+
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 }

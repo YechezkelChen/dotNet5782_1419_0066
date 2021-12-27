@@ -14,6 +14,7 @@ namespace PL
     public partial class ListWindow : Window
     {
         private BlApi.IBL bl;
+
         private DroneListPage droneListPage;
         private DronePage dronePage;
         private BO.Drone drone;
@@ -23,12 +24,18 @@ namespace PL
         private BO.Station station;
 
         private DroneInChargePage droneInChargePage;
+
+        private CustomerListPage customerListPage;
+        private CustomerPage customerPage;
+        private BO.Customer customer;
+
         public ListWindow()
         {
             InitializeComponent();
             bl = BlApi.BlFactory.GetBl();
             droneListPage = new DroneListPage();
             stationListPage = new StationListPage();
+            customerListPage = new CustomerListPage();
         }
         private void ListTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -46,8 +53,14 @@ namespace PL
                 stationListPage.StationsListView.MouseDoubleClick += StationListPage_Actions;
                 ShowList.Content = stationListPage;
             }
+
             if (ListCustomers.IsSelected)
-                ShowList.Content = new CustomerListPage(this);
+            {
+                customerListPage.AddCustomerButton.Click += CustomerListPage_Add;
+                customerListPage.CustomersListView.MouseDoubleClick += CustomerListPage_Actions;
+                ShowList.Content = customerListPage;
+            }
+            
             if (ListParcels.IsSelected)
                 ShowList.Content = new ParcelListPage(this);
             if (CloseWindow.IsSelected)
@@ -107,6 +120,27 @@ namespace PL
             dronePage = new DronePage(drone, drones);
             dronePage.ParcelDataButton.Click += DronePage_DataParcel;
             ShowData.Content = dronePage;
+        }
+
+        private void CustomerListPage_Add(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<PO.CustomerToList> customers = new ObservableCollection<CustomerToList>();
+            customerPage = new CustomerPage(customers);
+            ShowData.Content = customerPage; //go to the window that can add a station   
+        }
+        private void CustomerListPage_Actions(object sender, MouseButtonEventArgs e)
+        {
+            ObservableCollection<PO.CustomerToList> customers = new ObservableCollection<CustomerToList>();
+            CustomerToList selectedCustomer = (CustomerToList)customerListPage.CustomersListView.SelectedItem;
+            customer = bl.GetCustomer(selectedCustomer.Id);
+            customerPage = new CustomerPage(customer, customers);
+            customerPage.ParcelFromTheCustomerButton.Click += CustomerPage_DataSendParcel;
+            ShowData.Content = customerPage;
+        }
+
+        private void CustomerPage_DataSendParcel(object sender, RoutedEventArgs routedEventArgs)
+        {
+            ShowData.Content = new ParcelInCustomerPage(customer);
         }
 
         private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)

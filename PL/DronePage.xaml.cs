@@ -92,7 +92,7 @@ namespace PL
                 return;
             }
 
-            MessageBox.Show("The add is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("You have a new drone!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             DroneToList newDrone = new DroneToList();
             newDrone.Location = new Location();
             CopyPropertiesTo(bl.GetDrone(drone.Id), newDrone);
