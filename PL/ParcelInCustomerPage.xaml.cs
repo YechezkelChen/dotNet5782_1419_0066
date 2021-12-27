@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using BO;
 
 namespace PL
 {
@@ -7,9 +9,12 @@ namespace PL
     /// </summary>
     public partial class ParcelInCustomerPage : Page
     {
-        public ParcelInCustomerPage()
+        private Customer customer;
+        public ParcelInCustomerPage(Customer customer)
         {
             InitializeComponent();
+            this.customer = customer;
+            DataParcelGrid.DataContext = customer.FromTheCustomerList;
         }
     }
 }

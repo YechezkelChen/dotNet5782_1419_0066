@@ -52,6 +52,7 @@ namespace PL
                 stationListPage.StationsListView.MouseDoubleClick += StationListPage_Actions;
                 ShowList.Content = stationListPage;
             }
+
             if (ListCustomers.IsSelected)
             {
                 customerListPage.AddCustomerButton.Click += CustomerListPage_Add;
