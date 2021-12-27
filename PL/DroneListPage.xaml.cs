@@ -15,15 +15,14 @@ namespace PL
     /// </summary>
     public partial class DroneListPage : Page
     {
-        private BlApi.IBL bl;
+        private BlApi.IBL bl = BlApi.BlFactory.GetBl();
         private ObservableCollection<DroneToList> drones;
 
-        public DroneListPage()
+        public DroneListPage(ObservableCollection<DroneToList> drones)
         {
             InitializeComponent();
-            bl = BlApi.BlFactory.GetBl();
-            drones = new ObservableCollection<DroneToList>();
-            DronesListView.ItemsSource = drones;
+            this.drones = drones;
+            DronesListView.DataContext = this.drones;
             DronesData();
 
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));

@@ -13,28 +13,34 @@ namespace PL
     /// </summary>
     public partial class ListWindow : Window
     {
-        private BlApi.IBL bl;
+        private BlApi.IBL bl = BlApi.BlFactory.GetBl();
+
+        // Drone:
         private DroneListPage droneListPage;
         private DronePage dronePage;
-        private BO.Drone drone;
+        private ObservableCollection<DroneToList> drones = new ObservableCollection<DroneToList>();
+        private Drone drone;
 
-        private StationListPage stationListPage;
+        // Station:
+        private StationListPage stationListPage = new StationListPage();
         private StationPage stationPage;
         private BO.Station station;
 
         private DroneInChargePage droneInChargePage;
+
+        private CustomerListPage customerListPage;
+        private CustomerPage customerPage = new CustomerPage();
+        private BO.Customer customer;
         public ListWindow()
         {
             InitializeComponent();
-            bl = BlApi.BlFactory.GetBl();
-            droneListPage = new DroneListPage();
-            stationListPage = new StationListPage();
         }
         private void ListTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ShowData.Content = "";
             if (ListDrones.IsSelected)
             {
+                droneListPage = new DroneListPage(drones);
                 droneListPage.AddDroneButton.Click += DroneListPage_Add;
                 droneListPage.DronesListView.MouseDoubleClick += DroneListPage_Actions;
                 ShowList.Content = droneListPage;
@@ -47,7 +53,11 @@ namespace PL
                 ShowList.Content = stationListPage;
             }
             if (ListCustomers.IsSelected)
-                ShowList.Content = new CustomerListPage(this);
+            {
+                customerListPage.AddCustomerButton.Click += CustomerListPage_Add;
+                customerListPage.CustomersListView.MouseDoubleClick += CustomerListPage_Actions;
+                ShowList.Content = customerListPage;
+            }
             if (ListParcels.IsSelected)
                 ShowList.Content = new ParcelListPage(this);
             if (CloseWindow.IsSelected)
@@ -59,22 +69,45 @@ namespace PL
 
         private void DroneListPage_Add(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<PO.DroneToList> drones = new ObservableCollection<DroneToList>();
             dronePage = new DronePage(drones);
             ShowData.Content = dronePage;//go to the window that can add a drone
         }
         private void DroneListPage_Actions(object sender, MouseButtonEventArgs e)
         {
-            ObservableCollection<PO.DroneToList> drones = new ObservableCollection<DroneToList>();
             DroneToList droneToList = (DroneToList)droneListPage.DronesListView.SelectedItem;
-            drone = bl.GetDrone(droneToList.Id);
+            BO.Drone boDrone = new BO.Drone();
+            boDrone = bl.GetDrone(droneToList.Id);
+            drone = CopyBoDroneToPoDrone(boDrone, drone);
             dronePage = new DronePage(drone, drones);
             dronePage.ParcelDataButton.Click += DronePage_DataParcel;
             ShowData.Content = dronePage;
         }
+
         private void DronePage_DataParcel(object sender, RoutedEventArgs e)
         {
             ShowData.Content = new ParcelInDronePage(drone);
+        }
+        private Drone CopyBoDroneToPoDrone(BO.Drone boDrone, Drone poDrone)
+        {
+            poDrone = new Drone();
+            CopyPropertiesTo(boDrone, poDrone);
+            poDrone.Location = new Location();
+            CopyPropertiesTo(boDrone.Location, poDrone.Location);
+            poDrone.ParcelByTransfer = new ParcelInTransfer();
+            if (poDrone.Status == DroneStatuses.Delivery)
+            {
+                CopyPropertiesTo(boDrone.ParcelByTransfer, poDrone.ParcelByTransfer);
+                poDrone.ParcelByTransfer.Sender = new CustomerInParcel();
+                CopyPropertiesTo(boDrone.ParcelByTransfer.Sender, poDrone.ParcelByTransfer.Sender);
+                poDrone.ParcelByTransfer.Target = new CustomerInParcel();
+                CopyPropertiesTo(boDrone.ParcelByTransfer.Target, poDrone.ParcelByTransfer.Target);
+                poDrone.ParcelByTransfer.PickUpLocation = new Location();
+                CopyPropertiesTo(boDrone.ParcelByTransfer.PickUpLocation, poDrone.ParcelByTransfer.PickUpLocation);
+                poDrone.ParcelByTransfer.TargetLocation = new Location();
+                CopyPropertiesTo(boDrone.ParcelByTransfer.TargetLocation, poDrone.ParcelByTransfer.TargetLocation);
+            }
+
+            return poDrone;
         }
 
         private void StationListPage_Add(object sender, RoutedEventArgs e)
@@ -101,12 +134,34 @@ namespace PL
 
         private void DroneInCharge_Actions(object sender, MouseButtonEventArgs e)
         {
-            ObservableCollection<PO.DroneToList> drones = new ObservableCollection<DroneToList>();
             BO.DroneInCharge droneInCharge = (BO.DroneInCharge)droneInChargePage.DronesListView.SelectedItem;
-            drone = bl.GetDrone(droneInCharge.Id);
+            BO.Drone boDrone = new BO.Drone();
+            boDrone = bl.GetDrone(droneInCharge.Id);
+            CopyBoDroneToPoDrone(boDrone, drone);
             dronePage = new DronePage(drone, drones);
             dronePage.ParcelDataButton.Click += DronePage_DataParcel;
             ShowData.Content = dronePage;
+        }
+
+        private void CustomerListPage_Add(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<PO.CustomerToList> customers = new ObservableCollection<CustomerToList>();
+            customerPage = new CustomerPage(customers);
+            ShowData.Content = customerPage; //go to the window that can add a station   
+        }
+        private void CustomerListPage_Actions(object sender, MouseButtonEventArgs e)
+        {
+            ObservableCollection<PO.CustomerToList> customers = new ObservableCollection<CustomerToList>();
+            CustomerToList selectedCustomer = (CustomerToList)customerListPage.CustomersListView.SelectedItem;
+            customer = bl.GetCustomer(selectedCustomer.Id);
+            customerPage = new CustomerPage(customer, customers);
+            customerPage.ParcelFromTheCustomerButton.Click += CustomerPage_DataSendParcel;
+            ShowData.Content = customerPage;
+        }
+
+        private void CustomerPage_DataSendParcel(object sender, RoutedEventArgs routedEventArgs)
+        {
+            ShowData.Content = new ParcelInCustomerPage(customer);
         }
 
         private void CloseWithSpecialButton(object sender, System.ComponentModel.CancelEventArgs e)

@@ -18,20 +18,20 @@ namespace PL
     {
         private BlApi.IBL bl = BlApi.BlFactory.GetBl();
         private ObservableCollection<DroneToList> drones;
-        private BO.Drone drone;
+        private Drone drone = new Drone();
 
         public DronePage(ObservableCollection<DroneToList> drones)
         {
             InitializeComponent();
             this.drones = drones;
-            drone = new BO.Drone();
 
             WeightComboBox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StationComboBox.ItemsSource = bl.GetStationsWithAvailableCharge();
 
             UpdateModelButton.Visibility = Visibility.Hidden; // help for all the things in xmal
         }
-        public DronePage(BO.Drone drone, ObservableCollection<DroneToList> drones)
+
+        public DronePage(Drone drone, ObservableCollection<DroneToList> drones)
         {
             InitializeComponent();
             this.drones = drones;
@@ -52,9 +52,10 @@ namespace PL
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            drone.Id = int.Parse(IdTextBox.Text);
-            drone.Model = ModelTextBox.Text;
-            drone.Weight = (BO.WeightCategories)WeightComboBox.SelectedItem;
+            BO.Drone boDrone = new BO.Drone();
+            boDrone.Id = int.Parse(IdTextBox.Text);
+            boDrone.Model = ModelTextBox.Text;
+            boDrone.Weight = (BO.WeightCategories)WeightComboBox.SelectedItem;
 
             if (StationComboBox.ItemsSource == null)
                 MessageBox.Show("There is no station with a free standing to put the drone for charging", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -64,7 +65,7 @@ namespace PL
 
             try
             {
-                bl.AddDrone(drone, stationCharge.Id);
+                bl.AddDrone(boDrone, stationCharge.Id);
             }
             catch (BO.IdException ex)
             {
@@ -92,10 +93,14 @@ namespace PL
                 return;
             }
 
-            MessageBox.Show("The add is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("You have a new drone!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            // Update the view
             DroneToList newDrone = new DroneToList();
             newDrone.Location = new Location();
-            CopyPropertiesTo(bl.GetDrone(drone.Id), newDrone);
+            boDrone = bl.GetDrone(boDrone.Id);
+            CopyPropertiesTo(boDrone, newDrone);
+            CopyPropertiesTo(boDrone.Location, newDrone.Location);
             drones.Add(newDrone);
             this.Content = "";
         }
@@ -123,7 +128,6 @@ namespace PL
             }
 
             MessageBox.Show("The update is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            drone = bl.GetDrone(drone.Id);
 
             FixButtonsAfterActions();
         }
@@ -151,17 +155,13 @@ namespace PL
             }
 
             MessageBox.Show("The send success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            drone = bl.GetDrone(drone.Id);
+            
+            // Update the view
+            BO.Drone boDrone = bl.GetDrone(drone.Id);
+            drone.Battery = boDrone.Battery;
+            drone.Status = DroneStatuses.Maintenance;
+            CopyPropertiesTo(boDrone.Location, drone.Location);
 
-            foreach (var elementStation in bl.GetStations())
-            {
-                BO.Station station = bl.GetStation(elementStation.Id);
-                if (drone.Location.Longitude == station.Location.Longitude && drone.Location.Latitude == station.Location.Latitude)
-                    PresentStationLabel.Text = station.Id.ToString();
-            }
-
-            SendToChargeButton.Visibility = Visibility.Hidden;
-            ReleaseFromChargeButton.Visibility = Visibility.Visible;
             FixButtonsAfterActions();
         }
 
@@ -183,10 +183,12 @@ namespace PL
             }
 
             MessageBox.Show("The release success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            drone = bl.GetDrone(drone.Id);
 
-            ReleaseFromChargeButton.Visibility = Visibility.Hidden;
-            SendToChargeButton.Visibility = Visibility.Visible;
+            // Update the view
+            BO.Drone boDrone = bl.GetDrone(drone.Id);
+            drone.Battery = boDrone.Battery;
+            drone.Status = DroneStatuses.Available;
+
             FixButtonsAfterActions();
         }
 
@@ -213,10 +215,13 @@ namespace PL
             }
 
             MessageBox.Show("The connection success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            drone = bl.GetDrone(drone.Id);
 
-            ConnectParcelButton.Visibility = Visibility.Hidden;
-            CollectParcelButton.Visibility = Visibility.Visible;
+            // Update the view
+            BO.Drone boDrone = bl.GetDrone(drone.Id);
+            drone.Status = DroneStatuses.Delivery;
+            drone.ParcelByTransfer = new ParcelInTransfer();
+            CopyPropertiesTo(boDrone.ParcelByTransfer, drone.ParcelByTransfer);
+
             FixButtonsAfterActions();
         }
 
@@ -238,10 +243,13 @@ namespace PL
             }
 
             MessageBox.Show("The collection success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            drone = bl.GetDrone(drone.Id);
+           
+            // Update the view
+            BO.Drone boDrone = bl.GetDrone(drone.Id);
+            drone.Battery = boDrone.Battery;
+            drone.Location = new Location();
+            CopyPropertiesTo(boDrone.Location, drone.Location);
 
-            CollectParcelButton.Visibility = Visibility.Hidden;
-            SupplyParcelButton.Visibility = Visibility.Visible;
             FixButtonsAfterActions();
         }
 
@@ -263,34 +271,37 @@ namespace PL
             }
 
             MessageBox.Show("The supply success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            drone = bl.GetDrone(drone.Id);
 
-            SupplyParcelButton.Visibility = Visibility.Hidden;
-            ConnectParcelButton.Visibility = Visibility.Visible;
+            // Update the view
+            BO.Drone boDrone = bl.GetDrone(drone.Id);
+            drone.Battery = boDrone.Battery;
+            drone.Location = new Location();
+            CopyPropertiesTo(boDrone.Location, drone.Location);
+            drone.ParcelByTransfer = null;
+
             FixButtonsAfterActions();
         }
 
         private void FixButtonsAfterActions()
         {
-            //IdTextBox.Text = drone.Id.ToString();
-            //ModelTextBox.Text = drone.Model;
-           // PresentWeightLabel.Text = drone.Weight.ToString();
-
-            if (drone.Status == BO.DroneStatuses.Maintenance)
+            if (drone.Status == DroneStatuses.Maintenance)
                 foreach (var elementStation in bl.GetStations())
                 {
                     BO.Station station = bl.GetStation(elementStation.Id);
-                    if (drone.Location.Longitude == station.Location.Longitude && drone.Location.Latitude == station.Location.Latitude)
+                    BO.DroneInCharge droneInCharge = station.DronesInCharges.FirstOrDefault(elementDrone => elementDrone.Id == drone.Id);
+                    if (!(droneInCharge is null))
                         PresentStationLabel.Text = station.Id.ToString();
                 }
+            else
+                PresentStationLabel.Text = "";
 
             //BatteryTextBox.Text = drone.Battery.ToString();
             //StatusTextBox.Text = drone.Status.ToString();
             //LocationTextBox.Text = drone.Location.ToString();
 
-            if (drone.Status != BO.DroneStatuses.Available)
+            if (drone.Status != DroneStatuses.Available)
                 SendToChargeButton.Visibility = Visibility.Hidden;
-            if (drone.Status != BO.DroneStatuses.Maintenance)
+            if (drone.Status != DroneStatuses.Maintenance)
                 ReleaseFromChargeButton.Visibility = Visibility.Hidden;
 
             // Hidden all
@@ -299,9 +310,9 @@ namespace PL
             SupplyParcelButton.Visibility = Visibility.Hidden;
             // then:
 
-            if (drone.Status == BO.DroneStatuses.Available)
+            if (drone.Status == DroneStatuses.Available)
                 ConnectParcelButton.Visibility = Visibility.Visible;
-            if (drone.Status == BO.DroneStatuses.Delivery)
+            if (drone.Status == DroneStatuses.Delivery)
             {
                 if (drone.ParcelByTransfer.OnTheWay == false)
                     CollectParcelButton.Visibility = Visibility.Visible;
@@ -310,10 +321,6 @@ namespace PL
             }
         }
 
-        //private void ParcelDataButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    listWindow.ShowData.Content = new ParcelInDronePage(listWindow, drone);
-        //}
         public void CopyPropertiesTo<T, S>(S from, T to)
         {
             foreach (PropertyInfo propTo in to.GetType().GetProperties())
