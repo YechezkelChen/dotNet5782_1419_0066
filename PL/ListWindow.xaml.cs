@@ -77,8 +77,8 @@ namespace PL
             if (ListParcels.IsSelected)
             {
                 parcelListPage = new ParcelListPage(parcels);
-                ParcelListPage.AddParcelButton.Click += ParcelListPage_Add;
-                ParcelListPage.ParcelsListView.MouseDoubleClick += ParcelListPage_Actions;
+                parcelListPage.AddParcelButton.Click += ParcelListPage_Add;
+                parcelListPage.ParcelsListView.MouseDoubleClick += ParcelListPage_Actions;
                 ShowList.Content = parcelListPage;
             }
                 

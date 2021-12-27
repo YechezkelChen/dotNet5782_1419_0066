@@ -39,9 +39,10 @@ namespace PL
             boParcel.Weight = (BO.WeightCategories)WeightComboBox.SelectedItem;
             boParcel.Priority = (BO.Priorities) PriorityComboBox.SelectedItem;
 
+            int idParcel;
             try
             {
-                bl.AddParcel(boParcel);
+                idParcel = bl.AddParcel(boParcel);
             }
             catch (BO.IdException ex)
             {
@@ -53,13 +54,23 @@ namespace PL
 
             // Update the view
             ParcelToList newParcel = new ParcelToList();
-            boParcel=bl.GetParcel()
-            newDrone.Location = new Location();
-            boDrone = bl.GetDrone(boDrone.Id);
-            CopyPropertiesTo(boDrone, newDrone);
-            CopyPropertiesTo(boDrone.Location, newDrone.Location);
-            drones.Add(newDrone);
+            boParcel = bl.GetParcel(idParcel);
+            CopyPropertiesTo(boParcel, newParcel);
+            parcels.Add(newParcel);
             this.Content = "";
+        }
+
+        public void CopyPropertiesTo<T, S>(S from, T to)
+        {
+            foreach (PropertyInfo propTo in to.GetType().GetProperties())
+            {
+                PropertyInfo propFrom = typeof(S).GetProperty(propTo.Name);
+                if (propFrom == null)
+                    continue;
+                var value = propFrom.GetValue(from, null);
+                if (value is ValueType || value is string)
+                    propTo.SetValue(to, value);
+            }
         }
 
     }
