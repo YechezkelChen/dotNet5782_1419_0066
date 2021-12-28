@@ -94,14 +94,23 @@ namespace PL
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            catch(BO.ChargeSlotsException ex)
 
             MessageBox.Show("The update is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            UpdateListDrones(drone);
+            UpdateListStations(station);
         }
 
-        public void CopyPropertiesTo<T, S>(S from, T to)
+        private void UpdateListStations(Station updateStation)
+        {
+            for (int i = 0; i < stations.Count(); i++)
+                if (stations[i].Id == updateStation.Id)
+                {
+                    StationToList newStation = stations[i];
+                    CopyPropertiesTo(updateStation, newStation);
+                    stations[i] = newStation;
+                }
+        }
+            public void CopyPropertiesTo<T, S>(S from, T to)
         {
             foreach (PropertyInfo propTo in to.GetType().GetProperties())
             {

@@ -178,10 +178,10 @@ namespace PL
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value < 0) // Check that it's 6 digits.
-                return Brushes.Red;
+            if (value == null) 
+                return false;
             else
-                return Brushes.SlateGray;
+                return true;
 
         }
 
