@@ -174,6 +174,22 @@ namespace PL
         }
     }
 
+    public class EmptyListToVisibility : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value < 0) // Check that it's 6 digits.
+                return Brushes.Red;
+            else
+                return Brushes.SlateGray;
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
     //int phone;
     ////if (customer.Phone.Length != 10 || customer.Phone.Substring(0, 2) != "05" ||
     ////    !int.TryParse(customer.Phone.Substring(2, customer.Phone.Length), out phone)) // check format phone

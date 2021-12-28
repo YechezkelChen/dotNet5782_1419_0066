@@ -78,7 +78,7 @@ namespace PL
             this.Content = "";
         }
 
-        private void UpdateModelButton_Click(object sender, RoutedEventArgs e)
+        private void UpdateStationButtom_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -94,6 +94,7 @@ namespace PL
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            catch(BO.ChargeSlotsException ex)
 
             MessageBox.Show("The update is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
