@@ -63,7 +63,7 @@
             </Button.Visibility>
         </Button>
 
-        <Button x:Name="AddButton" Content="Add the station" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Height="40" Width="120" Foreground="#FF3E4C2E"  FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" >
+        <Button x:Name="AddButton" Content="Add the station" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="2" Height="40" Width="120" Foreground="#FF3E4C2E"  FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" >
             <Button.IsEnabled>
                 <MultiBinding Converter="{StaticResource FromColorTextToIsEnable}">
                     <Binding ElementName="IdTextBox" Path="Foreground" />
