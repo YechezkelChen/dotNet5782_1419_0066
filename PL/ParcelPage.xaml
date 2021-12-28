@@ -73,7 +73,7 @@
             <TextBox x:Name="DeliveredTextBox" Text="{Binding Path=Delivered}" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
         </Grid>
 
-        <Button x:Name="DroneDataButton" Content="Drone data" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
+        <Button x:Name="DroneDataButton" Content="Drone data" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="130" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
 
         <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Click="AddButton_Click">
             <Button.IsEnabled>
