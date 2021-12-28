@@ -8,7 +8,20 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ParcelInCustomerPage">
 
-    <Grid Name="DataParcelGrid">
+    <Grid>
+        <ListView x:Name="ParcelListView" ItemsSource="{Binding}" Background="Gray" Foreground="#2F3E46" FontFamily="Agency FB" FontSize="18" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="#89141414" >
+            <ListView.View>
+                <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="information">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="76"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" Header="Weight" Width="111"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Priority}" Header="Priority" Width="111"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="Status" Width="111"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=CustomerInDelivery}" Header="Customer in delivery" Width="111"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+    <!--<Grid Name="DataParcelGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -52,5 +65,5 @@
 
         <Label Name="DistanceOfTransferLabel" Content="Distance transfer:" Grid.Row="9" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="125" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
         <TextBox x:Name="DistanceOfTransferTextBox" Text="{Binding DistanceOfTransfer}" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20" Background="#FFF5F7F2" IsEnabled="False"/>
-    </Grid>
+    </Grid>-->
 </Page>

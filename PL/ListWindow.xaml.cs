@@ -37,6 +37,8 @@ namespace PL
         ObservableCollection<CustomerToList> customers = new ObservableCollection<CustomerToList>();
         private Customer customer;
 
+        private ParcelInCustomerPage parcelInCustomerPage;
+
         //Parcel:
         private ParcelListPage parcelListPage;
         private ParcelPage parcelPage;
@@ -190,12 +192,21 @@ namespace PL
             boCustomer = bl.GetCustomer(customerToList.Id);
             customer = CopyBoCustomerToPoCustomer(boCustomer, customer);
             customerPage = new CustomerPage(customer, customers);
-            customerPage.ParcelFromTheCustomerButton.Click += CustomerPage_DataSendParcel;
+            customerPage.ParcelFromTheCustomerButton.Click += CustomerPage_DataParcelFromCustomer;
+            customerPage.ParcelToTheCustomerButton.Click += CustomerPage_DataParcelToCustomer;
             ShowData.Content = customerPage;
         }
-        private void CustomerPage_DataSendParcel(object sender, RoutedEventArgs routedEventArgs)
+        private void CustomerPage_DataParcelFromCustomer(object sender, RoutedEventArgs routedEventArgs)
         {
-            ShowData.Content = new ParcelInCustomerPage(customer);
+            parcelInCustomerPage = new ParcelInCustomerPage(customer.FromTheCustomerList);
+          //  parcelInCustomerPage.
+            ShowData.Content = parcelInCustomerPage;
+        }
+        private void CustomerPage_DataParcelToCustomer(object sender, RoutedEventArgs routedEventArgs)
+        {
+            parcelInCustomerPage = new ParcelInCustomerPage(customer.ToTheCustomerList);
+            //  parcelInCustomerPage.
+            ShowData.Content = parcelInCustomerPage;
         }
         private Customer CopyBoCustomerToPoCustomer(BO.Customer boCustomer, Customer poCustomer)
         {
@@ -213,7 +224,7 @@ namespace PL
                 CopyPropertiesTo(parcel.CustomerInDelivery, newParcel.CustomerInDelivery);
                 parcelInCustomers.Add(newParcel);
             }
-            poCustomer.fromTheCustomerList = parcelInCustomers;
+            poCustomer.FromTheCustomerList = parcelInCustomers;
 
             parcelInCustomers.Clear();
 
