@@ -8,14 +8,20 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ParcelPage">
 
+    <Page.Resources>
+        <local:MultiConverter x:Key="MultiConverter" />
+        <local:FromColorTextToIsEnable x:Key="FromColorTextToIsEnable" />
+        <local:IdTextToColor x:Key="IdTextToColor" />
+        <local:ModelOrNameTextToColor x:Key="ModelOrNameTextToColor" />
+        <local:ComboBoxToColor x:Key="ComboBoxToColor" />
+    </Page.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="0.1*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-        <!--<Button x:Name="ClosePageButton" Content="Close" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="70" Click="ClosePageButton_Click" Foreground="Red" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>-->
 
         <Grid x:Name="DataParcelGrid" Grid.Column="0">
             <Grid.RowDefinitions>
@@ -29,49 +35,54 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Label Name="DataParcelLabel" Content="Data drone:" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="20"/>
 
-            <Label Name="IdLabel" Content="ID:" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="IdTextBox" Text="" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2"/>
+            <Label Name="IdLabel" Content="ID:" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox x:Name="IdTextBox" Text="{Binding Path=Id}" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2"  Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
 
             <Label Name="SenderIdLabel" Content="Sender ID:" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="SenderIdTextBox" Text="" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2"/>
-            <Button x:Name="SenderButton" Content="Sender data" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
+            <ComboBox x:Name="SenderComboBox" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="{Binding ElementName=SenderComboBox, Path=SelectedItem, Converter={StaticResource ComboBoxToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Button x:Name="SenderButton" Content="Sender data" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
             <Label Name="TargetIdLabel" Content="Target ID:" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="TargetIdTextBox" Text="" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2"/>
-            <Button x:Name="TargetButton" Content="Target data" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
+            <ComboBox x:Name="TargetComboBox" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="{Binding ElementName=TargetComboBox, Path=SelectedItem, Converter={StaticResource ComboBoxToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Button x:Name="TargetButton" Content="Target data" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
             <Label Name="WeightLabel" Content="Weight:" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <ComboBox Name="WeightComboBox" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox Name="PresentWeightLabel" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+            <ComboBox Name="WeightComboBox" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="{Binding ElementName=WeightComboBox, Path=SelectedItem, Converter={StaticResource ComboBoxToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <TextBox Name="PresentWeightLabel" Text="{Binding Path=Weight}" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
             <Label Name="PriorityLabel" Content="Priority:" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <ComboBox Name="PriorityComboBox" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox Name="PresentPriorityLabel" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
+            <ComboBox Name="PriorityComboBox" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" Foreground="{Binding ElementName=PriorityComboBox, Path=SelectedItem, Converter={StaticResource ComboBoxToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <TextBox Name="PresentPriorityLabel" Text="{Binding Path=Priority}" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-            <Label Name="RequestedLabel" Content="Requested:" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="RequestedTextBox" Text="" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2"/>
+            <Label Name="RequestedLabel" Content="Requested:" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox x:Name="RequestedTextBox" Text="{Binding Path=Requested}" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
 
-            <Label Name="ScheduledLabel" Content="Scheduled:" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="ScheduledTextBox" Text="" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2"/>
+            <Label Name="ScheduledLabel" Content="Scheduled:" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox x:Name="ScheduledTextBox" Text="{Binding Path=Scheduled}" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
 
-            <Label Name="PickedUpLabel" Content="PickedUp:" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="PickedUpTextBox" Text="" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2"/>
+            <Label Name="PickedUpLabel" Content="PickedUp:" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox x:Name="PickedUpTextBox" Text="{Binding Path=PickedUp}" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
 
-            <Label Name="DeliveredLabel" Content="Delivered:" Grid.Row="9" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="DeliveredTextBox" Text="" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2"/>
-
-            <Button x:Name="DroneDataButton" Content="Drone data" Grid.Row="10" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
+            <Label Name="DeliveredLabel" Content="Delivered:" Grid.Row="9" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox x:Name="DeliveredTextBox" Text="{Binding Path=Delivered}" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
         </Grid>
 
-        <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
-        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711"/>
+        <Button x:Name="DroneDataButton" Content="Drone data" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
 
-        <Button x:Name="CollectParcelButton" Content="Collect parcel" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="160" Height="53" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="25" BorderBrush="#FF09050F"/>
-        <Button x:Name="SupplyParcelButton" Content="Supply parcel" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="160" Height="53" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="25" BorderBrush="#FF080311"/>
+        <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Click="AddButton_Click">
+            <Button.IsEnabled>
+                <MultiBinding Converter="{StaticResource FromColorTextToIsEnable}">
+                    <Binding ElementName="SenderComboBox" Path="Foreground" />
+                    <Binding ElementName="TargetComboBox" Path="Foreground" />
+                    <Binding ElementName="WeightComboBox" Path="Foreground" />
+                    <Binding ElementName="PriorityComboBox" Path="Foreground" />
+                </MultiBinding>
+            </Button.IsEnabled>
+        </Button>
+        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </Grid>
 </Page>

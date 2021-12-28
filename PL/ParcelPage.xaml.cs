@@ -6,7 +6,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using PO;
+using BO;
+using Parcel = PO.Parcel;
+using ParcelToList = PO.ParcelToList;
+using Priorities = PO.Priorities;
+using WeightCategories = PO.WeightCategories;
 
 namespace PL
 {
@@ -22,6 +26,13 @@ namespace PL
         {
             InitializeComponent();
             this.parcels = parcels;
+
+            SenderComboBox.ItemsSource = bl.GetCustomers();
+            TargetComboBox.ItemsSource = bl.GetCustomers();
+            WeightComboBox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            PriorityComboBox.ItemsSource = Enum.GetValues(typeof(Priorities));
+
+            DroneDataButton.Visibility = Visibility.Hidden;
         }
         public ParcelPage(Parcel parcel, ObservableCollection<ParcelToList> parcels)
         {
@@ -30,13 +41,19 @@ namespace PL
             this.parcel = parcel;
 
             DataParcelGrid.DataContext = parcel;
-        }
 
+            AddButton.Visibility = Visibility.Hidden;
+        }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             BO.Parcel boParcel = new BO.Parcel();
-            boParcel.Sender.Id = int.Parse(SenderIdTextBox.Text);
-            boParcel.Target.Id = int.Parse(TargetIdTextBox.Text);
+            BO.CustomerToList customer = new BO.CustomerToList();
+            customer = (BO.CustomerToList)SenderComboBox.SelectedItem;
+            boParcel.Sender = new CustomerInParcel();
+            boParcel.Sender.Id = customer.Id;
+            customer = (BO.CustomerToList)TargetComboBox.SelectedItem;
+            boParcel.Target = new CustomerInParcel();
+            boParcel.Target.Id = customer.Id;
             boParcel.Weight = (BO.WeightCategories)WeightComboBox.SelectedItem;
             boParcel.Priority = (BO.Priorities) PriorityComboBox.SelectedItem;
 
@@ -56,12 +73,11 @@ namespace PL
             // Update the view
             ParcelToList newParcel = new ParcelToList();
             BO.ParcelToList boParcelToList = new BO.ParcelToList();
-            boParcelToList = bl.GetParcels().First(parcel => parcel.Id == boParcelToList.Id);
+            boParcelToList = bl.GetParcels().First(parcel => parcel.Id == idParcel);
             CopyPropertiesTo(boParcelToList, newParcel);
             parcels.Add(newParcel);
             this.Content = "";
         }
-
         public void CopyPropertiesTo<T, S>(S from, T to)
         {
             foreach (PropertyInfo propTo in to.GetType().GetProperties())
@@ -74,6 +90,5 @@ namespace PL
                     propTo.SetValue(to, value);
             }
         }
-
     }
 }

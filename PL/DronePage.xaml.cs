@@ -97,9 +97,9 @@ namespace PL
 
             // Update the view
             DroneToList newDrone = new DroneToList();
-            newDrone.Location = new Location();
             boDrone = bl.GetDrone(boDrone.Id);
             CopyPropertiesTo(boDrone, newDrone);
+            newDrone.Location = new Location();
             CopyPropertiesTo(boDrone.Location, newDrone.Location);
             drones.Add(newDrone);
             this.Content = "";
