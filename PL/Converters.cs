@@ -190,12 +190,23 @@ namespace PL
             throw new NotImplementedException();
         }
     }
-    //int phone;
-    ////if (customer.Phone.Length != 10 || customer.Phone.Substring(0, 2) != "05" ||
-    ////    !int.TryParse(customer.Phone.Substring(2, customer.Phone.Length), out phone)) // check format phone
 
-    //if (value.ToString() == "")
-    //return Brushes.Red;
-    //else
-    //return Brushes.SlateGray;
+    public class PhoneTextToColor : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int phone;
+            if (value.ToString().Length != 10 || value.ToString().Substring(0, 2) != "05" ||
+                !int.TryParse(value.ToString().Substring(2, value.ToString().Length), out phone))  // check format phone
+                return Brushes.Red;
+
+            return Brushes.SlateGray;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 }
