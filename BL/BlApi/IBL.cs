@@ -12,7 +12,7 @@ namespace BlApi
         Station GetStation(int stationId); // Returning a station according to the id of the station.
         IEnumerable<StationToList> GetStations(); // Returning the list of stations in a special entity "Station to list".
         IEnumerable<StationToList> GetStationsWithAvailableCharge(); // Returning the list of stations with available charging position in a special entity "Station to list".
-        IEnumerable<StationToList> GetStationsByGroupAvailableStations(); // Returning the list of stations with grouping of available stations
+        IEnumerable<IGrouping<int, StationToList>> GetStationsByGroupAvailableStations(); // Returning the list of stations with grouping of available stations
         void UpdateDataStation(int id, string name, int chargeSlots); // Update station data according to user request.
 
 
@@ -22,7 +22,7 @@ namespace BlApi
         IEnumerable<DroneToList> GetDrones(); // Returning the list of drones in a special entity "Drone to list".
         IEnumerable<DroneToList> GetDronesByStatus(DroneStatuses status); // Returning the list of drones with filtering of status
         IEnumerable<DroneToList> GetDronesByMaxWeight(WeightCategories weight); // Returning the list of drones with filtering of max weight
-        IEnumerable<DroneToList> GetDronesByGroupStatus(); // Returning the list of drones with grouping of status
+        IEnumerable<IGrouping<DroneStatuses, DroneToList>> GetDronesByGroupStatus();// Returning the list of drones with grouping of status
         void UpdateDroneModel(int droneId, string newModel); // Update drone data according to user request.
         void SendDroneToDroneCharge(int droneId);// Sending a drone for charging at a vacant charging station.
         void ReleaseDroneFromDroneCharge(int droneId); // Release drone from charging station.

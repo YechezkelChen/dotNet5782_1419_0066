@@ -36,7 +36,15 @@ namespace PL
 
         private void GroupByAvailableStationsButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            StationsListView.ItemsSource = bl.GetStationsByGroupAvailableStations();
+            stations.Clear();
+            var groups = bl.GetStationsByGroupAvailableStations();
+            foreach (var group in groups)
+                foreach (var station in group)
+                {
+                    StationToList newsStation = new StationToList();
+                    CopyPropertiesTo(station, newsStation);
+                    stations.Add(newsStation);
+                }
         }
 
         private void RefreshGroupButton_Click(object sender, System.Windows.RoutedEventArgs e)

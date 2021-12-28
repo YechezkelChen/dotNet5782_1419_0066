@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -127,24 +127,59 @@ namespace PL
         }
     }
 
-    //public class PhoneTextToColor : IValueConverter
-    //{
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        int phone;
-    //        //if (customer.Phone.Length != 10 || customer.Phone.Substring(0, 2) != "05" ||
-    //        //    !int.TryParse(customer.Phone.Substring(2, customer.Phone.Length), out phone)) // check format phone
 
-    //        if (value.ToString() == "")
-    //            return Brushes.Red;
-    //        else
-    //            return Brushes.SlateGray;
+    public class LocationTextToColor : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        { 
+            double location;
+            if (value.ToString() == "" || !value.ToString().All(char.IsDigit))
+                location = 0;
+            else
+                location = System.Convert.ToDouble(value.ToString());
 
-    //    }
+            if (location < -1 || location > 1)
+                return Brushes.Red;
+            else
+                return Brushes.SlateGray;
 
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ChargeSlotsTextToColor : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int chargeSlots;
+            if (value.ToString() == "" || !value.ToString().All(char.IsDigit))
+                chargeSlots = 0;
+            else
+                chargeSlots = int.Parse(value.ToString());
+
+            if (chargeSlots < 0) // Check that it's 6 digits.
+                return Brushes.Red;
+            else
+                return Brushes.SlateGray;
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    //int phone;
+    ////if (customer.Phone.Length != 10 || customer.Phone.Substring(0, 2) != "05" ||
+    ////    !int.TryParse(customer.Phone.Substring(2, customer.Phone.Length), out phone)) // check format phone
+
+    //if (value.ToString() == "")
+    //return Brushes.Red;
+    //else
+    //return Brushes.SlateGray;
 }

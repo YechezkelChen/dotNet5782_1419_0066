@@ -76,7 +76,17 @@ namespace PL
 
         private void GroupByStatusButton_Click(object sender, RoutedEventArgs e)
         {
-            DronesListView.ItemsSource = bl.GetDronesByGroupStatus();
+            drones.Clear();
+            var groups = bl.GetDronesByGroupStatus();
+            foreach (var group in groups)
+                foreach (var drone in group)
+                {
+                    DroneToList newDrone = new DroneToList();
+                    CopyPropertiesTo(drone, newDrone);
+                    newDrone.Location = new Location();
+                    CopyPropertiesTo(drone.Location, newDrone.Location);
+                    drones.Add(newDrone);
+                }
         }
 
         private void RefreshStatusButton_Click(object sender, RoutedEventArgs e)
