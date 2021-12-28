@@ -71,7 +71,7 @@ namespace PL
         private void GroupByCustomersSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             parcels.Clear();
-            var groups = bl.GetParcelsByGroupCustomers();
+            var groups = bl.GetParcelsByGroupCustomers(GroupByCustomersSelector.SelectedItem);
             foreach (var group in groups)
                 foreach (var parcel in group)
                 {
