@@ -157,7 +157,7 @@ namespace PL
         {
             int chargeSlots;
             if (value.ToString() == "" || !value.ToString().All(char.IsDigit))
-                chargeSlots = 0;
+                chargeSlots = -1;
             else
                 chargeSlots = int.Parse(value.ToString());
 
