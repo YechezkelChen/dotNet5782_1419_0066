@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-
+using PO;
 namespace PL
 {
     /// <summary>
@@ -7,9 +7,10 @@ namespace PL
     /// </summary>
     public partial class CustomerInParcelPage : Page
     {
-        public CustomerInParcelPage()
+        public CustomerInParcelPage(CustomerInParcel customer)
         {
             InitializeComponent();
+            DataCustomerGrid.DataContext = customer;
         }
     }
 }
