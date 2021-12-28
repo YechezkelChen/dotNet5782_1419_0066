@@ -33,6 +33,9 @@ namespace PL
             InitializeComponent();
             this.stations = stations;
             this.station = station;
+
+            DataStationGrid.DataContext = station;
+
             AddButton.Visibility = Visibility.Hidden;
         }
 
@@ -44,7 +47,7 @@ namespace PL
             boStation.Location = new Location();
             boStation.Location.Longitude = double.Parse(LongitudeTextBox.Text);
             boStation.Location.Latitude = double.Parse(LatitudeTextBox.Text);
-            boStation.AvalibleChargeSlots = int.Parse(AvailableChargeSlotsTextBox.Text);
+            boStation.AvailableChargeSlots = int.Parse(AvailableChargeSlotsTextBox.Text);
 
             try
             {

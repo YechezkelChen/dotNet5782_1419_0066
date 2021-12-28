@@ -446,7 +446,7 @@ namespace BL
             try
             {
                 station = GetStation(idStation); // try to find the station the user want to put the drone in charge
-                if (station.AvalibleChargeSlots == 0) // if the station that the user ask there is no place for charge
+                if (station.AvailableChargeSlots == 0) // if the station that the user ask there is no place for charge
                     throw new ChargeSlotsException("ERROR: The station you ask not have more place.");
             }
             catch (IdException e)

@@ -13,7 +13,8 @@
         <local:IdCustomerTextToColor x:Key="IdCustomerTextToColor" />
         <local:ModelOrNameTextToColor x:Key="ModelOrNameTextToColor" />
         <local:MultiConverter x:Key="MultiConverter" />
-        <!--<local:PhoneTextToColor x:Key="PhoneTextToColor" />-->
+        <local:PhoneTextToColor x:Key="PhoneTextToColor" />
+        <local:LocationTextToColor x:Key="LocationTextToColor" />
     </Page.Resources>
 
     <Grid>
@@ -42,22 +43,22 @@
             <TextBox x:Name="IdTextBox" Text="{Binding Path=Id}" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=IdTextBox, Path=Text, Converter={StaticResource IdCustomerTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible,UpdateSourceTrigger=LostFocus}"/>
 
             <Label Name="NameLabel" Grid.Row="2" Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="NameTextBox" Text="{Binding Path=Name}" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=NameTextBox, Path=Text,Converter={StaticResource ModelOrNameTextToColor} }" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible,UpdateSourceTrigger=LostFocus}"/>
+            <TextBox x:Name="NameTextBox" Text="{Binding Path=Name}" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=NameTextBox, Path=Text,Converter={StaticResource ModelOrNameTextToColor} }" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" />
 
             <Label Name="PhoneLabel" Grid.Row="3" Content="Phone:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="PhoneTextBox" Text="{Binding Path=Phone}" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=PhoneTextBox, Path=Text, Converter={StaticResource BooleanToVisibilityConverter}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible,UpdateSourceTrigger=LostFocus}"/>
+            <TextBox x:Name="PhoneTextBox" Text="{Binding Path=Phone}" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=PhoneTextBox, Path=Text, Converter={StaticResource PhoneTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4"/>
 
             <Label Name="LongitudeLabel" Grid.Row="4" Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="LongitudeTextBox" Text="{Binding Path=Location.Longitude}" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=LongitudeTextBox, Path=Text, Converter={StaticResource BooleanToVisibilityConverter}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible,UpdateSourceTrigger=LostFocus}" />
+            <TextBox x:Name="LongitudeTextBox" Text="{Binding Path=Location.Longitude}" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=LongitudeTextBox, Path=Text, Converter={StaticResource LocationTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible,UpdateSourceTrigger=LostFocus}" />
+           
             <Label Name="LatitudeLabel" Grid.Row="5" Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" />
-            <TextBox x:Name="LatitudeTextBox" Text="{Binding Path=Location.Latitude}" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=LatitudeTextBox, Path=Text, Converter={StaticResource BooleanToVisibilityConverter}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible,UpdateSourceTrigger=LostFocus}" />
+            <TextBox x:Name="LatitudeTextBox" Text="{Binding Path=Location.Latitude}" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=LatitudeTextBox, Path=Text, Converter={StaticResource LocationTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible,UpdateSourceTrigger=LostFocus}" />
         </Grid>
 
         <Button x:Name="ParcelFromTheCustomerButton" Content="Parcels sent" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="138" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Margin="10,314,0,0">
             <Button.IsEnabled>
                 <MultiBinding Converter="{StaticResource MultiConverter}">
-                    <Binding ElementName="ParcelToTheCustomerButton" Path="IsVisible"/>
-                    <Binding ElementName="UpdateCustomerDataButton" Path="IsVisible" />
+                    <Binding ElementName="AddButton" Path="IsVisible" />
                 </MultiBinding>
             </Button.IsEnabled>
         </Button>
@@ -65,8 +66,7 @@
         <Button x:Name="ParcelToTheCustomerButton" Content="Parcels accepted" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="143" Grid.Column="2" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Margin="10,349,0,0">
             <Button.IsEnabled>
                 <MultiBinding Converter="{StaticResource MultiConverter}">
-                    <Binding ElementName="ParcelFromTheCustomerButton" Path="IsVisible"/>
-                    <Binding ElementName="UpdateCustomerDataButton" Path="IsVisible"/>
+                    <Binding ElementName="AddButton" Path="IsVisible"/>
                 </MultiBinding>
             </Button.IsEnabled>
         </Button>

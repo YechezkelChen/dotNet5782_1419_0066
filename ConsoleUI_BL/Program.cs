@@ -306,7 +306,7 @@ namespace ConsoleUI_BL
 
                 } while (!int.TryParse(Console.ReadLine(), out num1));
 
-                newStation.AvalibleChargeSlots = num1;
+                newStation.AvailableChargeSlots = num1;
 
                 newStation.DronesInCharges = new List<DroneInCharge>();
 
