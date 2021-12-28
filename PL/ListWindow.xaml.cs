@@ -210,7 +210,14 @@ namespace PL
         }
         private void CustomerPage_DataParcel(object sender, MouseButtonEventArgs e)
         {
-            ShowData.Content = new ParcelPage(parcel, parcels);
+            ParcelInCustomer parcelInCustomer = (ParcelInCustomer) parcelInCustomerPage.ParcelListView.SelectedItem;
+            BO.Parcel boParcel = bl.GetParcel(parcelInCustomer.Id);
+            parcel = CopyBoParcelToPoParcel(boParcel, parcel);
+            parcelPage = new ParcelPage(parcel, parcels);
+            parcelPage.SenderButton.Click += CustomerPage_DataSender;
+            parcelPage.TargetButton.Click += CustomerPage_DataTarget;
+            parcelPage.DroneDataButton.Click += DronePage_DataDroneInParcel;
+            ShowData.Content = parcelPage;
         }
         private Customer CopyBoCustomerToPoCustomer(BO.Customer boCustomer, Customer poCustomer)
         {

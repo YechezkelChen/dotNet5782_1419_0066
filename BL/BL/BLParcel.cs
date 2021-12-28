@@ -145,7 +145,8 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<ParcelToList> GetParcelsByStatus(ParcelStatuses status)
         {
-            return null;
+            IEnumerable<ParcelToList> parcels = GetParcels().Where(parcel => parcel.Status == status);
+            return parcels;
         }
 
         /// <summary>
@@ -156,6 +157,7 @@ namespace BL
         {
             return null;
         }
+
         /// <summary>
         /// return the list after groping
         /// </summary>

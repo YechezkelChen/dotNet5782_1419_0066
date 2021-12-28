@@ -45,15 +45,15 @@ namespace PL
             parcelsData = parcelsFiltering.ToList().FindAll(parcel => parcelsData.ToList().Find(p => p.Id == parcel.Id) != null);
 
             // Filtering of date
-            if (DateSelector.SelectedItem == null)
-                parcelsFiltering = bl.GetParcels();
-            else
-              //  parcelsFiltering = bl.GetParcelsByDate((BO.WeightCategories)DateSelector.SelectedItem);????????????????????????????????????????????????????????????????????????????
-
-            parcelsData = parcelsFiltering.ToList().FindAll(parcel => parcelsData.ToList().Find(p => p.Id == parcel.Id) != null);
+            //if (DateSelector.SelectedItem == null)
+                //parcelsFiltering = bl.GetParcels();
+            //else 
+                //parcelsFiltering = bl.GetParcelsByDate((BO.WeightCategories)DateSelector.SelectedItem);????????????????????????????????????????????????????????????????????????????
+            
+            //parcelsData = parcelsFiltering.ToList().FindAll(parcel => parcelsData.ToList().Find(p => p.Id == parcel.Id) != null);
 
             // Show the list after the filtering
-            foreach (var parcel in bl.GetParcels())
+            foreach (var parcel in parcelsData)
             {
                 ParcelToList newParcel = new ParcelToList();
                 CopyPropertiesTo(parcel, newParcel);
@@ -89,19 +89,19 @@ namespace PL
 
         private void RefreshStatusButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            StatusSelector = null;
+            StatusSelector.SelectedItem = null;
             ParcelsData();
         }
 
         private void RefreshDateButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            DateSelector = null;
+            DateSelector.SelectedItem = null;
             ParcelsData();
         }
 
         private void RefreshGroupButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            GroupByCustomersSelector = null;
+            GroupByCustomersSelector.SelectedItem = null;
             ParcelsData();
         }
 
