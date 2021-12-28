@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using PO;
 
@@ -9,12 +10,13 @@ namespace PL
     /// </summary>
     public partial class ParcelInCustomerPage : Page
     {
-        private Customer customer;
-        public ParcelInCustomerPage(Customer customer)
+        private IEnumerable<ParcelInCustomer> parcelsInCustomer;
+
+        public ParcelInCustomerPage(IEnumerable<ParcelInCustomer> parcelsInCustomer)
         {
             InitializeComponent();
-            this.customer = customer;
-            DataParcelGrid.DataContext = customer.FromTheCustomerList;
+            this.parcelsInCustomer = parcelsInCustomer;
+            DataParcelGrid.DataContext = parcelsInCustomer;
         }
     }
 }
