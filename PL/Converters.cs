@@ -197,7 +197,7 @@ namespace PL
         {
             int phone;
             if (value.ToString().Length != 10 || value.ToString().Substring(0, 2) != "05" ||
-                !int.TryParse(value.ToString().Substring(2, value.ToString().Length), out phone))  // check format phone
+                !int.TryParse(value.ToString().Substring(2, value.ToString().Length - 2), out phone))  // check format phone
                 return Brushes.Red;
 
             return Brushes.SlateGray;

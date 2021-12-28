@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using BO;
-using Customer = PO.Customer;
-using CustomerInParcel = PO.CustomerInParcel;
-using CustomerToList = PO.CustomerToList;
-using ParcelInCustomer = PO.ParcelInCustomer;
+using PO;
+
 
 namespace PL
 {
@@ -26,8 +24,6 @@ namespace PL
             InitializeComponent();
             this.customers = customers;
 
-            ParcelFromTheCustomerButton.Visibility = Visibility.Hidden;
-            ParcelToTheCustomerButton.Visibility = Visibility.Hidden;
             UpdateCustomerDataButton.Visibility = Visibility.Hidden;
         }
         public CustomerPage(Customer customer, ObservableCollection<CustomerToList> customers)
@@ -51,8 +47,9 @@ namespace PL
             boCustomer.Name = NameTextBox.Text;
             boCustomer.Phone = PhoneTextBox.Text;
             boCustomer.Location = new BO.Location();
-            boCustomer.Location.Latitude = Convert.ToDouble(LatitudeTextBox.Text);
-            boCustomer.Location.Longitude = Convert.ToDouble(LongitudeTextBox.Text);
+            boCustomer.Location.Latitude = double.Parse(LatitudeTextBox.Text);
+            boCustomer.Location.Longitude = double.Parse(LongitudeTextBox.Text);
+
             try
             {
                 bl.AddCustomer(boCustomer);
@@ -82,9 +79,10 @@ namespace PL
 
             // Update the view
             CustomerToList newCustomer = new CustomerToList();
-            boCustomer.Id = boCustomer.Id * 10 + lastDigitID(customer.Id);
-            boCustomer = bl.GetCustomer(boCustomer.Id);
-            CopyPropertiesTo(boCustomer, newCustomer);
+            BO.CustomerToList boCustomerToList = new BO.CustomerToList();
+            boCustomerToList.Id = boCustomer.Id * 10 + lastDigitID(boCustomer.Id);
+            boCustomerToList = bl.GetCustomers().First(customer => customer.Id == boCustomerToList.Id);
+            CopyPropertiesTo(boCustomerToList, newCustomer);
             customers.Add(newCustomer);
             this.Content = "";
         }
