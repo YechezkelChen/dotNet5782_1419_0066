@@ -63,7 +63,7 @@
             </Button.Visibility>
         </Button>
 
-        <Button x:Name="AddButton" Content="Add the station" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="2" Height="40" Width="120" Foreground="#FF3E4C2E"  FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" >
+        <Button x:Name="AddButton" Content="Add the station" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="2" Height="40" Width="120" Foreground="#FF3E4C2E"  FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Click="AddButton_Click" >
             <Button.IsEnabled>
                 <MultiBinding Converter="{StaticResource FromColorTextToIsEnable}">
                     <Binding ElementName="IdTextBox" Path="Foreground" />
@@ -77,6 +77,6 @@
 
         <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="2" Height="40" Width="120" FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-        <Button x:Name="UpdateStationButton" Content="Update the station" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Height="40" Width="120" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black"/>
+        <Button x:Name="UpdateStationButton" Content="Update the station" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Height="40" Width="120" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black" Click="UpdateStationButton_Click"/>
     </Grid>
 </Page>

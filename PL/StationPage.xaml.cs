@@ -6,7 +6,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using PO;
+using BO;
+using Station = PO.Station;
+using StationToList = PO.StationToList;
 
 namespace PL
 {
@@ -39,8 +41,9 @@ namespace PL
             BO.Station boStation = new BO.Station();
             boStation.Id = int.Parse(IdTextBox.Text);
             boStation.Name = NameTextBox.Text;
-            boStation.Location.Longitude = Convert.ToDouble(LongitudeTextBox.Text);
-            boStation.Location.Latitude = Convert.ToDouble(LatitudeTextBox.Text);
+            boStation.Location = new Location();
+            boStation.Location.Longitude = double.Parse(LongitudeTextBox.Text);
+            boStation.Location.Latitude = double.Parse(LatitudeTextBox.Text);
             boStation.AvalibleChargeSlots = int.Parse(AvailableChargeSlotsTextBox.Text);
 
             try
@@ -72,13 +75,14 @@ namespace PL
 
             // Update the view
             StationToList newStation = new StationToList();
-            boStation = bl.GetStation(boStation.Id);
-            CopyPropertiesTo(boStation, newStation);
+            BO.StationToList boStationToList = new BO.StationToList();
+            boStationToList = bl.GetStations().First(station => station.Id == boStation.Id);
+            CopyPropertiesTo(boStationToList, newStation);
             stations.Add(newStation);
             this.Content = "";
         }
 
-        private void UpdateStationButtom_Click(object sender, RoutedEventArgs e)
+        private void UpdateStationButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -110,7 +114,7 @@ namespace PL
                     stations[i] = newStation;
                 }
         }
-            public void CopyPropertiesTo<T, S>(S from, T to)
+        public void CopyPropertiesTo<T, S>(S from, T to)
         {
             foreach (PropertyInfo propTo in to.GetType().GetProperties())
             {
