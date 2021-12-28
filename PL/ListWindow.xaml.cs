@@ -263,15 +263,15 @@ namespace PL
         }
         private void CustomerPage_DataSender(object sender, RoutedEventArgs e)
         {
-            ShowData.Content = new CustomerInParcelPage();
+            ShowData.Content = new CustomerInParcelPage(parcel.Sender);
         }
         private void CustomerPage_DataTarget(object sender, RoutedEventArgs e)
         {
-            ShowData.Content = new CustomerInParcelPage();
+            ShowData.Content = new CustomerInParcelPage(parcel.Target);
         }
         private void DronePage_DataDroneInParcel(object sender, RoutedEventArgs e)
         {
-            ShowData.Content = new DroneInParcelPage();
+            ShowData.Content = new DroneInParcelPage(parcel.DroneInParcel);
         }
         private Parcel CopyBoParcelToPoParcel(BO.Parcel boParcel, Parcel poParcel)
         {

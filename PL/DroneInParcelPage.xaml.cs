@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using BO;
+using PO;
 
 namespace PL
 {
@@ -9,11 +9,10 @@ namespace PL
     /// </summary>
     public partial class DroneInParcelPage : Page
     {
-        private BlApi.IBL bl = BlApi.BlFactory.GetBl();
-        private Drone drone;
-        public DroneInParcelPage()
+        public DroneInParcelPage(DroneInParcel drone)
         {
             InitializeComponent();
+            DataDroneGrid.DataContext = drone;
         }
 
         private void ClosePageButton_Click(object sender, RoutedEventArgs e)
