@@ -22,6 +22,9 @@ namespace PL
             this.parcels = parcels;
             ParcelsListView.DataContext = this.parcels;
             ParcelsData();
+
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(ParcelStatuses));
+            //DateSelector.ItemsSource = 
         }
 
         private void ParcelsData()
@@ -73,7 +76,7 @@ namespace PL
             parcels.Clear();
             if (GroupByCustomersSelector.SelectedItem != null)
             {
-                var groups = bl.GetParcelsByGroupCustomers(GroupByCustomersSelector.SelectedItem);
+                var groups = bl.GetParcelsByGroupCustomers(GroupByCustomersSelector.SelectedItem.ToString());
                 foreach (var group in groups)
                     foreach (var parcel in group)
                     {
