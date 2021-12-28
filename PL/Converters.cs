@@ -61,8 +61,8 @@ namespace PL
 
             if (id < 100000 || id > 999999) // Check that it's 6 digits.
                 return Brushes.Red;
-            else
-                return Brushes.SlateGray;
+            
+            return Brushes.SlateGray;
 
         }
 
@@ -84,8 +84,8 @@ namespace PL
 
             if (id < 10000000 || id > 99999999) // Check that it's 6 digits.
                 return Brushes.Red;
-            else
-                return Brushes.SlateGray;
+            
+            return Brushes.SlateGray;
 
         }
 
@@ -101,8 +101,8 @@ namespace PL
         {
             if (value.ToString() == "")
                 return Brushes.Red;
-            else
-                return Brushes.SlateGray;
+            
+            return Brushes.SlateGray;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -117,8 +117,8 @@ namespace PL
         {
             if (value == null)
                 return Brushes.Red;
-            else
-                return Brushes.SlateGray;
+            
+            return Brushes.SlateGray;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -139,9 +139,9 @@ namespace PL
                 location = System.Convert.ToDouble(value.ToString());
 
             if (location < -1 || location > 1)
-                return Brushes.Red;
-            else
-                return Brushes.SlateGray;
+                return Brushes.Red; 
+            
+            return Brushes.SlateGray;
 
         }
 
@@ -163,8 +163,8 @@ namespace PL
 
             if (chargeSlots < 0) 
                 return Brushes.Red;
-            else
-                return Brushes.SlateGray;
+            
+            return Brushes.SlateGray;
 
         }
 
