@@ -27,7 +27,6 @@ namespace PL
             this.stations = stations;
             UpdateStationButton.Visibility = Visibility.Hidden;
         }
-
         public StationPage(Station station, ObservableCollection<StationToList> stations)
         {
             InitializeComponent();
@@ -38,7 +37,6 @@ namespace PL
 
             AddButton.Visibility = Visibility.Hidden;
         }
-
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             BO.Station boStation = new BO.Station();
@@ -84,7 +82,6 @@ namespace PL
             stations.Add(newStation);
             this.Content = "";
         }
-
         private void UpdateStationButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -106,7 +103,6 @@ namespace PL
 
             UpdateListStations(station);
         }
-
         private void UpdateListStations(Station updateStation)
         {
             for (int i = 0; i < stations.Count(); i++)
