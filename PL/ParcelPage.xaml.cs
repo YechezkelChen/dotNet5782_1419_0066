@@ -28,6 +28,7 @@ namespace PL
             InitializeComponent();
             this.parcels = parcels;
             this.parcel = parcel;
+
             DataParcelGrid.DataContext = parcel;
         }
 
@@ -54,8 +55,9 @@ namespace PL
 
             // Update the view
             ParcelToList newParcel = new ParcelToList();
-            boParcel = bl.GetParcel(idParcel);
-            CopyPropertiesTo(boParcel, newParcel);
+            BO.ParcelToList boParcelToList = new BO.ParcelToList();
+            boParcelToList = bl.GetParcels().First(parcel => parcel.Id == boParcelToList.Id);
+            CopyPropertiesTo(boParcelToList, newParcel);
             parcels.Add(newParcel);
             this.Content = "";
         }
