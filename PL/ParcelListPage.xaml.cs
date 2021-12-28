@@ -71,14 +71,17 @@ namespace PL
         private void GroupByCustomersSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             parcels.Clear();
-            var groups = bl.GetParcelsByGroupCustomers(GroupByCustomersSelector.SelectedItem);
-            foreach (var group in groups)
-                foreach (var parcel in group)
-                {
-                    ParcelToList newParcel = new ParcelToList();
-                    CopyPropertiesTo(parcel, newParcel);
-                    parcels.Add(newParcel);
-                }
+            if (GroupByCustomersSelector.SelectedItem != null)
+            {
+                var groups = bl.GetParcelsByGroupCustomers(GroupByCustomersSelector.SelectedItem);
+                foreach (var group in groups)
+                    foreach (var parcel in group)
+                    {
+                        ParcelToList newParcel = new ParcelToList();
+                        CopyPropertiesTo(parcel, newParcel);
+                        parcels.Add(newParcel);
+                    }
+            }
         }
 
         private void RefreshStatusButton_Click(object sender, System.Windows.RoutedEventArgs e)
