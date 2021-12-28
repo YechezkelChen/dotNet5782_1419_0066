@@ -180,8 +180,8 @@ namespace PL
         {
             if (value == null) 
                 return false;
-            else
-                return true;
+            
+            return true;
 
         }
 
