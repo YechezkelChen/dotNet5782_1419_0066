@@ -199,14 +199,18 @@ namespace PL
         private void CustomerPage_DataParcelFromCustomer(object sender, RoutedEventArgs routedEventArgs)
         {
             parcelInCustomerPage = new ParcelInCustomerPage(customer.FromTheCustomerList);
-          //  parcelInCustomerPage.
+            parcelInCustomerPage.ParcelListView.MouseDoubleClick += CustomerPage_DataParcel;
             ShowData.Content = parcelInCustomerPage;
         }
         private void CustomerPage_DataParcelToCustomer(object sender, RoutedEventArgs routedEventArgs)
         {
             parcelInCustomerPage = new ParcelInCustomerPage(customer.ToTheCustomerList);
-            //  parcelInCustomerPage.
+            parcelInCustomerPage.ParcelListView.MouseDoubleClick += CustomerPage_DataParcel;
             ShowData.Content = parcelInCustomerPage;
+        }
+        private void CustomerPage_DataParcel(object sender, MouseButtonEventArgs e)
+        {
+            ShowData.Content = new ParcelPage(parcel, parcels);
         }
         private Customer CopyBoCustomerToPoCustomer(BO.Customer boCustomer, Customer poCustomer)
         {
@@ -257,17 +261,14 @@ namespace PL
             parcelPage.DroneDataButton.Click += DronePage_DataDroneInParcel;
             ShowData.Content = customerPage;
         }
-
         private void CustomerPage_DataSender(object sender, RoutedEventArgs e)
         {
             ShowData.Content = new CustomerInParcelPage();
         }
-
         private void CustomerPage_DataTarget(object sender, RoutedEventArgs e)
         {
             ShowData.Content = new CustomerInParcelPage();
         }
-
         private void DronePage_DataDroneInParcel(object sender, RoutedEventArgs e)
         {
             ShowData.Content = new DroneInParcelPage();
