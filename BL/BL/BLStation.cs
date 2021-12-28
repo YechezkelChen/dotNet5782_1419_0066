@@ -22,6 +22,10 @@ namespace BL
             {
                 throw new IdException(e.Message, e);
             }
+            catch (NameException e)
+            {
+                throw new NameException(e.Message, e);
+            }
             catch (ChargeSlotsException e)
             {
                 throw new ChargeSlotsException(e.Message, e);
@@ -153,6 +157,8 @@ namespace BL
         {
             if (station.Id < 100000 || station.Id > 999999) // Check that it's 6 digits.
                 throw new IdException("ERROR: the ID is illegal! ");
+            if (station.Name == "")
+                throw new NameException("ERROR: the name is illegal!");
             if (station.AvalibleChargeSlots < 0)
                 throw new ChargeSlotsException("ERROR: the charge slots must have positive or 0 value! ");
             if (station.Location.Longitude < -1 || station.Location.Longitude > 1)
