@@ -133,7 +133,7 @@ namespace PL
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         { 
             double location;
-            if (value.ToString() == "" || !value.ToString().All(char.IsDigit))
+            if (!double.TryParse(value.ToString(), out location))
                 location = -2;
             else
                 location = System.Convert.ToDouble(value.ToString());
