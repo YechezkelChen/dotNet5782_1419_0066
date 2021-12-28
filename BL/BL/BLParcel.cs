@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using BO;
 
 
@@ -144,7 +145,7 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<ParcelToList> GetParcelsByStatus()
         {
-
+            return null;
         }
 
         /// <summary>
@@ -153,6 +154,7 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<ParcelToList> GetParcelsByDate()
         {
+            return null;
         }
         /// <summary>
         /// return the list after groping
