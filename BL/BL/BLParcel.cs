@@ -100,19 +100,6 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<ParcelToList> GetParcels()
         {
-            //return from dalParcel in dal.GetParcels(parcel => parcel.Deleted == false)
-            //       let parcel = GetParcel(dalParcel.Id)
-            //       select new ParcelToList
-            //       {
-            //           Id = dalParcel.Id,
-            //           SenderName = parcel.Sender.Name,
-            //           TargetName = parcel.Target.Name,
-            //           Weight = parcel.Weight,
-            //           Priority = parcel.Priority,
-            //           Status = 
-            //       }
-
-
             // Must use list and foreach because we need to find out what the status of the parcel is
             List<ParcelToList> parcels = new List<ParcelToList>();
             foreach (var dalParcel in dal.GetParcels(parcel => parcel.Deleted == false ))
@@ -149,6 +136,31 @@ namespace BL
             return from parcel in GetParcels()
                    where parcel.Status == ParcelStatuses.Requested // just parcels that dont have them drone.
                    select parcel;
+        }
+
+        /// <summary>
+        /// return the list of parcels in special status for show
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ParcelToList> GetParcelsByStatus()
+        {
+
+        }
+
+        /// <summary>
+        /// return the list of parcels in special date for show
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ParcelToList> GetParcelsByDate()
+        {
+        }
+        public IEnumerable<IGrouping<string, ParcelToList>> GetParcelsByGroupCustomers(string typeCustomer)
+        {
+            if(typeCustomer == "Sender")
+                return GetParcels().GroupBy(parcel => parcel.SenderName);
+            if(typeCustomer == "Target")
+                return GetParcels().GroupBy(parcel => parcel.TargetName);
+            return null;
         }
 
         /// <summary>

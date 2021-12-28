@@ -103,7 +103,6 @@ namespace PL
 
         private void RefreshGroupButton_Click(object sender, RoutedEventArgs e)
         {
-            DronesListView.ItemsSource = drones;
             DronesData();
         }
 
