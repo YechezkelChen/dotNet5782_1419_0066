@@ -159,7 +159,10 @@ namespace BL
             IEnumerable<DroneToList> drones = ListDrones.FindAll(drone => drone.Weight <= weight);
             return drones;
         }
-
+        /// <summary>
+        /// return the list after groping
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<IGrouping<DroneStatuses, DroneToList>> GetDronesByGroupStatus()
         {
             return GetDrones().GroupBy(drone => drone.Status);

@@ -47,5 +47,6 @@ namespace BlApi
         IEnumerable<ParcelToList> GetParcelsNoDrones(); // Returning the list of parcels with no drones in a special entity "Parcel to list".
         IEnumerable<ParcelToList> GetParcelsByStatus(); // Returning the list of parcels in special status for show
         IEnumerable<ParcelToList> GetParcelsByDate();  // Returning the list of parcels in special date for show
+        IEnumerable<IGrouping<string, ParcelToList>> GetParcelsByGroupCustomers(string typeCustomer); // Returning the list after groping
     }
 }
