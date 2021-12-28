@@ -162,9 +162,9 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<IGrouping<string, ParcelToList>> GetParcelsByGroupCustomers(string typeCustomer)
         {
-            if(typeCustomer == "Sender")
+            if(typeCustomer == "System.Windows.Controls.ComboBoxItem: Sender")
                 return GetParcels().GroupBy(parcel => parcel.SenderName);
-            if(typeCustomer == "Target")
+            if(typeCustomer == "System.Windows.Controls.ComboBoxItem: Target")
                 return GetParcels().GroupBy(parcel => parcel.TargetName);
             return null;
         }

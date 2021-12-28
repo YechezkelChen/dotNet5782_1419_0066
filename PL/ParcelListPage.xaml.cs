@@ -101,6 +101,7 @@ namespace PL
 
         private void RefreshGroupButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            GroupByCustomersSelector = null;
             ParcelsData();
         }
 
