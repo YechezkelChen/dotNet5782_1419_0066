@@ -50,12 +50,12 @@
 
             <Label Name="LongitudeLabel" Grid.Row="4" Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
             <TextBox x:Name="LongitudeTextBox" Text="{Binding Path=Location.Longitude}" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=LongitudeTextBox, Path=Text, Converter={StaticResource LocationTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible,UpdateSourceTrigger=LostFocus}" />
-           
+
             <Label Name="LatitudeLabel" Grid.Row="5" Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" />
             <TextBox x:Name="LatitudeTextBox" Text="{Binding Path=Location.Latitude}" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=LatitudeTextBox, Path=Text, Converter={StaticResource LocationTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible,UpdateSourceTrigger=LostFocus}" />
         </Grid>
 
-        <Button x:Name="ParcelFromTheCustomerButton" Content="Parcels sent" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="138" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Margin="10,314,0,0">
+        <Button x:Name="ParcelFromTheCustomerButton" Content="Parcels sent" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="40" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Margin="10,92,0,0">
             <Button.IsEnabled>
                 <MultiBinding Converter="{StaticResource MultiConverter}">
                     <Binding ElementName="AddButton" Path="IsVisible" />
@@ -63,7 +63,7 @@
             </Button.IsEnabled>
         </Button>
 
-        <Button x:Name="ParcelToTheCustomerButton" Content="Parcels accepted" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="143" Grid.Column="2" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Margin="10,349,0,0">
+        <Button x:Name="ParcelToTheCustomerButton" Content="Parcels accepted" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="40" Grid.Column="2" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Margin="10,185,0,0">
             <Button.IsEnabled>
                 <MultiBinding Converter="{StaticResource MultiConverter}">
                     <Binding ElementName="AddButton" Path="IsVisible"/>
@@ -71,7 +71,7 @@
             </Button.IsEnabled>
         </Button>
 
-        <Button Grid.Column="1" x:Name="AddButton" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="120"  Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Margin="24,404,0,0" Click="AddButton_Click" RenderTransformOrigin="1.61,0.6" Grid.ColumnSpan="2">
+        <Button x:Name="AddButton" Content="Add" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="0" Height="40" Width="120"  Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Margin="24,404,0,0" Click="AddButton_Click" RenderTransformOrigin="1.61,0.6" Grid.ColumnSpan="2">
             <Button.IsEnabled>
                 <MultiBinding Converter="{StaticResource FromColorTextToIsEnable}">
                     <Binding ElementName="IdTextBox" Path="Foreground" />
@@ -84,9 +84,9 @@
         </Button>
 
 
-        <Button x:Name="CancelButton" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120"  FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Click="CancelButton_Click"/>
+        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="2" Height="40" Width="120"  FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Click="CancelButton_Click"/>
 
-        <Button x:Name="UpdateCustomerDataButton" Content="Update Customer" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="160" Height="53" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black" Click="UpdateCustomerDataButton_Click" Margin="0,397,0,0">
+        <Button x:Name="UpdateCustomerDataButton" Content="Update Customer" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="40" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black" Click="UpdateCustomerDataButton_Click" Margin="10,283,0,0">
             <Button.IsEnabled>
                 <MultiBinding Converter="{StaticResource FromColorTextToIsEnable}">
                     <Binding ElementName="NameTextBox" Path="Foreground" />

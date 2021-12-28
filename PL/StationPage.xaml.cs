@@ -37,6 +37,10 @@ namespace PL
 
             AddButton.Visibility = Visibility.Hidden;
         }
+        private void ClosePageButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = "";
+        }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             BO.Station boStation = new BO.Station();

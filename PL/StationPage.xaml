@@ -20,12 +20,12 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.8*"/>
             <ColumnDefinition Width="0.1*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="ClosePageButton" Content="Close" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="70" Foreground="Red" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
+        <Button x:Name="ClosePageButton" Content="Close" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="70" Foreground="Red" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Click="ClosePageButton_Click"/>
 
         <Grid x:Name="DataStationGrid" Grid.Column="0">
             <Grid.RowDefinitions>
@@ -54,7 +54,7 @@
             <TextBox x:Name="AvailableChargeSlotsTextBox" Text="{Binding Path=AvailableChargeSlots}" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=AvailableChargeSlotsTextBox, Path=Text, Converter={StaticResource ChargeSlotsTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" />
         </Grid>
 
-        <Button Name="DroneDataButton" Content="Drones data" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="110" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" >
+        <Button Name="DroneDataButton" Content="Drones data" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Height="40" Width="125" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Margin="0,78,0,0" >
             <Button.Visibility>
                 <MultiBinding Converter="{StaticResource MultiConverter}">
                     <Binding ElementName="AddButton" Path="IsVisible"/>
@@ -77,7 +77,7 @@
 
         <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="2" Height="40" Width="130" FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-        <Button x:Name="UpdateStationButton" Content="Update the station" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Height="40" Width="150" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black" Click="UpdateStationButton_Click" >
+        <Button x:Name="UpdateStationButton" Content="Update station" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Height="40" Width="125" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black" Click="UpdateStationButton_Click" >
             <Button.IsEnabled>
                 <MultiBinding Converter="{StaticResource FromColorTextToIsEnable}">
                     <Binding ElementName="NameTextBox" Path="Foreground" />

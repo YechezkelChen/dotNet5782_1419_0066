@@ -23,6 +23,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <Button x:Name="ClosePageButton" Content="Close" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="70" Foreground="Red" FontFamily="Agency FB" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Click="ClosePageButton_Click"/>
+
         <Grid x:Name="DataParcelGrid" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>

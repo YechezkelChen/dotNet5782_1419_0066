@@ -19,7 +19,7 @@ namespace PL
 
         private void ClosePageButton_Click(object sender, RoutedEventArgs e)
         {
-            //listWindow.ShowData.Content = new DronePage(listWindow, drone);
+            this.Content = "";
         }
     }
 }

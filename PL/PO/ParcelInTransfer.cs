@@ -78,7 +78,7 @@ namespace PO
                    $"Target = {target}\n" +
                    $"Pick up location = {pickUpLocation}" +
                    $"Target location = {targetLocation}" +
-                   $"Distance of transfer =" + String.Format("{0:0.00}", distanceOfTransfer) + "\n";
+                   $"Distance of transfer = " + String.Format("{0:0.00}", distanceOfTransfer) + "\n";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

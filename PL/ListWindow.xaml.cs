@@ -115,9 +115,9 @@ namespace PL
             CopyPropertiesTo(boDrone, poDrone);
             poDrone.Location = new Location();
             CopyPropertiesTo(boDrone.Location, poDrone.Location);
-            poDrone.ParcelByTransfer = new ParcelInTransfer();
             if (poDrone.Status == DroneStatuses.Delivery)
             {
+                poDrone.ParcelByTransfer = new ParcelInTransfer();
                 CopyPropertiesTo(boDrone.ParcelByTransfer, poDrone.ParcelByTransfer);
                 poDrone.ParcelByTransfer.Sender = new CustomerInParcel();
                 CopyPropertiesTo(boDrone.ParcelByTransfer.Sender, poDrone.ParcelByTransfer.Sender);
