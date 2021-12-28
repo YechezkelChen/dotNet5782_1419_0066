@@ -16,7 +16,7 @@ namespace PL
         {
             InitializeComponent();
             this.station = station;
-            DronesListView.ItemsSource = station.DronesInCharges;
+            DronesListView.DataContext = station.DronesInCharges;
         }
     }
 }
