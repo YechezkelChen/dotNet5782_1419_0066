@@ -43,7 +43,7 @@ namespace PO
             }
         }
 
-        public IEnumerable<ParcelInCustomer> fromTheCustomerList;
+        private IEnumerable<ParcelInCustomer> fromTheCustomerList;
         public IEnumerable<ParcelInCustomer> FromTheCustomerList
         {
             get => fromTheCustomerList;
