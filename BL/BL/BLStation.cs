@@ -40,7 +40,7 @@ namespace BL
             station.Name = newStation.Name;
             station.Longitude = newStation.Location.Longitude;
             station.Latitude = newStation.Location.Latitude;
-            station.AvailableChargeSlots = newStation.AvalibleChargeSlots;
+            station.AvailableChargeSlots = newStation.AvailableChargeSlots;
             station.Deleted = false;
             try
             {
@@ -74,7 +74,7 @@ namespace BL
             station.Id = dalStation.Id;
             station.Name = dalStation.Name;
             station.Location = new Location() {Longitude = dalStation.Longitude, Latitude = dalStation.Latitude};
-            station.AvalibleChargeSlots = dalStation.AvailableChargeSlots;
+            station.AvailableChargeSlots = dalStation.AvailableChargeSlots;
 
             station.DronesInCharges = from droneCharge in dal.GetDronesCharge(droneCharge => droneCharge.Deleted == false)
                                       where droneCharge.StationId == station.Id
@@ -159,7 +159,7 @@ namespace BL
                 throw new IdException("ERROR: the ID is illegal! ");
             if (station.Name == "")
                 throw new NameException("ERROR: the name is illegal!");
-            if (station.AvalibleChargeSlots < 0)
+            if (station.AvailableChargeSlots < 0)
                 throw new ChargeSlotsException("ERROR: the charge slots must have positive or 0 value! ");
             if (station.Location.Longitude < -1 || station.Location.Longitude > 1)
                 throw new LocationException("ERROR: longitude must to be between -1 to 1");

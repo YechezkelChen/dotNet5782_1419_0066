@@ -152,10 +152,10 @@ namespace PL
         }
         private void DroneInCharge_Actions(object sender, MouseButtonEventArgs e)
         {
-            BO.DroneInCharge droneInCharge = (BO.DroneInCharge)droneInChargePage.DronesListView.SelectedItem;
+            DroneInCharge droneInCharge = (DroneInCharge)droneInChargePage.DronesListView.SelectedItem;
             BO.Drone boDrone = new BO.Drone();
             boDrone = bl.GetDrone(droneInCharge.Id);
-            CopyBoDroneToPoDrone(boDrone, drone);
+            drone = CopyBoDroneToPoDrone(boDrone, drone);
             dronePage = new DronePage(drone, drones);
             dronePage.ParcelDataButton.Click += DronePage_DataParcel;
             ShowData.Content = dronePage;
