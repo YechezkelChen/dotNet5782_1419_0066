@@ -259,7 +259,7 @@ namespace PL
             parcelPage.SenderButton.Click += CustomerPage_DataSender;
             parcelPage.TargetButton.Click += CustomerPage_DataTarget;
             parcelPage.DroneDataButton.Click += DronePage_DataDroneInParcel;
-            ShowData.Content = customerPage;
+            ShowData.Content = parcelPage;
         }
         private void CustomerPage_DataSender(object sender, RoutedEventArgs e)
         {
