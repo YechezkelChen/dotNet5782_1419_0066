@@ -161,7 +161,7 @@ namespace PL
             else
                 chargeSlots = int.Parse(value.ToString());
 
-            if (chargeSlots < 0) // Check that it's 6 digits.
+            if (chargeSlots < 0) 
                 return Brushes.Red;
             else
                 return Brushes.SlateGray;
