@@ -16,7 +16,9 @@ namespace PL
         {
             InitializeComponent();
             this.parcelsInCustomer = parcelsInCustomer;
-            DataParcelGrid.DataContext = parcelsInCustomer;
+            ParcelListView.DataContext = parcelsInCustomer;
+
+            
         }
     }
 }

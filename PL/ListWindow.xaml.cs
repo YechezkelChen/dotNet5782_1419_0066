@@ -224,7 +224,7 @@ namespace PL
                 CopyPropertiesTo(parcel.CustomerInDelivery, newParcel.CustomerInDelivery);
                 parcelInCustomers.Add(newParcel);
             }
-            poCustomer.fromTheCustomerList = parcelInCustomers;
+            poCustomer.FromTheCustomerList = parcelInCustomers;
 
             parcelInCustomers.Clear();
 
