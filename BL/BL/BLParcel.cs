@@ -154,6 +154,10 @@ namespace BL
         public IEnumerable<ParcelToList> GetParcelsByDate()
         {
         }
+        /// <summary>
+        /// return the list after groping
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<IGrouping<string, ParcelToList>> GetParcelsByGroupCustomers(string typeCustomer)
         {
             if(typeCustomer == "Sender")
