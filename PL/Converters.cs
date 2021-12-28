@@ -134,7 +134,7 @@ namespace PL
         { 
             double location;
             if (value.ToString() == "" || !value.ToString().All(char.IsDigit))
-                location = 0;
+                location = -2;
             else
                 location = System.Convert.ToDouble(value.ToString());
 
