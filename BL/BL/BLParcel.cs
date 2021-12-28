@@ -143,7 +143,7 @@ namespace BL
         /// return the list of parcels in special status for show
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ParcelToList> GetParcelsByStatus()
+        public IEnumerable<ParcelToList> GetParcelsByStatus(ParcelStatuses status)
         {
             return null;
         }
@@ -152,7 +152,7 @@ namespace BL
         /// return the list of parcels in special date for show
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ParcelToList> GetParcelsByDate()
+        public IEnumerable<ParcelToList> GetParcelsByDate(DateTime dateTime)
         {
             return null;
         }

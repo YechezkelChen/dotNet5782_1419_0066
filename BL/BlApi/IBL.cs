@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BO;
 
@@ -45,8 +46,8 @@ namespace BlApi
         Parcel GetParcel(int parcelId); // Returning a parcel according to the id of the parcel.
         IEnumerable<ParcelToList> GetParcels(); // Returning the list of parcels in a special entity "Parcel to list".
         IEnumerable<ParcelToList> GetParcelsNoDrones(); // Returning the list of parcels with no drones in a special entity "Parcel to list".
-        IEnumerable<ParcelToList> GetParcelsByStatus(); // Returning the list of parcels in special status for show
-        IEnumerable<ParcelToList> GetParcelsByDate();  // Returning the list of parcels in special date for show
+        IEnumerable<ParcelToList> GetParcelsByStatus(ParcelStatuses status); // Returning the list of parcels in special status for show
+        IEnumerable<ParcelToList> GetParcelsByDate(DateTime dateTime);  // Returning the list of parcels in special date for show
         IEnumerable<IGrouping<string, ParcelToList>> GetParcelsByGroupCustomers(string typeCustomer); // Returning the list after groping
     }
 }
