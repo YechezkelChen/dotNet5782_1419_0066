@@ -32,7 +32,7 @@ namespace Dal
 
 
         /// <summary>
-        /// return the spesifice parcel the user ask for
+        /// return the specific parcel the user ask for
         /// </summary>
         /// <param Name="parcelId"></the Id parcel the user ask for>
         /// <returns></returns>
@@ -69,19 +69,6 @@ namespace Dal
             }
         }
 
-
-        //public Parcel GetParcel(int parcelId)
-        //{
-
-        //    if (IsExistParcel(parcelId))
-        //    {
-        //        Parcel parcel = DataSource.Parcels.Find(elementParcel => elementParcel.Id == parcelId);
-        //        return parcel;
-        //    }
-        //    else
-        //        throw new IdNotFoundException("ERROR: the parcel is not found.");
-        //}
-
         /// <summary>
         /// return all the parcel in the list
         /// </summary>
@@ -92,6 +79,10 @@ namespace Dal
             return parcels;
         }
 
+        /// <summary>
+        /// update the specific parcel the user ask for
+        /// </summary>
+        /// <param name="updateDrone"></param>
         public void UpdateParcel(Parcel parcel)
         {
             for (int i = 0; i < DataSource.Parcels.Count(); i++)

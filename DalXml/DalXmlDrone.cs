@@ -19,6 +19,15 @@ namespace Dal
         {
             XElement drones = XMLTools.LoadListFromXmlElement(dronesPath);
 
+            var addDrone = (from d in drones.Elements()
+                where Convert.ToInt32(d.Element("Id").Value) == newDrone.Id
+                select d).FirstOrDefault();
+
+            if (addDrone is null)
+                throw new IdNotFoundException("ERROR: the drone is not found!\n");
+            if (addDrone.Element("Deleted").Value == "true")
+                throw new IdNotFoundException("ERROR: the drone is deleted!\n");
+
             XElement id = new XElement("Id", newDrone.Id);
             XElement model = new XElement("Model", newDrone.Model);
             XElement weight = new XElement("Weight", newDrone.Weight);
@@ -36,7 +45,6 @@ namespace Dal
         /// <returns></returns>
         public Drone GetDrone(int droneId)
         {
-            //string check = IsExistDrone(droneId);
             Drone getDrone = new Drone();
             XElement drones = XMLTools.LoadListFromXmlElement(dronesPath);
             try
@@ -73,6 +81,10 @@ namespace Dal
             return drones;
         }
 
+        /// <summary>
+        /// update the specific drone the user ask for
+        /// </summary>
+        /// <param name="updateDrone"></param>
         public void UpdateDrone(Drone updateDrone)
         {
             XElement drones = XMLTools.LoadListFromXmlElement(dronesPath);
@@ -85,6 +97,7 @@ namespace Dal
             drone.Element("Model").Value = updateDrone.Model;
             drone.Element("Weight").Value = updateDrone.Weight.ToString();
             drone.Element("Deleted").Value = updateDrone.Deleted.ToString();
+
             XMLTools.SaveListToXmlElement(drones, dronesPath);
         }
     }

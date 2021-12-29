@@ -35,7 +35,7 @@ namespace Dal
         private string customersPath = @"CustomersXml.xml";
         private string dronesPath = @"DronesXml.xml";
         private string dronesChargePath = @"DronesChargeXml.xml";
-        private string paecelsPath = @"ParcelsXml.xml";
+        private string parcelsPath = @"ParcelsXml.xml";
         private string stationsPath = @"StationsXml.xml";
 
 
