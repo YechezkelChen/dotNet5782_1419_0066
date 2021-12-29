@@ -24,7 +24,7 @@ namespace Dal
         }
 
         /// <summary>
-        /// return the spesifice drone the user ask for
+        /// return the specific drone the user ask for
         /// </summary>
         /// <param Name="DdroneId"></the Id of the drone the user ask for>
         /// <returns></returns>
@@ -62,7 +62,7 @@ namespace Dal
         }
 
         /// <summary>
-        /// the methode not need exeption becuse she use both sids(true and false)
+        /// the method not need exception because she use both sids(true and false)
         /// </summary>
         /// <param Name="d"></the drone we check if she is exist>
         /// <param Name="Drones"></the list od Drones>
@@ -76,7 +76,7 @@ namespace Dal
                 if (elementDrone.Id == droneId && elementDrone.Deleted == true)
                     return "was exists";
             }
-            return "not exists"; // the customer not exist
+            return "not exists"; // the drone not exist
         }
     }
 }
