@@ -22,11 +22,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalObject", "DalObject\DalO
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{2DB2CB3C-2416-42BD-9C21-3B6795E7CA93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalFacade", "DalFacade\DalFacade.csproj", "{D6D32768-9896-45CB-A2BA-58004A4A5A66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalFacade", "DalFacade\DalFacade.csproj", "{D6D32768-9896-45CB-A2BA-58004A4A5A66}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{5C077AEE-B499-4132-AB51-1EC7948DC5FE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml-data", "xml-data", "{5C077AEE-B499-4132-AB51-1EC7948DC5FE}"
 	ProjectSection(SolutionItems) = preProject
 		dal-config.xml = dal-config.xml
+		dal-Customer.xml = dal-Customer.xml
+		dal-Drone.xml = dal-Drone.xml
+		dal-DroneCharge.xml = dal-DroneCharge.xml
+		dal-Parcel.xml = dal-Parcel.xml
+		dal-Station.xml = dal-Station.xml
 	EndProjectSection
 EndProject
 Global
