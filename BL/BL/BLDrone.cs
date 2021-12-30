@@ -85,7 +85,18 @@ namespace BL
         /// <param name="droneId"></param>
         public void RemoveDrone(int droneId)
         {
-           
+            try
+            {
+                dal.RemoveDrone(droneId); // Remove the drone
+            }
+            catch (DO.IdExistException e)
+            {
+                throw new IdException(e.Message, e);
+            }
+            catch (DO.IdNotFoundException e)
+            {
+                throw new IdException(e.Message, e);
+            }
         }
 
 
