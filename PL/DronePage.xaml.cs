@@ -353,5 +353,22 @@ namespace PL
                     propTo.SetValue(to, value);
             }
         }
+
+        private void RemoveDroneButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.RemoveDrone(drone.Id);
+            }
+            catch (BO.ScheduledException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Update the view
+            drones.Remove(drones.Where(d => d.Id == drone.Id).Single());
+            this.Content = "";
+        }
     }
 }
