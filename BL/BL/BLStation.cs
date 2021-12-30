@@ -53,6 +53,15 @@ namespace BL
         }
 
         /// <summary>
+        ///  Removes a parcel from the list of parcels.
+        /// </summary>
+        /// <param name="stationId"></param>
+        public void RemoveStation(int stationId)
+        {
+
+        }
+
+        /// <summary>
         /// send id of station and checking that it exist.
         /// make special entity and return it
         /// </summary>

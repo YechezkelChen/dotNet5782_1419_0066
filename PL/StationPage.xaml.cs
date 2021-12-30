@@ -86,6 +86,26 @@ namespace PL
             stations.Add(newStation);
             this.Content = "";
         }
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = "";
+        }
+        private void RemoveParcelButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.RemoveStation(station.Id);
+            }
+            catch (BO.ScheduledException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Update the view
+            stations.Remove(stations.Where(s => s.Id == station.Id).Single());
+            this.Content = "";
+        }
         private void UpdateStationButton_Click(object sender, RoutedEventArgs e)
         {
             try

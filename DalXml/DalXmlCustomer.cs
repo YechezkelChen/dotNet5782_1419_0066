@@ -43,6 +43,15 @@ namespace Dal
         }
 
         /// <summary>
+        /// Removes a customer from the list of customers.
+        /// </summary>
+        /// <param name="customerId"></param>
+        public void RemoveCustomer(int customerId)
+        {
+
+        }
+
+        /// <summary>
         /// return the specific customer the user ask for
         /// </summary>
         /// <param Name="customerId"></the Id of the customer the user ask for>

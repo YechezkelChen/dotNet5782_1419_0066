@@ -52,6 +52,15 @@ namespace BL
         }
 
         /// <summary>
+        /// Removes a customer from the list of customers.
+        /// </summary>
+        /// <param name="customerId"></param>
+        public void RemoveCustomer(int customerId)
+        {
+
+        }
+
+        /// <summary>
         /// get a customer
         /// </summary>
         /// <returns></return the customer>

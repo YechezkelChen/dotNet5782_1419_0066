@@ -24,6 +24,15 @@ namespace Dal
         }
 
         /// <summary>
+        /// Removes a drone from the list of drones.
+        /// </summary>
+        /// <param name="droneId"></param>
+        public void RemoveDrone(int droneId)
+        {
+
+        }
+
+        /// <summary>
         /// return the specific drone the user ask for
         /// </summary>
         /// <param Name="DdroneId"></the Id of the drone the user ask for>

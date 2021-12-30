@@ -10,6 +10,7 @@ namespace BlApi
     {
         // Station
         void AddStation(Station newStation); // Adds a station to the list of stations.
+        void RemoveStation(int stationId); // Removes a parcel from the list of parcels.
         Station GetStation(int stationId); // Returning a station according to the id of the station.
         IEnumerable<StationToList> GetStations(); // Returning the list of stations in a special entity "Station to list".
         IEnumerable<StationToList> GetStationsWithAvailableCharge(); // Returning the list of stations with available charging position in a special entity "Station to list".
@@ -19,6 +20,7 @@ namespace BlApi
 
         // Drone
         void AddDrone(Drone newDrone, int idStation); // Adds a drone to the list of drones.
+        void RemoveDrone(int droneId); // Removes a drone from the list of drones.
         Drone GetDrone(int droneId); // Returning a drone according to the id of the drone.
         IEnumerable<DroneToList> GetDrones(); // Returning the list of drones in a special entity "Drone to list".
         IEnumerable<DroneToList> GetDronesByStatus(DroneStatuses status); // Returning the list of drones with filtering of status
@@ -36,6 +38,7 @@ namespace BlApi
 
         // Customer
         void AddCustomer(Customer newCustomer); // Adds a customer to the list of customers.
+        void RemoveCustomer(int customerId); // Removes a customer from the list of customers.
         Customer GetCustomer(int customerId); // Returning a customer according to the id of the customer.
         IEnumerable<CustomerToList> GetCustomers(); // Returning the list of customers in a special entity "Customer to list".
         void UpdateDataCustomer(int id, string name, string phone); // Update customer data according to user request.

@@ -80,6 +80,16 @@ namespace BL
         }
 
         /// <summary>
+        /// Removes a drone from the list of drones.
+        /// </summary>
+        /// <param name="droneId"></param>
+        public void RemoveDrone(int droneId)
+        {
+
+        }
+
+
+        /// <summary>
         /// get a drone
         /// </summary>
         /// <returns></return the drone>

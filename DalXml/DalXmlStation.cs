@@ -42,6 +42,15 @@ namespace Dal
         }
 
         /// <summary>
+        ///  Removes a parcel from the list of parcels.
+        /// </summary>
+        /// <param name="stationId"></param>
+        public void RemoveStation(int stationId)
+        {
+
+        }
+
+        /// <summary>
         /// return the specific station the user ask for
         /// </summary>
         /// <param Name="stationId"></the Id of the station the user ask for>

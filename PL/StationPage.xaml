@@ -75,15 +75,24 @@
             </Button.IsEnabled>
         </Button>
 
-        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="2" Height="40" Width="130" FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="2" Height="40" Width="130" FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Click="CancelButton_Click"/>
 
-        <Button x:Name="UpdateStationButton" Content="Update station" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Height="40" Width="125" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black" Click="UpdateStationButton_Click" >
-            <Button.IsEnabled>
-                <MultiBinding Converter="{StaticResource FromColorTextToIsEnable}">
-                    <Binding ElementName="NameTextBox" Path="Foreground" />
-                    <Binding ElementName="AvailableChargeSlotsTextBox" Path="Foreground" />
-                </MultiBinding>
-            </Button.IsEnabled>
-        </Button>
+        <Grid Name="ActionsGrid" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="RemoveParcelButton" Content="Remove parcel" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="40" Width="140" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Click="RemoveParcelButton_Click" Visibility="{Binding ElementName=UpdateStationButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <Button x:Name="UpdateStationButton" Content="Update station" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Height="40" Width="125" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black" Click="UpdateStationButton_Click" >
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource FromColorTextToIsEnable}">
+                        <Binding ElementName="NameTextBox" Path="Foreground" />
+                        <Binding ElementName="AvailableChargeSlotsTextBox" Path="Foreground" />
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
+        </Grid>
     </Grid>
 </Page>
