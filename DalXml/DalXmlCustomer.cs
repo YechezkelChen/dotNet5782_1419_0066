@@ -48,7 +48,20 @@ namespace Dal
         /// <param name="customerId"></param>
         public void RemoveCustomer(int customerId)
         {
+            XElement customers = XMLTools.LoadListFromXmlElement(customersPath);
 
+            var deletedCustomer = (from c in customers.Elements()
+                where Convert.ToInt32(c.Element("Id").Value) == customerId
+                select c).FirstOrDefault();
+
+            if (deletedCustomer is null)
+                throw new IdNotFoundException("ERROR: the customer is not found!\n");
+            if (deletedCustomer.Element("Deleted").Value == "true")
+                throw new IdExistException("ERROR: the customer was exist");
+
+            deletedCustomer.Element("Deleted").Value = "true";
+
+            XMLTools.SaveListToXmlElement(customers, customersPath);
         }
 
         /// <summary>

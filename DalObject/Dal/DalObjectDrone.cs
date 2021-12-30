@@ -29,7 +29,25 @@ namespace Dal
         /// <param name="droneId"></param>
         public void RemoveDrone(int droneId)
         {
+            string check = IsExistDrone(droneId);
 
+            if (check == "not exists")
+                throw new IdNotFoundException("ERROR: the drone is not found!\n");
+            if (check == "was exists")
+                throw new IdExistException("ERROR: the drone was exist");
+
+            if (check == "exists")
+            {
+                for (int i = 0; i < DataSource.Drones.Count(); i++)
+                {
+                    Drone elementDrone = DataSource.Drones[i];
+                    if (elementDrone.Id == droneId)
+                    {
+                        elementDrone.Deleted = true;
+                        DataSource.Drones[i] = elementDrone;
+                    }
+                }
+            }
         }
 
         /// <summary>

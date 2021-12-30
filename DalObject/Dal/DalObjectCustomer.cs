@@ -29,7 +29,25 @@ namespace Dal
         /// <param name="customerId"></param>
         public void RemoveCustomer(int customerId)
         {
+            string check = IsExistCustomer(customerId);
 
+            if (check == "not exists")
+                throw new IdNotFoundException("ERROR: the customer is not found!\n");
+            if (check == "was exists")
+                throw new IdExistException("ERROR: the customer was exist");
+
+            if (check == "exists")
+            {
+                for (int i = 0; i < DataSource.Customers.Count(); i++)
+                {
+                    Customer elementCustomer = DataSource.Customers[i];
+                    if (elementCustomer.Id == customerId)
+                    {
+                        elementCustomer.Deleted = true;
+                        DataSource.Customers[i] = elementCustomer;
+                    }
+                }
+            }
         }
 
         /// <summary>

@@ -44,7 +44,20 @@ namespace Dal
         /// <param name="droneId"></param>
         public void RemoveDrone(int droneId)
         {
+            XElement drones = XMLTools.LoadListFromXmlElement(dronesPath);
 
+            var deletedDrone = (from d in drones.Elements()
+                where Convert.ToInt32(d.Element("Id").Value) == droneId
+                select d).FirstOrDefault();
+
+            if (deletedDrone is null)
+                throw new IdNotFoundException("ERROR: the drone is not found!\n");
+            if (deletedDrone.Element("Deleted").Value == "true")
+                throw new IdExistException("ERROR: the drone was exist");
+
+            deletedDrone.Element("Deleted").Value = "true";
+
+            XMLTools.SaveListToXmlElement(drones, dronesPath);
         }
 
         /// <summary>

@@ -85,7 +85,7 @@ namespace BL
         /// <param name="droneId"></param>
         public void RemoveDrone(int droneId)
         {
-
+           
         }
 
 
