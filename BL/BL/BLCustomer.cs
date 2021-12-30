@@ -57,7 +57,18 @@ namespace BL
         /// <param name="customerId"></param>
         public void RemoveCustomer(int customerId)
         {
-
+            try
+            {
+                dal.RemoveCustomer(customerId); // Remove the customer
+            }
+            catch (DO.IdExistException e)
+            {
+                throw new IdException(e.Message, e);
+            }
+            catch (DO.IdNotFoundException e)
+            {
+                throw new IdException(e.Message, e);
+            }
         }
 
         /// <summary>

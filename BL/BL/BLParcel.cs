@@ -60,7 +60,7 @@ namespace BL
 
             try
             {
-                dal.RemoveParcel(parcelId); // Remove the parcel just if the parcel
+                dal.RemoveParcel(parcelId); // Remove the parcel
             }
             catch (DO.IdExistException e)
             {
