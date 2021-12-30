@@ -86,7 +86,26 @@ namespace PL
             customers.Add(newCustomer);
             this.Content = "";
         }
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = "";
+        }
+        private void RemoveParcelButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.RemoveCustomer(customer.Id);
+            }
+            catch (BO.ScheduledException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
+            // Update the view
+            customers.Remove(customers.Where(c => c.Id == customer.Id).Single());
+            this.Content = "";
+        }
         private void UpdateCustomerDataButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -107,11 +126,6 @@ namespace PL
             MessageBox.Show("The update is success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
             UpdateListCustomers(customer);
-        }
-
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Content = "";
         }
         private void UpdateListCustomers(Customer updateCustomer)
         {

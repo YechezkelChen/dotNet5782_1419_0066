@@ -22,6 +22,32 @@ namespace Dal
                 throw new IdExistException("ERROR: the Station was exist");
         }
 
+        /// <summary>
+        ///  Removes a parcel from the list of parcels.
+        /// </summary>
+        /// <param name="stationId"></param>
+        public void RemoveStation(int stationId)
+        {
+            string check = IsExistStation(stationId);
+
+            if (check == "not exists")
+                throw new IdNotFoundException("ERROR: the station is not found!\n");
+            if (check == "was exists")
+                throw new IdExistException("ERROR: the station was exist");
+
+            if (check == "exists")
+            {
+                for (int i = 0; i < DataSource.Stations.Count(); i++)
+                {
+                    Station elementStation = DataSource.Stations[i];
+                    if (elementStation.Id == stationId)
+                    {
+                        elementStation.Deleted = true;
+                        DataSource.Stations[i] = elementStation;
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// return the spesifice station the user ask for
@@ -43,15 +69,6 @@ namespace Dal
                 throw new IdExistException("ERROR: the station was exist");
 
             return station;
-        }
-
-        /// <summary>
-        ///  Removes a parcel from the list of parcels.
-        /// </summary>
-        /// <param name="stationId"></param>
-        public void RemoveStation(int stationId)
-        {
-
         }
 
         /// <summary>

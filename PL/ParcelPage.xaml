@@ -73,7 +73,7 @@
             <TextBox x:Name="DeliveredTextBox" Text="{Binding Path=Delivered}" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="False"/>
         </Grid>
 
-        <Grid Name="ActionsGrid" Grid.Column="2">
+        <Grid Name="ActionsParcelGrid" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
