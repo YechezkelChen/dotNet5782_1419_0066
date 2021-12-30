@@ -58,7 +58,18 @@ namespace BL
         /// <param name="stationId"></param>
         public void RemoveStation(int stationId)
         {
-
+            try
+            {
+                dal.RemoveStation(stationId); // Remove the station 
+            }
+            catch (DO.IdExistException e)
+            {
+                throw new IdException(e.Message, e);
+            }
+            catch (DO.IdNotFoundException e)
+            {
+                throw new IdException(e.Message, e);
+            }
         }
 
         /// <summary>
