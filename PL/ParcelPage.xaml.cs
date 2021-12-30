@@ -77,9 +77,30 @@ namespace PL
             // Update the view
             ParcelToList newParcel = new ParcelToList();
             BO.ParcelToList boParcelToList = new BO.ParcelToList();
-            boParcelToList = bl.GetParcels().First(parcel => parcel.Id == idParcel);
+            boParcelToList = bl.GetParcels().First(p => p.Id == idParcel);
             CopyPropertiesTo(boParcelToList, newParcel);
             parcels.Add(newParcel);
+            this.Content = "";
+        }
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = "";
+
+        }
+        private void RemoveParcelButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.RemoveParcel(parcel.Id);
+            }
+            catch (BO.ScheduledException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Update the view
+            parcels.Remove(parcels.Where(p => p.Id == parcel.Id).Single());
             this.Content = "";
         }
         public void CopyPropertiesTo<T, S>(S from, T to)

@@ -30,6 +30,32 @@ namespace Dal
             return runNumber;
         }
 
+        /// <summary>
+        /// Removes a parcel from the list of parcels.
+        /// </summary>
+        /// <param name="parcelId"></param>
+        public void RemoveParcel(int parcelId)
+        {
+            string check = IsExistParcel(parcelId);
+
+            if (check == "not exists")
+                throw new IdNotFoundException("ERROR: the parcel is not found!\n");
+            if (check == "was exists")
+                throw new IdExistException("ERROR: the parcel was exist");
+
+            if (check == "exists")
+            {
+                for (int i = 0; i < DataSource.Parcels.Count(); i++)
+                {
+                    Parcel elementParcel = DataSource.Parcels[i];
+                    if (elementParcel.Id == parcelId)
+                    {
+                        elementParcel.Deleted = true;
+                        DataSource.Parcels[i] = elementParcel;
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// return the specific parcel the user ask for
@@ -39,34 +65,17 @@ namespace Dal
         public Parcel GetParcel(int parcelId)
         {
             string check = IsExistParcel(parcelId);
-            Parcel parcel = new Parcel();
-            if (check == "exists")
-            {
-                parcel = DataSource.Parcels.Find(elementParcel => elementParcel.Id == parcelId);
-            }
+
             if (check == "not exists")
                 throw new IdNotFoundException("ERROR: the parcel is not found.");
             if (check == "was exists")
                 throw new IdExistException("ERROR: the parcel was exist");
 
+            Parcel parcel = new Parcel();
+            if (check == "exists") 
+                parcel = DataSource.Parcels.Find(elementParcel => elementParcel.Id == parcelId);
+
             return parcel;
-        }
-
-
-        public void RemoveParcel(Parcel parcel)
-        {
-            if (parcel.DroneId != 0)
-                throw new IdNotFoundException("ERROR: the parcel connect to drone!\n");
-
-            for (int i = 0; i < DataSource.Parcels.Count(); i++)
-            {
-                Parcel elementParcel = DataSource.Parcels[i];
-                if (elementParcel.Id == parcel.Id)
-                {
-                    elementParcel.Deleted = true;
-                    DataSource.Parcels[i] = elementParcel;
-                }
-            }
         }
 
         /// <summary>

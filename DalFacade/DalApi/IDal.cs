@@ -33,6 +33,7 @@ namespace DalApi
 
         // Parcel
         int AddParcel(Parcel newParcel); // Adds a parcel to the list of parcels.
+        void RemoveParcel(int parcelId); // Removes a parcel from the list of parcels.
         Parcel GetParcel(int parcelId); // Returning a parcel according to the id of the parcel.
         IEnumerable<Parcel> GetParcels(Predicate<Parcel> parcelPredicate); // Returning the list of parcels.
         void UpdateParcel(Parcel parcel); // Update parcel data according to user request.

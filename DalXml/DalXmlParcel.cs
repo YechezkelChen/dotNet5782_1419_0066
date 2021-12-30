@@ -20,7 +20,7 @@ namespace Dal
         {
             XElement parcels = XMLTools.LoadListFromXmlElement(parcelsPath);
 
-            XElement id = new XElement("Id", 1);//??????????????????????????????????????????????????????????
+            XElement id = new XElement("Id", 1); //??????????????????????????????????????????????????????????
             XElement senderId = new XElement("SenderId", newParcel.SenderId);
             XElement targetId = new XElement("TargetId", newParcel.TargetId);
             XElement weight = new XElement("Weight", newParcel.Weight);
@@ -37,6 +37,28 @@ namespace Dal
 
             XMLTools.SaveListToXmlElement(parcels, parcelsPath);
             return 1; //?????????????????????????????????????????????????????????????????????????????????????????????
+        }
+
+        /// <summary>
+        /// Removes a parcel from the list of parcels.
+        /// </summary>
+        /// <param name="parcelId"></param>
+        public void RemoveParcel(int parcelId)
+        {
+            XElement parcels = XMLTools.LoadListFromXmlElement(parcelsPath);
+
+            var deletedParcel = (from p in parcels.Elements()
+                where Convert.ToInt32(p.Element("Id").Value) == parcelId
+                select p).FirstOrDefault();
+
+            if (deletedParcel is null)
+                throw new IdNotFoundException("ERROR: the parcel is not found!\n");
+            if (deletedParcel.Element("Deleted").Value == "true")
+                throw new IdExistException("ERROR: the parcel was exist");
+
+            deletedParcel.Element("Deleted").Value = "true";
+
+            XMLTools.SaveListToXmlElement(parcels, parcelsPath);
         }
 
         /// <summary>
@@ -57,8 +79,10 @@ namespace Dal
                         Id = Convert.ToInt32(parcel.Element("Id").Value),
                         SenderId = Convert.ToInt32(parcel.Element("SenderId").Value),
                         TargetId = Convert.ToInt32(parcel.Element("TargetId").Value),
-                        Weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), parcel.Element("Weight").Value.ToString()),
-                        Priority = (Priorities)Enum.Parse(typeof(Priorities), parcel.Element("Priority").Value.ToString()),
+                        Weight = (WeightCategories) Enum.Parse(typeof(WeightCategories),
+                            parcel.Element("Weight").Value.ToString()),
+                        Priority = (Priorities) Enum.Parse(typeof(Priorities),
+                            parcel.Element("Priority").Value.ToString()),
                         DroneId = Convert.ToInt32(parcel.Element("DroneId").Value),
                         Requested = DateTime.Parse(parcel.Element("Requested").Value),
                         Scheduled = DateTime.Parse(parcel.Element("Scheduled").Value),

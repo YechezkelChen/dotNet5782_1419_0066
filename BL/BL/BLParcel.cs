@@ -50,6 +50,29 @@ namespace BL
         }
 
         /// <summary>
+        /// Removes a parcel from the list of parcels.
+        /// </summary>
+        /// <param name="parcelId"></param>
+        public void RemoveParcel(int parcelId)
+        {
+            if (GetParcel(parcelId).Scheduled != null)
+                throw new ScheduledException("ERROR: The parcel already scheduled to drone, can't remove the parcel");
+
+            try
+            {
+                dal.RemoveParcel(parcelId); // add the parcel just if the parcel not in the dataSource
+            }
+            catch (DO.IdExistException e)
+            {
+                throw new IdException(e.Message, e);
+            }
+            catch(DO.IdNotFoundException e)
+            {
+                throw new IdException(e.Message, e);
+            }
+        }
+
+        /// <summary>
         /// send id of parcel and checking that it exist.
         /// make special entity and return it
         /// </summary>

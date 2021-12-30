@@ -288,10 +288,13 @@ namespace PL
             CopyPropertiesTo(boParcel.Sender, poParcel.Sender);
             poParcel.Target = new CustomerInParcel();
             CopyPropertiesTo(boParcel.Target, poParcel.Target);
-            poParcel.DroneInParcel = new DroneInParcel();
-            CopyPropertiesTo(boParcel.DroneInParcel, poParcel.DroneInParcel);
-            poParcel.DroneInParcel.Location = new Location();
-            CopyPropertiesTo(boParcel.DroneInParcel.Location, poParcel.DroneInParcel.Location);
+            if (boParcel.Scheduled != null)
+            {
+                poParcel.DroneInParcel = new DroneInParcel();
+                CopyPropertiesTo(boParcel.DroneInParcel, poParcel.DroneInParcel);
+                poParcel.DroneInParcel.Location = new Location();
+                CopyPropertiesTo(boParcel.DroneInParcel.Location, poParcel.DroneInParcel.Location);
+            }
 
             return poParcel;
         }
