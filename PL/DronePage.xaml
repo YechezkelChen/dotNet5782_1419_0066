@@ -76,6 +76,7 @@
             </Button.Visibility>
         </Button>
 
+        <Button x:Name="RemoveDroneButton" Content="Remove" HorizontalAlignment="Center" VerticalAlignment="Top" Height="40" Width="154" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,289,0,0" Grid.Column="2" Click="RemoveDroneButton_Click" />
 
 
         <Button x:Name="AddButton" Content="Add" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="40" Width="120" Click="AddButton_Click" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black">
@@ -97,7 +98,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button x:Name="UpdateModelButton" Content="Update model" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="UpdateModelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black">
+            <Button x:Name="UpdateModelButton" Content="Update model" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="54" Click="UpdateModelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource FromColorTextToIsEnable}">
                         <Binding ElementName="ModelTextBox" Path="Foreground" />
@@ -106,7 +107,7 @@
             </Button>
 
             <Button x:Name="SendToChargeButton" Content="Send to charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="SendToChargeButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF06040B"  Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <Button x:Name="ReleaseFromChargeButton" Content="Release from charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="ReleaseFromChargeButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF09050F" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Button x:Name="ReleaseFromChargeButton" Content="Release from charge" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="54" Click="ReleaseFromChargeButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF09050F" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
             <Button x:Name="ConnectParcelButton" Content="Connect Parcel" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="ConnectParcelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF020103" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
             <Button x:Name="CollectParcelButton" Content="Collect parcel" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="CollectParcelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF09050F" Visibility="{Binding ElementName=UpdateModelButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
