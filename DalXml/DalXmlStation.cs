@@ -47,7 +47,20 @@ namespace Dal
         /// <param name="stationId"></param>
         public void RemoveStation(int stationId)
         {
+            XElement stations = XMLTools.LoadListFromXmlElement(stationsPath);
 
+            var deletedStation = (from s in stations.Elements()
+                where Convert.ToInt32(s.Element("Id").Value) == stationId
+                select s).FirstOrDefault();
+
+            if (deletedStation is null)
+                throw new IdNotFoundException("ERROR: the station is not found!\n");
+            if (deletedStation.Element("Deleted").Value == "true")
+                throw new IdExistException("ERROR: the station was exist");
+
+            deletedStation.Element("Deleted").Value = "true";
+
+            XMLTools.SaveListToXmlElement(stations, stationsPath);
         }
 
         /// <summary>

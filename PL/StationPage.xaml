@@ -77,7 +77,7 @@
 
         <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="2" Height="40" Width="130" FontFamily="Agency FB" Foreground="#FF540804" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Click="CancelButton_Click"/>
 
-        <Grid Name="ActionsGrid" Grid.Column="2">
+        <Grid Name="ActionsStationGrid" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
