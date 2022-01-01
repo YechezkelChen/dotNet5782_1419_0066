@@ -51,8 +51,8 @@ namespace Dal
                 where Convert.ToInt32(p.Element("Id").Value) == parcelId
                 select p).FirstOrDefault();
 
-            if (deletedParcel is null)
-                throw new IdNotFoundException("ERROR: the parcel is not found!\n");
+            if (!(deletedParcel is null))
+                throw new IdNotFoundException("ERROR: the parcel is found!\n");
             if (deletedParcel.Element("Deleted").Value == "true")
                 throw new IdExistException("ERROR: the parcel was exist");
 

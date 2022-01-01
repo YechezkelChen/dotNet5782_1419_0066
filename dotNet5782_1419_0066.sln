@@ -27,11 +27,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml-data", "xml-data", "{5C077AEE-B499-4132-AB51-1EC7948DC5FE}"
 	ProjectSection(SolutionItems) = preProject
 		dal-config.xml = dal-config.xml
-		dal-Customer.xml = dal-Customer.xml
-		dal-Drone.xml = dal-Drone.xml
-		dal-DroneCharge.xml = dal-DroneCharge.xml
-		dal-Parcel.xml = dal-Parcel.xml
-		dal-Station.xml = dal-Station.xml
 	EndProjectSection
 EndProject
 Global

@@ -23,10 +23,13 @@ namespace Dal
                                where Convert.ToInt32(s.Element("Id").Value) == newStation.Id
                                select s).FirstOrDefault();
 
-            if (addStation is null)
-                throw new IdNotFoundException("ERROR: the station is not found!\n");
-            if (addStation.Element("Deleted").Value == "true")
-                throw new IdNotFoundException("ERROR: the station is deleted!\n");
+            if (!(addStation is null))
+            {
+                if (addStation.Element("Deleted").Value == "true")
+                    throw new IdNotFoundException("ERROR: the station is deleted!\n");
+
+                throw new IdNotFoundException("ERROR: the station is found!\n");
+            }
 
 
             XElement id = new XElement("Id", newStation.Id);

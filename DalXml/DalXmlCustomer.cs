@@ -23,10 +23,13 @@ namespace Dal
                             where Convert.ToInt32(c.Element("Id").Value) == newCustomer.Id
                             select c).FirstOrDefault();
 
-            if (addCustomer is null)
-                throw new IdNotFoundException("ERROR: the customer is not found!\n");
-            if (addCustomer.Element("Deleted").Value == "true")
-                throw new IdNotFoundException("ERROR: the customer is deleted!\n");
+            if (!(addCustomer is null))
+            {
+                if (addCustomer.Element("Deleted").Value == "true")
+                    throw new IdNotFoundException("ERROR: the customer is deleted!\n");
+
+                throw new IdNotFoundException("ERROR: the customer is found!\n");
+            }
 
 
             XElement id = new XElement("Id", newCustomer.Id);

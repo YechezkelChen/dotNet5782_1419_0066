@@ -167,31 +167,6 @@ namespace BL
         #endregion
 
         /// <summary>
-        ///  find the near station from all stations to drone
-        /// </summary>
-        /// <param name="drone"></param>
-        /// <returns></returns>
-        private Station NearAvalibleStationToDrone(Drone drone) /////////////////////////////////////////לא צריך לסדר רק בבנאי
-        {
-            IEnumerable<StationToList> nearStation = GetStationsWithAvailableCharge().OrderByDescending(station => Distance(GetStation(station.Id).Location, drone.Location));
-            if (nearStation.First() != null)
-                return GetStation(nearStation.First().Id);
-            return null;
-        }
-
-        /// <summary>
-        ///   find the near station from all stations to customer
-        /// </summary>
-        /// <param name="customer"></param>
-        /// <returns></returns>
-        private Station NearStationToCustomer(Customer customer)
-        {
-            IEnumerable<StationToList> nearStation = new List<StationToList>();
-            nearStation = GetStations().OrderByDescending(station => Distance(GetStation(station.Id).Location, customer.Location));
-            return GetStation(nearStation.First().Id);
-        }
-
-        /// <summary>
         /// the distances from "FROM" to "TO"
         /// </summary>
         /// <returns></returns the distance on double type>

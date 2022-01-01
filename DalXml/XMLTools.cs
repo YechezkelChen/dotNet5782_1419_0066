@@ -11,7 +11,7 @@ namespace DalXml
 {
     class XMLTools
     {
-        private static string dirPath = @"..\..\..\..\Data\";
+        private static string dirPath = @"Data\";
         static XMLTools()
         {
             if (!Directory.Exists(dirPath))
@@ -41,7 +41,8 @@ namespace DalXml
                 }
                 else
                 {
-                    XElement rootElem = new XElement(dirPath + filePath);
+                    string rootName = filePath.Split(".")[0];
+                    XElement rootElem = new XElement(rootName);
                     rootElem.Save(dirPath + filePath);
                     return rootElem;
                 }

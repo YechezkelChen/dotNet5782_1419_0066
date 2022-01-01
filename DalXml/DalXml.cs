@@ -32,18 +32,24 @@ namespace Dal
 
         #region DS Xml Files
 
-        private string customersPath = @"CustomersXml.xml";
-        private string dronesPath = @"DronesXml.xml";
-        private string dronesChargePath = @"DronesChargeXml.xml";
-        private string parcelsPath = @"ParcelsXml.xml";
-        private string stationsPath = @"StationsXml.xml";
+        private string customersPath = @"Customers.xml";
+        private string dronesPath = @"Drones.xml";
+        private string dronesChargePath = @"DronesCharge.xml";
+        private string parcelsPath = @"Parcels.xml";
+        private string stationsPath = @"Stations.xml";
 
 
         #endregion
 
         public double[] GetRequestPowerConsumption()
         {
-            throw new NotImplementedException();
+            double[] powerConsumption = new double[5];
+            powerConsumption[0] = 0.05;
+            powerConsumption[1] = 0.2;
+            powerConsumption[2] = 0.4;
+            powerConsumption[3] = 0.5;
+            powerConsumption[4] = 50;
+            return powerConsumption;
         }
     }
 }

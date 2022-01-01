@@ -24,10 +24,13 @@ namespace Dal
                       Convert.ToInt32(d.Element("StationId").Value) == newDroneCharge.StationId
                 select d).FirstOrDefault();
 
-            if (addDroneCharge is null)
-                throw new IdNotFoundException("ERROR: the drone charge is not found!\n");
-            if (addDroneCharge.Element("Deleted").Value == "true")
-                throw new IdNotFoundException("ERROR: the drone charge is deleted!\n");
+            if (!(addDroneCharge is null))
+            {
+                if (addDroneCharge.Element("Deleted").Value == "true")
+                    throw new IdNotFoundException("ERROR: the drone charge is deleted!\n");
+
+                throw new IdNotFoundException("ERROR: the drone charge is found!\n");
+            }
 
             XElement droneId = new XElement("DroneId", newDroneCharge.DroneId);
             XElement stationId = new XElement("StationId", newDroneCharge.StationId);
