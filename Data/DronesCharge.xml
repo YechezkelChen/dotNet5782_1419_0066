@@ -132,4 +132,10 @@
     <StartCharging>2022-01-04T11:49:11.5032697+02:00</StartCharging>
     <Deleted>false</Deleted>
   </DroneCharge>
+  <DroneCharge>
+    <DroneId>100090</DroneId>
+    <StationId>100100</StationId>
+    <StartCharging>2022-01-04T11:55:46.5830462+02:00</StartCharging>
+    <Deleted>false</Deleted>
+  </DroneCharge>
 </DronesCharge>
