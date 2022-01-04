@@ -7,7 +7,7 @@
 		<HeavyBatteryUsing>4</HeavyBatteryUsing>
 		<ChargingRate>4</ChargingRate>
 	</BatteryUsages>
-	<RowNumbers>
+	<RunNumbers>
 		<NewParcelId>100000</NewParcelId>
-	</RowNumbers>
+	</RunNumbers>
 </data-config>

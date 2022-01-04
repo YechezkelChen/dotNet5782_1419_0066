@@ -20,16 +20,15 @@ namespace Dal
             XElement dronesCharge = XMLTools.LoadListFromXmlElement(dronesChargePath);
             
             var addDroneCharge = (from d in dronesCharge.Elements()
-                where Convert.ToInt32(d.Element("DroneId").Value) == newDroneCharge.DroneId &&
-                      Convert.ToInt32(d.Element("StationId").Value) == newDroneCharge.StationId
+                where Convert.ToInt32(d.Element("DroneId").Value) == newDroneCharge.DroneId
                 select d).FirstOrDefault();
 
             if (!(addDroneCharge is null))
             {
                 if (addDroneCharge.Element("Deleted").Value == "true")
-                    throw new IdNotFoundException("ERROR: the drone charge is deleted!\n");
+                    throw new IdExistException("ERROR: the drone charge is deleted!\n");
 
-                throw new IdNotFoundException("ERROR: the drone charge is found!\n");
+                throw new IdExistException("ERROR: the drone charge is found!\n");
             }
 
             XElement droneId = new XElement("DroneId", newDroneCharge.DroneId);

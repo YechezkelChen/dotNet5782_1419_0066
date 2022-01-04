@@ -26,9 +26,9 @@ namespace Dal
             if (!(addDrone is null))
             {
                 if (addDrone.Element("Deleted").Value == "true")
-                    throw new IdNotFoundException("ERROR: the drone is deleted!\n");
+                    throw new IdExistException("ERROR: the drone is deleted!\n");
 
-                throw new IdNotFoundException("ERROR: the drone is found!\n");
+                throw new IdExistException("ERROR: the drone is found!\n");
             }
 
             XElement id = new XElement("Id", newDrone.Id);

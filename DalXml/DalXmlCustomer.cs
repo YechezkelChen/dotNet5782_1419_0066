@@ -26,9 +26,9 @@ namespace Dal
             if (!(addCustomer is null))
             {
                 if (addCustomer.Element("Deleted").Value == "true")
-                    throw new IdNotFoundException("ERROR: the customer is deleted!\n");
+                    throw new IdExistException("ERROR: the customer is deleted!\n");
 
-                throw new IdNotFoundException("ERROR: the customer is found!\n");
+                throw new IdExistException("ERROR: the customer is found!\n");
             }
 
 
