@@ -1,11 +1,9 @@
 ﻿//using System;
-//using IDAL.DO;
-//using DalObject;
 //using System.Collections.Generic;
 //using System.Linq;
-//using IDAL;
+//using DO;
 
-//namespace ConsoleUI
+//namespace ConsoleDal
 //{
 //    class Program
 //    {
@@ -18,14 +16,14 @@
 
 //        static void Main(string[] args)
 //        {
-//            DalObject.DalObject dal  = new DalObject.DalObject();//for the initialize
+//            DalApi.IDal dal = DalApi.DalFactory.GetDal();
 //            int c, idDrone, idParcel, idStation;
 //            Option op;
 //            EntityOption ep;
 //            OptionListView olv;
 //            OptionUpdate ou;
 //            do
-//	        {
+//            {
 //                Console.WriteLine("\nHELLO\n" + "Choose one of the following:\n" + "1: Add\n" + "2: Update\n" + "3: View\n" + "4: List View\n" + "5: Exit\n");
 //                int.TryParse(Console.ReadLine(), out c);
 //                op = (Option)c;
@@ -187,7 +185,7 @@
 //                {
 //                    Console.WriteLine(ex);
 //                }
-//	        } while (op != Option.Exit);
+//            } while (op != Option.Exit);
 //        }
 
 //        /// <summary>
@@ -205,12 +203,8 @@
 //            } while (!int.TryParse(Console.ReadLine(), out num1));
 //            NewStation.Id = num1;
 
-//            do
-//            {
-//                Console.WriteLine("Enter Name Station: ");
-
-//            } while (!int.TryParse(Console.ReadLine(), out num1));
-//            NewStation.Name = num1;
+//            Console.WriteLine("Enter Name Station: ");
+//            NewStation.Name = Console.ReadLine();
 
 //            do
 //            {
@@ -231,7 +225,7 @@
 //                Console.WriteLine("Enter ChargeSlots Station: ");
 
 //            } while (!int.TryParse(Console.ReadLine(), out num1));
-//            NewStation.ChargeSlots = num1;
+//            NewStation.AvailableChargeSlots = num1;
 
 //            return NewStation;
 //        }
@@ -394,29 +388,29 @@
 //        /// print all the list of stations
 //        /// </summary>
 //        /// <returns></no returns, just print>
-//        public static void PrintStations(DalObject.DalObject dal)//print the list
+//        public static void PrintStations(DalApi.IDal dal)//print the list
 //        {
-//            foreach (Station elementStation in dal.GetStations())
-//                Console.WriteLine(elementStation.ToString());
+//            foreach (Station elementStation in dal.GetStations(station => station.Deleted == false))
+//                Console.WriteLine(elementStation);
 //        }
 
 //        /// <summary>
 //        /// print all the list of drones
 //        /// </summary>
 //        /// <returns></no returns, just print>
-//        public static void PrintDrones(DalObject.DalObject dal)//print the list
+//        public static void PrintDrones(DalApi.IDal dal)//print the list
 //        {
-//            foreach (Drone elementDrone in dal.GetDrones()) 
-//                Console.WriteLine(elementDrone.ToString());
+//            foreach (Drone elementDrone in dal.GetDrones(drone => drone.Deleted == false))
+//                Console.WriteLine(elementDrone);
 //        }
 
 //        /// <summary>
 //        /// print all the list of Drones Available
 //        /// </summary>
 //        /// <returns></no returns, just print>
-//        public static void PrintDronesAvailable(DalObject.DalObject dal)//print the list
+//        public static void PrintDronesAvailable(DalApi.IDal dal)//print the list
 //        {
-//            IEnumerable<Drone> newDrones = dal.GetDrones();
+//            IEnumerable<Drone> newDrones = dal.GetDrones(drone => drone.Deleted == false);
 //            foreach (Drone elementDrone in newDrones)
 //            {
 
@@ -424,81 +418,81 @@
 
 //            //for (int i = 0; i < newDrones.Length; i++)
 //            //    if (newDrones[i].status == DroneStatuses.Available)
-//            //        Console.WriteLine(newDrones[i].ToString());
+//            //        Console.WriteLine(newDrones[i]);
 //        }
 
 //        /// <summary>
 //        /// print all the list of Drones Charge
 //        /// </summary>
 //        /// <returns></no returns, just print>
-//        public static void PrintDronesCharge(DalObject.DalObject dal)//print the list
+//        public static void PrintDronesCharge(DalApi.IDal dal)//print the list
 //        {
-//            foreach (DroneCharge elementDroneCharge in dal.GetDronesCharge())
-//                Console.WriteLine(elementDroneCharge.ToString());
+//            foreach (DroneCharge elementDroneCharge in dal.GetDronesCharge(droneCharge => droneCharge.Deleted == false))
+//                Console.WriteLine(elementDroneCharge);
 //        }
 
 //        /// <summary>
 //        /// print all the list of customers
 //        /// </summary>
 //        /// <returns></no returns, just print>
-//        public static void PrintCustomers(DalObject.DalObject dal)//print the list
+//        public static void PrintCustomers(DalApi.IDal dal)//print the list
 //        {
-//            foreach (Customer elementCustomer in dal.GetCustomers())
-//                Console.WriteLine(elementCustomer.ToString());
+//            foreach (Customer elementCustomer in dal.GetCustomers(customer => customer.Deleted == false))
+//                Console.WriteLine(elementCustomer);
 //        }
 
 //        /// <summary>
 //        /// print all the list of parcels
 //        /// </summary>
 //        /// <returns></no returns, just print>
-//        public static void PrintParcels(DalObject.DalObject dal)//print the list
+//        public static void PrintParcels(DalApi.IDal dal)//print the list
 //        {
-//            foreach (Parcel elementParcel in dal.GetParcels())
-//                Console.WriteLine(elementParcel.ToString());
+//            foreach (Parcel elementParcel in dal.GetParcels(parcel => parcel.Deleted == false))
+//                Console.WriteLine(elementParcel);
 //        }
 
 //        /// <summary>
 //        /// print all the list of Parcels With No Assign 
 //        /// </summary>
 //        /// <returns></no returns, just print>
-//        public static void PrintParcelsWithNoAssign(DalObject.DalObject dal)//print the list
+//        public static void PrintParcelsWithNoAssign(DalApi.IDal dal)//print the list
 //        {
-//            foreach (Parcel elementParcel in dal.GetParcels())
+//            foreach (Parcel elementParcel in dal.GetParcels(parcel => parcel.Deleted == false))
 //                if (elementParcel.DroneId != -1)//the parcel wasnt connected
-//                    Console.WriteLine(elementParcel.ToString());
+//                    Console.WriteLine(elementParcel);
 //        }
 
 //        /// <summary>
 //        /// print all the list of Parcels Picked Up
 //        /// </summary>
 //        /// <returns></no returns, just print>
-//        public static void PrintParcelsPickedUp(DalObject.DalObject dal)//print the list
+//        public static void PrintParcelsPickedUp(DalApi.IDal dal)//print the list
 //        {
-//            foreach (Parcel elementParcel in dal.GetParcels())
+//            foreach (Parcel elementParcel in dal.GetParcels(parcel => parcel.Deleted == false))
 //                if (elementParcel.PickedUp != DateTime.MinValue)//the parcel was pickup
-//                    Console.WriteLine(elementParcel.ToString());
+//                    Console.WriteLine(elementParcel);
 //        }
 
 //        /// <summary>
 //        /// print all the list of Parcels No Drones
 //        /// </summary>
 //        /// <returns></no returns, just print>
-//        public static void PrintParcelsNoDrones(DalObject.DalObject dal)//print the list
+//        public static void PrintParcelsNoDrones(DalApi.IDal dal)//print the list
 //        {
-//            foreach (Parcel elementParcel in dal.GetParcels())
+//            foreach (Parcel elementParcel in dal.GetParcels(parcel => parcel.Deleted == false))
 //                if (elementParcel.DroneId == -1)//the Id drone is not exist
-//                    Console.WriteLine(elementParcel.ToString());
+//                    Console.WriteLine(elementParcel);
 //        }
 
 //        /// <summary>
 //        /// print all the list of Stations Charge
 //        /// </summary>
 //        /// <returns></no returns, just print>
-//        public static void PrintStationsCharge(DalObject.DalObject dal)//print the list
+//        public static void PrintStationsCharge(DalApi.IDal dal)//print the list
 //        {
-//            foreach (Station elementStation in dal.GetStations())
-//                if (elementStation.ChargeSlots > 0)
-//                    Console.WriteLine(elementStation.ToString());
+//            foreach (Station elementStation in dal.GetStations(station => station.Deleted == false))
+//                if (elementStation.AvailableChargeSlots > 0)
+//                    Console.WriteLine(elementStation);
 //        }
 //    }
 //}
@@ -508,7 +502,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ConsoleUI
+namespace ConsoleDal
 {
     class Program
     {

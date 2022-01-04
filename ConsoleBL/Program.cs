@@ -4,7 +4,7 @@ using System.Threading.Channels;
 using BO;
 using BL;
 
-namespace ConsoleUI_BL
+namespace ConsoleBL
 {
     internal class Program
     {
@@ -66,7 +66,7 @@ namespace ConsoleUI_BL
                                       "3: View\n" + "4: List View\n" + "5: Exit\n");
                 } while (!int.TryParse(Console.ReadLine(), out c));
 
-                op = (Option) c;
+                op = (Option)c;
                 switch (op)
                 {
                     case Option.Add:
@@ -76,7 +76,7 @@ namespace ConsoleUI_BL
                                               "3: Customer\n" + "4: Parcel\n" + "5: Exit\n");
                         } while (!int.TryParse(Console.ReadLine(), out c));
 
-                        ep = (EntityOption) c;
+                        ep = (EntityOption)c;
                         switch (ep)
                         {
                             case EntityOption.Station:
@@ -109,7 +109,7 @@ namespace ConsoleUI_BL
                                               "9: Exit\n");
                         } while (!int.TryParse(Console.ReadLine(), out c));
 
-                        ou = (OptionUpdate) c;
+                        ou = (OptionUpdate)c;
                         switch (ou)
                         {
                             case OptionUpdate.ModelDrone:
@@ -150,9 +150,9 @@ namespace ConsoleUI_BL
                                               "3: Customer\n" + "4: Parcel\n" + "5: Exit\n");
                         } while (!int.TryParse(Console.ReadLine(), out c));
 
-                        ep = (EntityOption) c;
+                        ep = (EntityOption)c;
                         myId = 0;
-                        if(c != 5)
+                        if (c != 5)
                             do
                             {
                                 Console.WriteLine("Enter Id of the entity:\n");
@@ -217,32 +217,32 @@ namespace ConsoleUI_BL
                                               "7:Exit\n");
                         } while (!int.TryParse(Console.ReadLine(), out c));
 
-                        olv = (OptionListView) c;
+                        olv = (OptionListView)c;
                         switch (olv)
                         {
                             case OptionListView.ListStations:
                                 foreach (var elementStation in bl.GetStations())
-                                        Console.WriteLine(elementStation);
+                                    Console.WriteLine(elementStation);
                                 break;
                             case OptionListView.ListDrones:
                                 foreach (var elementDrone in bl.GetDrones())
-                                        Console.WriteLine(elementDrone);
+                                    Console.WriteLine(elementDrone);
                                 break;
                             case OptionListView.ListCustomers:
                                 foreach (var elementCustomer in bl.GetCustomers())
-                                        Console.WriteLine(elementCustomer);
+                                    Console.WriteLine(elementCustomer);
                                 break;
                             case OptionListView.ListParcels:
                                 foreach (var elementParcel in bl.GetParcels())
-                                        Console.WriteLine(elementParcel);
+                                    Console.WriteLine(elementParcel);
                                 break;
                             case OptionListView.ListParcelsNoDrones:
                                 foreach (var elementParcelsNoDrone in bl.GetParcelsNoDrones())
-                                        Console.WriteLine(elementParcelsNoDrone);
+                                    Console.WriteLine(elementParcelsNoDrone);
                                 break;
                             case OptionListView.ListStationsCharge:
                                 foreach (var elementStationCharge in bl.GetStationsWithAvailableCharge())
-                                        Console.WriteLine(elementStationCharge);
+                                    Console.WriteLine(elementStationCharge);
                                 break;
                             case OptionListView.Exit:
                                 break;
@@ -256,11 +256,11 @@ namespace ConsoleUI_BL
                     default:
                         break;
                 }
-            } 
+            }
             while (op != Option.Exit);
         }
 
-        
+
         /// <summary>
         /// read from the user station to insert to list
         /// </summary>
