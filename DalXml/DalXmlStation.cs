@@ -26,9 +26,9 @@ namespace Dal
             if (!(addStation is null))
             {
                 if (addStation.Element("Deleted").Value == "true")
-                    throw new IdNotFoundException("ERROR: the station is deleted!\n");
+                    throw new IdExistException("ERROR: the station is deleted!\n");
 
-                throw new IdNotFoundException("ERROR: the station is found!\n");
+                throw new IdExistException("ERROR: the station is found!\n");
             }
 
 

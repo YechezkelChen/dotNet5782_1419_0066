@@ -130,7 +130,12 @@ namespace BL
                     droneCharge.StationId = station.Id;
                     droneCharge.DroneId = drone.Id;
                     droneCharge.StartCharging = DateTime.Now;
-                    dal.AddDroneCharge(droneCharge);
+                    try
+                    {
+                        dal.AddDroneCharge(droneCharge);
+                    }
+                    catch (DO.IdExistException)
+                    { }
                 }
 
                 if (drone.Status == DroneStatuses.Available)
