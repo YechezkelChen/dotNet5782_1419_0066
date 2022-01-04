@@ -49,11 +49,11 @@ namespace Dal
         public double[] GetRequestPowerConsumption()
         {
             double[] powerConsumption = new double[5];
-            powerConsumption[0] = DataSource.Config.BatteryAvailable;
-            powerConsumption[1] = DataSource.Config.BatteryLightWeight;
-            powerConsumption[2] = DataSource.Config.BatteryMediumWeight;
-            powerConsumption[3] = DataSource.Config.BatteryHeavyWeight;
-            powerConsumption[4] = DataSource.Config.ChargingRateOfDrone;
+            powerConsumption[0] = DataSource.Config.FreeBatteryUsing;
+            powerConsumption[1] = DataSource.Config.LightBatteryUsing;
+            powerConsumption[2] = DataSource.Config.MediumBatteryUsing;
+            powerConsumption[3] = DataSource.Config.HeavyBatteryUsing;
+            powerConsumption[4] = DataSource.Config.ChargingRate;
             return powerConsumption;
         }
 

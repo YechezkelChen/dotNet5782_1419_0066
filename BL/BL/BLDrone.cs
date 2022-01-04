@@ -248,14 +248,14 @@ namespace BL
             
             Station nearStation = GetStation(nearStationToList.Id);
             double distance = Distance(drone.Location, nearStation.Location);
-            if (distance * BatteryAvailable > drone.Battery || distance * BatteryAvailable > 100)
+            if (distance * freeBatteryUsing > drone.Battery || distance * freeBatteryUsing > 100)
                 throw new BatteryDroneException("ERROR: the drone not have battery to go to station charge ");
 
             for (int i = 0; i < ListDrones.Count; i++)
                 if (ListDrones[i].Id == drone.Id)
                 {
                     DroneToList newDrone = ListDrones[i];
-                    newDrone.Battery -= distance * BatteryAvailable;
+                    newDrone.Battery -= distance * freeBatteryUsing;
                     newDrone.Battery = (double)System.Math.Round(newDrone.Battery, 2);
                     newDrone.Location = nearStation.Location;
                     newDrone.Status = DroneStatuses.Maintenance;
@@ -306,7 +306,7 @@ namespace BL
             dal.UpdateStation(updateStation);
 
             TimeSpan? chargeTime = DateTime.Now - droneCharge.StartCharging;
-            double batteryCharge = chargeTime.Value.TotalSeconds * (ChargingRateOfDrone / 3600);
+            double batteryCharge = chargeTime.Value.TotalSeconds * (chargingRate / 3600);
 
             for (int i = 0; i < ListDrones.Count; i++)
                 if (ListDrones[i].Id == drone.Id)
@@ -396,7 +396,7 @@ namespace BL
                 if (ListDrones[i].Id == drone.Id)
                 {
                     DroneToList updateDrone = ListDrones[i];
-                    updateDrone.Battery -= Distance(drone.Location, drone.ParcelByTransfer.PickUpLocation) * BatteryAvailable;
+                    updateDrone.Battery -= Distance(drone.Location, drone.ParcelByTransfer.PickUpLocation) * freeBatteryUsing;
                     updateDrone.Battery = (double)System.Math.Round(updateDrone.Battery, 2);
                     updateDrone.Location = drone.ParcelByTransfer.PickUpLocation;
                     ListDrones[i] = updateDrone;
@@ -440,11 +440,11 @@ namespace BL
                 {
                     DroneToList newDrone = ListDrones[i];
                     if (drone.ParcelByTransfer.Weight == WeightCategories.Heavy)
-                        newDrone.Battery -= drone.ParcelByTransfer.DistanceOfTransfer * BatteryHeavyWeight;
+                        newDrone.Battery -= drone.ParcelByTransfer.DistanceOfTransfer * heavyBatteryUsing;
                     if (drone.ParcelByTransfer.Weight == WeightCategories.Medium)
-                        newDrone.Battery -= drone.ParcelByTransfer.DistanceOfTransfer * BatteryMediumWeight;
+                        newDrone.Battery -= drone.ParcelByTransfer.DistanceOfTransfer * mediumBatteryUsing;
                     if (drone.ParcelByTransfer.Weight == WeightCategories.Light)
-                        newDrone.Battery -= drone.ParcelByTransfer.DistanceOfTransfer * BatteryLightWeight;
+                        newDrone.Battery -= drone.ParcelByTransfer.DistanceOfTransfer * lightBatteryUsing;
                     newDrone.Battery = (double)System.Math.Round(newDrone.Battery, 2);
 
                     newDrone.Location = drone.ParcelByTransfer.TargetLocation;
@@ -485,21 +485,21 @@ namespace BL
 
             // From the location of drone to the pickup location
             distanceDelivery = Distance(drone.Location, sender.Location);
-            batteryDelivery = distanceDelivery * BatteryAvailable;
+            batteryDelivery = distanceDelivery * freeBatteryUsing;
 
             // From the pickup location to the target location
             distanceDelivery = Distance(sender.Location, target.Location);
             if (parcel.Weight == WeightCategories.Heavy)
-                batteryDelivery += distanceDelivery * BatteryHeavyWeight;
+                batteryDelivery += distanceDelivery * heavyBatteryUsing;
             if (parcel.Weight == WeightCategories.Medium)
-                batteryDelivery += distanceDelivery * BatteryMediumWeight;
+                batteryDelivery += distanceDelivery * mediumBatteryUsing;
             if (parcel.Weight == WeightCategories.Light)
-                batteryDelivery += distanceDelivery * BatteryLightWeight;
+                batteryDelivery += distanceDelivery * lightBatteryUsing;
 
             // From the target location to the station charge location
             StationToList nearStation = GetStationsWithAvailableCharge().OrderByDescending(station => Distance(target.Location, GetStation(station.Id).Location)).First();
             distanceDelivery = Distance(target.Location, GetStation(nearStation.Id).Location);
-            batteryDelivery += distanceDelivery * BatteryAvailable;
+            batteryDelivery += distanceDelivery * freeBatteryUsing;
 
             return batteryDelivery;
         }

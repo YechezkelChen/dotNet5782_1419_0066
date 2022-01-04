@@ -71,8 +71,18 @@ namespace Dal
         /// <returns></returns>
         public IEnumerable<DroneCharge> GetDronesCharge(Predicate<DroneCharge> droneChargePredicate)
         {
-            var dronesChargeXml = XMLTools.LoadListFromXmlSerializer<DroneCharge>(dronesChargePath);
-            IEnumerable<DroneCharge> dronesCharge = dronesChargeXml.Where(dronesCharge => droneChargePredicate(dronesCharge));
+            //var dronesChargeXml = XMLTools.LoadListFromXmlSerializer<DroneCharge>(dronesChargePath);
+            //IEnumerable<DroneCharge> dronesCharge = dronesChargeXml.Where(dronesCharge => droneChargePredicate(dronesCharge));
+
+            XElement dronesChargeXml = XMLTools.LoadListFromXmlElement(dronesChargePath);
+            IEnumerable<DroneCharge> dronesCharge = (from droneCharge in dronesChargeXml.Elements()
+                select new DroneCharge()
+                {
+                    DroneId = Convert.ToInt32(droneCharge.Element("DroneId").Value),
+                    StationId = Convert.ToInt32(droneCharge.Element("StationId").Value),
+                    StartCharging = DateTime.Parse(droneCharge.Element("StartCharging").Value),
+                    Deleted = Convert.ToBoolean(droneCharge.Element("Deleted").Value)
+                });
             return dronesCharge;
         }
     }

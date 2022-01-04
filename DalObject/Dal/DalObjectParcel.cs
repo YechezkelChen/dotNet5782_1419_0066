@@ -15,12 +15,12 @@ namespace Dal
         /// <returns></returns>
         public int AddParcel(Parcel newParcel)
         {
-            int runNumber = DataSource.Config.ParcelsId;
+            int runNumber = DataSource.Config.NewParcelId;
             string check = IsExistParcel(newParcel.Id);
             if (check == "not exists")
             {
-                newParcel.Id = DataSource.Config.ParcelsId; // insert the Parcels new Id
-                DataSource.Config.ParcelsId++;
+                newParcel.Id = DataSource.Config.NewParcelId; // insert the Parcels new Id
+                DataSource.Config.NewParcelId++;
                 DataSource.Parcels.Add(newParcel);
             }
             if (check == "exists")

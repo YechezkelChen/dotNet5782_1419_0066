@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
+using System.Xml.Linq;
 using DalApi;
+using DalXml;
 
 namespace Dal
 {
@@ -37,18 +40,26 @@ namespace Dal
         private string dronesChargePath = @"DronesCharge.xml";
         private string parcelsPath = @"Parcels.xml";
         private string stationsPath = @"Stations.xml";
+        private string configPath = @"config.xml";
 
 
         #endregion
 
         public double[] GetRequestPowerConsumption()
         {
+            XElement batteryUsages = XMLTools.LoadListFromXmlElement(configPath);
+
             double[] powerConsumption = new double[5];
-            powerConsumption[0] = 0.05;
-            powerConsumption[1] = 0.2;
-            powerConsumption[2] = 0.4;
-            powerConsumption[3] = 0.5;
-            powerConsumption[4] = 50;
+            powerConsumption[0] = (from b in batteryUsages.Elements("BatteryUsages")
+                select Convert.ToDouble(b.Element("FreeBatteryUsing").Value)).FirstOrDefault();
+            powerConsumption[1] = (from b in batteryUsages.Elements("BatteryUsages")
+                select Convert.ToDouble(b.Element("LightBatteryUsing").Value)).FirstOrDefault();
+            powerConsumption[2] = (from b in batteryUsages.Elements("BatteryUsages")
+                select Convert.ToDouble(b.Element("MediumBatteryUsing").Value)).FirstOrDefault();
+            powerConsumption[3] = (from b in batteryUsages.Elements("BatteryUsages")
+                select Convert.ToDouble(b.Element("HeavyBatteryUsing").Value)).FirstOrDefault();
+            powerConsumption[4] = (from b in batteryUsages.Elements("BatteryUsages")
+                select Convert.ToDouble(b.Element("ChargingRate").Value)).FirstOrDefault();
             return powerConsumption;
         }
     }

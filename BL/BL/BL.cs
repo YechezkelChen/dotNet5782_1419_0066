@@ -8,13 +8,13 @@ namespace BL
 {
     sealed partial class BL : BlApi.IBL
     {
-        List<DroneToList> ListDrones = new List<DroneToList>();
+        private List<DroneToList> ListDrones = new List<DroneToList>();
 
-        DalApi.IDal dal;
+        private DalApi.IDal dal;
 
-        double BatteryAvailable, BatteryLightWeight, BatteryMediumWeight, BatteryHeavyWeight, ChargingRateOfDrone;
+        private double freeBatteryUsing, lightBatteryUsing, mediumBatteryUsing, heavyBatteryUsing, chargingRate;
 
-        Random rand = new Random(DateTime.Now.Millisecond);
+        private Random rand = new Random(DateTime.Now.Millisecond);
 
         #region singelton
         static volatile Lazy<BL> instance = new Lazy<BL>(() => new BL());
@@ -48,11 +48,11 @@ namespace BL
 
             // km per hour
             double[] powerConsumption = dal.GetRequestPowerConsumption();
-            BatteryAvailable = powerConsumption[0];
-            BatteryLightWeight = powerConsumption[1];
-            BatteryMediumWeight = powerConsumption[2];
-            BatteryHeavyWeight = powerConsumption[3];
-            ChargingRateOfDrone = powerConsumption[4];
+            freeBatteryUsing = powerConsumption[0];
+            lightBatteryUsing = powerConsumption[1];
+            mediumBatteryUsing = powerConsumption[2];
+            heavyBatteryUsing = powerConsumption[3];
+            chargingRate = powerConsumption[4];
 
             foreach (var elementDrone in dal.GetDrones(drone => drone.Deleted == false))
             {
@@ -60,6 +60,7 @@ namespace BL
                 newDrone.Id = elementDrone.Id;
                 newDrone.Model = elementDrone.Model;
                 newDrone.Weight = (WeightCategories)elementDrone.Weight;
+                newDrone.Location = new Location();
                 ListDrones.Add(newDrone);
             }
 
@@ -79,20 +80,20 @@ namespace BL
                             if (parcel.PickedUp == null)
                             {
                                 drone.Location = GetStation(nearStationToSender.Id).Location;
-                                batteryDelivery += Distance(drone.Location, sender.Location) * BatteryAvailable;
+                                batteryDelivery += Distance(drone.Location, sender.Location) * freeBatteryUsing;
                             }
                             else // if the parcel is pick up
                                 drone.Location = new Location() { Longitude = sender.Location.Longitude, Latitude = sender.Location.Latitude };
 
                             // the distance between the sender and the target
                             if (parcel.Weight == DO.WeightCategories.Heavy)
-                                batteryDelivery += Distance(sender.Location, target.Location) * BatteryHeavyWeight;
+                                batteryDelivery += Distance(sender.Location, target.Location) * heavyBatteryUsing;
                             if (parcel.Weight == DO.WeightCategories.Medium)
-                                batteryDelivery += Distance(sender.Location, target.Location) * BatteryMediumWeight;
+                                batteryDelivery += Distance(sender.Location, target.Location) * mediumBatteryUsing;
                             if (parcel.Weight == DO.WeightCategories.Light)
-                                batteryDelivery += Distance(sender.Location, target.Location) * BatteryLightWeight;
+                                batteryDelivery += Distance(sender.Location, target.Location) * lightBatteryUsing;
 
-                            batteryDelivery += Distance(target.Location, GetStation(nearStationToTarget.Id).Location) * BatteryAvailable;
+                            batteryDelivery += Distance(target.Location, GetStation(nearStationToTarget.Id).Location) * freeBatteryUsing;
 
                             drone.Battery = (100 - batteryDelivery) * rand.NextDouble() + batteryDelivery;
                             drone.Battery = (double)System.Math.Round(drone.Battery, 2);
@@ -154,7 +155,7 @@ namespace BL
 
                     double batteryToNearStation = 0;
                     StationToList nearStation = GetStationsWithAvailableCharge().OrderByDescending(station => Distance(GetStation(station.Id).Location, drone.Location)).FirstOrDefault();
-                    batteryToNearStation = Distance(drone.Location, GetStation(nearStation.Id).Location) * BatteryAvailable;
+                    batteryToNearStation = Distance(drone.Location, GetStation(nearStation.Id).Location) * freeBatteryUsing;
 
                     drone.Battery = (100 - batteryToNearStation) * rand.NextDouble() + batteryToNearStation;
                     drone.Battery = (double)System.Math.Round(drone.Battery, 2);

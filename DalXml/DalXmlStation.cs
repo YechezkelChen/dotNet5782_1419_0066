@@ -106,8 +106,21 @@ namespace Dal
         /// <returns></returns>
         public IEnumerable<Station> GetStations(Predicate<Station> stationPredicate)
         {
-            var stationsXml = XMLTools.LoadListFromXmlSerializer<Station>(stationsPath);
-            IEnumerable<Station> stations = stationsXml.Where(station => stationPredicate(station));
+            //var stationsXml = XMLTools.LoadListFromXmlSerializer<Station>(stationsPath);
+            //IEnumerable<Station> stations = stationsXml.Where(station => stationPredicate(station));
+
+
+            XElement stationsXml = XMLTools.LoadListFromXmlElement(stationsPath);
+            IEnumerable<Station> stations = (from station in stationsXml.Elements()
+                select new Station()
+                {
+                    Id = Convert.ToInt32(station.Element("Id").Value),
+                    Name = station.Element("Name").Value,
+                    Longitude = Convert.ToDouble(station.Element("Longitude").Value),
+                    Latitude = Convert.ToDouble(station.Element("Latitude").Value),
+                    AvailableChargeSlots = Convert.ToInt32(station.Element("AvailableChargeSlots").Value),
+                    Deleted = Convert.ToBoolean(station.Element("Deleted").Value)
+                });
             return stations;
         }
 

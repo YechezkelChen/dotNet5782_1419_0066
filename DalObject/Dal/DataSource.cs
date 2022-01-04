@@ -15,14 +15,14 @@ namespace Dal
 
         internal class Config
         {
-            internal static int ParcelsId = 100000;
+            internal static int NewParcelId = 100000;
 
             // km per hour
-            internal static double BatteryAvailable = 0.05;
-            internal static double BatteryLightWeight = 0.2;
-            internal static double BatteryMediumWeight = 0.4;
-            internal static double BatteryHeavyWeight = 0.5;
-            internal static double ChargingRateOfDrone = 50;
+            internal static double FreeBatteryUsing = 1;
+            internal static double LightBatteryUsing = 2;
+            internal static double MediumBatteryUsing = 3;
+            internal static double HeavyBatteryUsing = 4;
+            internal static double ChargingRate = 4;
         }
 
         public static void Initialize()
@@ -78,7 +78,7 @@ namespace Dal
             {
                 Parcel parcel = new Parcel()
                 {
-                    Id = Config.ParcelsId,
+                    Id = Config.NewParcelId,
                     SenderId = Customers[rand.Next(0, 10)].Id,
                     TargetId = Customers[rand.Next(0, 10)].Id,
                     Weight = (WeightCategories) rand.Next(0, 3),
@@ -105,7 +105,7 @@ namespace Dal
                     parcel.Requested = DateTime.Now;
 
                 Parcels.Add(parcel);
-                Config.ParcelsId++;
+                Config.NewParcelId++;
             }
         }
 

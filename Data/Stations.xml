@@ -5,8 +5,8 @@
     <Name>Palmach</Name>
     <Longitude>0.4575959590531867</Longitude>
     <Latitude>0.5652019286366189</Latitude>
-    <AvailableChargeSlots>3</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <AvailableChargeSlots>2</AvailableChargeSlots>
+    <Deleted>False</Deleted>
   </Station>
   <Station>
     <Id>100110</Id>
@@ -29,16 +29,16 @@
     <Name>Palmach</Name>
     <Longitude>0.4959599685370736</Longitude>
     <Latitude>0.9156856918314871</Latitude>
-    <AvailableChargeSlots>6</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <AvailableChargeSlots>5</AvailableChargeSlots>
+    <Deleted>False</Deleted>
   </Station>
   <Station>
     <Id>100140</Id>
     <Name>Artist</Name>
     <Longitude>0.18896194649346262</Longitude>
     <Latitude>0.9477680553438924</Latitude>
-    <AvailableChargeSlots>5</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <AvailableChargeSlots>3</AvailableChargeSlots>
+    <Deleted>False</Deleted>
   </Station>
   <Station>
     <Id>100150</Id>
@@ -53,7 +53,7 @@
     <Name>Palmach</Name>
     <Longitude>0.008496334314577437</Longitude>
     <Latitude>0.4987528321793083</Latitude>
-    <AvailableChargeSlots>5</AvailableChargeSlots>
+    <AvailableChargeSlots>4</AvailableChargeSlots>
     <Deleted>False</Deleted>
   </Station>
   <Station>
@@ -61,23 +61,23 @@
     <Name>Palmach</Name>
     <Longitude>0.8870560591514484</Longitude>
     <Latitude>0.7364025720098999</Latitude>
-    <AvailableChargeSlots>5</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <AvailableChargeSlots>4</AvailableChargeSlots>
+    <Deleted>False</Deleted>
   </Station>
   <Station>
     <Id>100180</Id>
     <Name>Artist</Name>
     <Longitude>0.9986206660972073</Longitude>
     <Latitude>0.10032876725323907</Latitude>
-    <AvailableChargeSlots>0</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <AvailableChargeSlots>-3</AvailableChargeSlots>
+    <Deleted>False</Deleted>
   </Station>
   <Station>
     <Id>100190</Id>
     <Name>Palmach</Name>
     <Longitude>0.2211265094676644</Longitude>
     <Latitude>0.843901861386328</Latitude>
-    <AvailableChargeSlots>6</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <AvailableChargeSlots>4</AvailableChargeSlots>
+    <Deleted>False</Deleted>
   </Station>
 </ArrayOfStation>
