@@ -21,7 +21,7 @@
     <Name>Artist</Name>
     <Longitude>0.6522925052104017</Longitude>
     <Latitude>0.39992406330999175</Latitude>
-    <AvailableChargeSlots>0</AvailableChargeSlots>
+    <AvailableChargeSlots>1</AvailableChargeSlots>
     <Deleted>False</Deleted>
   </Station>
   <Station>
