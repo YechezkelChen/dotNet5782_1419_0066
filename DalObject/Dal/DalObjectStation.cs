@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
@@ -11,6 +12,7 @@ namespace Dal
         /// add a staion to the list station
         /// </summary>
         /// <param Name="newStation"></the new station the user whants to add to the station's list>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(Station newStation)
         {
             string check = IsExistStation(newStation.Id);
@@ -26,6 +28,7 @@ namespace Dal
         ///  Removes a parcel from the list of parcels.
         /// </summary>
         /// <param name="stationId"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveStation(int stationId)
         {
             string check = IsExistStation(stationId);
@@ -55,6 +58,7 @@ namespace Dal
         /// <param name="stationId"></param>
         /// <param Name="stationId"></the Id of the station the user ask for>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Station GetStation(int stationId)
         {
             string check = IsExistStation(stationId);
@@ -75,12 +79,17 @@ namespace Dal
         /// return all the list of the station's
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetStations(Predicate<Station> stationPredicate)
         {
             IEnumerable<Station> stations = DataSource.Stations.Where(station => stationPredicate(station));
             return stations;
         }
-
+        /// <summary>
+        /// updata the station the user ask for
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateStation(Station station)
         {
             for (int i = 0; i < DataSource.Stations.Count(); i++)

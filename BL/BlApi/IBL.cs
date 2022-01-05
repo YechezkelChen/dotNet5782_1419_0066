@@ -36,6 +36,9 @@ namespace BlApi
         //DroneInCharge
         void RemoveDroneInCharge(Station station, DroneInCharge droneInCharge);
 
+        //Simulator
+        void SimulatorMod(BlApi.IBL bl, int droneId, Action<Drone> action, Func<bool> stopSimulatorMod); //for the simulator mod
+
         // Customer
         void AddCustomer(Customer newCustomer); // Adds a customer to the list of customers.
         void RemoveCustomer(int customerId); // Removes a customer from the list of customers.

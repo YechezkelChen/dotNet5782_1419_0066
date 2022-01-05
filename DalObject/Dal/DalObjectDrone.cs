@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DO;
+using System.Runtime.CompilerServices;
 
 
 namespace Dal
@@ -12,6 +13,7 @@ namespace Dal
         /// add a drone to the drones list
         /// </summary>
         /// <param Name="newDrone"></the new drone the user whants to add to the drone's list>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone newDrone)
         {
             string check = IsExistDrone(newDrone.Id);
@@ -27,6 +29,7 @@ namespace Dal
         /// Removes a drone from the list of drones.
         /// </summary>
         /// <param name="droneId"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveDrone(int droneId)
         {
             string check = IsExistDrone(droneId);
@@ -55,6 +58,7 @@ namespace Dal
         /// </summary>
         /// <param Name="DdroneId"></the Id of the drone the user ask for>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int droneId)
         {
             string check = IsExistDrone(droneId);
@@ -75,12 +79,19 @@ namespace Dal
         /// return all the drone's list
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDrones(Predicate<Drone> dronePredicate)
         {
             IEnumerable<Drone> drones = DataSource.Drones.Where(drone => dronePredicate(drone));
             return drones;
         }
 
+        /// <summary>
+        /// the method updata the drone data
+        /// </summary>
+        /// <param Name="drone"><the drone to update>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(Drone drone)
         {
             for (int i = 0; i < DataSource.Drones.Count(); i++)

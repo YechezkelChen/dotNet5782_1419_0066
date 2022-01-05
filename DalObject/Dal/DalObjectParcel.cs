@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DO;
+using System.Runtime.CompilerServices;
 
 
 namespace Dal
@@ -13,6 +14,7 @@ namespace Dal
         /// </summary>
         /// <param Name="newParcel"></the new parcel the user whants to add to the parcel's list>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int AddParcel(Parcel newParcel)
         {
             int runNumber = DataSource.Config.NewParcelId;
@@ -34,6 +36,7 @@ namespace Dal
         /// Removes a parcel from the list of parcels.
         /// </summary>
         /// <param name="parcelId"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveParcel(int parcelId)
         {
             string check = IsExistParcel(parcelId);
@@ -62,6 +65,7 @@ namespace Dal
         /// </summary>
         /// <param Name="parcelId"></the Id parcel the user ask for>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int parcelId)
         {
             string check = IsExistParcel(parcelId);
@@ -82,6 +86,7 @@ namespace Dal
         /// return all the parcel in the list
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> parcelPredicate)
         {
             IEnumerable<Parcel> parcels = DataSource.Parcels.Where(parcel => parcelPredicate(parcel));
@@ -91,7 +96,8 @@ namespace Dal
         /// <summary>
         /// update the specific parcel the user ask for
         /// </summary>
-        /// <param name="updateDrone"></param>
+        /// <param name="parcel"></the parcek to updata>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcel(Parcel parcel)
         {
             for (int i = 0; i < DataSource.Parcels.Count(); i++)

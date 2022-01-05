@@ -10,7 +10,7 @@ namespace BL
     {
         private List<DroneToList> ListDrones = new List<DroneToList>();
 
-        private DalApi.IDal dal;
+        internal DalApi.IDal dal;
 
         private double freeBatteryUsing, lightBatteryUsing, mediumBatteryUsing, heavyBatteryUsing, chargingRate;
 

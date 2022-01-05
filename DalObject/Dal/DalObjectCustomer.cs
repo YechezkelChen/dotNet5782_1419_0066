@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DO;
+using System.Runtime.CompilerServices;
 
 
 namespace Dal
@@ -12,6 +13,7 @@ namespace Dal
         /// add a customer to the customers list
         /// </summary>
         /// <param Name="newCustomer"></the new customer the user whants to add to the customer's list>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer newCustomer)
         {
             string check = IsExistCustomer(newCustomer.Id);
@@ -27,6 +29,7 @@ namespace Dal
         /// Removes a customer from the list of customers.
         /// </summary>
         /// <param name="customerId"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveCustomer(int customerId)
         {
             string check = IsExistCustomer(customerId);
@@ -55,6 +58,7 @@ namespace Dal
         /// </summary>
         /// <param Name="customerId"></the Id of the customer the user ask for>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomer(int customerId)
         {
             string check = IsExistCustomer(customerId);
@@ -75,12 +79,19 @@ namespace Dal
         /// return all the customer list
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> customerPredicate)
         {
             IEnumerable<Customer> customers = DataSource.Customers.Where(customer => customerPredicate(customer)); 
             return customers;
         }
 
+        /// <summary>
+        /// the methode update the customer data
+        /// </summary>
+        /// <param Name="customer"></the customer to updata>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(Customer customer)
         {
             for (int i = 0; i < DataSource.Customers.Count(); i++)
@@ -91,8 +102,7 @@ namespace Dal
         /// <summary>
         /// the methode not need exeption becuse she use both sids(true and false)
         /// </summary>
-        /// <param Name="d"></the customer we check if she is exist>
-        /// <param Name="Drones"></the list od Customers>
+        /// <param Name="customerId"></the id of the customer>
         /// <returns></returns>
         private string IsExistCustomer(int customerId)
         {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BO;
-
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
@@ -12,6 +12,7 @@ namespace BL
         /// add a drone
         /// </summary>
         /// <returns></no returns, add a drone>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone newDrone, int idStation)
         {
             Station station = new Station();
@@ -32,21 +33,6 @@ namespace BL
                 throw new ChargeSlotsException(e.Message, e);
             }
 
-            // For dataSource
-            DO.Drone drone = new DO.Drone();
-            drone.Id = newDrone.Id;
-            drone.Model = newDrone.Model;
-            drone.Weight = (DO.WeightCategories)newDrone.Weight;
-            drone.Deleted = false;
-            try
-            {
-                dal.AddDrone(drone); // add the drone just if the drone not in the dataSource
-            }
-            catch (DO.IdExistException e)
-            {
-                throw new IdException(e.Message, e);
-            }
-
             // For the list of drones here
             DroneToList droneToList = new DroneToList();
             droneToList.Id = newDrone.Id;
@@ -56,26 +42,46 @@ namespace BL
             droneToList.Battery = (double)System.Math.Round(droneToList.Battery, 2);
             droneToList.Status = DroneStatuses.Maintenance;
             droneToList.Location = station.Location;
-            droneToList.IdParcel = 0;         
+            droneToList.IdParcel = 0;
             ListDrones.Add(droneToList);
 
-            // Update the station
-            DO.Station updateStation = dal.GetStation(station.Id);
-            updateStation.AvailableChargeSlots--;
-            dal.UpdateStation(updateStation);
+            lock (dal)
+            {
+                // For dataSource
+                DO.Drone drone = new DO.Drone();
+                drone.Id = newDrone.Id;
+                drone.Model = newDrone.Model;
+                drone.Weight = (DO.WeightCategories) newDrone.Weight;
+                drone.Deleted = false;
+                try
+                {
+                    dal.AddDrone(drone); // add the drone just if the drone not in the dataSource
+                }
+                catch (DO.IdExistException e)
+                {
+                    throw new IdException(e.Message, e);
+                }
 
-            // Add drone charge
-            DO.DroneCharge droneCharge = new DO.DroneCharge();
-            droneCharge.StationId = station.Id;
-            droneCharge.DroneId = newDrone.Id;
-            droneCharge.StartCharging = DateTime.Now;
-            try
-            {
-                dal.AddDroneCharge(droneCharge);
-            }
-            catch (DO.IdExistException e)
-            {
-                throw new IdException(e.Message, e);
+                // Update the station
+
+                DO.Station updateStation = dal.GetStation(station.Id);
+                updateStation.AvailableChargeSlots--;
+                dal.UpdateStation(updateStation);
+
+
+                // Add drone charge
+                DO.DroneCharge droneCharge = new DO.DroneCharge();
+                droneCharge.StationId = station.Id;
+                droneCharge.DroneId = newDrone.Id;
+                droneCharge.StartCharging = DateTime.Now;
+                try
+                {
+                    dal.AddDroneCharge(droneCharge);
+                }
+                catch (DO.IdExistException e)
+                {
+                    throw new IdException(e.Message, e);
+                }
             }
         }
 
@@ -83,19 +89,23 @@ namespace BL
         /// Removes a drone from the list of drones.
         /// </summary>
         /// <param name="droneId"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveDrone(int droneId)
         {
-            try
+            lock (dal)
             {
-                dal.RemoveDrone(droneId); // Remove the drone
-            }
-            catch (DO.IdExistException e)
-            {
-                throw new IdException(e.Message, e);
-            }
-            catch (DO.IdNotFoundException e)
-            {
-                throw new IdException(e.Message, e);
+                try
+                {
+                    dal.RemoveDrone(droneId); // Remove the drone
+                }
+                catch (DO.IdExistException e)
+                {
+                    throw new IdException(e.Message, e);
+                }
+                catch (DO.IdNotFoundException e)
+                {
+                    throw new IdException(e.Message, e);
+                }
             }
         }
 
@@ -104,6 +114,7 @@ namespace BL
         /// get a drone
         /// </summary>
         /// <returns></return the drone>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int droneId)
         {
             Drone drone = new Drone();
@@ -122,29 +133,32 @@ namespace BL
             if (drone.Status != DroneStatuses.Delivery)
                 return drone;
 
-            // If the drone in the delivery fill the parcel data
-            DO.Parcel parcel = dal.GetParcel(droneToList.IdParcel);
-            drone.ParcelByTransfer = new ParcelInTransfer();
-            drone.ParcelByTransfer.Id = parcel.Id;
+            lock (dal)
+            {
+                // If the drone in the delivery fill the parcel data
+                DO.Parcel parcel = dal.GetParcel(droneToList.IdParcel);
+                drone.ParcelByTransfer = new ParcelInTransfer();
+                drone.ParcelByTransfer.Id = parcel.Id;
 
-            if (parcel.PickedUp == null)
-                drone.ParcelByTransfer.OnTheWay = false;
-            else // The parcel has been collected but not yet delivered
-                drone.ParcelByTransfer.OnTheWay = true;
+                if (parcel.PickedUp == null)
+                    drone.ParcelByTransfer.OnTheWay = false;
+                else // The parcel has been collected but not yet delivered
+                    drone.ParcelByTransfer.OnTheWay = true;
 
-            drone.ParcelByTransfer.Priority = (Priorities)parcel.Priority;
-            drone.ParcelByTransfer.Weight = (WeightCategories)parcel.Weight;
+                drone.ParcelByTransfer.Priority = (Priorities)parcel.Priority;
+                drone.ParcelByTransfer.Weight = (WeightCategories)parcel.Weight;
 
-            DO.Customer customer = dal.GetCustomer(parcel.SenderId);
-            drone.ParcelByTransfer.Sender = new CustomerInParcel() { Id = customer.Id, Name = customer.Name };
-            drone.ParcelByTransfer.PickUpLocation = new Location() { Longitude = customer.Longitude, Latitude = customer.Latitude };
+                DO.Customer customer = dal.GetCustomer(parcel.SenderId);
+                drone.ParcelByTransfer.Sender = new CustomerInParcel() { Id = customer.Id, Name = customer.Name };
+                drone.ParcelByTransfer.PickUpLocation = new Location() { Longitude = customer.Longitude, Latitude = customer.Latitude };
 
-            customer = dal.GetCustomer(parcel.TargetId);
-            drone.ParcelByTransfer.Target = new CustomerInParcel() { Id = customer.Id, Name = customer.Name };
-            drone.ParcelByTransfer.TargetLocation = new Location() { Longitude = customer.Longitude, Latitude = customer.Latitude };
+                customer = dal.GetCustomer(parcel.TargetId);
+                drone.ParcelByTransfer.Target = new CustomerInParcel() { Id = customer.Id, Name = customer.Name };
+                drone.ParcelByTransfer.TargetLocation = new Location() { Longitude = customer.Longitude, Latitude = customer.Latitude };
 
-            drone.ParcelByTransfer.DistanceOfTransfer = Distance(drone.ParcelByTransfer.PickUpLocation, drone.ParcelByTransfer.TargetLocation);
-            drone.ParcelByTransfer.DistanceOfTransfer = (double)System.Math.Round(drone.ParcelByTransfer.DistanceOfTransfer, 2);
+                drone.ParcelByTransfer.DistanceOfTransfer = Distance(drone.ParcelByTransfer.PickUpLocation, drone.ParcelByTransfer.TargetLocation);
+                drone.ParcelByTransfer.DistanceOfTransfer = (double)System.Math.Round(drone.ParcelByTransfer.DistanceOfTransfer, 2);
+            }
 
             return drone;
         }
@@ -153,6 +167,7 @@ namespace BL
         /// get a drones
         /// </summary>
         /// <returns></return all drones>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> GetDrones()
         {
             IEnumerable<DroneToList> drones = ListDrones;
@@ -164,6 +179,7 @@ namespace BL
         /// </summary>
         /// <param name="status"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> GetDronesByStatus(DroneStatuses status)
         {
             IEnumerable<DroneToList> drones = ListDrones.FindAll(drone => drone.Status == status);
@@ -175,15 +191,18 @@ namespace BL
         /// </summary>
         /// <param name="weight"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> GetDronesByMaxWeight(WeightCategories weight)
         {
             IEnumerable<DroneToList> drones = ListDrones.FindAll(drone => drone.Weight <= weight);
             return drones;
         }
+
         /// <summary>
         /// return the list after groping
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<IGrouping<DroneStatuses, DroneToList>> GetDronesByGroupStatus()
         {
             return GetDrones().GroupBy(drone => drone.Status);
@@ -193,25 +212,29 @@ namespace BL
         /// Update the model of the drone
         /// </summary>
         /// <returns></no returns, update the model of the drone>5
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDroneModel(int droneId, string newModel)
         {
-            DO.Drone updateDrone = new DO.Drone();
-            try
-            {
-                updateDrone = dal.GetDrone(droneId);
-            }
-            catch (DO.IdNotFoundException e) // if the drone not exist
-            {
-                throw new IdException(e.Message, e);
-            }
-            
             if (newModel == "") // if the user not put anything
                 throw new ModelException("ERROR: Model must have value");
 
-            updateDrone.Model = newModel;
+            lock (dal)
+            {
+                DO.Drone updateDrone = new DO.Drone();
+                try
+                {
+                    updateDrone = dal.GetDrone(droneId);
+                }
+                catch (DO.IdNotFoundException e) // if the drone not exist
+                {
+                    throw new IdException(e.Message, e);
+                }
 
-            // For dataSource
-            dal.UpdateDrone(updateDrone);
+                updateDrone.Model = newModel;
+                // For dataSource
+                dal.UpdateDrone(updateDrone);
+            }
+
 
             // For the list of drones here
             for (int i = 0; i < ListDrones.Count(); i++)
@@ -227,6 +250,8 @@ namespace BL
         /// Send the drone to drone charge
         /// </summary>
         /// <returns></no returns, just send the drone to drone charge>
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void SendDroneToDroneCharge(int droneId)
         {
             Drone drone = new Drone();
@@ -262,28 +287,33 @@ namespace BL
                     ListDrones[i] = newDrone;
                 }
 
-            DO.Station updateStation = dal.GetStation(nearStation.Id);
-            updateStation.AvailableChargeSlots--;
-            dal.UpdateStation(updateStation);
+            lock (dal)
+            {
+                DO.Station updateStation = dal.GetStation(nearStation.Id);
+                updateStation.AvailableChargeSlots--;
+                dal.UpdateStation(updateStation);
 
-            DO.DroneCharge newDroneCharge = new DO.DroneCharge();
-            newDroneCharge.StationId = nearStation.Id;
-            newDroneCharge.DroneId = drone.Id;
-            newDroneCharge.StartCharging = DateTime.Now;
-            try
-            {
-                dal.AddDroneCharge(newDroneCharge);
+                DO.DroneCharge newDroneCharge = new DO.DroneCharge();
+                newDroneCharge.StationId = nearStation.Id;
+                newDroneCharge.DroneId = drone.Id;
+                newDroneCharge.StartCharging = DateTime.Now;
+                try
+                {
+                    dal.AddDroneCharge(newDroneCharge);
+                }
+                catch (DO.IdExistException e)
+                {
+                    throw new IdException(e.Message, e);
+                }
             }
-            catch (DO.IdExistException e)
-            {
-                throw new IdException(e.Message, e);
-            }
+       
         }
 
         /// <summary>
         /// Release the drone from the drone charge
         /// </summary>
         /// <returns></no returns, release the drone from the drone charge>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ReleaseDroneFromDroneCharge(int droneId)
         {
             Drone drone = new Drone();
@@ -299,34 +329,39 @@ namespace BL
             if (drone.Status != DroneStatuses.Maintenance)
                 throw new StatusDroneException("The drone can not release because he isn't in maintenance status.\n");
 
-            DO.DroneCharge droneCharge = dal.GetDronesCharge(droneCharge => droneCharge.Deleted == false && droneCharge.DroneId == droneId).First();
-            
-            DO.Station updateStation = dal.GetStation(droneCharge.StationId);
-            updateStation.AvailableChargeSlots++;
-            dal.UpdateStation(updateStation);
+            lock (dal)
+            {
+                DO.DroneCharge droneCharge = dal.GetDronesCharge(droneCharge => droneCharge.Deleted == false && droneCharge.DroneId == droneId).First();
 
-            TimeSpan? chargeTime = DateTime.Now - droneCharge.StartCharging;
-            double batteryCharge = chargeTime.Value.TotalSeconds * (chargingRate / 3600);
+                DO.Station updateStation = dal.GetStation(droneCharge.StationId);
+                updateStation.AvailableChargeSlots++;
+                dal.UpdateStation(updateStation);
 
-            for (int i = 0; i < ListDrones.Count; i++)
-                if (ListDrones[i].Id == drone.Id)
-                {
-                    DroneToList newDrone = ListDrones[i];
-                    newDrone.Battery += batteryCharge;
-                    newDrone.Battery = (double)System.Math.Round(newDrone.Battery, 2);
-                    if (newDrone.Battery > 100)
-                        newDrone.Battery = 100;
-                    newDrone.Status = DroneStatuses.Available;
-                    ListDrones[i] = newDrone;
-                }
+                TimeSpan? chargeTime = DateTime.Now - droneCharge.StartCharging;
+                double batteryCharge = chargeTime.Value.TotalSeconds * (chargingRate / 3600);
 
-            dal.RemoveDroneCharge(droneCharge);
+                for (int i = 0; i < ListDrones.Count; i++)
+                    if (ListDrones[i].Id == drone.Id)
+                    {
+                        DroneToList newDrone = ListDrones[i];
+                        newDrone.Battery += batteryCharge;
+                        newDrone.Battery = (double)System.Math.Round(newDrone.Battery, 2);
+                        if (newDrone.Battery > 100)
+                            newDrone.Battery = 100;
+                        newDrone.Status = DroneStatuses.Available;
+                        ListDrones[i] = newDrone;
+                    }
+
+                dal.RemoveDroneCharge(droneCharge);
+            }
+          
         }
 
         /// <summary>
         /// find parcel in the data conditions and connect it to the drone
         /// </summary>
         /// <param name="droneId"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ConnectParcelToDrone(int droneId)
         {
             Drone drone = new Drone();
@@ -353,26 +388,31 @@ namespace BL
             if (parcelToConnect is null)
                 throw new NoPackagesToDroneException("There are no parcels that the drone you entered can carry.");
 
-            DO.Parcel updateParcel = updateParcel = dal.GetParcel(parcelToConnect.Id);
-            updateParcel.DroneId = drone.Id;
-            updateParcel.Scheduled = DateTime.Now;
+            lock (dal)
+            {
+                DO.Parcel updateParcel = updateParcel = dal.GetParcel(parcelToConnect.Id);
+                updateParcel.DroneId = drone.Id;
+                updateParcel.Scheduled = DateTime.Now;
 
-            dal.UpdateParcel(updateParcel);
+                dal.UpdateParcel(updateParcel);
 
-            for (int i = 0; i < ListDrones.Count; i++)
-                if (ListDrones[i].Id == drone.Id)
-                {
-                    DroneToList newDrone = ListDrones[i];
-                    newDrone.Status = DroneStatuses.Delivery;
-                    newDrone.IdParcel = updateParcel.Id;
-                    ListDrones[i] = newDrone;
-                }
+                for (int i = 0; i < ListDrones.Count; i++)
+                    if (ListDrones[i].Id == drone.Id)
+                    {
+                        DroneToList newDrone = ListDrones[i];
+                        newDrone.Status = DroneStatuses.Delivery;
+                        newDrone.IdParcel = updateParcel.Id;
+                        ListDrones[i] = newDrone;
+                    }
+            }
+          
         }
 
         /// <summary>
         /// Collection the parcel by the drone
         /// </summary>
         /// <param name="droneId"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CollectionParcelByDrone(int droneId)
         {
             Drone drone = new Drone();
@@ -403,15 +443,19 @@ namespace BL
                 }
             }
 
-            DO.Parcel updateParcel = dal.GetParcel(drone.ParcelByTransfer.Id);
-            updateParcel.PickedUp = DateTime.Now;
-            dal.UpdateParcel(updateParcel);
+            lock (dal)
+            {
+                DO.Parcel updateParcel = dal.GetParcel(drone.ParcelByTransfer.Id);
+                updateParcel.PickedUp = DateTime.Now;
+                dal.UpdateParcel(updateParcel);
+            }
         }
 
         /// <summary>
         /// Supply parcel by drone
         /// </summary>
         /// <param name="droneId"></the id of the drone>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void SupplyParcelByDrone(int droneId)
         {
             Drone drone = new Drone();
@@ -430,9 +474,13 @@ namespace BL
             if(drone.ParcelByTransfer.OnTheWay == false)
                 throw new StatusDroneException("ERROR: The drone isn't collect the parcel.");
 
-            DO.Parcel updateParcel = dal.GetParcel(drone.ParcelByTransfer.Id);
-            updateParcel.Delivered = DateTime.Now;
-            dal.UpdateParcel(updateParcel);
+            lock (dal)
+            {
+                DO.Parcel updateParcel = dal.GetParcel(drone.ParcelByTransfer.Id);
+                updateParcel.Delivered = DateTime.Now;
+                dal.UpdateParcel(updateParcel);
+            }
+           
 
             for (int i = 0; i < ListDrones.Count(); i++)
             {
@@ -459,6 +507,7 @@ namespace BL
         /// Check the input of the user
         /// </summary>
         /// <returns></no returns, just check the input of the user>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private Station CheckDroneAndStationCharge(Drone drone, int idStation)
         {
             if (drone.Id < 100000 || drone.Id > 999999)//Check that it's 6 digits

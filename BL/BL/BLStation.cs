@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BO;
-
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
@@ -12,6 +12,7 @@ namespace BL
         ///  add station with all fields to data source with checking 
         /// </summary>
         /// <param name="newStation"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(Station newStation)
         {
             try
@@ -35,20 +36,26 @@ namespace BL
                 throw new LocationException(e.Message, e);
             }
 
-            DO.Station station = new DO.Station();
-            station.Id = newStation.Id;
-            station.Name = newStation.Name;
-            station.Longitude = newStation.Location.Longitude;
-            station.Latitude = newStation.Location.Latitude;
-            station.AvailableChargeSlots = newStation.AvailableChargeSlots;
-            station.Deleted = false;
-            try
+            lock (dal)
             {
-                dal.AddStation(station);
-            }
-            catch (DO.IdExistException e)
-            {
-                throw new IdException(e.Message, e);
+                DO.Station station = new DO.Station();
+
+                station.Id = newStation.Id;
+                station.Name = newStation.Name;
+                station.Longitude = newStation.Location.Longitude;
+                station.Latitude = newStation.Location.Latitude;
+                station.AvailableChargeSlots = newStation.AvailableChargeSlots;
+                station.Deleted = false;
+
+                try
+                {
+                    dal.AddStation(station);
+
+                }
+                catch (DO.IdExistException e)
+                {
+                    throw new IdException(e.Message, e);
+                }
             }
         }
 
@@ -56,19 +63,23 @@ namespace BL
         ///  Removes a parcel from the list of parcels.
         /// </summary>
         /// <param name="stationId"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveStation(int stationId)
         {
-            try
+            lock (dal)
             {
-                dal.RemoveStation(stationId); // Remove the station 
-            }
-            catch (DO.IdExistException e)
-            {
-                throw new IdException(e.Message, e);
-            }
-            catch (DO.IdNotFoundException e)
-            {
-                throw new IdException(e.Message, e);
+                try
+                {
+                    dal.RemoveStation(stationId); // Remove the station
+                }
+                catch (DO.IdExistException e)
+                {
+                    throw new IdException(e.Message, e);
+                }
+                catch (DO.IdNotFoundException e)
+                {
+                    throw new IdException(e.Message, e);
+                }
             }
         }
 
@@ -78,32 +89,38 @@ namespace BL
         /// </summary>
         /// <param name="stationId"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Station GetStation(int stationId)
         {
-            DO.Station dalStation = new DO.Station();
-            try
-            {
-                dalStation = dal.GetStation(stationId);
-            }
-            catch (DO.IdNotFoundException e)
-            {
-                throw new IdException(e.Message, e);
-            }
-
             Station station = new Station();
-            station.Id = dalStation.Id;
-            station.Name = dalStation.Name;
-            station.Location = new Location() {Longitude = dalStation.Longitude, Latitude = dalStation.Latitude};
-            station.AvailableChargeSlots = dalStation.AvailableChargeSlots;
+            lock (dal)
+            {
+                DO.Station dalStation = new DO.Station();
+                try
+                {
+                    dalStation = dal.GetStation(stationId);
+                }
+                catch (DO.IdNotFoundException e)
+                {
+                    throw new IdException(e.Message, e);
+                }
 
-            station.DronesInCharges = from droneCharge in dal.GetDronesCharge(droneCharge => droneCharge.Deleted == false)
-                                      where droneCharge.StationId == station.Id
-                                      let drone = GetDrone(droneCharge.DroneId)
-                                      select new DroneInCharge
-                                      {
-                                          Id = droneCharge.DroneId,
-                                          Battery = drone.Battery
-                                      };                   
+                station.Id = dalStation.Id;
+                station.Name = dalStation.Name;
+                station.Location = new Location() {Longitude = dalStation.Longitude, Latitude = dalStation.Latitude};
+                station.AvailableChargeSlots = dalStation.AvailableChargeSlots;
+
+                station.DronesInCharges =
+                    from droneCharge in dal.GetDronesCharge(droneCharge => droneCharge.Deleted == false)
+                    where droneCharge.StationId == station.Id
+                    let drone = GetDrone(droneCharge.DroneId)
+                    select new DroneInCharge
+                    {
+                        Id = droneCharge.DroneId,
+                        Battery = drone.Battery
+                    };
+            }
+
             return station;
         }
 
@@ -111,68 +128,84 @@ namespace BL
         ///  return the list of stations in special entity for show
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<StationToList> GetStations()
         {
-            return from dalStation in dal.GetStations(station => station.Deleted == false)
-                   let station = GetStation(dalStation.Id)
-                   select new StationToList
-                   {
-                       Id = dalStation.Id,
-                       Name = dalStation.Name,
-                       AvailableChargeSlots = dalStation.AvailableChargeSlots,
-                       NotAvailableChargeSlots = station.DronesInCharges.Count()
-                   };
+            lock (dal)
+            {
+                return from dalStation in dal.GetStations(station => station.Deleted == false)
+                    let station = GetStation(dalStation.Id)
+                    select new StationToList
+                    {
+                        Id = dalStation.Id,
+                        Name = dalStation.Name,
+                        AvailableChargeSlots = dalStation.AvailableChargeSlots,
+                        NotAvailableChargeSlots = station.DronesInCharges.Count()
+                    };
+            }
         }
 
         /// <summary>
         /// Returning the list of stations with available charging position in a special entity "Station to list".
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<StationToList> GetStationsWithAvailableCharge()
         {
             return from station in GetStations()
-                   where station.AvailableChargeSlots > 0
-                   select station;
+                where station.AvailableChargeSlots > 0
+                select station;
         }
 
+        /// <summary>
+        /// return stations bu groping
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<IGrouping<int, StationToList>> GetStationsByGroupAvailableStations()
-        {
+        { 
             return GetStations().GroupBy(station => station.AvailableChargeSlots);
         }
 
         /// <summary>
-            /// update the parameters that user want to update(name, chargeSlots)
-            /// </summary>
-            /// <param name="id"></param>
-            /// <param name="name"></param>
-            /// <param name="chargeSlots"></param>
+        /// update the parameters that user want to update(name, chargeSlots)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="chargeSlots"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDataStation(int id, string name, int chargeSlots)
         {
-            DO.Station updateStation = new DO.Station();
-            try
+            lock (dal)
             {
-                updateStation = dal.GetStation(id);
+                DO.Station updateStation = new DO.Station();
+
+                try
+                {
+                    updateStation = dal.GetStation(id);
+                }
+                catch (DO.IdNotFoundException e)
+                {
+                    throw new IdException(e.Message, e);
+                }
+
+                if (name == "" && chargeSlots == -1) // if he don't want to update nothing
+                    throw new NameException("ERROR: you must Enter at least one of the following data!\n");
+                if (name != "") // if he want to update the name
+                    updateStation.Name = name;
+                if (chargeSlots != -1) // if he want to update the number of charge slots
+                    updateStation.AvailableChargeSlots = chargeSlots;
+
+                dal.UpdateStation(updateStation);
             }
-            catch (DO.IdNotFoundException e)
-            {
-                throw new IdException(e.Message, e);
-            }
 
-            if (name == "" && chargeSlots == -1) // if he don't want to update nothing
-                throw new NameException("ERROR: you must Enter at least one of the following data!\n");
-
-            if (name != "") // if he want to update the name
-                updateStation.Name = name;
-            if (chargeSlots != -1) // if he want to update the number of charge slots
-                updateStation.AvailableChargeSlots = chargeSlots;
-
-            dal.UpdateStation(updateStation);
         }
 
         /// <summary>
         ///  check the input in add station to list
         /// </summary>
         /// <param name="station"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private void CheckStation(Station station)
         {
             if (station.Id < 100000 || station.Id > 999999) // Check that it's 6 digits.
@@ -187,19 +220,32 @@ namespace BL
                 throw new LocationException("ERROR: latitude must to be between -1 to 1");
         }
 
+        /// <summary>
+        ///  remove the drone that is in charge
+        /// </summary>
+        /// <param name="station"></the station the contain the drone>
+        /// <param name="droneInCharge"></the drone to remove>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveDroneInCharge(Station station , DroneInCharge droneInCharge)
         {
-            DO.DroneCharge droneCharge = new DO.DroneCharge();
-            droneCharge.DroneId = station.DronesInCharges.FirstOrDefault(droneCharge => droneCharge.Id == droneInCharge.Id).Id;
-            droneCharge.StationId = station.Id;
-            droneCharge.Deleted = true;
-            try
+            lock (dal)
             {
-                dal.RemoveDroneCharge(droneCharge);
-            }
-            catch (DO.IdNotFoundException e)
-            {
-                throw new IdException(e.Message, e);
+                DO.DroneCharge droneCharge = new DO.DroneCharge();
+
+                droneCharge.DroneId = station.DronesInCharges
+                    .FirstOrDefault(droneCharge => droneCharge.Id == droneInCharge.Id).Id;
+                droneCharge.StationId = station.Id;
+                droneCharge.Deleted = true;
+
+
+                try
+                {
+                    dal.RemoveDroneCharge(droneCharge);
+                }
+                catch (DO.IdNotFoundException e)
+                {
+                    throw new IdException(e.Message, e);
+                }
             }
         }
     }
