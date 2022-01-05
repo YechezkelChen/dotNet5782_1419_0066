@@ -89,6 +89,10 @@ namespace BL
             {
                 throw new IdException(e.Message, e);
             }
+            catch (DO.IdExistException e)
+            {
+                throw new IdException(e.Message, e);
+            }
 
             Parcel parcel = new Parcel();
             parcel.Id = dalParcel.Id;

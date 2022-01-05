@@ -22,10 +22,11 @@ namespace Dal
 
             XElement runNumbers = XMLTools.LoadListFromXmlElement(configPath);
 
-            XElement runNumParcel = (from n in runNumbers.Elements("RunNumbers")
+            XElement runNumberParcel = (from n in runNumbers.Elements("RunNumbers")
                 select n.Element("NewParcelId")).FirstOrDefault();
-             
-            XElement id = new XElement("Id", Convert.ToInt32(runNumParcel.Value)); 
+            int idParcel = Convert.ToInt32(runNumberParcel.Value);
+
+            XElement id = new XElement("Id", idParcel); 
             XElement senderId = new XElement("SenderId", newParcel.SenderId);
             XElement targetId = new XElement("TargetId", newParcel.TargetId);
             XElement weight = new XElement("Weight", newParcel.Weight);
@@ -37,14 +38,14 @@ namespace Dal
             XElement delivered = new XElement("Delivered", newParcel.Delivered);
             XElement deleted = new XElement("Deleted", newParcel.Deleted);
 
-            parcels.Add(new XElement("Parcel", id, senderId, targetId, weight, priority, droneId, requested, scheduled,
-                pickedUp, delivered, deleted));
+            parcels.Add(new XElement("Parcel", id, senderId, targetId, weight, priority, droneId, requested, scheduled, pickedUp, delivered, deleted));
 
             XMLTools.SaveListToXmlElement(parcels, parcelsPath);
-            runNumParcel.Element("NewParcelId").Value = (Convert.ToInt32(runNumParcel.Value) + 1).ToString();
+            idParcel++;
+            runNumberParcel.Value = idParcel.ToString();
             XMLTools.SaveListToXmlElement(runNumbers, configPath);
 
-            return Convert.ToInt32(runNumParcel.Value); 
+            return idParcel - 1;
         }
 
         /// <summary>
@@ -59,8 +60,8 @@ namespace Dal
                 where Convert.ToInt32(p.Element("Id").Value) == parcelId
                 select p).FirstOrDefault();
 
-            if (!(deletedParcel is null))
-                throw new IdNotFoundException("ERROR: the parcel is found!\n");
+            if (deletedParcel is null)
+                throw new IdNotFoundException("ERROR: the parcel is not found!\n");
             if (deletedParcel.Element("Deleted").Value == "true")
                 throw new IdExistException("ERROR: the parcel was exist");
 
@@ -92,10 +93,10 @@ namespace Dal
                         Priority = (Priorities) Enum.Parse(typeof(Priorities),
                             parcel.Element("Priority").Value.ToString()),
                         DroneId = Convert.ToInt32(parcel.Element("DroneId").Value),
-                        Requested = DateTime.Parse(parcel.Element("Requested").Value),
-                        Scheduled = DateTime.Parse(parcel.Element("Scheduled").Value),
-                        PickedUp = DateTime.Parse(parcel.Element("PickedUp").Value),
-                        Delivered = DateTime.Parse(parcel.Element("Delivered").Value),
+                        Requested = (parcel.Element("Requested").Value == "") ? (DateTime?)null : DateTime.Parse(parcel.Element("Requested").Value),
+                        Scheduled = (parcel.Element("Scheduled").Value == "") ? (DateTime?)null : DateTime.Parse(parcel.Element("Scheduled").Value),
+                        PickedUp = (parcel.Element("PickedUp").Value == "") ? (DateTime?)null : DateTime.Parse(parcel.Element("PickedUp").Value),
+                        Delivered = (parcel.Element("Delivered").Value == "") ? (DateTime?) null : DateTime.Parse(parcel.Element("Delivered").Value),
                         Deleted = Convert.ToBoolean(parcel.Element("Deleted").Value)
                     }).FirstOrDefault();
             }
@@ -116,8 +117,28 @@ namespace Dal
         /// <returns></returns>
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> parcelPredicate)
         {
-            var parcelsXml = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
-            IEnumerable<Parcel> parcels = parcelsXml.Where(parcel => parcelPredicate(parcel));
+            //var parcelsXml = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
+            //IEnumerable<Parcel> parcels = parcelsXml.Where(parcel => parcelPredicate(parcel));
+
+            XElement parcelsXml = XMLTools.LoadListFromXmlElement(parcelsPath);
+            IEnumerable<Parcel> parcels = (from parcel in parcelsXml.Elements()
+                select new Parcel()
+                {
+                    Id = Convert.ToInt32(parcel.Element("Id").Value),
+                    SenderId = Convert.ToInt32(parcel.Element("SenderId").Value),
+                    TargetId = Convert.ToInt32(parcel.Element("TargetId").Value),
+                    Weight = (WeightCategories)Enum.Parse(typeof(WeightCategories),
+                        parcel.Element("Weight").Value.ToString()),
+                    Priority = (Priorities)Enum.Parse(typeof(Priorities),
+                        parcel.Element("Priority").Value.ToString()),
+                    DroneId = Convert.ToInt32(parcel.Element("DroneId").Value),
+                    Requested = (parcel.Element("Requested").Value == "") ? (DateTime?)null : DateTime.Parse(parcel.Element("Requested").Value),
+                    Scheduled = (parcel.Element("Scheduled").Value == "") ? (DateTime?)null : DateTime.Parse(parcel.Element("Scheduled").Value),
+                    PickedUp = (parcel.Element("PickedUp").Value == "") ? (DateTime?)null : DateTime.Parse(parcel.Element("PickedUp").Value),
+                    Delivered = (parcel.Element("Delivered").Value == "") ? (DateTime?)null : DateTime.Parse(parcel.Element("Delivered").Value),
+                    Deleted = Convert.ToBoolean(parcel.Element("Deleted").Value)
+                });
+            parcels = parcels.Where(parcel => parcelPredicate(parcel));
             return parcels;
         }
 

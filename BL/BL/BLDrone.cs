@@ -299,11 +299,18 @@ namespace BL
             if (drone.Status != DroneStatuses.Maintenance)
                 throw new StatusDroneException("The drone can not release because he isn't in maintenance status.\n");
 
-            DO.DroneCharge droneCharge = dal.GetDronesCharge(droneCharge => droneCharge.Deleted == false && droneCharge.DroneId == droneId).First();
-            
-            DO.Station updateStation = dal.GetStation(droneCharge.StationId);
-            updateStation.AvailableChargeSlots++;
-            dal.UpdateStation(updateStation);
+            DO.DroneCharge droneCharge = dal.GetDronesCharge(droneCharge => droneCharge.Deleted == false && droneCharge.DroneId == droneId).FirstOrDefault();
+
+            try
+            {
+                DO.Station updateStation = dal.GetStation(droneCharge.StationId);
+                updateStation.AvailableChargeSlots++;
+                dal.UpdateStation(updateStation);
+            }
+            catch (DO.IdExistException e) // the station already delete so don't to need update
+            { }
+            catch (DO.IdNotFoundException e)
+            { }
 
             TimeSpan? chargeTime = DateTime.Now - droneCharge.StartCharging;
             double batteryCharge = chargeTime.Value.TotalSeconds * (chargingRate / 3600);

@@ -2,82 +2,82 @@
 <ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Customer>
     <Id>1000000010</Id>
-    <Name>Abraham</Name>
-    <Phone>0552873972</Phone>
-    <Longitude>0.38673816685878587</Longitude>
-    <Latitude>0.022353158342816475</Latitude>
+    <Name>Jacob</Name>
+    <Phone>0538139662</Phone>
+    <Longitude>0.7168773253061237</Longitude>
+    <Latitude>0.14306180837706747</Latitude>
     <Deleted>false</Deleted>
   </Customer>
   <Customer>
     <Id>1000000109</Id>
     <Name>Joseph</Name>
-    <Phone>0518474406</Phone>
-    <Longitude>0.9431725754137955</Longitude>
-    <Latitude>0.6767351178809698</Latitude>
+    <Phone>0560327105</Phone>
+    <Longitude>0.30355396089309544</Longitude>
+    <Latitude>0.2814091268374627</Latitude>
     <Deleted>false</Deleted>
   </Customer>
   <Customer>
     <Id>1000000208</Id>
-    <Name>Isaac</Name>
-    <Phone>0565271195</Phone>
-    <Longitude>0.4427325653111248</Longitude>
-    <Latitude>0.618221402921817</Latitude>
+    <Name>Jacob</Name>
+    <Phone>0531769086</Phone>
+    <Longitude>0.7919028866067076</Longitude>
+    <Latitude>0.22446427551306053</Latitude>
     <Deleted>false</Deleted>
   </Customer>
   <Customer>
     <Id>1000000307</Id>
-    <Name>Moshe</Name>
-    <Phone>0557107821</Phone>
-    <Longitude>0.16406458251367537</Longitude>
-    <Latitude>0.5673709803108922</Latitude>
+    <Name>Joseph</Name>
+    <Phone>0563897629</Phone>
+    <Longitude>0.48058384260189896</Longitude>
+    <Latitude>0.9253100854928187</Latitude>
     <Deleted>false</Deleted>
   </Customer>
   <Customer>
     <Id>1000000406</Id>
-    <Name>Moshe</Name>
-    <Phone>0541452669</Phone>
-    <Longitude>0.47397214196341675</Longitude>
-    <Latitude>0.676068134455042</Latitude>
+    <Name>Abraham</Name>
+    <Phone>0585820116</Phone>
+    <Longitude>0.23265543590889098</Longitude>
+    <Latitude>0.6282502620612506</Latitude>
     <Deleted>false</Deleted>
   </Customer>
   <Customer>
     <Id>1000000505</Id>
-    <Name>Isaac</Name>
-    <Phone>0592645425</Phone>
-    <Longitude>0.09943620352979572</Longitude>
-    <Latitude>0.44152453934844793</Latitude>
+    <Name>Moshe</Name>
+    <Phone>0547361180</Phone>
+    <Longitude>0.8248587818000739</Longitude>
+    <Latitude>0.9289407780994385</Latitude>
     <Deleted>false</Deleted>
   </Customer>
   <Customer>
     <Id>1000000604</Id>
     <Name>Abraham</Name>
-    <Phone>0514452542</Phone>
-    <Longitude>0.155522625500114</Longitude>
-    <Latitude>0.8734517963013853</Latitude>
+    <Phone>0527155040</Phone>
+    <Longitude>0.3859025232428231</Longitude>
+    <Latitude>0.6009510492910403</Latitude>
     <Deleted>false</Deleted>
   </Customer>
   <Customer>
     <Id>1000000703</Id>
-    <Name>Isaac</Name>
-    <Phone>0586843724</Phone>
-    <Longitude>0.7238443152624389</Longitude>
-    <Latitude>0.02159931465126542</Latitude>
+    <Name>Moshe</Name>
+    <Phone>0519820831</Phone>
+    <Longitude>0.9409939120248864</Longitude>
+    <Latitude>0.40182246752168166</Latitude>
     <Deleted>false</Deleted>
   </Customer>
   <Customer>
     <Id>1000000802</Id>
-    <Name>Isaac</Name>
-    <Phone>0533135966</Phone>
-    <Longitude>0.46722721702755765</Longitude>
-    <Latitude>0.40119075793828385</Latitude>
+    <Name>Jacob</Name>
+    <Phone>0596258414</Phone>
+    <Longitude>0.5911672863136824</Longitude>
+    <Latitude>0.07321606486719849</Latitude>
     <Deleted>false</Deleted>
   </Customer>
   <Customer>
     <Id>1000000901</Id>
-    <Name>Joseph</Name>
-    <Phone>0574074531</Phone>
-    <Longitude>0.32497752892085235</Longitude>
-    <Latitude>0.8142515932276154</Latitude>
+    <Name>Moshe</Name>
+    <Phone>0587055241</Phone>
+    <Longitude>0.635387132240174</Longitude>
+    <Latitude>0.9793377942309425</Latitude>
     <Deleted>false</Deleted>
   </Customer>
 </ArrayOfCustomer>
