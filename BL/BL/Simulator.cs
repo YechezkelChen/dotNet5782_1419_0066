@@ -24,6 +24,10 @@ namespace BL
                
             }
         }
+        public void SimulatorMod(BlApi.IBL bl, int droneId, Action<Drone> action, Func<bool> stopSimulatorMod) //for the simulator mod
+        {
+            
+        }
     }
 }
 

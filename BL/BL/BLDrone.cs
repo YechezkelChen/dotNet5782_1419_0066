@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BO;
 using System.Runtime.CompilerServices;
+using BlApi;
 
 namespace BL
 {
@@ -293,17 +294,18 @@ namespace BL
                 updateStation.AvailableChargeSlots--;
                 dal.UpdateStation(updateStation);
 
-            DO.DroneCharge newDroneCharge = new DO.DroneCharge();
-            newDroneCharge.StationId = nearStation.Id;
-            newDroneCharge.DroneId = drone.Id;
-            newDroneCharge.StartCharging = DateTime.Now;
-            try
-            {
-                dal.AddDroneCharge(newDroneCharge);
-            }
-            catch (DO.IdExistException e)
-            {
-                throw new IdException(e.Message, e);
+                DO.DroneCharge newDroneCharge = new DO.DroneCharge();
+                newDroneCharge.StationId = nearStation.Id;
+                newDroneCharge.DroneId = drone.Id;
+                newDroneCharge.StartCharging = DateTime.Now;
+                try
+                {
+                    dal.AddDroneCharge(newDroneCharge);
+                }
+                catch (DO.IdExistException e)
+                {
+                    throw new IdException(e.Message, e);
+                }
             }
         }
 
@@ -499,6 +501,11 @@ namespace BL
                     ListDrones[i] = newDrone;
                 }
             }
+        }
+
+        public void SimulatorMod(IBL bl, int droneId, Action<Drone> action, Func<bool> stopSimulatorMod)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
