@@ -293,20 +293,18 @@ namespace BL
                 updateStation.AvailableChargeSlots--;
                 dal.UpdateStation(updateStation);
 
-                DO.DroneCharge newDroneCharge = new DO.DroneCharge();
-                newDroneCharge.StationId = nearStation.Id;
-                newDroneCharge.DroneId = drone.Id;
-                newDroneCharge.StartCharging = DateTime.Now;
-                try
-                {
-                    dal.AddDroneCharge(newDroneCharge);
-                }
-                catch (DO.IdExistException e)
-                {
-                    throw new IdException(e.Message, e);
-                }
+            DO.DroneCharge newDroneCharge = new DO.DroneCharge();
+            newDroneCharge.StationId = nearStation.Id;
+            newDroneCharge.DroneId = drone.Id;
+            newDroneCharge.StartCharging = DateTime.Now;
+            try
+            {
+                dal.AddDroneCharge(newDroneCharge);
             }
-       
+            catch (DO.IdExistException e)
+            {
+                throw new IdException(e.Message, e);
+            }
         }
 
         /// <summary>

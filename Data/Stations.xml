@@ -2,82 +2,82 @@
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
     <Id>100100</Id>
-    <Name>Palmach</Name>
-    <Longitude>0.4575959590531867</Longitude>
-    <Latitude>0.5652019286366189</Latitude>
-    <AvailableChargeSlots>-1</AvailableChargeSlots>
-    <Deleted>False</Deleted>
+    <Name>Artist</Name>
+    <Longitude>0.16483454274238765</Longitude>
+    <Latitude>0.2960536891110491</Latitude>
+    <AvailableChargeSlots>6</AvailableChargeSlots>
+    <Deleted>true</Deleted>
   </Station>
   <Station>
     <Id>100110</Id>
-    <Name>Carmel</Name>
-    <Longitude>0.7472859456889731</Longitude>
-    <Latitude>0.5661370379692582</Latitude>
-    <AvailableChargeSlots>-3</AvailableChargeSlots>
-    <Deleted>False</Deleted>
+    <Name>Artist</Name>
+    <Longitude>0.08839772459510607</Longitude>
+    <Latitude>0.7261808820656411</Latitude>
+    <AvailableChargeSlots>4</AvailableChargeSlots>
+    <Deleted>false</Deleted>
   </Station>
   <Station>
     <Id>100120</Id>
     <Name>Artist</Name>
-    <Longitude>0.7411620848538177</Longitude>
-    <Latitude>0.6397079851663243</Latitude>
+    <Longitude>0.6522925052104017</Longitude>
+    <Latitude>0.39992406330999175</Latitude>
     <AvailableChargeSlots>0</AvailableChargeSlots>
     <Deleted>False</Deleted>
   </Station>
   <Station>
     <Id>100130</Id>
-    <Name>Palmach</Name>
-    <Longitude>0.4959599685370736</Longitude>
-    <Latitude>0.9156856918314871</Latitude>
+    <Name>Artist</Name>
+    <Longitude>0.7579659646181232</Longitude>
+    <Latitude>0.27605169884676656</Latitude>
     <AvailableChargeSlots>0</AvailableChargeSlots>
-    <Deleted>False</Deleted>
+    <Deleted>false</Deleted>
   </Station>
   <Station>
     <Id>100140</Id>
+    <Name>Bar Ilan</Name>
+    <Longitude>0.04376099819492595</Longitude>
+    <Latitude>0.06059257782091972</Latitude>
+    <AvailableChargeSlots>1</AvailableChargeSlots>
+    <Deleted>false</Deleted>
+  </Station>
+  <Station>
+    <Id>100150</Id>
     <Name>Artist</Name>
-    <Longitude>0.18896194649346262</Longitude>
-    <Latitude>0.9477680553438924</Latitude>
+    <Longitude>0.46716636487616525</Longitude>
+    <Latitude>0.9992311694655712</Latitude>
+    <AvailableChargeSlots>4</AvailableChargeSlots>
+    <Deleted>false</Deleted>
+  </Station>
+  <Station>
+    <Id>100160</Id>
+    <Name>Jaffa</Name>
+    <Longitude>0.7172854974480743</Longitude>
+    <Latitude>0.3363796814048568</Latitude>
+    <AvailableChargeSlots>3</AvailableChargeSlots>
+    <Deleted>false</Deleted>
+  </Station>
+  <Station>
+    <Id>100170</Id>
+    <Name>Jaffa</Name>
+    <Longitude>0.3558491404894037</Longitude>
+    <Latitude>0.48689490253426826</Latitude>
+    <AvailableChargeSlots>2</AvailableChargeSlots>
+    <Deleted>false</Deleted>
+  </Station>
+  <Station>
+    <Id>100180</Id>
+    <Name>Carmel</Name>
+    <Longitude>0.6321957081706243</Longitude>
+    <Latitude>0.1393714822546446</Latitude>
     <AvailableChargeSlots>1</AvailableChargeSlots>
     <Deleted>False</Deleted>
   </Station>
   <Station>
-    <Id>100150</Id>
-    <Name>Palmach</Name>
-    <Longitude>0.2371139723049076</Longitude>
-    <Latitude>0.7342924018084502</Latitude>
-    <AvailableChargeSlots>-3</AvailableChargeSlots>
-    <Deleted>False</Deleted>
-  </Station>
-  <Station>
-    <Id>100160</Id>
-    <Name>Palmach</Name>
-    <Longitude>0.008496334314577437</Longitude>
-    <Latitude>0.4987528321793083</Latitude>
-    <AvailableChargeSlots>-2</AvailableChargeSlots>
-    <Deleted>False</Deleted>
-  </Station>
-  <Station>
-    <Id>100170</Id>
-    <Name>Palmach</Name>
-    <Longitude>0.8870560591514484</Longitude>
-    <Latitude>0.7364025720098999</Latitude>
-    <AvailableChargeSlots>-1</AvailableChargeSlots>
-    <Deleted>False</Deleted>
-  </Station>
-  <Station>
-    <Id>100180</Id>
-    <Name>Artist</Name>
-    <Longitude>0.9986206660972073</Longitude>
-    <Latitude>0.10032876725323907</Latitude>
-    <AvailableChargeSlots>-5</AvailableChargeSlots>
-    <Deleted>False</Deleted>
-  </Station>
-  <Station>
     <Id>100190</Id>
-    <Name>Palmach</Name>
-    <Longitude>0.2211265094676644</Longitude>
-    <Latitude>0.843901861386328</Latitude>
-    <AvailableChargeSlots>2</AvailableChargeSlots>
-    <Deleted>False</Deleted>
+    <Name>Bar Ilan</Name>
+    <Longitude>0.6602854051907945</Longitude>
+    <Latitude>0.46822877017233</Latitude>
+    <AvailableChargeSlots>1</AvailableChargeSlots>
+    <Deleted>false</Deleted>
   </Station>
 </ArrayOfStation>

@@ -110,6 +110,22 @@ namespace PL
             this.Content = "";
         }
 
+        private void RemoveDroneButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.RemoveDrone(drone.Id);
+            }
+            catch (BO.ScheduledException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Update the view
+            drones.Remove(drones.Where(d => d.Id == drone.Id).Single());
+            this.Content = "";
+        }
         private void UpdateModelButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -352,23 +368,6 @@ namespace PL
                 if (value is ValueType || value is string)
                     propTo.SetValue(to, value);
             }
-        }
-
-        private void RemoveDroneButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                bl.RemoveDrone(drone.Id);
-            }
-            catch (BO.ScheduledException ex)
-            {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            // Update the view
-            drones.Remove(drones.Where(d => d.Id == drone.Id).Single());
-            this.Content = "";
         }
     }
 }

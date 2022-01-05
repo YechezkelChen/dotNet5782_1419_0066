@@ -82,6 +82,7 @@ namespace Dal
                     StartCharging = DateTime.Parse(droneCharge.Element("StartCharging").Value),
                     Deleted = Convert.ToBoolean(droneCharge.Element("Deleted").Value)
                 });
+            dronesCharge = dronesCharge.Where(droneCharge => droneChargePredicate(droneCharge));
             return dronesCharge;
         }
     }

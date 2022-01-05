@@ -103,40 +103,56 @@ namespace BL
                             drone = ListDrones[i];
                         }
 
+            foreach (var droneCharge in dal.GetDronesCharge(droneCharge => droneCharge.Deleted == false))
+                for (int i = 0; i < ListDrones.Count(); i++)
+                    if (ListDrones[i].Id == droneCharge.DroneId)
+                    {
+                        DroneToList drone = new DroneToList();
+                        drone = ListDrones[i];
+
+                        DO.Station station = dal.GetStation(droneCharge.StationId);
+                        drone.Location = new Location() { Longitude = station.Longitude, Latitude = station.Latitude };
+
+                        drone.Battery = 20 * rand.NextDouble();
+                        drone.Battery = (double)System.Math.Round(drone.Battery, 2);
+
+                        drone.Status = DroneStatuses.Maintenance;
+                        drone.IdParcel = 0;
+                    }
+
             for (int i = 0; i < ListDrones.Count(); i++)
             {
                 DroneToList drone = new DroneToList();
                 drone = ListDrones[i];
-                if (drone.Status != DroneStatuses.Delivery)
-                    drone.Status = (DroneStatuses)rand.Next(0, 2);
 
-                if (drone.Status == DroneStatuses.Maintenance)
-                {
-                    IEnumerable<DO.Station> stationList = dal.GetStations(station => station.Deleted == false && station.AvailableChargeSlots > 0);
-                    int index = rand.Next(0, stationList.Count());
-                    DO.Station station = stationList.ElementAt(index);
-                    drone.Location = new Location() { Longitude = station.Longitude, Latitude = station.Latitude };
+                // For the first run to keep the drone in Maintenance to drone charge.
 
-                    drone.Battery = 20 * rand.NextDouble();
-                    drone.Battery = (double)System.Math.Round(drone.Battery, 2);
-                    drone.IdParcel = 0;
+                //if (drone.Status != DroneStatuses.Delivery)
+                //    drone.Status = (DroneStatuses)rand.Next(0, 2);
 
-                    // Update the station
-                    station.AvailableChargeSlots--;
-                    dal.UpdateStation(station);
+                //if (drone.Status == DroneStatuses.Maintenance)
+                //{
+                //    IEnumerable<DO.Station> stationList = dal.GetStations(station =>
+                //        station.Deleted == false && station.AvailableChargeSlots > 0);
+                //    int index = rand.Next(0, stationList.Count());
+                //    DO.Station station = stationList.ElementAt(index);
+                //    drone.Location = new Location() { Longitude = station.Longitude, Latitude = station.Latitude };
 
-                    // Add drone charge
-                    DO.DroneCharge droneCharge = new DO.DroneCharge();
-                    droneCharge.StationId = station.Id;
-                    droneCharge.DroneId = drone.Id;
-                    droneCharge.StartCharging = DateTime.Now;
-                    try
-                    {
-                        dal.AddDroneCharge(droneCharge);
-                    }
-                    catch (DO.IdExistException)
-                    { }
-                }
+                //    drone.Battery = 20 * rand.NextDouble();
+                //    drone.Battery = (double)System.Math.Round(drone.Battery, 2);
+                //    drone.IdParcel = 0;
+
+                //    // Update the station
+                //    station.AvailableChargeSlots--;
+                //    dal.UpdateStation(station);
+
+                //    // Add drone charge
+                //    DO.DroneCharge droneCharge = new DO.DroneCharge();
+                //    droneCharge.StationId = station.Id;
+                //    droneCharge.DroneId = drone.Id;
+                //    droneCharge.StartCharging = DateTime.Now;
+                //    dal.AddDroneCharge(droneCharge);
+                //}
 
                 if (drone.Status == DroneStatuses.Available)
                 {

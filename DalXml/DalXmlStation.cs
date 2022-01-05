@@ -31,7 +31,6 @@ namespace Dal
                 throw new IdExistException("ERROR: the station is found!\n");
             }
 
-
             XElement id = new XElement("Id", newStation.Id);
             XElement name = new XElement("Name", newStation.Name);
             XElement longitude = new XElement("Longitude", newStation.Longitude);
@@ -109,7 +108,6 @@ namespace Dal
             //var stationsXml = XMLTools.LoadListFromXmlSerializer<Station>(stationsPath);
             //IEnumerable<Station> stations = stationsXml.Where(station => stationPredicate(station));
 
-
             XElement stationsXml = XMLTools.LoadListFromXmlElement(stationsPath);
             IEnumerable<Station> stations = (from station in stationsXml.Elements()
                 select new Station()
@@ -121,6 +119,7 @@ namespace Dal
                     AvailableChargeSlots = Convert.ToInt32(station.Element("AvailableChargeSlots").Value),
                     Deleted = Convert.ToBoolean(station.Element("Deleted").Value)
                 });
+            stations = stations.Where(station => stationPredicate(station));
             return stations;
         }
 
