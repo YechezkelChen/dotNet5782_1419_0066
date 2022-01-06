@@ -13,6 +13,7 @@ namespace BL
         /// add parcel with all fields to data source with checking 
         /// </summary>
         /// <param name="newParcel"></param>
+        
         [MethodImpl(MethodImplOptions.Synchronized)]
         public int AddParcel(Parcel newParcel)
         {
@@ -29,8 +30,6 @@ namespace BL
 
             lock (dal)
             {
-
-
                 DO.Parcel parcel = new DO.Parcel();
 
                 parcel.SenderId = newParcel.Sender.Id;
@@ -61,6 +60,7 @@ namespace BL
         /// Removes a parcel from the list of parcels.
         /// </summary>
         /// <param name="parcelId"></param>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveParcel(int parcelId)
         {
@@ -90,6 +90,7 @@ namespace BL
         /// </summary>
         /// <param name="parcelId"></param>
         /// <returns></returns>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int parcelId)
         {
@@ -114,7 +115,7 @@ namespace BL
                 parcel.Weight = (WeightCategories) dalParcel.Weight;
                 parcel.Priority = (Priorities) dalParcel.Priority;
 
-                foreach (var drone in ListDrones)
+                foreach (var drone in listDrones)
                     if (drone.Id == dalParcel.DroneId)
                         parcel.DroneInParcel = new DroneInParcel()
                         {
@@ -140,6 +141,7 @@ namespace BL
         /// return the list of parcels in special entity for show
         /// </summary>
         /// <returns></returns>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelToList> GetParcels()
         {
@@ -176,6 +178,7 @@ namespace BL
         /// Returning the list of parcels with no drones in a special entity "Parcel to list".
         /// </summary>
         /// <returns></returns>
+     
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelToList> GetParcelsNoDrones()
         {
@@ -188,6 +191,7 @@ namespace BL
         /// return the list of parcels in special status for show
         /// </summary>
         /// <returns></returns>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelToList> GetParcelsByStatus(ParcelStatuses status)
         {
@@ -199,6 +203,7 @@ namespace BL
         /// return the list of parcels in special date for show
         /// </summary>
         /// <returns></returns>
+     
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelToList> GetParcelsByDate(DateTime dateTime)
         {
@@ -209,6 +214,7 @@ namespace BL
         /// return the list after groping
         /// </summary>
         /// <returns></returns>
+     
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<IGrouping<string, ParcelToList>> GetParcelsByGroupCustomers(string typeCustomer)
         {
@@ -223,7 +229,6 @@ namespace BL
         /// check the input in add parcel to list
         /// </summary>
         /// <param name="parcel"></param>
-        [MethodImpl(MethodImplOptions.Synchronized)]
         private void CheckParcel(Parcel parcel)
         {
             lock (dal)
@@ -231,7 +236,6 @@ namespace BL
                 try
                 {
                     dal.GetCustomer(parcel.Sender.Id);
-
                 }
                 catch (DO.IdNotFoundException)
                 {

@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <data-config>
   <BatteryUsages>
-    <FreeBatteryUsing>1</FreeBatteryUsing>
-    <LightBatteryUsing>2</LightBatteryUsing>
-    <MediumBatteryUsing>3</MediumBatteryUsing>
-    <HeavyBatteryUsing>4</HeavyBatteryUsing>
+    <FreeBatteryUsing>0.05</FreeBatteryUsing>
+    <LightBatteryUsing>0.1</LightBatteryUsing>
+    <MediumBatteryUsing>0.2</MediumBatteryUsing>
+    <HeavyBatteryUsing>0.3</HeavyBatteryUsing>
     <ChargingRate>4</ChargingRate>
   </BatteryUsages>
   <RunNumbers>
-    <NewParcelId>100011</NewParcelId>
+    <NewParcelId>100016</NewParcelId>
   </RunNumbers>
 </data-config>

@@ -8,6 +8,12 @@ namespace BlApi
 {
     public interface IBL
     {
+        void CopyPropertiesTo<T, S>(S from, T to); // Copy properties
+        double Distance(Location from, Location to); // Calculate distance between 2 locations
+
+        //Simulator
+        void SimulatorMod(int droneId, Action action, Func<bool> stopSimulatorMod); //for the simulator mod
+
         // Station
         void AddStation(Station newStation); // Adds a station to the list of stations.
         void RemoveStation(int stationId); // Removes a parcel from the list of parcels.
@@ -33,11 +39,6 @@ namespace BlApi
         void CollectionParcelByDrone(int droneId); // Sending the desired drone (according to id) to collect the parcel from its place.
         void SupplyParcelByDrone(int droneId); // Sending the drone (according to id) deliver the parcel to the destination of the parcel.
 
-        //DroneInCharge
-        void RemoveDroneInCharge(Station station, DroneInCharge droneInCharge);
-
-        //Simulator
-        void SimulatorMod(BlApi.IBL bl, int droneId, Action<Drone> action, Func<bool> stopSimulatorMod); //for the simulator mod
 
         // Customer
         void AddCustomer(Customer newCustomer); // Adds a customer to the list of customers.
@@ -45,6 +46,7 @@ namespace BlApi
         Customer GetCustomer(int customerId); // Returning a customer according to the id of the customer.
         IEnumerable<CustomerToList> GetCustomers(); // Returning the list of customers in a special entity "Customer to list".
         void UpdateDataCustomer(int id, string name, string phone); // Update customer data according to user request.
+        int LastDigitId(int lessId); // Function for the digit check in id.
 
 
         // Parcel 
@@ -56,5 +58,9 @@ namespace BlApi
         IEnumerable<ParcelToList> GetParcelsByStatus(ParcelStatuses status); // Returning the list of parcels in special status for show
         IEnumerable<ParcelToList> GetParcelsByDate(DateTime dateTime);  // Returning the list of parcels in special date for show
         IEnumerable<IGrouping<string, ParcelToList>> GetParcelsByGroupCustomers(string typeCustomer); // Returning the list after groping
+
+
+        //DroneInCharge
+        void RemoveDroneInCharge(Station station, DroneInCharge droneInCharge);
     }
 }

@@ -11,6 +11,7 @@ namespace BL
         /// add a customer
         /// </summary>
         /// <returns></no returns, add a customer>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer newCustomer)
         {
@@ -37,10 +38,8 @@ namespace BL
 
             lock (dal)
             {
-
-
                 DO.Customer customer = new DO.Customer();
-                customer.Id = newCustomer.Id * 10 + lastDigitID(newCustomer.Id); // Add check digit to Id
+                customer.Id = newCustomer.Id * 10 + LastDigitId(newCustomer.Id); // Add check digit to Id
                 customer.Name = newCustomer.Name;
                 customer.Phone = newCustomer.Phone;
                 customer.Longitude = newCustomer.Location.Longitude;
@@ -61,6 +60,7 @@ namespace BL
         /// Removes a customer from the list of customers.
         /// </summary>
         /// <param name="customerId"></param>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveCustomer(int customerId)
         {
@@ -85,6 +85,7 @@ namespace BL
         /// get a customer
         /// </summary>
         /// <returns></return the customer>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomer(int customerId)
         {
@@ -139,6 +140,7 @@ namespace BL
         /// get a customers
         /// </summary>
         /// <returns></return all customers>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<CustomerToList> GetCustomers()
         {
@@ -151,14 +153,10 @@ namespace BL
                         Id = dalCustomer.Id,
                         Name = dalCustomer.Name,
                         Phone = dalCustomer.Phone,
-                        SenderParcelDelivered = customer.FromTheCustomerList
-                            .Where(parcel => parcel.Status == ParcelStatuses.Delivered).Count(),
-                        SenderParcelPickedUp = customer.FromTheCustomerList
-                            .Where(parcel => parcel.Status == ParcelStatuses.PickedUp).Count(),
-                        TargetParcelDelivered = customer.ToTheCustomerList
-                            .Where(parcel => parcel.Status == ParcelStatuses.Delivered).Count(),
-                        TargetParcelPickedUp = customer.ToTheCustomerList
-                            .Where(parcel => parcel.Status == ParcelStatuses.PickedUp).Count()
+                        SenderParcelDelivered = customer.FromTheCustomerList.Count(parcel => parcel.Status == ParcelStatuses.Delivered),
+                        SenderParcelPickedUp = customer.FromTheCustomerList.Count(parcel => parcel.Status == ParcelStatuses.PickedUp),
+                        TargetParcelDelivered = customer.ToTheCustomerList.Count(parcel => parcel.Status == ParcelStatuses.Delivered),
+                        TargetParcelPickedUp = customer.ToTheCustomerList.Count(parcel => parcel.Status == ParcelStatuses.PickedUp)
                     };
             }
         }
@@ -167,6 +165,7 @@ namespace BL
         /// Update the data of the customer
         /// </summary>
         /// <returns></no returns, update the data of the customer>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDataCustomer(int id, string name, string phone)
         {
@@ -200,42 +199,24 @@ namespace BL
         }
 
         /// <summary>
-        /// Check the input of the user
-        /// </summary>
-        /// <returns></no returns, just check the input of the user>
-        private void CheckCustomer(Customer customer)
-        {
-            if(customer.Id < 10000000 || customer.Id > 99999999) // Check that it's 8 digits.
-                throw new IdException("ERROR: the ID is illegal! ");
-            if (customer.Name.Length == 0)
-                throw new NameException("ERROR: name must have value");
-            int phone;
-            if (customer.Phone.Length != 10 || customer.Phone.Substring(0, 2) != "05" ||
-                !int.TryParse(customer.Phone.Substring(2, customer.Phone.Length-2 ), out phone)) // check format phone
-                throw new PhoneException("ERROR: phone must have 10 digits and to begin with the numbers 05");
-            if (customer.Location.Longitude < -1 || customer.Location.Longitude > 1)
-                throw new LocationException("ERROR: longitude must to be between -1 to 1");
-            if (customer.Location.Latitude < -1 || customer.Location.Latitude > 1)
-                throw new LocationException("ERROR: latitude must to be between -1 to 1");
-        }
-        
-        /// <summary>
         /// get last digit of the id
         /// </summary>
         /// <returns></return the last digit of the id>
-        private int lastDigitID(int lessID)
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public int LastDigitId(int lessId)
         {
             int digit1, digit2, sumResultDigits = 0, digitID;
-            for (int i = 1; i <= lessID; i++)
+            for (int i = 1; i <= lessId; i++)
             {
-                digit1 = lessID % 10;
+                digit1 = lessId % 10;
                 digit1 *= 2;//Calculating the digits double their weight.
-                sumResultDigits += sumDigits(digit1);//The sum of the result digits.
-                lessID /= 10;
-                digit2 = lessID % 10;
+                sumResultDigits += SumDigits(digit1);//The sum of the result digits.
+                lessId /= 10;
+                digit2 = lessId % 10;
                 digit2 *= 1;//Calculating the digits double their weight.
-                sumResultDigits += sumDigits(digit2);//The sum of the result digits.
-                lessID /= 10;
+                sumResultDigits += SumDigits(digit2);//The sum of the result digits.
+                lessId /= 10;
             }
             sumResultDigits %= 10;//The unity digit of the result.
 
@@ -244,9 +225,9 @@ namespace BL
         }
 
         /// <summary>
-        ///Entering a number by the computer.
+        /// Sum digits of number
         /// <returns></return the sum of digit >
-        private int sumDigits(int num)
+        private int SumDigits(int num)
         {
             int sum_digits = 0;
             while (num > 0)
@@ -255,6 +236,26 @@ namespace BL
                 num = num / 10;
             }
             return sum_digits;//Return of the sum of his digits.
+        }
+
+        /// <summary>
+        /// Check the input of the user
+        /// </summary>
+        /// <returns></no returns, just check the input of the user>
+        private void CheckCustomer(Customer customer)
+        {
+            if (customer.Id < 10000000 || customer.Id > 99999999) // Check that it's 8 digits.
+                throw new IdException("ERROR: the ID is illegal! ");
+            if (customer.Name.Length == 0)
+                throw new NameException("ERROR: name must have value");
+            int phone;
+            if (customer.Phone.Length != 10 || customer.Phone.Substring(0, 2) != "05" ||
+                !int.TryParse(customer.Phone.Substring(2, customer.Phone.Length - 2), out phone)) // check format phone
+                throw new PhoneException("ERROR: phone must have 10 digits and to begin with the numbers 05");
+            if (customer.Location.Longitude < -1 || customer.Location.Longitude > 1)
+                throw new LocationException("ERROR: longitude must to be between -1 to 1");
+            if (customer.Location.Latitude < -1 || customer.Location.Latitude > 1)
+                throw new LocationException("ERROR: latitude must to be between -1 to 1");
         }
     }
 }

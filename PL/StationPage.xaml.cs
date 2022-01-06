@@ -82,7 +82,7 @@ namespace PL
             StationToList newStation = new StationToList();
             BO.StationToList boStationToList = new BO.StationToList();
             boStationToList = bl.GetStations().First(station => station.Id == boStation.Id);
-            CopyPropertiesTo(boStationToList, newStation);
+            bl.CopyPropertiesTo(boStationToList, newStation);
             stations.Add(newStation);
             this.Content = "";
         }
@@ -90,7 +90,7 @@ namespace PL
         {
             this.Content = "";
         }
-        private void RemoveParcelButton_Click(object sender, RoutedEventArgs e)
+        private void RemoveStationButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -133,21 +133,9 @@ namespace PL
                 if (stations[i].Id == updateStation.Id)
                 {
                     StationToList newStation = stations[i];
-                    CopyPropertiesTo(updateStation, newStation);
+                    bl.CopyPropertiesTo(updateStation, newStation);
                     stations[i] = newStation;
                 }
-        }
-        public void CopyPropertiesTo<T, S>(S from, T to)
-        {
-            foreach (PropertyInfo propTo in to.GetType().GetProperties())
-            {
-                PropertyInfo propFrom = typeof(S).GetProperty(propTo.Name);
-                if (propFrom == null)
-                    continue;
-                var value = propFrom.GetValue(from, null);
-                if (value is ValueType || value is string)
-                    propTo.SetValue(to, value);
-            }
         }
     }
 }

@@ -8,6 +8,10 @@
       d:DesignHeight="650" d:DesignWidth="600"
       Title="DroneListWindow">
 
+    <Page.Resources>
+        <local:BatteryToColor x:Key="BatteryToColor" />
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60*"/>
@@ -44,7 +48,16 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="76"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" Header="Model" Width="100"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" Header="Weight" Width="110"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Battery}" Header="Battery" Width="111"/>
+                    <GridViewColumn  Header="Battery" Width="120">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Name="BatteryGrid">
+                                    <ProgressBar Value="{Binding Path=Battery}" Height="35" Width="120" Foreground="{Binding Path=Battery, Converter={StaticResource BatteryToColor}}" Background="White" />
+                                    <TextBlock Text="{Binding Path=Battery}" FontSize="17" HorizontalAlignment="Center" FontFamily="Agency FB" FontWeight="Bold" Foreground="#2F3E46" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="Status" Width="104"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=IdParcel}" Header="Parcel" Width="105"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Location}" Header="Location" Width="150"/>

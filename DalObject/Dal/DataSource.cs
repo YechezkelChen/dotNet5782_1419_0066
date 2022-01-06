@@ -18,10 +18,10 @@ namespace Dal
             internal static int NewParcelId = 100000;
 
             // km per hour
-            internal static double FreeBatteryUsing = 1;
-            internal static double LightBatteryUsing = 2;
-            internal static double MediumBatteryUsing = 3;
-            internal static double HeavyBatteryUsing = 4;
+            internal static double FreeBatteryUsing = 0.05;
+            internal static double LightBatteryUsing = 0.1;
+            internal static double MediumBatteryUsing = 0.2;
+            internal static double HeavyBatteryUsing = 0.3;
             internal static double ChargingRate = 4;
         }
 

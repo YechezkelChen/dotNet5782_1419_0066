@@ -24,7 +24,6 @@ namespace PL
             ParcelsData();
 
             StatusSelector.ItemsSource = Enum.GetValues(typeof(ParcelStatuses));
-            //DateSelector.ItemsSource = 
         }
 
         private void ParcelsData()
@@ -44,19 +43,10 @@ namespace PL
 
             parcelsData = parcelsFiltering.ToList().FindAll(parcel => parcelsData.ToList().Find(p => p.Id == parcel.Id) != null);
 
-            // Filtering of date
-            //if (DateSelector.SelectedItem == null)
-                //parcelsFiltering = bl.GetParcels();
-            //else 
-                //parcelsFiltering = bl.GetParcelsByDate((BO.WeightCategories)DateSelector.SelectedItem);????????????????????????????????????????????????????????????????????????????
-            
-            //parcelsData = parcelsFiltering.ToList().FindAll(parcel => parcelsData.ToList().Find(p => p.Id == parcel.Id) != null);
-
-            // Show the list after the filtering
             foreach (var parcel in parcelsData)
             {
                 ParcelToList newParcel = new ParcelToList();
-                CopyPropertiesTo(parcel, newParcel);
+                bl.CopyPropertiesTo(parcel, newParcel);
                 parcels.Add(newParcel);
             }
         }
@@ -81,7 +71,7 @@ namespace PL
                     foreach (var parcel in group)
                     {
                         ParcelToList newParcel = new ParcelToList();
-                        CopyPropertiesTo(parcel, newParcel);
+                        bl.CopyPropertiesTo(parcel, newParcel);
                         parcels.Add(newParcel);
                     }
             }
@@ -103,19 +93,6 @@ namespace PL
         {
             GroupByCustomersSelector.SelectedItem = null;
             ParcelsData();
-        }
-
-        public void CopyPropertiesTo<T, S>(S from, T to)
-        {
-            foreach (PropertyInfo propTo in to.GetType().GetProperties())
-            {
-                PropertyInfo propFrom = typeof(S).GetProperty(propTo.Name);
-                if (propFrom == null)
-                    continue;
-                var value = propFrom.GetValue(from, null);
-                if (value is ValueType || value is string)
-                    propTo.SetValue(to, value);
-            }
         }
     }
 }

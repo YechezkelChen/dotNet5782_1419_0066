@@ -32,6 +32,7 @@ namespace Dal
         }
 
         static DalObject() { }
+
         DalObject()
         {
             DataSource.Initialize();
@@ -47,8 +48,10 @@ namespace Dal
             //SaveListToXmlSerializer(DataSource.Parcels, parcelsPath);
             //SaveListToXmlSerializer(DataSource.Stations, stationsPath);
         }
+
         #endregion
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] GetRequestPowerConsumption()
         {
             double[] powerConsumption = new double[5];

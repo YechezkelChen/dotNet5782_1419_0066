@@ -13,6 +13,7 @@ namespace BL
         /// add a drone
         /// </summary>
         /// <returns></no returns, add a drone>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone newDrone, int idStation)
         {
@@ -44,11 +45,11 @@ namespace BL
             droneToList.Status = DroneStatuses.Maintenance;
             droneToList.Location = station.Location;
             droneToList.IdParcel = 0;
-            ListDrones.Add(droneToList);
+            listDrones.Add(droneToList);
 
             lock (dal)
             {
-                // For dataSource
+                // For dal
                 DO.Drone drone = new DO.Drone();
                 drone.Id = newDrone.Id;
                 drone.Model = newDrone.Model;
@@ -64,11 +65,9 @@ namespace BL
                 }
 
                 // Update the station
-
                 DO.Station updateStation = dal.GetStation(station.Id);
                 updateStation.AvailableChargeSlots--;
                 dal.UpdateStation(updateStation);
-
 
                 // Add drone charge
                 DO.DroneCharge droneCharge = new DO.DroneCharge();
@@ -90,6 +89,7 @@ namespace BL
         /// Removes a drone from the list of drones.
         /// </summary>
         /// <param name="droneId"></param>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveDrone(int droneId)
         {
@@ -110,17 +110,17 @@ namespace BL
             }
         }
 
-
         /// <summary>
         /// get a drone
         /// </summary>
         /// <returns></return the drone>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int droneId)
         {
             Drone drone = new Drone();
 
-            DroneToList droneToList = ListDrones.Find(drone => drone.Id == droneId);
+            DroneToList droneToList = listDrones.Find(drone => drone.Id == droneId);
             if (droneToList is null)
                 throw new IdException("ERROR: the drone is not found.");
 
@@ -157,7 +157,11 @@ namespace BL
                 drone.ParcelByTransfer.Target = new CustomerInParcel() { Id = customer.Id, Name = customer.Name };
                 drone.ParcelByTransfer.TargetLocation = new Location() { Longitude = customer.Longitude, Latitude = customer.Latitude };
 
-                drone.ParcelByTransfer.DistanceOfTransfer = Distance(drone.ParcelByTransfer.PickUpLocation, drone.ParcelByTransfer.TargetLocation);
+                if (drone.ParcelByTransfer.OnTheWay == false) // distance between drone to sender
+                    drone.ParcelByTransfer.DistanceOfTransfer = Distance(drone.Location, drone.ParcelByTransfer.PickUpLocation);
+                else  // distance between drone(and sender) to target
+                    drone.ParcelByTransfer.DistanceOfTransfer = Distance(drone.Location, drone.ParcelByTransfer.TargetLocation);
+
                 drone.ParcelByTransfer.DistanceOfTransfer = (double)System.Math.Round(drone.ParcelByTransfer.DistanceOfTransfer, 2);
             }
 
@@ -168,10 +172,11 @@ namespace BL
         /// get a drones
         /// </summary>
         /// <returns></return all drones>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> GetDrones()
         {
-            IEnumerable<DroneToList> drones = ListDrones;
+            IEnumerable<DroneToList> drones = listDrones;
             return drones;
         }
 
@@ -180,10 +185,11 @@ namespace BL
         /// </summary>
         /// <param name="status"></param>
         /// <returns></returns>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> GetDronesByStatus(DroneStatuses status)
         {
-            IEnumerable<DroneToList> drones = ListDrones.FindAll(drone => drone.Status == status);
+            IEnumerable<DroneToList> drones = listDrones.FindAll(drone => drone.Status == status);
             return drones;
         }
 
@@ -192,10 +198,11 @@ namespace BL
         /// </summary>
         /// <param name="weight"></param>
         /// <returns></returns>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> GetDronesByMaxWeight(WeightCategories weight)
         {
-            IEnumerable<DroneToList> drones = ListDrones.FindAll(drone => drone.Weight <= weight);
+            IEnumerable<DroneToList> drones = listDrones.FindAll(drone => drone.Weight <= weight);
             return drones;
         }
 
@@ -203,16 +210,19 @@ namespace BL
         /// return the list after groping
         /// </summary>
         /// <returns></returns>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<IGrouping<DroneStatuses, DroneToList>> GetDronesByGroupStatus()
         {
-            return GetDrones().GroupBy(drone => drone.Status);
+            IEnumerable<IGrouping<DroneStatuses, DroneToList>> drones = listDrones.GroupBy(drone => drone.Status);
+            return drones;
         }
 
         /// <summary>
         /// Update the model of the drone
         /// </summary>
         /// <returns></no returns, update the model of the drone>5
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDroneModel(int droneId, string newModel)
         {
@@ -236,14 +246,13 @@ namespace BL
                 dal.UpdateDrone(updateDrone);
             }
 
-
             // For the list of drones here
-            for (int i = 0; i < ListDrones.Count(); i++)
-                if (ListDrones[i].Id == droneId)
+            for (int i = 0; i < listDrones.Count(); i++)
+                if (listDrones[i].Id == droneId)
                 {
-                    DroneToList updateDroneToList = ListDrones[i];
+                    DroneToList updateDroneToList = listDrones[i];
                     updateDroneToList.Model = newModel;
-                    ListDrones[i] = updateDroneToList;
+                    listDrones[i] = updateDroneToList;
                 }
         }
 
@@ -277,15 +286,15 @@ namespace BL
             if (distance * freeBatteryUsing > drone.Battery || distance * freeBatteryUsing > 100)
                 throw new BatteryDroneException("ERROR: the drone not have battery to go to station charge ");
 
-            for (int i = 0; i < ListDrones.Count; i++)
-                if (ListDrones[i].Id == drone.Id)
+            for (int i = 0; i < listDrones.Count; i++)
+                if (listDrones[i].Id == drone.Id)
                 {
-                    DroneToList newDrone = ListDrones[i];
+                    DroneToList newDrone = listDrones[i];
                     newDrone.Battery -= distance * freeBatteryUsing;
                     newDrone.Battery = (double)System.Math.Round(newDrone.Battery, 2);
                     newDrone.Location = nearStation.Location;
                     newDrone.Status = DroneStatuses.Maintenance;
-                    ListDrones[i] = newDrone;
+                    listDrones[i] = newDrone;
                 }
 
             lock (dal)
@@ -313,6 +322,7 @@ namespace BL
         /// Release the drone from the drone charge
         /// </summary>
         /// <returns></no returns, release the drone from the drone charge>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void ReleaseDroneFromDroneCharge(int droneId)
         {
@@ -340,27 +350,27 @@ namespace BL
                 TimeSpan? chargeTime = DateTime.Now - droneCharge.StartCharging;
                 double batteryCharge = chargeTime.Value.TotalSeconds * (chargingRate / 3600);
 
-                for (int i = 0; i < ListDrones.Count; i++)
-                    if (ListDrones[i].Id == drone.Id)
+                for (int i = 0; i < listDrones.Count; i++)
+                    if (listDrones[i].Id == drone.Id)
                     {
-                        DroneToList newDrone = ListDrones[i];
+                        DroneToList newDrone = listDrones[i];
                         newDrone.Battery += batteryCharge;
                         newDrone.Battery = (double)System.Math.Round(newDrone.Battery, 2);
                         if (newDrone.Battery > 100)
                             newDrone.Battery = 100;
                         newDrone.Status = DroneStatuses.Available;
-                        ListDrones[i] = newDrone;
+                        listDrones[i] = newDrone;
                     }
 
                 dal.RemoveDroneCharge(droneCharge);
             }
-          
         }
 
         /// <summary>
         /// find parcel in the data conditions and connect it to the drone
         /// </summary>
         /// <param name="droneId"></param>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void ConnectParcelToDrone(int droneId)
         {
@@ -377,6 +387,7 @@ namespace BL
             if (drone.Status != DroneStatuses.Available)
                 throw new StatusDroneException("ERROR: The drone is not available:\n ");
 
+            var x = GetParcelsNoDrones();
             var parcelsDroneCanCarry = from parcel in GetParcelsNoDrones()
                                        let sender = GetCustomer(GetParcel(parcel.Id).Sender.Id)
                                        let target = GetCustomer(GetParcel(parcel.Id).Target.Id)
@@ -396,22 +407,22 @@ namespace BL
 
                 dal.UpdateParcel(updateParcel);
 
-                for (int i = 0; i < ListDrones.Count; i++)
-                    if (ListDrones[i].Id == drone.Id)
+                for (int i = 0; i < listDrones.Count; i++)
+                    if (listDrones[i].Id == drone.Id)
                     {
-                        DroneToList newDrone = ListDrones[i];
+                        DroneToList newDrone = listDrones[i];
                         newDrone.Status = DroneStatuses.Delivery;
                         newDrone.IdParcel = updateParcel.Id;
-                        ListDrones[i] = newDrone;
+                        listDrones[i] = newDrone;
                     }
             }
-          
         }
 
         /// <summary>
         /// Collection the parcel by the drone
         /// </summary>
         /// <param name="droneId"></param>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void CollectionParcelByDrone(int droneId)
         {
@@ -431,15 +442,15 @@ namespace BL
             if(drone.ParcelByTransfer.OnTheWay == true)
                 throw new StatusDroneException("ERROR: The drone has already collected the parcel");
 
-            for (int i = 0; i < ListDrones.Count(); i++)
+            for (int i = 0; i < listDrones.Count(); i++)
             {
-                if (ListDrones[i].Id == drone.Id)
+                if (listDrones[i].Id == drone.Id)
                 {
-                    DroneToList updateDrone = ListDrones[i];
+                    DroneToList updateDrone = listDrones[i];
                     updateDrone.Battery -= Distance(drone.Location, drone.ParcelByTransfer.PickUpLocation) * freeBatteryUsing;
                     updateDrone.Battery = (double)System.Math.Round(updateDrone.Battery, 2);
                     updateDrone.Location = drone.ParcelByTransfer.PickUpLocation;
-                    ListDrones[i] = updateDrone;
+                    listDrones[i] = updateDrone;
                 }
             }
 
@@ -455,6 +466,7 @@ namespace BL
         /// Supply parcel by drone
         /// </summary>
         /// <param name="droneId"></the id of the drone>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void SupplyParcelByDrone(int droneId)
         {
@@ -480,13 +492,12 @@ namespace BL
                 updateParcel.Delivered = DateTime.Now;
                 dal.UpdateParcel(updateParcel);
             }
-           
-
-            for (int i = 0; i < ListDrones.Count(); i++)
+            
+            for (int i = 0; i < listDrones.Count(); i++)
             {
-                if (ListDrones[i].Id == drone.Id)
+                if (listDrones[i].Id == drone.Id)
                 {
-                    DroneToList newDrone = ListDrones[i];
+                    DroneToList newDrone = listDrones[i];
                     if (drone.ParcelByTransfer.Weight == WeightCategories.Heavy)
                         newDrone.Battery -= drone.ParcelByTransfer.DistanceOfTransfer * heavyBatteryUsing;
                     if (drone.ParcelByTransfer.Weight == WeightCategories.Medium)
@@ -498,21 +509,15 @@ namespace BL
                     newDrone.Location = drone.ParcelByTransfer.TargetLocation;
                     newDrone.Status = DroneStatuses.Available;
                     newDrone.IdParcel = 0;
-                    ListDrones[i] = newDrone;
+                    listDrones[i] = newDrone;
                 }
             }
-        }
-
-        public void SimulatorMod(IBL bl, int droneId, Action<Drone> action, Func<bool> stopSimulatorMod)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
         /// Check the input of the user
         /// </summary>
         /// <returns></no returns, just check the input of the user>
-        [MethodImpl(MethodImplOptions.Synchronized)]
         private Station CheckDroneAndStationCharge(Drone drone, int idStation)
         {
             if (drone.Id < 100000 || drone.Id > 999999)//Check that it's 6 digits
@@ -533,6 +538,7 @@ namespace BL
             }
             return station;
         }
+
         private double BatteryDelivery(Drone drone, ParcelToList parcel, Customer sender, Customer target)
         {
             double distanceDelivery, batteryDelivery;

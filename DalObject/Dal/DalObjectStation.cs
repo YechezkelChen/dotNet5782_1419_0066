@@ -9,9 +9,10 @@ namespace Dal
     partial class DalObject : DalApi.IDal
     {
         /// <summary>
-        /// add a staion to the list station
+        /// add a station to the list station
         /// </summary>
         /// <param Name="newStation"></the new station the user whants to add to the station's list>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(Station newStation)
         {
@@ -28,6 +29,7 @@ namespace Dal
         ///  Removes a parcel from the list of parcels.
         /// </summary>
         /// <param name="stationId"></param>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveStation(int stationId)
         {
@@ -53,11 +55,12 @@ namespace Dal
         }
 
         /// <summary>
-        /// return the spesifice station the user ask for
+        /// return the specific station the user ask for
         /// </summary>
         /// <param name="stationId"></param>
         /// <param Name="stationId"></the Id of the station the user ask for>
         /// <returns></returns>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Station GetStation(int stationId)
         {
@@ -79,16 +82,19 @@ namespace Dal
         /// return all the list of the station's
         /// </summary>
         /// <returns></returns>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetStations(Predicate<Station> stationPredicate)
         {
             IEnumerable<Station> stations = DataSource.Stations.Where(station => stationPredicate(station));
             return stations;
         }
+       
         /// <summary>
-        /// updata the station the user ask for
+        /// update the station the user ask for
         /// </summary>
         /// <returns></returns>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateStation(Station station)
         {
@@ -98,7 +104,7 @@ namespace Dal
         }
 
         /// <summary>
-        /// the methode not need exeption becuse she use both sids(true and false)
+        /// the method not need exception because she use both sids(true and false)
         /// </summary>
         /// <param Name="s"></the station that we chek if she exist>
         /// <param Name="Stations"></the list of all Stations>
@@ -114,6 +120,5 @@ namespace Dal
             }
             return "not exists"; // the customer not exist
         }
-
     }
 }

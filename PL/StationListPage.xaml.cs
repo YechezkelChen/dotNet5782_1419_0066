@@ -29,7 +29,7 @@ namespace PL
             foreach (var station in bl.GetStations())
             {
                 StationToList newStation = new StationToList();
-                CopyPropertiesTo(station, newStation);
+                bl.CopyPropertiesTo(station, newStation);
                 stations.Add(newStation);
             }
         }
@@ -42,7 +42,7 @@ namespace PL
                 foreach (var station in group)
                 {
                     StationToList newsStation = new StationToList();
-                    CopyPropertiesTo(station, newsStation);
+                    bl.CopyPropertiesTo(station, newsStation);
                     stations.Add(newsStation);
                 }
         }
@@ -51,19 +51,6 @@ namespace PL
         {
             StationsListView.ItemsSource = stations;
             StationsData();
-        }
-
-        public void CopyPropertiesTo<T, S>(S from, T to)
-        {
-            foreach (PropertyInfo propTo in to.GetType().GetProperties())
-            {
-                PropertyInfo propFrom = typeof(S).GetProperty(propTo.Name);
-                if (propFrom == null)
-                    continue;
-                var value = propFrom.GetValue(from, null);
-                if (value is ValueType || value is string)
-                    propTo.SetValue(to, value);
-            }
         }
     }
 }

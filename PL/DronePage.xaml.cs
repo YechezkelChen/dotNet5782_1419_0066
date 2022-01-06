@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -18,7 +19,8 @@ namespace PL
     {
         private BlApi.IBL bl = BlApi.BlFactory.GetBl();
         private ObservableCollection<DroneToList> drones;
-        private Drone drone = new Drone();
+        private Drone drone;
+        private BackgroundWorker droneWorker;
 
         public DronePage(ObservableCollection<DroneToList> drones)
         {
@@ -98,9 +100,9 @@ namespace PL
             // Update the view
             DroneToList newDrone = new DroneToList();
             boDrone = bl.GetDrone(boDrone.Id);
-            CopyPropertiesTo(boDrone, newDrone);
+            bl.CopyPropertiesTo(boDrone, newDrone);
             newDrone.Location = new Location();
-            CopyPropertiesTo(boDrone.Location, newDrone.Location);
+            bl.CopyPropertiesTo(boDrone.Location, newDrone.Location);
             drones.Add(newDrone);
             this.Content = "";
         }
@@ -177,7 +179,7 @@ namespace PL
             BO.Drone boDrone = bl.GetDrone(drone.Id);
             drone.Battery = boDrone.Battery;
             drone.Status = DroneStatuses.Maintenance;
-            CopyPropertiesTo(boDrone.Location, drone.Location);
+            bl.CopyPropertiesTo(boDrone.Location, drone.Location);
 
             FixButtonsAfterActions();
             UpdateListDrones(drone);
@@ -239,7 +241,7 @@ namespace PL
             BO.Drone boDrone = bl.GetDrone(drone.Id);
             drone.Status = DroneStatuses.Delivery;
             drone.ParcelByTransfer = new ParcelInTransfer();
-            CopyPropertiesTo(boDrone.ParcelByTransfer, drone.ParcelByTransfer);
+            bl.CopyPropertiesTo(boDrone.ParcelByTransfer, drone.ParcelByTransfer);
 
             FixButtonsAfterActions();
             UpdateListDrones(drone);
@@ -268,7 +270,7 @@ namespace PL
             BO.Drone boDrone = bl.GetDrone(drone.Id);
             drone.Battery = boDrone.Battery;
             drone.Location = new Location();
-            CopyPropertiesTo(boDrone.Location, drone.Location);
+            bl.CopyPropertiesTo(boDrone.Location, drone.Location);
             drone.ParcelByTransfer.OnTheWay = true;
 
             FixButtonsAfterActions();
@@ -299,7 +301,7 @@ namespace PL
             drone.Battery = boDrone.Battery;
             drone.Status = DroneStatuses.Available;
             drone.Location = new Location();
-            CopyPropertiesTo(boDrone.Location, drone.Location);
+            bl.CopyPropertiesTo(boDrone.Location, drone.Location);
             drone.ParcelByTransfer = null;
 
             FixButtonsAfterActions();
@@ -318,10 +320,6 @@ namespace PL
                 }
             else
                 PresentStationLabel.Text = "";
-
-            //BatteryTextBox.Text = drone.Battery.ToString();
-            //StatusTextBox.Text = drone.Status.ToString();
-            //LocationTextBox.Text = drone.Location.ToString();
 
             if (drone.Status != DroneStatuses.Available)
                 SendToChargeButton.Visibility = Visibility.Hidden;
@@ -351,23 +349,39 @@ namespace PL
                 if (drones[i].Id == updateDrone.Id)
                 {
                     DroneToList newDrone = drones[i];
-                    CopyPropertiesTo(updateDrone, newDrone);
+                    bl.CopyPropertiesTo(updateDrone, newDrone);
                     newDrone.Location = new Location();
-                    CopyPropertiesTo(updateDrone.Location, newDrone.Location);
+                    bl.CopyPropertiesTo(updateDrone.Location, newDrone.Location);
                     drones[i] = newDrone;
                 }
         }
-        public void CopyPropertiesTo<T, S>(S from, T to)
+
+        private void SimulatorButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (PropertyInfo propTo in to.GetType().GetProperties())
-            {
-                PropertyInfo propFrom = typeof(S).GetProperty(propTo.Name);
-                if (propFrom == null)
-                    continue;
-                var value = propFrom.GetValue(from, null);
-                if (value is ValueType || value is string)
-                    propTo.SetValue(to, value);
-            }
+            UpdateModelButton.Visibility = Visibility.Hidden;
+            RegularButton.Visibility = Visibility.Visible;
+            droneWorker = new BackgroundWorker();
+            droneWorker.DoWork += (o, args) => bl.SimulatorMod(drone.Id, UpdateView, StopSimulator);
+            droneWorker.ProgressChanged += (o, args) => UpdateView();
+            droneWorker.WorkerSupportsCancellation = true;
+            droneWorker.RunWorkerAsync(drone.Id);
+        }
+
+        private void UpdateView()
+        {
+
+        }
+
+        private bool StopSimulator()
+        {
+            return droneWorker.CancellationPending;
+        }
+
+        private void RegularButton_Click(object sender, RoutedEventArgs e)
+        {
+            droneWorker.CancelAsync();
+            RegularButton.Visibility = Visibility.Hidden;
+            UpdateModelButton.Visibility = Visibility.Visible;
         }
     }
 }

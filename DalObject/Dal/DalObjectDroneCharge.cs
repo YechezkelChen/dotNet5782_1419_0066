@@ -13,6 +13,7 @@ namespace Dal
         /// add a drone charge to the drone charge list
         /// </summary>
         /// <param Name="newDroneCharge"></the new drone charge the user whants to add to the drone's list>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDroneCharge(DroneCharge newDroneCharge)
         {
@@ -29,6 +30,7 @@ namespace Dal
         /// remove a drone charge from the drone charge list
         /// </summary>
         /// <param Name="newDroneCharge"></the new drone charge the user whants to add to the drone's list>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveDroneCharge(DroneCharge DroneCharge)
         {
@@ -55,6 +57,7 @@ namespace Dal
         /// return all the list of the drone's that they are in charge sopt 
         /// </summary>
         /// <returns></returns>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> GetDronesCharge(Predicate<DroneCharge> droneChargePredicate)
         {

@@ -13,6 +13,7 @@ namespace Dal
         /// add a customer to the customers list
         /// </summary>
         /// <param Name="newCustomer"></the new customer the user whants to add to the customer's list>
+        
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer newCustomer)
         {
@@ -29,6 +30,7 @@ namespace Dal
         /// Removes a customer from the list of customers.
         /// </summary>
         /// <param name="customerId"></param>
+        
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveCustomer(int customerId)
         {
@@ -58,6 +60,7 @@ namespace Dal
         /// </summary>
         /// <param Name="customerId"></the Id of the customer the user ask for>
         /// <returns></returns>
+        
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomer(int customerId)
         {
@@ -79,6 +82,7 @@ namespace Dal
         /// return all the customer list
         /// </summary>
         /// <returns></returns>
+        
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> customerPredicate)
         {
@@ -87,10 +91,11 @@ namespace Dal
         }
 
         /// <summary>
-        /// the methode update the customer data
+        /// the method update the customer data
         /// </summary>
         /// <param Name="customer"></the customer to updata>
         /// <returns></returns>
+        
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(Customer customer)
         {
@@ -100,7 +105,7 @@ namespace Dal
         }
 
         /// <summary>
-        /// the methode not need exeption becuse she use both sids(true and false)
+        /// the method not need exception because she use both sids(true and false)
         /// </summary>
         /// <param Name="customerId"></the id of the customer>
         /// <returns></returns>

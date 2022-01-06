@@ -32,21 +32,8 @@ namespace PL
             foreach (var customer in bl.GetCustomers())
             {
                 CustomerToList newCustomer = new CustomerToList();
-                CopyPropertiesTo(customer, newCustomer);
+                bl.CopyPropertiesTo(customer, newCustomer);
                 customers.Add(newCustomer);
-            }
-        }
-
-        public void CopyPropertiesTo<T, S>(S from, T to)
-        {
-            foreach (PropertyInfo propTo in to.GetType().GetProperties())
-            {
-                PropertyInfo propFrom = typeof(S).GetProperty(propTo.Name);
-                if (propFrom == null)
-                    continue;
-                var value = propFrom.GetValue(from, null);
-                if (value is ValueType || value is string)
-                    propTo.SetValue(to, value);
             }
         }
     }

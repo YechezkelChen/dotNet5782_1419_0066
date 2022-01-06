@@ -12,6 +12,7 @@ namespace BL
         ///  add station with all fields to data source with checking 
         /// </summary>
         /// <param name="newStation"></param>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(Station newStation)
         {
@@ -63,6 +64,7 @@ namespace BL
         ///  Removes a parcel from the list of parcels.
         /// </summary>
         /// <param name="stationId"></param>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveStation(int stationId)
         {
@@ -89,10 +91,12 @@ namespace BL
         /// </summary>
         /// <param name="stationId"></param>
         /// <returns></returns>
+     
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Station GetStation(int stationId)
         {
             Station station = new Station();
+
             lock (dal)
             {
                 DO.Station dalStation = new DO.Station();
@@ -149,6 +153,7 @@ namespace BL
         /// Returning the list of stations with available charging position in a special entity "Station to list".
         /// </summary>
         /// <returns></returns>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<StationToList> GetStationsWithAvailableCharge()
         {
@@ -161,10 +166,12 @@ namespace BL
         /// return stations bu groping
         /// </summary>
         /// <returns></returns>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<IGrouping<int, StationToList>> GetStationsByGroupAvailableStations()
-        { 
-            return GetStations().GroupBy(station => station.AvailableChargeSlots);
+        {
+            IEnumerable<IGrouping<int, StationToList>> stations = GetStations().GroupBy(station => station.AvailableChargeSlots);
+            return stations;
         }
 
         /// <summary>
@@ -173,6 +180,7 @@ namespace BL
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="chargeSlots"></param>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDataStation(int id, string name, int chargeSlots)
         {
@@ -198,14 +206,13 @@ namespace BL
 
                 dal.UpdateStation(updateStation);
             }
-
         }
 
         /// <summary>
         ///  check the input in add station to list
         /// </summary>
         /// <param name="station"></param>
-        [MethodImpl(MethodImplOptions.Synchronized)]
+        
         private void CheckStation(Station station)
         {
             if (station.Id < 100000 || station.Id > 999999) // Check that it's 6 digits.
@@ -225,6 +232,7 @@ namespace BL
         /// </summary>
         /// <param name="station"></the station the contain the drone>
         /// <param name="droneInCharge"></the drone to remove>
+     
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveDroneInCharge(Station station , DroneInCharge droneInCharge)
         {
@@ -236,7 +244,6 @@ namespace BL
                     .FirstOrDefault(droneCharge => droneCharge.Id == droneInCharge.Id).Id;
                 droneCharge.StationId = station.Id;
                 droneCharge.Deleted = true;
-
 
                 try
                 {

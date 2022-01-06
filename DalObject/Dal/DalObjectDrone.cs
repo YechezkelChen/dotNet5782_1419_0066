@@ -13,6 +13,7 @@ namespace Dal
         /// add a drone to the drones list
         /// </summary>
         /// <param Name="newDrone"></the new drone the user whants to add to the drone's list>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone newDrone)
         {
@@ -29,6 +30,7 @@ namespace Dal
         /// Removes a drone from the list of drones.
         /// </summary>
         /// <param name="droneId"></param>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveDrone(int droneId)
         {
@@ -58,6 +60,7 @@ namespace Dal
         /// </summary>
         /// <param Name="DdroneId"></the Id of the drone the user ask for>
         /// <returns></returns>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int droneId)
         {
@@ -79,6 +82,7 @@ namespace Dal
         /// return all the drone's list
         /// </summary>
         /// <returns></returns>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDrones(Predicate<Drone> dronePredicate)
         {
@@ -87,10 +91,11 @@ namespace Dal
         }
 
         /// <summary>
-        /// the method updata the drone data
+        /// the method update the drone data
         /// </summary>
         /// <param Name="drone"><the drone to update>
         /// <returns></returns>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(Drone drone)
         {

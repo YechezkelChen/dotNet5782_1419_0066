@@ -78,7 +78,7 @@ namespace PL
             ParcelToList newParcel = new ParcelToList();
             BO.ParcelToList boParcelToList = new BO.ParcelToList();
             boParcelToList = bl.GetParcels().First(p => p.Id == idParcel);
-            CopyPropertiesTo(boParcelToList, newParcel);
+            bl.CopyPropertiesTo(boParcelToList, newParcel);
             parcels.Add(newParcel);
             this.Content = "";
         }
@@ -102,18 +102,6 @@ namespace PL
             // Update the view
             parcels.Remove(parcels.Where(p => p.Id == parcel.Id).Single());
             this.Content = "";
-        }
-        public void CopyPropertiesTo<T, S>(S from, T to)
-        {
-            foreach (PropertyInfo propTo in to.GetType().GetProperties())
-            {
-                PropertyInfo propFrom = typeof(S).GetProperty(propTo.Name);
-                if (propFrom == null)
-                    continue;
-                var value = propFrom.GetValue(from, null);
-                if (value is ValueType || value is string)
-                    propTo.SetValue(to, value);
-            }
         }
     }
 }

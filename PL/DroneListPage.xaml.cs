@@ -57,9 +57,9 @@ namespace PL
             foreach (var drone in dronesData)
             {
                 DroneToList newDrone = new DroneToList();
-                CopyPropertiesTo(drone, newDrone);
+                bl.CopyPropertiesTo(drone, newDrone);
                 newDrone.Location = new Location();
-                CopyPropertiesTo(drone.Location, newDrone.Location);
+                bl.CopyPropertiesTo(drone.Location, newDrone.Location);
                 drones.Add(newDrone);
             }
         }
@@ -82,9 +82,9 @@ namespace PL
                 foreach (var drone in group)
                 {
                     DroneToList newDrone = new DroneToList();
-                    CopyPropertiesTo(drone, newDrone);
+                    bl.CopyPropertiesTo(drone, newDrone);
                     newDrone.Location = new Location();
-                    CopyPropertiesTo(drone.Location, newDrone.Location);
+                    bl.CopyPropertiesTo(drone.Location, newDrone.Location);
                     drones.Add(newDrone);
                 }
         }
@@ -104,19 +104,6 @@ namespace PL
         private void RefreshGroupButton_Click(object sender, RoutedEventArgs e)
         {
             DronesData();
-        }
-
-        public void CopyPropertiesTo<T, S>(S from, T to)
-        {
-            foreach (PropertyInfo propTo in to.GetType().GetProperties())
-            {
-                PropertyInfo propFrom = typeof(S).GetProperty(propTo.Name);
-                if (propFrom == null)
-                    continue;
-                var value = propFrom.GetValue(from, null);
-                if (value is ValueType || value is string)
-                    propTo.SetValue(to, value);
-            }
         }
     }
 }

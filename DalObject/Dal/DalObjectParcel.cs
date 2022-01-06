@@ -14,6 +14,7 @@ namespace Dal
         /// </summary>
         /// <param Name="newParcel"></the new parcel the user whants to add to the parcel's list>
         /// <returns></returns>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public int AddParcel(Parcel newParcel)
         {
@@ -36,6 +37,7 @@ namespace Dal
         /// Removes a parcel from the list of parcels.
         /// </summary>
         /// <param name="parcelId"></param>
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveParcel(int parcelId)
         {
@@ -65,6 +67,7 @@ namespace Dal
         /// </summary>
         /// <param Name="parcelId"></the Id parcel the user ask for>
         /// <returns></returns>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int parcelId)
         {
@@ -86,6 +89,7 @@ namespace Dal
         /// return all the parcel in the list
         /// </summary>
         /// <returns></returns>
+        
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> parcelPredicate)
         {
@@ -97,6 +101,7 @@ namespace Dal
         /// update the specific parcel the user ask for
         /// </summary>
         /// <param name="parcel"></the parcek to updata>
+      
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcel(Parcel parcel)
         {
@@ -106,7 +111,7 @@ namespace Dal
         }
 
         /// <summary>
-        /// the methode not need exeption becuse she use both sids(true and false)
+        /// the method not need exception because she use both sids(true and false)
         /// </summary>
         /// <param Name="d"></the parcel we check if she is exist>
         /// <param Name="Drones"></the list of Parcels>

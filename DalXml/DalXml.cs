@@ -41,8 +41,6 @@ namespace Dal
         private string parcelsPath = @"Parcels.xml";
         private string stationsPath = @"Stations.xml";
         private string configPath = @"config.xml";
-
-
         #endregion
 
         public double[] GetRequestPowerConsumption()

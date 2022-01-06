@@ -17,8 +17,6 @@ namespace PL
             InitializeComponent();
             this.parcelsInCustomer = parcelsInCustomer;
             ParcelListView.DataContext = parcelsInCustomer;
-
-            
         }
     }
 }

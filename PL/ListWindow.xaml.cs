@@ -112,21 +112,21 @@ namespace PL
         private Drone CopyBoDroneToPoDrone(BO.Drone boDrone, Drone poDrone)
         {
             poDrone = new Drone();
-            CopyPropertiesTo(boDrone, poDrone);
+            bl.CopyPropertiesTo(boDrone, poDrone);
             poDrone.Location = new Location();
-            CopyPropertiesTo(boDrone.Location, poDrone.Location);
+            bl.CopyPropertiesTo(boDrone.Location, poDrone.Location);
             if (poDrone.Status == DroneStatuses.Delivery)
             {
                 poDrone.ParcelByTransfer = new ParcelInTransfer();
-                CopyPropertiesTo(boDrone.ParcelByTransfer, poDrone.ParcelByTransfer);
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer, poDrone.ParcelByTransfer);
                 poDrone.ParcelByTransfer.Sender = new CustomerInParcel();
-                CopyPropertiesTo(boDrone.ParcelByTransfer.Sender, poDrone.ParcelByTransfer.Sender);
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.Sender, poDrone.ParcelByTransfer.Sender);
                 poDrone.ParcelByTransfer.Target = new CustomerInParcel();
-                CopyPropertiesTo(boDrone.ParcelByTransfer.Target, poDrone.ParcelByTransfer.Target);
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.Target, poDrone.ParcelByTransfer.Target);
                 poDrone.ParcelByTransfer.PickUpLocation = new Location();
-                CopyPropertiesTo(boDrone.ParcelByTransfer.PickUpLocation, poDrone.ParcelByTransfer.PickUpLocation);
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.PickUpLocation, poDrone.ParcelByTransfer.PickUpLocation);
                 poDrone.ParcelByTransfer.TargetLocation = new Location();
-                CopyPropertiesTo(boDrone.ParcelByTransfer.TargetLocation, poDrone.ParcelByTransfer.TargetLocation);
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.TargetLocation, poDrone.ParcelByTransfer.TargetLocation);
             }
 
             return poDrone;
@@ -165,15 +165,15 @@ namespace PL
         private Station CopyBoStationToPoStation(BO.Station boStation, Station poStation)
         {
             poStation = new Station();
-            CopyPropertiesTo(boStation, poStation);
+            bl.CopyPropertiesTo(boStation, poStation);
             poStation.Location = new Location();
-            CopyPropertiesTo(boStation.Location, poStation.Location);
+            bl.CopyPropertiesTo(boStation.Location, poStation.Location);
 
             List<DroneInCharge> dronesInCharge = new List<DroneInCharge>();
             foreach (var droneInCharge in boStation.DronesInCharges)
             {
                 DroneInCharge newDroneInCharge = new DroneInCharge();
-                CopyPropertiesTo(droneInCharge, newDroneInCharge);
+                bl.CopyPropertiesTo(droneInCharge, newDroneInCharge);
                 dronesInCharge.Add(newDroneInCharge);
             }
             poStation.DronesInCharges = dronesInCharge;
@@ -222,17 +222,17 @@ namespace PL
         private Customer CopyBoCustomerToPoCustomer(BO.Customer boCustomer, Customer poCustomer)
         {
             poCustomer = new Customer();
-            CopyPropertiesTo(boCustomer, poCustomer);
+            bl.CopyPropertiesTo(boCustomer, poCustomer);
             poCustomer.Location = new Location();
-            CopyPropertiesTo(boCustomer.Location, poCustomer.Location);
+            bl.CopyPropertiesTo(boCustomer.Location, poCustomer.Location);
 
             List<ParcelInCustomer> parcelInCustomers = new List<ParcelInCustomer>();
             foreach (var parcel in boCustomer.FromTheCustomerList)
             {
                 ParcelInCustomer newParcel = new ParcelInCustomer();
-                CopyPropertiesTo(parcel, newParcel);
+                bl.CopyPropertiesTo(parcel, newParcel);
                 newParcel.CustomerInDelivery = new CustomerInParcel();
-                CopyPropertiesTo(parcel.CustomerInDelivery, newParcel.CustomerInDelivery);
+                bl.CopyPropertiesTo(parcel.CustomerInDelivery, newParcel.CustomerInDelivery);
                 parcelInCustomers.Add(newParcel);
             }
             poCustomer.FromTheCustomerList = parcelInCustomers;
@@ -242,9 +242,9 @@ namespace PL
             foreach (var parcel in boCustomer.ToTheCustomerList)
             {
                 ParcelInCustomer newParcel = new ParcelInCustomer();
-                CopyPropertiesTo(parcel, newParcel);
+                bl.CopyPropertiesTo(parcel, newParcel);
                 newParcel.CustomerInDelivery = new CustomerInParcel();
-                CopyPropertiesTo(parcel.CustomerInDelivery, newParcel.CustomerInDelivery);
+                bl.CopyPropertiesTo(parcel.CustomerInDelivery, newParcel.CustomerInDelivery);
                 parcelInCustomers.Add(newParcel);
             }
             poCustomer.ToTheCustomerList = parcelInCustomers;
@@ -283,17 +283,17 @@ namespace PL
         private Parcel CopyBoParcelToPoParcel(BO.Parcel boParcel, Parcel poParcel)
         {
             poParcel = new Parcel();
-            CopyPropertiesTo(boParcel, poParcel);
+            bl.CopyPropertiesTo(boParcel, poParcel);
             poParcel.Sender = new CustomerInParcel();
-            CopyPropertiesTo(boParcel.Sender, poParcel.Sender);
+            bl.CopyPropertiesTo(boParcel.Sender, poParcel.Sender);
             poParcel.Target = new CustomerInParcel();
-            CopyPropertiesTo(boParcel.Target, poParcel.Target);
+            bl.CopyPropertiesTo(boParcel.Target, poParcel.Target);
             if (boParcel.Scheduled != null)
             {
                 poParcel.DroneInParcel = new DroneInParcel();
-                CopyPropertiesTo(boParcel.DroneInParcel, poParcel.DroneInParcel);
+                bl.CopyPropertiesTo(boParcel.DroneInParcel, poParcel.DroneInParcel);
                 poParcel.DroneInParcel.Location = new Location();
-                CopyPropertiesTo(boParcel.DroneInParcel.Location, poParcel.DroneInParcel.Location);
+                bl.CopyPropertiesTo(boParcel.DroneInParcel.Location, poParcel.DroneInParcel.Location);
             }
 
             return poParcel;
@@ -302,18 +302,6 @@ namespace PL
         {
             if (CloseWindow.Visibility != Visibility.Hidden)
                 e.Cancel = true;
-        }
-        public void CopyPropertiesTo<T, S>(S from, T to)
-        {
-            foreach (PropertyInfo propTo in to.GetType().GetProperties())
-            {
-                PropertyInfo propFrom = typeof(S).GetProperty(propTo.Name);
-                if (propFrom == null)
-                    continue;
-                var value = propFrom.GetValue(from, null);
-                if (value is ValueType || value is string)
-                    propTo.SetValue(to, value);
-            }
         }
     }
 }

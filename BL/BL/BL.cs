@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using BlApi;
 using BO;
 
 
@@ -8,7 +10,7 @@ namespace BL
 {
     sealed partial class BL : BlApi.IBL
     {
-        private List<DroneToList> ListDrones = new List<DroneToList>();
+        private List<DroneToList> listDrones = new List<DroneToList>();
 
         internal DalApi.IDal dal;
 
@@ -17,9 +19,10 @@ namespace BL
         private Random rand = new Random(DateTime.Now.Millisecond);
 
         #region singelton
-        static volatile Lazy<BL> instance = new Lazy<BL>(() => new BL());
 
-        static object syncRoot = new object();
+        private static volatile Lazy<BL> instance = new Lazy<BL>(() => new BL());
+
+        private static object syncRoot = new object();
         internal static BL Instance
         {
             get
@@ -61,16 +64,16 @@ namespace BL
                 newDrone.Model = elementDrone.Model;
                 newDrone.Weight = (WeightCategories)elementDrone.Weight;
                 newDrone.Location = new Location();
-                ListDrones.Add(newDrone);
+                listDrones.Add(newDrone);
             }
 
             foreach (var parcel in dal.GetParcels(parcel => parcel.Deleted == false))
                 if (parcel.Scheduled != null && parcel.Delivered == null) //if the parcel in deliver and the drone is connect
-                    for (int i = 0; i < ListDrones.Count(); i++)
-                        if (ListDrones[i].Id == parcel.DroneId)
+                    for (int i = 0; i < listDrones.Count(); i++)
+                        if (listDrones[i].Id == parcel.DroneId)
                         {
                             DroneToList drone = new DroneToList();
-                            drone = ListDrones[i];
+                            drone = listDrones[i];
                             double batteryDelivery = 0;
                             Customer sender = GetCustomer(parcel.SenderId);
                             Customer target = GetCustomer(parcel.TargetId);
@@ -100,15 +103,15 @@ namespace BL
 
                             drone.Status = DroneStatuses.Delivery;
                             drone.IdParcel = parcel.Id;
-                            drone = ListDrones[i];
+                            drone = listDrones[i];
                         }
 
             foreach (var droneCharge in dal.GetDronesCharge(droneCharge => droneCharge.Deleted == false))
-                for (int i = 0; i < ListDrones.Count(); i++)
-                    if (ListDrones[i].Id == droneCharge.DroneId)
+                for (int i = 0; i < listDrones.Count(); i++)
+                    if (listDrones[i].Id == droneCharge.DroneId)
                     {
                         DroneToList drone = new DroneToList();
-                        drone = ListDrones[i];
+                        drone = listDrones[i];
 
                         DO.Station station = dal.GetStation(droneCharge.StationId);
                         drone.Location = new Location() { Longitude = station.Longitude, Latitude = station.Latitude };
@@ -120,10 +123,10 @@ namespace BL
                         drone.IdParcel = 0;
                     }
 
-            for (int i = 0; i < ListDrones.Count(); i++)
+            for (int i = 0; i < listDrones.Count(); i++)
             {
                 DroneToList drone = new DroneToList();
-                drone = ListDrones[i];
+                drone = listDrones[i];
 
                 // For the first run to keep the drone in Maintenance to drone charge.
 
@@ -182,17 +185,35 @@ namespace BL
                     drone.Battery = (double)System.Math.Round(drone.Battery, 2);
                     drone.IdParcel = 0;
                 }
-                ListDrones[i] = drone;
+                listDrones[i] = drone;
             }
         }
 
         #endregion
 
+        public void CopyPropertiesTo<T, S>(S from, T to)
+        {
+            foreach (PropertyInfo propTo in to.GetType().GetProperties())
+            {
+                PropertyInfo propFrom = typeof(S).GetProperty(propTo.Name);
+                if (propFrom == null)
+                    continue;
+                var value = propFrom.GetValue(from, null);
+                if (value is ValueType || value is string)
+                    propTo.SetValue(to, value);
+            }
+        }
+
+        public void SimulatorMod(int droneId, Action action, Func<bool> stopSimulatorMod)
+        {
+            new Simulator(this, droneId, action, stopSimulatorMod);
+        }
+
         /// <summary>
         /// the distances from "FROM" to "TO"
         /// </summary>
         /// <returns></returns the distance on double type>
-        private double Distance(Location from, Location to)
+        public double Distance(Location from, Location to)
         {
             int R = 6371 * 1000; // metres -- radius of the earth
             double phi1 = from.Latitude * Math.PI / 180; // φ, λ in radians

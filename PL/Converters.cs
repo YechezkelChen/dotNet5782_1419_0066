@@ -209,4 +209,25 @@ namespace PL
         }
     }
 
+    public class BatteryToColor : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            double battery = (double) value;
+            if (battery < 10)
+                return Brushes.DarkRed;
+            if (battery < 20)
+                return Brushes.Red; 
+            if (battery < 40)
+                return Brushes.Yellow;
+            if (battery < 60)
+                return Brushes.GreenYellow; 
+            return Brushes.Green;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
