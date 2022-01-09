@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -15,6 +16,7 @@ namespace Dal
         /// add a drone charge to the drone charge list
         /// </summary>
         /// <param Name="newDroneCharge"></the new drone charge the user whants to add to the drone's list>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDroneCharge(DroneCharge newDroneCharge)
         {
             XElement dronesCharge = XMLTools.LoadListFromXmlElement(dronesChargePath);
@@ -41,6 +43,7 @@ namespace Dal
         /// remove a drone charge from the drone charge list
         /// </summary>
         /// <param Name="newDroneCharge"></the new drone charge the user whants to add to the drone's list>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveDroneCharge(DroneCharge droneCharge)
         {
             XElement dronesCharge = XMLTools.LoadListFromXmlElement(dronesChargePath);
@@ -67,6 +70,7 @@ namespace Dal
         /// return all the list of the drone's that they are in charge sopt 
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> GetDronesCharge(Predicate<DroneCharge> droneChargePredicate)
         {
             //var dronesChargeXml = XMLTools.LoadListFromXmlSerializer<DroneCharge>(dronesChargePath);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using DalApi;
 using DalXml;
@@ -42,7 +43,10 @@ namespace Dal
         private string stationsPath = @"Stations.xml";
         private string configPath = @"config.xml";
         #endregion
-
+        /// <summary>
+        /// Get the request power consumption
+        /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] GetRequestPowerConsumption()
         {
             XElement batteryUsages = XMLTools.LoadListFromXmlElement(configPath);
