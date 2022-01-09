@@ -13,15 +13,15 @@
     <Name>Artist</Name>
     <Longitude>0.08839772459510607</Longitude>
     <Latitude>0.7261808820656411</Latitude>
-    <AvailableChargeSlots>4</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <AvailableChargeSlots>0</AvailableChargeSlots>
+    <Deleted>False</Deleted>
   </Station>
   <Station>
     <Id>100120</Id>
     <Name>Artist</Name>
     <Longitude>0.6522925052104017</Longitude>
     <Latitude>0.39992406330999175</Latitude>
-    <AvailableChargeSlots>1</AvailableChargeSlots>
+    <AvailableChargeSlots>0</AvailableChargeSlots>
     <Deleted>False</Deleted>
   </Station>
   <Station>
@@ -37,39 +37,39 @@
     <Name>Bar Ilan</Name>
     <Longitude>0.04376099819492595</Longitude>
     <Latitude>0.06059257782091972</Latitude>
-    <AvailableChargeSlots>1</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <AvailableChargeSlots>0</AvailableChargeSlots>
+    <Deleted>False</Deleted>
   </Station>
   <Station>
     <Id>100150</Id>
     <Name>Artist</Name>
     <Longitude>0.46716636487616525</Longitude>
     <Latitude>0.9992311694655712</Latitude>
-    <AvailableChargeSlots>4</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <AvailableChargeSlots>5</AvailableChargeSlots>
+    <Deleted>False</Deleted>
   </Station>
   <Station>
     <Id>100160</Id>
     <Name>Jaffa</Name>
     <Longitude>0.7172854974480743</Longitude>
     <Latitude>0.3363796814048568</Latitude>
-    <AvailableChargeSlots>3</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <AvailableChargeSlots>0</AvailableChargeSlots>
+    <Deleted>False</Deleted>
   </Station>
   <Station>
     <Id>100170</Id>
     <Name>Jaffa</Name>
     <Longitude>0.3558491404894037</Longitude>
     <Latitude>0.48689490253426826</Latitude>
-    <AvailableChargeSlots>2</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <AvailableChargeSlots>1</AvailableChargeSlots>
+    <Deleted>False</Deleted>
   </Station>
   <Station>
     <Id>100180</Id>
     <Name>Carmel</Name>
     <Longitude>0.6321957081706243</Longitude>
     <Latitude>0.1393714822546446</Latitude>
-    <AvailableChargeSlots>1</AvailableChargeSlots>
+    <AvailableChargeSlots>0</AvailableChargeSlots>
     <Deleted>False</Deleted>
   </Station>
   <Station>
@@ -77,7 +77,7 @@
     <Name>Bar Ilan</Name>
     <Longitude>0.6602854051907945</Longitude>
     <Latitude>0.46822877017233</Latitude>
-    <AvailableChargeSlots>1</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <AvailableChargeSlots>0</AvailableChargeSlots>
+    <Deleted>False</Deleted>
   </Station>
 </ArrayOfStation>

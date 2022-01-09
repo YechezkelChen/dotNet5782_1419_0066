@@ -149,12 +149,12 @@
     <TargetId>1000000802</TargetId>
     <Weight>Heavy</Weight>
     <Priority>Normal</Priority>
-    <DroneId>0</DroneId>
-    <Requested>2022-01-06T13:32:14.7986035+02:00</Requested>
-    <Scheduled />
-    <PickedUp />
-    <Delivered />
-    <Deleted>false</Deleted>
+    <DroneId>100060</DroneId>
+    <Requested>06/01/2022 13:32:14</Requested>
+    <Scheduled>09/01/2022 20:44:50</Scheduled>
+    <PickedUp>09/01/2022 20:46:06</PickedUp>
+    <Delivered>09/01/2022 20:46:41</Delivered>
+    <Deleted>False</Deleted>
   </Parcel>
   <Parcel>
     <Id>100012</Id>
@@ -206,6 +206,45 @@
     <Scheduled>06/01/2022 14:03:07</Scheduled>
     <PickedUp>06/01/2022 14:03:10</PickedUp>
     <Delivered>06/01/2022 14:03:13</Delivered>
+    <Deleted>False</Deleted>
+  </Parcel>
+  <Parcel>
+    <Id>100016</Id>
+    <SenderId>1000000010</SenderId>
+    <TargetId>1000000406</TargetId>
+    <Weight>Medium</Weight>
+    <Priority>Emergency</Priority>
+    <DroneId>100060</DroneId>
+    <Requested>09/01/2022 20:43:38</Requested>
+    <Scheduled>09/01/2022 20:44:12</Scheduled>
+    <PickedUp>09/01/2022 20:44:15</PickedUp>
+    <Delivered>09/01/2022 20:44:17</Delivered>
+    <Deleted>False</Deleted>
+  </Parcel>
+  <Parcel>
+    <Id>100017</Id>
+    <SenderId>1000000604</SenderId>
+    <TargetId>1000000010</TargetId>
+    <Weight>Light</Weight>
+    <Priority>Emergency</Priority>
+    <DroneId>100060</DroneId>
+    <Requested>09/01/2022 20:43:49</Requested>
+    <Scheduled>09/01/2022 20:44:20</Scheduled>
+    <PickedUp>09/01/2022 20:44:23</PickedUp>
+    <Delivered>09/01/2022 20:44:25</Delivered>
+    <Deleted>False</Deleted>
+  </Parcel>
+  <Parcel>
+    <Id>100018</Id>
+    <SenderId>1000000307</SenderId>
+    <TargetId>1000000901</TargetId>
+    <Weight>Light</Weight>
+    <Priority>Emergency</Priority>
+    <DroneId>100060</DroneId>
+    <Requested>09/01/2022 20:44:02</Requested>
+    <Scheduled>09/01/2022 20:44:28</Scheduled>
+    <PickedUp>09/01/2022 20:44:31</PickedUp>
+    <Delivered>09/01/2022 20:44:35</Delivered>
     <Deleted>False</Deleted>
   </Parcel>
 </ArrayOfParcel>

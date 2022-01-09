@@ -31,6 +31,7 @@ namespace PL
             StationComboBox.ItemsSource = bl.GetStationsWithAvailableCharge();
 
             UpdateModelButton.Visibility = Visibility.Hidden; // help for all the things in xmal
+            SimulatorButton.Visibility = Visibility.Hidden;
             RegularButton.Visibility = Visibility.Hidden;
         }
 
@@ -359,9 +360,14 @@ namespace PL
         }
 
         private void SimulatorButton_Click(object sender, RoutedEventArgs e)
-        {
-            UpdateModelButton.Visibility = Visibility.Hidden;
+        {            
+            // Hidden all
+            ConnectParcelButton.Visibility = Visibility.Hidden;
+            CollectParcelButton.Visibility = Visibility.Hidden;
+            SupplyParcelButton.Visibility = Visibility.Hidden;
+            SimulatorButton.Visibility = Visibility.Hidden;
             RegularButton.Visibility = Visibility.Visible;
+
             droneWorker = new BackgroundWorker();
             droneWorker.DoWork += (o, args) => bl.SimulatorMod(drone.Id, UpdateView, StopSimulator);
             droneWorker.ProgressChanged += (o, args) => UpdateView();
@@ -383,7 +389,8 @@ namespace PL
         {
             droneWorker.CancelAsync();
             RegularButton.Visibility = Visibility.Hidden;
-            UpdateModelButton.Visibility = Visibility.Visible;
+            SimulatorButton.Visibility = Visibility.Visible;
+            FixButtonsAfterActions();
         }
 
         private Drone CopyBoDroneToPoDrone(BO.Drone boDrone, Drone poDrone)

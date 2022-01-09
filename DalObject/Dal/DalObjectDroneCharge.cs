@@ -18,12 +18,10 @@ namespace Dal
         public void AddDroneCharge(DroneCharge newDroneCharge)
         {
             string check = IsExistDroneCharge(newDroneCharge);
-            if (check == "not exists")
+            if (check == "not exists" || check == "was exists")
                 DataSource.DroneCharges.Add(newDroneCharge);
             if (check == "exists")
                 throw new IdExistException("ERROR: the drone charge is exist");
-            if (check == "was exists")
-                throw new IdExistException("ERROR: the drone charge was exist");
         }
 
         /// <summary>
