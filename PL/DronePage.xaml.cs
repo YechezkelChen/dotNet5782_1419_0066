@@ -31,6 +31,7 @@ namespace PL
             StationComboBox.ItemsSource = bl.GetStationsWithAvailableCharge();
 
             UpdateModelButton.Visibility = Visibility.Hidden; // help for all the things in xmal
+            RegularButton.Visibility = Visibility.Hidden;
         }
 
         public DronePage(Drone drone, ObservableCollection<DroneToList> drones)
@@ -43,6 +44,7 @@ namespace PL
             ActionsDroneGrid.DataContext = drone;
 
             AddButton.Visibility = Visibility.Hidden; // help for all the things in xmal
+            RegularButton.Visibility = Visibility.Hidden;
 
             FixButtonsAfterActions();
         }
@@ -369,9 +371,9 @@ namespace PL
 
         private void UpdateView()
         {
-
+            BO.Drone boDrone = bl.GetDrone(drone.Id);
+            drone = CopyBoDroneToPoDrone(boDrone, drone);
         }
-
         private bool StopSimulator()
         {
             return droneWorker.CancellationPending;
@@ -382,6 +384,29 @@ namespace PL
             droneWorker.CancelAsync();
             RegularButton.Visibility = Visibility.Hidden;
             UpdateModelButton.Visibility = Visibility.Visible;
+        }
+
+        private Drone CopyBoDroneToPoDrone(BO.Drone boDrone, Drone poDrone)
+        {
+            poDrone = new Drone();
+            bl.CopyPropertiesTo(boDrone, poDrone);
+            poDrone.Location = new Location();
+            bl.CopyPropertiesTo(boDrone.Location, poDrone.Location);
+            if (poDrone.Status == DroneStatuses.Delivery)
+            {
+                poDrone.ParcelByTransfer = new ParcelInTransfer();
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer, poDrone.ParcelByTransfer);
+                poDrone.ParcelByTransfer.Sender = new CustomerInParcel();
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.Sender, poDrone.ParcelByTransfer.Sender);
+                poDrone.ParcelByTransfer.Target = new CustomerInParcel();
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.Target, poDrone.ParcelByTransfer.Target);
+                poDrone.ParcelByTransfer.PickUpLocation = new Location();
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.PickUpLocation, poDrone.ParcelByTransfer.PickUpLocation);
+                poDrone.ParcelByTransfer.TargetLocation = new Location();
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.TargetLocation, poDrone.ParcelByTransfer.TargetLocation);
+            }
+
+            return poDrone;
         }
     }
 }
