@@ -45,7 +45,7 @@
     <Name>Artist</Name>
     <Longitude>0.46716636487616525</Longitude>
     <Latitude>0.9992311694655712</Latitude>
-    <AvailableChargeSlots>6</AvailableChargeSlots>
+    <AvailableChargeSlots>4</AvailableChargeSlots>
     <Deleted>False</Deleted>
   </Station>
   <Station>
@@ -61,7 +61,7 @@
     <Name>Jaffa</Name>
     <Longitude>0.3558491404894037</Longitude>
     <Latitude>0.48689490253426826</Latitude>
-    <AvailableChargeSlots>3</AvailableChargeSlots>
+    <AvailableChargeSlots>4</AvailableChargeSlots>
     <Deleted>False</Deleted>
   </Station>
   <Station>

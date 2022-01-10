@@ -14,9 +14,9 @@
   </Drone>
   <Drone>
     <Id>100020</Id>
-    <Model>Topacc</Model>
+    <Model>gogo</Model>
     <Weight>Light</Weight>
-    <Deleted>false</Deleted>
+    <Deleted>False</Deleted>
   </Drone>
   <Drone>
     <Id>100030</Id>

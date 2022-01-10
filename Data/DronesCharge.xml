@@ -426,4 +426,40 @@
     <StartCharging>2022-01-10T13:23:39.0434781+02:00</StartCharging>
     <Deleted>false</Deleted>
   </DroneCharge>
+  <DroneCharge>
+    <DroneId>100090</DroneId>
+    <StationId>100170</StationId>
+    <StartCharging>2022-01-10T14:44:00.6313092+02:00</StartCharging>
+    <Deleted>true</Deleted>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>100090</DroneId>
+    <StationId>100150</StationId>
+    <StartCharging>2022-01-10T14:44:06.2213989+02:00</StartCharging>
+    <Deleted>true</Deleted>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>100090</DroneId>
+    <StationId>100170</StationId>
+    <StartCharging>2022-01-10T14:44:08.3090862+02:00</StartCharging>
+    <Deleted>false</Deleted>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>100090</DroneId>
+    <StationId>100150</StationId>
+    <StartCharging>2022-01-10T14:44:10.4142306+02:00</StartCharging>
+    <Deleted>false</Deleted>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>100090</DroneId>
+    <StationId>100170</StationId>
+    <StartCharging>2022-01-10T14:44:12.4548579+02:00</StartCharging>
+    <Deleted>false</Deleted>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>100090</DroneId>
+    <StationId>100150</StationId>
+    <StartCharging>2022-01-10T14:44:14.5003594+02:00</StartCharging>
+    <Deleted>false</Deleted>
+  </DroneCharge>
 </DronesCharge>
