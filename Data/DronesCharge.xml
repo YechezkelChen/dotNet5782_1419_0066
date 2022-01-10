@@ -2490,4 +2490,16 @@
     <StartCharging>2022-01-10T16:55:15.3056661+02:00</StartCharging>
     <Deleted>false</Deleted>
   </DroneCharge>
+  <DroneCharge>
+    <DroneId>100000</DroneId>
+    <StationId>100150</StationId>
+    <StartCharging>2022-01-10T18:32:43.4904451+02:00</StartCharging>
+    <Deleted>false</Deleted>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>100000</DroneId>
+    <StationId>100150</StationId>
+    <StartCharging>2022-01-10T18:32:47.6258989+02:00</StartCharging>
+    <Deleted>false</Deleted>
+  </DroneCharge>
 </DronesCharge>
