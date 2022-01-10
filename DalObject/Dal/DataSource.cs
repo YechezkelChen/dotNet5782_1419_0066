@@ -58,7 +58,7 @@ namespace Dal
                 id += 10;
             }
 
-            id = 100000000;
+            id = 10000000;
             for (int i = 0; i < 10; i++)
             {
                 int tmpId = id;
