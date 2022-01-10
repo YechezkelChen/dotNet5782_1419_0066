@@ -80,4 +80,12 @@
     <AvailableChargeSlots>0</AvailableChargeSlots>
     <Deleted>False</Deleted>
   </Station>
+  <Station>
+    <Id>123456</Id>
+    <Name>tyuio</Name>
+    <Longitude>29</Longitude>
+    <Latitude>37</Latitude>
+    <AvailableChargeSlots>5</AvailableChargeSlots>
+    <Deleted>false</Deleted>
+  </Station>
 </ArrayOfStation>

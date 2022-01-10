@@ -13,7 +13,8 @@
         <local:FromColorTextToIsEnable x:Key="FromColorTextToIsEnable" />
         <local:IdTextToColor x:Key="IdTextToColor" />
         <local:ModelOrNameTextToColor x:Key="ModelOrNameTextToColor" />
-        <local:LocationTextToColor x:Key="LocationTextToColor" />
+        <local:LongitudeTextToColor x:Key="LongitudeTextToColor" />
+        <local:LatitudeTextToColor x:Key="LatitudeTextToColor" />
         <local:ChargeSlotsTextToColor x:Key="ChargeSlotsTextToColor" />
         <local:EmptyListToVisibility x:Key="EmptyListToVisibility" />
     </Page.Resources>
@@ -45,10 +46,10 @@
             <TextBox x:Name="NameTextBox" Text="{Binding Name}" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=NameTextBox, Path=Text, Converter={StaticResource ModelOrNameTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2"/>
 
             <Label Name="LongitudeLabel" Grid.Row="3" Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" />
-            <TextBox x:Name="LongitudeTextBox" Text="{Binding Path=Location.Longitude}" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=LongitudeTextBox, Path=Text, Converter={StaticResource LocationTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible, UpdateSourceTrigger=LostFocus}"/>
+            <TextBox x:Name="LongitudeTextBox" Text="{Binding Path=Location.Longitude}" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=LongitudeTextBox, Path=Text, Converter={StaticResource LongitudeTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible, UpdateSourceTrigger=LostFocus}"/>
 
             <Label Name="LatitudeLabel" Grid.Row="4" Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" />
-            <TextBox x:Name="LatitudeTextBox" Text="{Binding Path=Location.Latitude}" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=LatitudeTextBox, Path=Text, Converter={StaticResource LocationTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible, UpdateSourceTrigger=LostFocus}"/>
+            <TextBox x:Name="LatitudeTextBox" Text="{Binding Path=Location.Latitude}" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=LatitudeTextBox, Path=Text, Converter={StaticResource LatitudeTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible, UpdateSourceTrigger=LostFocus}"/>
 
             <Label Name="AvailableChargeSlotsLabel" Content="Available Charge Slots:" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="129" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
             <TextBox x:Name="AvailableChargeSlotsTextBox" Text="{Binding Path=AvailableChargeSlots}" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=AvailableChargeSlotsTextBox, Path=Text, Converter={StaticResource ChargeSlotsTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" />
