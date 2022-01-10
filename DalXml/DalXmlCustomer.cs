@@ -80,24 +80,20 @@ namespace Dal
         {
             Customer getCustomer = new Customer();
             XElement customers = XMLTools.LoadListFromXmlElement(customersPath);
-            try
-            {
-                getCustomer = (from customer in customers.Elements()
-                            where Convert.ToInt32(customer.Element("Id").Value) == customerId
-                               select new Customer()
-                            {
-                                Id = Convert.ToInt32(customer.Element("Id").Value),
-                                Name = customer.Element("Name").Value,
-                                Phone = customer.Element("Phone").Value,
-                                Longitude = Convert.ToDouble(customer.Element("Longitude").Value),
-                                Latitude = Convert.ToDouble(customer.Element("Latitude").Value),
-                                Deleted = Convert.ToBoolean(customer.Element("Deleted").Value)
-                            }).FirstOrDefault();
-            }
-            catch
-            {
+            getCustomer = (from customer in customers.Elements()
+                where Convert.ToInt32(customer.Element("Id").Value) == customerId
+                select new Customer()
+                {
+                    Id = Convert.ToInt32(customer.Element("Id").Value),
+                    Name = customer.Element("Name").Value,
+                    Phone = customer.Element("Phone").Value,
+                    Longitude = Convert.ToDouble(customer.Element("Longitude").Value),
+                    Latitude = Convert.ToDouble(customer.Element("Latitude").Value),
+                    Deleted = Convert.ToBoolean(customer.Element("Deleted").Value)
+                }).FirstOrDefault();
+
+            if (getCustomer.Id == 0)
                 throw new IdNotFoundException("ERROR: the customer is not found.");
-            }
 
             if (getCustomer.Deleted == true)
                 throw new IdExistException("ERROR: the customer was exist");

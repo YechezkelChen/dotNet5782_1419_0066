@@ -47,8 +47,8 @@
                 <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="information">
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="ID" Width="76"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" Header="Model" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" Header="Weight" Width="103"/>
-                    <GridViewColumn  Header="Battery" Width="120">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" Header="Weight" Width="107"/>
+                    <GridViewColumn  Header="Battery" Width="110">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid Name="BatteryGrid">
@@ -59,8 +59,8 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="Status" Width="104"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=IdParcel}" Header="Parcel" Width="103"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Location}" Header="Location" Width="145"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=IdParcel}" Header="Parcel" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Location}" Header="Location" Width="180"/>
                 </GridView>
             </ListView.View>
         </ListView>

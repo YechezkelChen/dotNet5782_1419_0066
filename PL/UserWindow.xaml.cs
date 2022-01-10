@@ -37,6 +37,7 @@ namespace PL
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             int userId = Convert.ToInt32(IdTextBox.Text);
+            userId = userId * 10 + bl.LastDigitId(userId); // Add check digit to Id
             BO.Customer userBoCustomer = bl.GetCustomer(userId);
             userCustomer = CopyBoCustomerToPoCustomer(userBoCustomer, userCustomer);
             customerPage = new CustomerPage(userCustomer);

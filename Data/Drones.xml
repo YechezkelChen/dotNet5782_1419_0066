@@ -1,69 +1,63 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <ArrayOfDrone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Drone>
     <Id>100000</Id>
-    <Model>Mavic</Model>
-    <Weight>Medium</Weight>
-    <Deleted>true</Deleted>
+    <Model>Phantom</Model>
+    <Weight>Light</Weight>
+    <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100010</Id>
-    <Model>Phantom</Model>
-    <Weight>Heavy</Weight>
-    <Deleted>true</Deleted>
+    <Model>Tello</Model>
+    <Weight>Light</Weight>
+    <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100020</Id>
-    <Model>gogo</Model>
-    <Weight>Light</Weight>
+    <Model>Tello</Model>
+    <Weight>Heavy</Weight>
     <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100030</Id>
-    <Model>Combo</Model>
-    <Weight>Light</Weight>
+    <Model>Tello</Model>
+    <Weight>Heavy</Weight>
     <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100040</Id>
-    <Model>ombo</Model>
-    <Weight>Light</Weight>
-    <Deleted>False</Deleted>
+    <Model>Mavic</Model>
+    <Weight>Heavy</Weight>
+    <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100050</Id>
-    <Model>Combo</Model>
-    <Weight>Medium</Weight>
+    <Model>Topacc</Model>
+    <Weight>Heavy</Weight>
     <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100060</Id>
-    <Model>Topacc</Model>
+    <Model>Tello</Model>
     <Weight>Heavy</Weight>
     <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100070</Id>
     <Model>Mavic</Model>
-    <Weight>Heavy</Weight>
+    <Weight>Medium</Weight>
     <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100080</Id>
-    <Model>Mavic</Model>
-    <Weight>Heavy</Weight>
+    <Model>Topacc</Model>
+    <Weight>Medium</Weight>
     <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100090</Id>
-    <Model>Combo</Model>
+    <Model>Mavic</Model>
     <Weight>Heavy</Weight>
-    <Deleted>false</Deleted>
-  </Drone>
-  <Drone>
-    <Id>123456</Id>
-    <Model>yhnm</Model>
-    <Weight>Medium</Weight>
     <Deleted>false</Deleted>
   </Drone>
 </ArrayOfDrone>
