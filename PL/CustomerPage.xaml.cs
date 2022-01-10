@@ -18,7 +18,15 @@ namespace PL
         private BlApi.IBL bl = BlApi.BlFactory.GetBl();
         private ObservableCollection<CustomerToList> customers;
         private Customer customer = new Customer();
-        
+
+        public CustomerPage(Customer customer) // for the user
+        {
+            InitializeComponent();
+            this.customer = customer;
+
+            DataCustomerGrid.DataContext = customer;
+            AddButton.Visibility = Visibility.Hidden;
+        }
         public CustomerPage(ObservableCollection<CustomerToList> customers)
         {
             InitializeComponent();
