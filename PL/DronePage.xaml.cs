@@ -378,8 +378,39 @@ namespace PL
         private void UpdateView()
         {
             BO.Drone boDrone = bl.GetDrone(drone.Id);
-            drone = CopyBoDroneToPoDrone(boDrone, drone);
+
+            drone.Battery = boDrone.Battery;
+            drone.Status = (DroneStatuses) boDrone.Status;
+            bl.CopyPropertiesTo(boDrone.Location, drone.Location);
+            if (drone.Status == DroneStatuses.Delivery)
+            {
+                drone.ParcelByTransfer = new ParcelInTransfer();
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer, drone.ParcelByTransfer);
+                drone.ParcelByTransfer.Sender = new CustomerInParcel();
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.Sender, drone.ParcelByTransfer.Sender);
+                drone.ParcelByTransfer.Target = new CustomerInParcel();
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.Target, drone.ParcelByTransfer.Target);
+                drone.ParcelByTransfer.PickUpLocation = new Location();
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.PickUpLocation, drone.ParcelByTransfer.PickUpLocation);
+                drone.ParcelByTransfer.TargetLocation = new Location();
+                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.TargetLocation, drone.ParcelByTransfer.TargetLocation);
+            }
+
+            // Update the list
+            for (int i = 0; i < drones.Count(); i++)
+                if (drones[i].Id == drone.Id)
+                {
+                    drones[i].Battery = drone.Battery;
+                    drones[i].Status = drone.Status;
+                    Location location = new Location();
+                    location.Longitude = drone.Location.Longitude;
+                    location.Latitude = drone.Location.Latitude;
+                    drones[i].Location = location;
+                    if (drone.Status == DroneStatuses.Delivery)
+                        drones[i].IdParcel = drone.ParcelByTransfer.Id;
+                }
         }
+
         private bool StopSimulator()
         {
             return droneWorker.CancellationPending;

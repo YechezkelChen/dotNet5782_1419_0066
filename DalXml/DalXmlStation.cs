@@ -110,9 +110,6 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetStations(Predicate<Station> stationPredicate)
         {
-            //var stationsXml = XMLTools.LoadListFromXmlSerializer<Station>(stationsPath);
-            //IEnumerable<Station> stations = stationsXml.Where(station => stationPredicate(station));
-
             XElement stationsXml = XMLTools.LoadListFromXmlElement(stationsPath);
             IEnumerable<Station> stations = (from station in stationsXml.Elements()
                 select new Station()

@@ -112,8 +112,18 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> customerPredicate)
         {
-            var customersXml = XMLTools.LoadListFromXmlSerializer<Customer>(customersPath);
-            IEnumerable<Customer> customers = customersXml.Where(customer => customerPredicate(customer));
+            XElement customersXml = XMLTools.LoadListFromXmlElement(customersPath);
+            IEnumerable<Customer> customers = (from customer in customersXml.Elements()
+                select new Customer()
+                {
+                    Id = Convert.ToInt32(customer.Element("Id").Value),
+                    Name = customer.Element("Name").Value,
+                    Phone = customer.Element("Phone").Value,
+                    Longitude = Convert.ToDouble(customer.Element("Longitude").Value),
+                    Latitude = Convert.ToDouble(customer.Element("Latitude").Value),
+                    Deleted = Convert.ToBoolean(customer.Element("Deleted").Value)
+                });
+            customers = customers.Where(customer => customerPredicate(customer));
             return customers;
         }
 

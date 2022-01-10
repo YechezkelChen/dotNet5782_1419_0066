@@ -58,6 +58,7 @@ namespace BL
                             Thread.Sleep(Convert.ToInt32(timeDrive) * 1000); // the place after the charge
                         }
                     }
+                    catch(StatusDroneException){}
                 }
                 Thread.Sleep(DELAY);
                 updateView();
@@ -66,11 +67,18 @@ namespace BL
                 {
                     lock (bl)
                     {
-                        bl.ReleaseDroneFromDroneCharge(drone.Id); // release, to check how much battery there is to drone
-                        if (drone.Battery != 100) // if there is no to drone full battery.
-                            bl.SendDroneToDroneCharge(drone.Id);
+                        try
+                        {
+                            bl.ReleaseDroneFromDroneCharge(drone
+                                .Id); // release, to check how much battery there is to drone
+                            drone = bl.GetDrone(droneId);
+                            if (drone.Battery != 100) // if there is no to drone full battery.
+                                bl.SendDroneToDroneCharge(drone.Id);
+                        }
+                        catch (StatusDroneException) { }
                     }
                 }
+
                 Thread.Sleep(DELAY);
                 updateView();
 

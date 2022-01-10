@@ -26,9 +26,9 @@
   </Drone>
   <Drone>
     <Id>100040</Id>
-    <Model>Combo</Model>
+    <Model>ombo</Model>
     <Weight>Light</Weight>
-    <Deleted>false</Deleted>
+    <Deleted>False</Deleted>
   </Drone>
   <Drone>
     <Id>100050</Id>

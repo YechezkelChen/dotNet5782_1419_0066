@@ -122,9 +122,6 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> parcelPredicate)
         {
-            //var parcelsXml = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
-            //IEnumerable<Parcel> parcels = parcelsXml.Where(parcel => parcelPredicate(parcel));
-
             XElement parcelsXml = XMLTools.LoadListFromXmlElement(parcelsPath);
             IEnumerable<Parcel> parcels = (from parcel in parcelsXml.Elements()
                 select new Parcel()

@@ -106,8 +106,16 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDrones(Predicate<Drone> dronePredicate)
         {
-            var dronesXml = XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
-            IEnumerable<Drone> drones = dronesXml.Where(drone => dronePredicate(drone));
+            XElement dronesXml = XMLTools.LoadListFromXmlElement(dronesPath);
+            IEnumerable<Drone> drones = (from drone in dronesXml.Elements()
+                select new Drone()
+                {
+                    Id = Convert.ToInt32(drone.Element("Id").Value),
+                    Model = drone.Element("Model").Value,
+                    Weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), drone.Element("Weight").Value.ToString()),
+                    Deleted = Convert.ToBoolean(drone.Element("Deleted").Value)
+                });
+            drones = drones.Where(drone => dronePredicate(drone));
             return drones;
         }
 
