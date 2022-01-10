@@ -64,23 +64,11 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button x:Name="ParcelFromTheCustomerButton" Content="Parcels sent" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Width="140" Height="40" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711">
-                <Button.IsEnabled>
-                    <MultiBinding Converter="{StaticResource MultiConverter}">
-                        <Binding ElementName="AddButton" Path="IsVisible" />
-                    </MultiBinding>
-                </Button.IsEnabled>
-            </Button>
+            <Button x:Name="ParcelFromTheCustomerButton" Content="Parcels sent" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Width="140" Height="40" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711"  Visibility="{Binding ElementName=UpdateCustomerDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-            <Button x:Name="ParcelToTheCustomerButton" Content="Parcels accepted" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="140" Height="40" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711">
-                <Button.IsEnabled>
-                    <MultiBinding Converter="{StaticResource MultiConverter}">
-                        <Binding ElementName="AddButton" Path="IsVisible"/>
-                    </MultiBinding>
-                </Button.IsEnabled>
-            </Button>
+                <Button x:Name="ParcelToTheCustomerButton" Content="Parcels accepted" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="140" Height="40" FontFamily="Agency FB" Foreground="#FF3E4C2E" FontSize="18" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="#FF0A0711"  Visibility="{Binding ElementName=UpdateCustomerDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-            <Button x:Name="RemoveCustomerButton" Content="Remove" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Height="40" Width="140" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Click="RemoveCustomerButton_Click" Visibility="{Binding ElementName=AddButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Button x:Name="RemoveCustomerButton" Content="Remove" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Height="40" Width="140" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Click="RemoveCustomerButton_Click" Visibility="{Binding ElementName=UpdateCustomerDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
             <Button x:Name="UpdateCustomerDataButton" Content="Update Customer" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Width="140" Height="40" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="Black" Click="UpdateCustomerDataButton_Click">
                 <Button.IsEnabled>

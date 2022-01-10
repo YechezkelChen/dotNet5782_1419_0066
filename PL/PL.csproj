@@ -14,6 +14,7 @@
     <None Remove="images\dron.jpg" />
     <None Remove="images\droneWindow.jpg" />
     <None Remove="images\icon.png" />
+    <None Remove="images\login.jpeg" />
     <None Remove="images\middleGrid.jpg" />
     <None Remove="images\updateDroneGrid.jpg" />
     <None Remove="images\upGrid.jpg" />
@@ -31,6 +32,7 @@
     <Resource Include="images\background.jpg" />
     <Resource Include="images\dronewindow.jpg" />
     <Resource Include="images\icon.png" />
+    <Resource Include="images\login.jpeg" />
     <Resource Include="images\upGrid.jpg" />
   </ItemGroup>
 
