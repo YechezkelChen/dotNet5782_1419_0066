@@ -97,6 +97,9 @@ namespace BL
             {
                 try
                 {
+                    DO.DroneCharge? droneCharge = dal.GetDronesCharge(droneCharge => droneCharge.Deleted == false).FirstOrDefault(droneCharge => droneCharge.DroneId == droneId);
+                    if(droneCharge is not null)
+                        ReleaseDroneFromDroneCharge(droneId);
                     dal.RemoveDrone(droneId); // Remove the drone
                 }
                 catch (DO.IdExistException e)
