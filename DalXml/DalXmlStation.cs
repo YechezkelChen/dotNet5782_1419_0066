@@ -78,9 +78,7 @@ namespace Dal
         {
             Station getStation = new Station();
             XElement stations = XMLTools.LoadListFromXmlElement(stationsPath);
-            try
-            {
-                getStation = (from station in stations.Elements()
+            getStation = (from station in stations.Elements()
                                where Convert.ToInt32(station.Element("Id").Value) == stationId
                               select new Station()
                                {
@@ -91,8 +89,8 @@ namespace Dal
                                    AvailableChargeSlots = Convert.ToInt32(station.Element("AvailableChargeSlots").Value),
                                    Deleted = Convert.ToBoolean(station.Element("Deleted").Value)
                                }).FirstOrDefault();
-            }
-            catch
+            
+            if(getStation.Id == 0)
             {
                 throw new IdNotFoundException("ERROR: the station is not found.");
             }
