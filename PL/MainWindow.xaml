@@ -16,7 +16,7 @@
             <ImageBrush ImageSource="images\background.jpg"/>
         </Grid.Background>
         <Button x:Name="CloseButton" Content="Close Window" HorizontalAlignment="Right" VerticalAlignment="Top" Height="40" Width="110" Click="Close_Click" Background="White" Foreground="Red" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" BorderBrush="Black" />
-        <Button Name="StartButton" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="200" Height="100" FontSize="50" Background="#ADE8F4" Foreground="#FF2F3E46" FontWeight="Bold" FontStyle="Italic" FontFamily="Agency FB" Click="StartButton_Click" BorderBrush="#FF08060C"/>
+        <Button Name="StartButton" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="200" Height="100" FontSize="50" Background="#ADE8F4" Foreground="#FF2F3E46" FontWeight="Bold" FontStyle="Italic" FontFamily="Agency FB" Click="StartButton_Click" Style="{StaticResource MaterialDesign}" BorderBrush="#FF08060C"/>
         <Label Content="Drone Delivery LTD" HorizontalAlignment="Left" VerticalAlignment="Top" Width="350" Height="80" FontSize="50" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" Foreground="#FFCAD2C5"/>
     </Grid>
 </Window>
