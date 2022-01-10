@@ -16,7 +16,7 @@
     <Id>100020</Id>
     <Model>gogo</Model>
     <Weight>Light</Weight>
-    <Deleted>False</Deleted>
+    <Deleted>true</Deleted>
   </Drone>
   <Drone>
     <Id>100030</Id>
