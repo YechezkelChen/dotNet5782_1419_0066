@@ -200,17 +200,6 @@ namespace BL
         }
 
         /// <summary>
-        /// return the list of parcels in special date for show
-        /// </summary>
-        /// <returns></returns>
-     
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public IEnumerable<ParcelToList> GetParcelsByDate(DateTime dateTime)
-        {
-            return null;
-        }
-
-        /// <summary>
         /// return the list after groping
         /// </summary>
         /// <returns></returns>

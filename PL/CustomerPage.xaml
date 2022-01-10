@@ -14,7 +14,8 @@
         <local:ModelOrNameTextToColor x:Key="ModelOrNameTextToColor" />
         <local:MultiConverter x:Key="MultiConverter" />
         <local:PhoneTextToColor x:Key="PhoneTextToColor" />
-        <local:LocationTextToColor x:Key="LocationTextToColor" />
+        <local:LongitudeTextToColor x:Key="LongitudeTextToColor" />
+        <local:LatitudeTextToColor x:Key="LatitudeTextToColor" />
     </Page.Resources>
 
     <Grid>
@@ -49,10 +50,10 @@
             <TextBox x:Name="PhoneTextBox" Text="{Binding Path=Phone}" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=PhoneTextBox, Path=Text, Converter={StaticResource PhoneTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4"/>
 
             <Label Name="LongitudeLabel" Grid.Row="4" Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15"/>
-            <TextBox x:Name="LongitudeTextBox" Text="{Binding Path=Location.Longitude}" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=LongitudeTextBox, Path=Text, Converter={StaticResource LocationTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible,UpdateSourceTrigger=LostFocus}" />
+            <TextBox x:Name="LongitudeTextBox" Text="{Binding Path=Location.Longitude}" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=LongitudeTextBox, Path=Text, Converter={StaticResource LongitudeTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible,UpdateSourceTrigger=LostFocus}" />
 
             <Label Name="LatitudeLabel" Grid.Row="5" Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="60" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="15" />
-            <TextBox x:Name="LatitudeTextBox" Text="{Binding Path=Location.Latitude}" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=LatitudeTextBox, Path=Text, Converter={StaticResource LocationTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible,UpdateSourceTrigger=LostFocus}" />
+            <TextBox x:Name="LatitudeTextBox" Text="{Binding Path=Location.Latitude}" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=LatitudeTextBox, Path=Text, Converter={StaticResource LatitudeTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF7F9F4" IsEnabled="{Binding ElementName=AddButton, Path=IsVisible,UpdateSourceTrigger=LostFocus}" />
         </Grid>
 
         <Grid Name="ActionsCustomerGrid" Grid.Column="2">

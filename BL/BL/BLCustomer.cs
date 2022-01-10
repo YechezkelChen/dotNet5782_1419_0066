@@ -252,10 +252,10 @@ namespace BL
             if (customer.Phone.Length != 10 || customer.Phone.Substring(0, 2) != "05" ||
                 !int.TryParse(customer.Phone.Substring(2, customer.Phone.Length - 2), out phone)) // check format phone
                 throw new PhoneException("ERROR: phone must have 10 digits and to begin with the numbers 05");
-            if (customer.Location.Longitude < -1 || customer.Location.Longitude > 1)
-                throw new LocationException("ERROR: longitude must to be between -1 to 1");
-            if (customer.Location.Latitude < -1 || customer.Location.Latitude > 1)
-                throw new LocationException("ERROR: latitude must to be between -1 to 1");
+            if (customer.Location.Longitude < 29 || customer.Location.Longitude > 33)
+                throw new LocationException("ERROR: longitude must to be between 29 to 33");
+            if (customer.Location.Latitude < 33 || customer.Location.Latitude > 37)
+                throw new LocationException("ERROR: latitude must to be between 33 to 37");
         }
     }
 }

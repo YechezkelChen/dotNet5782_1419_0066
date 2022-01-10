@@ -128,21 +128,20 @@ namespace PL
     }
 
 
-    public class LocationTextToColor : IValueConverter
+    public class LongitudeTextToColor : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         { 
-            double location;
-            if (!double.TryParse(value.ToString(), out location))
-                location = -2;
+            double longitude;
+            if (!double.TryParse(value.ToString(), out longitude))
+                longitude = 0;
             else
-                location = System.Convert.ToDouble(value.ToString());
+                longitude = System.Convert.ToDouble(value.ToString());
 
-            if (location < -1 || location > 1)
+            if (longitude < 29 || longitude > 33)
                 return Brushes.Red; 
             
             return Brushes.SlateGray;
-
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -151,6 +150,27 @@ namespace PL
         }
     }
 
+    public class LatitudeTextToColor : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            double latitude;
+            if (!double.TryParse(value.ToString(), out latitude))
+                latitude = 0;
+            else
+                latitude = System.Convert.ToDouble(value.ToString());
+
+            if (latitude < 33 || latitude > 37)
+                return Brushes.Red;
+
+            return Brushes.SlateGray;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class ChargeSlotsTextToColor : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

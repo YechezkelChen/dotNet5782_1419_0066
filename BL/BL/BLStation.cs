@@ -221,10 +221,10 @@ namespace BL
                 throw new NameException("ERROR: the name is illegal!");
             if (station.AvailableChargeSlots < 0)
                 throw new ChargeSlotsException("ERROR: the charge slots must have positive or 0 value! ");
-            if (station.Location.Longitude < -1 || station.Location.Longitude > 1)
-                throw new LocationException("ERROR: longitude must to be between -1 to 1");
-            if (station.Location.Latitude < -1 || station.Location.Latitude > 1)
-                throw new LocationException("ERROR: latitude must to be between -1 to 1");
+            if (station.Location.Longitude < 29 || station.Location.Longitude > 33)
+                throw new LocationException("ERROR: longitude must to be between 29 to 33");
+            if (station.Location.Latitude < 33 || station.Location.Latitude > 37)
+                throw new LocationException("ERROR: latitude must to be between 33 to 37");
         }
 
         /// <summary>

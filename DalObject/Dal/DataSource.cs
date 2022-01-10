@@ -51,8 +51,8 @@ namespace Dal
                 {
                     Id = id,
                     Name = stationNames[rand.Next(0, 5)],
-                    Longitude = rand.NextDouble(),
-                    Latitude = rand.NextDouble(),
+                    Longitude = rand.NextDouble() * 4 + 29, //29-33
+                    Latitude = rand.NextDouble() * 4 + 33, //33-37
                     AvailableChargeSlots = rand.Next(0, 10)
                 });
                 id += 10;
@@ -68,8 +68,8 @@ namespace Dal
                     Id = tmpId,
                     Name = customerNames[rand.Next(0, 5)],
                     Phone = "05" + rand.Next(10000000, 99999999),
-                    Longitude = rand.NextDouble(),
-                    Latitude = rand.NextDouble()
+                    Longitude = rand.NextDouble() * 4 + 29, //29-33
+                    Latitude = rand.NextDouble() * 4 + 33 //33-37
                 });
                 id += 10;
             }
