@@ -60,4 +60,10 @@
     <Weight>Heavy</Weight>
     <Deleted>false</Deleted>
   </Drone>
+  <Drone>
+    <Id>123456</Id>
+    <Model>yhnm</Model>
+    <Weight>Medium</Weight>
+    <Deleted>false</Deleted>
+  </Drone>
 </ArrayOfDrone>
