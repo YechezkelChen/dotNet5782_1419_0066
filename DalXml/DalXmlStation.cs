@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -15,6 +16,7 @@ namespace Dal
         /// add a station to the stations list
         /// </summary>
         /// <param Name="newStation"></the new station the user whants to add to the station's list>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(Station newStation)
         {
             XElement stations = XMLTools.LoadListFromXmlElement(stationsPath);
@@ -47,6 +49,7 @@ namespace Dal
         ///  Removes a parcel from the list of parcels.
         /// </summary>
         /// <param name="stationId"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveStation(int stationId)
         {
             XElement stations = XMLTools.LoadListFromXmlElement(stationsPath);
@@ -70,6 +73,7 @@ namespace Dal
         /// </summary>
         /// <param Name="stationId"></the Id of the station the user ask for>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Station GetStation(int stationId)
         {
             Station getStation = new Station();
@@ -103,6 +107,7 @@ namespace Dal
         /// return all the station's list
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetStations(Predicate<Station> stationPredicate)
         {
             //var stationsXml = XMLTools.LoadListFromXmlSerializer<Station>(stationsPath);
@@ -127,6 +132,7 @@ namespace Dal
         /// update the specific station the user ask for
         /// </summary>
         /// <param name="updateStation"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateStation(Station updateStation)
         {
             XElement stations = XMLTools.LoadListFromXmlElement(stationsPath);

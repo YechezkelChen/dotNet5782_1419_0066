@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -15,6 +16,7 @@ namespace Dal
         /// add a customer to the customers list
         /// </summary>
         /// <param Name="newCustomer"></the new customer the user whants to add to the customer's list>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer newCustomer)
         {
             XElement customers = XMLTools.LoadListFromXmlElement(customersPath);
@@ -49,6 +51,7 @@ namespace Dal
         /// Removes a customer from the list of customers.
         /// </summary>
         /// <param name="customerId"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveCustomer(int customerId)
         {
             XElement customers = XMLTools.LoadListFromXmlElement(customersPath);
@@ -72,6 +75,7 @@ namespace Dal
         /// </summary>
         /// <param Name="customerId"></the Id of the customer the user ask for>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomer(int customerId)
         {
             Customer getCustomer = new Customer();
@@ -105,6 +109,7 @@ namespace Dal
         /// return all the customer's list
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> customerPredicate)
         {
             var customersXml = XMLTools.LoadListFromXmlSerializer<Customer>(customersPath);
@@ -116,6 +121,7 @@ namespace Dal
         /// update the specific customer the user ask for
         /// </summary>
         /// <param name="updateCustomer"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(Customer updateCustomer)
         {
             XElement customers = XMLTools.LoadListFromXmlElement(customersPath);

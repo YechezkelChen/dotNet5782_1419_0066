@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -16,6 +17,7 @@ namespace Dal
         /// </summary>
         /// <param Name="newParcel"></the new parcel the user whants to add to the parcel's list>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int AddParcel(Parcel newParcel)
         {
             XElement parcels = XMLTools.LoadListFromXmlElement(parcelsPath);
@@ -52,6 +54,7 @@ namespace Dal
         /// Removes a parcel from the list of parcels.
         /// </summary>
         /// <param name="parcelId"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveParcel(int parcelId)
         {
             XElement parcels = XMLTools.LoadListFromXmlElement(parcelsPath);
@@ -75,6 +78,7 @@ namespace Dal
         /// </summary>
         /// <param Name="parcelId"></the Id parcel the user ask for>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int parcelId)
         {
             Parcel getParcel = new Parcel();
@@ -115,6 +119,7 @@ namespace Dal
         /// return all the parcel in the list
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> parcelPredicate)
         {
             //var parcelsXml = XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
@@ -146,6 +151,7 @@ namespace Dal
         /// update the specific parcel the user ask for
         /// </summary>
         /// <param name="updateDrone"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcel(Parcel updateParcel)
         {
             XElement parcels = XMLTools.LoadListFromXmlElement(parcelsPath);
