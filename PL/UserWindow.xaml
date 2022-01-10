@@ -13,7 +13,7 @@
     </Window.Resources>
 
     <Grid>
-        <Label Name="IdLabel" Content="ID:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="32" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" Margin="286,199,0,0"/>
+        <Label Name="IdLabel" Content="Enter your ID:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="117" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" Margin="201,199,0,0"/>
         <TextBox x:Name="IdTextBox"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="120" TextWrapping="Wrap" Foreground="{Binding ElementName=IdTextBox, Path=Text, Converter={StaticResource IdCustomerTextToColor}}" FontFamily="Agency FB" FontSize="15" Background="#FFF5F7F2" Margin="323,199,0,0"/>
 
         <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="0" Height="40" Width="96"  Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Margin="335,0,0,134" Click="LoginButton_Click" >
