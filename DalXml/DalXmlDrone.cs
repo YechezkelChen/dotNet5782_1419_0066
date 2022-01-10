@@ -76,9 +76,7 @@ namespace Dal
         {
             Drone getDrone = new Drone();
             XElement drones = XMLTools.LoadListFromXmlElement(dronesPath);
-            try
-            {
-                getDrone = (from drone in drones.Elements()
+            getDrone = (from drone in drones.Elements()
                     where Convert.ToInt32(drone.Element("Id").Value) == droneId
                     select new Drone()
                     {
@@ -87,8 +85,8 @@ namespace Dal
                         Weight = (WeightCategories) Enum.Parse(typeof(WeightCategories), drone.Element("Weight").Value.ToString()),
                         Deleted = Convert.ToBoolean(drone.Element("Deleted").Value)
                     }).FirstOrDefault();
-            }
-            catch
+            
+            if(getDrone.Id == 0)
             {
                 throw new IdNotFoundException("ERROR: the drone is not found.");
             }

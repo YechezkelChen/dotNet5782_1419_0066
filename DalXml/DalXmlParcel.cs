@@ -83,9 +83,7 @@ namespace Dal
         {
             Parcel getParcel = new Parcel();
             XElement parcels = XMLTools.LoadListFromXmlElement(parcelsPath);
-            try
-            {
-                getParcel = (from parcel in parcels.Elements()
+             getParcel = (from parcel in parcels.Elements()
                     where Convert.ToInt32(parcel.Element("Id").Value) == parcelId
                     select new Parcel()
                     {
@@ -103,8 +101,8 @@ namespace Dal
                         Delivered = (parcel.Element("Delivered").Value == "") ? (DateTime?) null : DateTime.Parse(parcel.Element("Delivered").Value),
                         Deleted = Convert.ToBoolean(parcel.Element("Deleted").Value)
                     }).FirstOrDefault();
-            }
-            catch
+            
+            if(getParcel.Id == 0)
             {
                 throw new IdNotFoundException("ERROR: the parcel is not found.");
             }
