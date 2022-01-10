@@ -247,4 +247,30 @@
     <Delivered>09/01/2022 20:44:35</Delivered>
     <Deleted>False</Deleted>
   </Parcel>
+  <Parcel>
+    <Id>100019</Id>
+    <SenderId>1000000208</SenderId>
+    <TargetId>1000000604</TargetId>
+    <Weight>Medium</Weight>
+    <Priority>Emergency</Priority>
+    <DroneId>100000</DroneId>
+    <Requested>10/01/2022 13:11:54</Requested>
+    <Scheduled>10/01/2022 13:13:08</Scheduled>
+    <PickedUp>10/01/2022 13:13:11</PickedUp>
+    <Delivered>10/01/2022 13:13:14</Delivered>
+    <Deleted>False</Deleted>
+  </Parcel>
+  <Parcel>
+    <Id>100020</Id>
+    <SenderId>1000000010</SenderId>
+    <TargetId>1000000604</TargetId>
+    <Weight>Light</Weight>
+    <Priority>Emergency</Priority>
+    <DroneId>100000</DroneId>
+    <Requested>10/01/2022 13:12:09</Requested>
+    <Scheduled>10/01/2022 13:13:17</Scheduled>
+    <PickedUp>10/01/2022 13:13:20</PickedUp>
+    <Delivered>10/01/2022 13:13:23</Delivered>
+    <Deleted>False</Deleted>
+  </Parcel>
 </ArrayOfParcel>

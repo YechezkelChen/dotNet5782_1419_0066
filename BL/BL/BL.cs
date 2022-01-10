@@ -204,9 +204,9 @@ namespace BL
             }
         }
 
-        public void SimulatorMod(int droneId, Action action, Func<bool> stopSimulatorMod)
+        public void SimulatorMod(int droneId, Action updateView, Func<bool> stopSimulator)
         {
-            new Simulator(this, droneId, action, stopSimulatorMod);
+            new Simulator(this, droneId, updateView, stopSimulator);
         }
 
         /// <summary>

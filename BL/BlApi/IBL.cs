@@ -12,7 +12,7 @@ namespace BlApi
         double Distance(Location from, Location to); // Calculate distance between 2 locations
 
         //Simulator
-        void SimulatorMod(int droneId, Action action, Func<bool> stopSimulatorMod); //for the simulator mod
+        void SimulatorMod(int droneId, Action updateView, Func<bool> stopSimulator); //for the simulator mod
 
         // Station
         void AddStation(Station newStation); // Adds a station to the list of stations.

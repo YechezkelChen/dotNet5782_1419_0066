@@ -16,15 +16,17 @@ namespace BL
         private Location location;
         private double timeDrive;
 
-        public Simulator(BlApi.IBL bl, int droneId, Action action, Func<bool> stopSimulatorMod)
+        public Simulator(BlApi.IBL bl, int droneId, Action updateView, Func<bool> stopSimulator)
         {
-            while (!stopSimulatorMod())
+            while (!stopSimulator())
             {
                 lock (bl)
                 {
                     drone = bl.GetDrone(droneId);
                 }
+
                 Thread.Sleep(DELAY);
+                updateView();
                 if (drone.Status == DroneStatuses.Available)
                 {
                     try
@@ -41,6 +43,7 @@ namespace BL
                         {
                             parcels = bl.GetParcelsNoDrones();
                         }
+
                         if (parcels.Any()) // if there is no parcels in requested.
                             Thread.Sleep(DELAY);
                         else // if there is no battery to drone to take parcels.
@@ -57,6 +60,7 @@ namespace BL
                     }
                 }
                 Thread.Sleep(DELAY);
+                updateView();
 
                 if (drone.Status == DroneStatuses.Maintenance)
                 {
@@ -68,6 +72,7 @@ namespace BL
                     }
                 }
                 Thread.Sleep(DELAY);
+                updateView();
 
                 if (drone.Status == DroneStatuses.Delivery)
                 {
@@ -93,6 +98,7 @@ namespace BL
                     }
                 }
                 Thread.Sleep(DELAY);
+                updateView();
             }
         }
     }
