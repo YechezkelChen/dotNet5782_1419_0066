@@ -34,14 +34,16 @@ namespace PL
         {
             // הוספת חבילה, הצגת חבילה של הלקוח,אישור איסוף קולקט ואישור סופליי קבלה
             this.Hide();
-            new UserWindow().ShowDialog();
+            new UserWindow(1).ShowDialog();
             this.Show();
         }
 
         private void NewUserButton_Click(object sender, RoutedEventArgs e)
         {
             // הוספת לקוח
-
+            this.Hide();
+            new UserWindow().ShowDialog();
+            this.Show();
         }
     }
 }

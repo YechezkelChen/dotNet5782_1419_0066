@@ -103,5 +103,48 @@ namespace PL
             parcels.Remove(parcels.Where(p => p.Id == parcel.Id).Single());
             this.Content = "";
         }
+
+        private void CollectParcelButton_Click(object sender, RoutedEventArgs e)
+        {
+            BO.DroneToList drone = bl.GetDrones().FirstOrDefault(d => d.IdParcel == parcel.Id);
+            
+            try
+            {
+                bl.CollectionParcelByDrone(drone.Id);
+            }
+            catch (BO.IdException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            catch (BO.StatusDroneException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("The collection success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void SupplyParcelButton_Click(object sender, RoutedEventArgs e)
+        {
+            BO.DroneToList drone = bl.GetDrones().FirstOrDefault(d => d.IdParcel == parcel.Id);
+            try
+            {
+                bl.SupplyParcelByDrone(drone.Id);
+            }
+            catch (BO.IdException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            catch (BO.StatusDroneException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("The supply success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 }

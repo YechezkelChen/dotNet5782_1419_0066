@@ -23,13 +23,20 @@ namespace PL
     {
         private BlApi.IBL bl = BlApi.BlFactory.GetBl();
         private Customer userCustomer;
+        private ObservableCollection<CustomerToList> customers = new ObservableCollection<CustomerToList>();
         private CustomerPage customerPage;
         private ParcelInCustomerPage parcelInCustomerPage;
         private ParcelPage parcelPage;
-        ObservableCollection<ParcelToList> parcels = new ObservableCollection<ParcelToList>();
-        Parcel parcel = new Parcel();
+        private ObservableCollection<ParcelToList> parcels;
+        private Parcel parcel;
 
-        public UserWindow()
+        // 2 constructors 1 for add, 1 for exist
+        public UserWindow() // for add
+        {
+            InitializeComponent();
+            this.Content = new CustomerPage(customers);
+        }
+        public UserWindow(int x) // for exist
         {
             InitializeComponent();
         }
@@ -38,7 +45,16 @@ namespace PL
         {
             int userId = Convert.ToInt32(IdTextBox.Text);
             userId = userId * 10 + bl.LastDigitId(userId); // Add check digit to Id
-            BO.Customer userBoCustomer = bl.GetCustomer(userId);
+            BO.Customer userBoCustomer = new BO.Customer();
+            try
+            {
+                userBoCustomer = bl.GetCustomer(userId);
+            }
+            catch (BO.IdException ex)
+            {
+                MessageBox.Show("You are one step away from being part of the family.\nPlease create an account.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             userCustomer = CopyBoCustomerToPoCustomer(userBoCustomer, userCustomer);
             customerPage = new CustomerPage(userCustomer);
             customerPage.ParcelFromTheCustomerButton.Click += CustomerPage_DataParcelFromCustomer;

@@ -77,10 +77,16 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Button x:Name="DroneDataButton" Content="Drone data" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Height="40" Width="140" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black"/>
 
             <Button x:Name="RemoveParcelButton" Content="Remove" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Height="40" Width="140" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Click="RemoveParcelButton_Click" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <Button x:Name="CollectParcelButton" Content="Collect parcel" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="CollectParcelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF09050F" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+            <Button x:Name="SupplyParcelButton" Content="Supply parcel" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="53" Click="SupplyParcelButton_Click" Foreground="#FF3E4C2E" Background="White" FontFamily="Agency FB" FontWeight="Bold" FontStyle="Italic" FontSize="18" BorderBrush="#FF080311" Visibility="{Binding ElementName=DroneDataButton, Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
             <Button x:Name="AddButton" Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Height="40" Width="120" Foreground="#FF3E4C2E" FontFamily="Agency FB" FontSize="25" FontWeight="Bold" FontStyle="Italic" Background="White" BorderBrush="Black" Click="AddButton_Click">
                 <Button.IsEnabled>
