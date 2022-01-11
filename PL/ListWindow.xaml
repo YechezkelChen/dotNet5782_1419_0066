@@ -16,10 +16,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TabControl x:Name="ListTabControl" Grid.Row="0" SelectionChanged="ListTabControl_SelectionChanged">
-            <TabItem Name="ListDrones" Header="List drones" Height="30" Width="257" Foreground="#FF2F3E46" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" BorderBrush="Black"/>
-            <TabItem Name="ListStations" Header="List stations" Height="30" Width="257" Foreground="#FF2F3E46" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" BorderBrush="Black"/>
-            <TabItem Name="ListCustomers" Header="List customers" Height="30" Width="257" Foreground="#FF2F3E46" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" BorderBrush="Black"/>
-            <TabItem Name="ListParcels" Header="List parcels" Height="30" Width="257" Foreground="#FF2F3E46" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" BorderBrush="Black"/>
+            <TabItem Name="ListDrones" Header="List of drones" Height="30" Width="257" Foreground="#FF2F3E46" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" BorderBrush="Black"/>
+            <TabItem Name="ListStations" Header="List of stations" Height="30" Width="257" Foreground="#FF2F3E46" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" BorderBrush="Black"/>
+            <TabItem Name="ListCustomers" Header="List of customers" Height="30" Width="257" Foreground="#FF2F3E46" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" BorderBrush="Black"/>
+            <TabItem Name="ListParcels" Header="List of parcels" Height="30" Width="257" Foreground="#FF2F3E46" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" BorderBrush="Black"/>
             <TabItem Name="CloseWindow" Header="Close Window" Height="30" Width="152" Foreground="Red" FontFamily="Agency FB" FontSize="16" FontWeight="Bold" FontStyle="Italic" BorderBrush="Black"/>
         </TabControl>
 

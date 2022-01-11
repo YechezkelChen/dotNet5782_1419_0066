@@ -112,4 +112,20 @@
     <Latitude>37</Latitude>
     <Deleted>false</Deleted>
   </Customer>
+  <Customer>
+    <Id>319141810</Id>
+    <Name>shira</Name>
+    <Phone>0527444121</Phone>
+    <Longitude>30</Longitude>
+    <Latitude>35</Latitude>
+    <Deleted>false</Deleted>
+  </Customer>
+  <Customer>
+    <Id>158710988</Id>
+    <Name>sd</Name>
+    <Phone>0526489464</Phone>
+    <Longitude>31</Longitude>
+    <Latitude>37</Latitude>
+    <Deleted>false</Deleted>
+  </Customer>
 </ArrayOfCustomer>

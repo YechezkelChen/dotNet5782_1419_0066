@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
     <Id>100100</Id>
@@ -13,8 +13,8 @@
     <Name>Jaffa</Name>
     <Longitude>29.61504776990742</Longitude>
     <Latitude>36.254369722332044</Latitude>
-    <AvailableChargeSlots>2</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <AvailableChargeSlots>1</AvailableChargeSlots>
+    <Deleted>False</Deleted>
   </Station>
   <Station>
     <Id>100120</Id>
@@ -61,8 +61,8 @@
     <Name>Palmach</Name>
     <Longitude>32.817786252041245</Longitude>
     <Latitude>34.57169737367504</Latitude>
-    <AvailableChargeSlots>2</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <AvailableChargeSlots>0</AvailableChargeSlots>
+    <Deleted>False</Deleted>
   </Station>
   <Station>
     <Id>100180</Id>

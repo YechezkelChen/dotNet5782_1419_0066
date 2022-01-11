@@ -1,2 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DronesCharge />
+<DronesCharge>
+  <DroneCharge>
+    <DroneId>100000</DroneId>
+    <StationId>100170</StationId>
+    <StartCharging>2022-01-12T01:02:36.9235606+02:00</StartCharging>
+    <Deleted>false</Deleted>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>100050</DroneId>
+    <StationId>100170</StationId>
+    <StartCharging>2022-01-12T01:02:45.3022928+02:00</StartCharging>
+    <Deleted>false</Deleted>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>100080</DroneId>
+    <StationId>100110</StationId>
+    <StartCharging>2022-01-12T01:03:00.6135023+02:00</StartCharging>
+    <Deleted>false</Deleted>
+  </DroneCharge>
+</DronesCharge>
