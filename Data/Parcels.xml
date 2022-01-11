@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfParcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Parcel>
     <Id>100000</Id>
@@ -253,12 +253,12 @@
     <TargetId>100000306</TargetId>
     <Weight>Light</Weight>
     <Priority>Emergency</Priority>
-    <DroneId>100010</DroneId>
-    <Requested>2022-01-10T22:19:12.172466+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-    <Deleted>false</Deleted>
+    <DroneId>100000</DroneId>
+    <Requested>1/10/2022 10:19:12 PM</Requested>
+    <Scheduled xsi:nil="true">1/11/2022 9:04:27 PM</Scheduled>
+    <PickedUp xsi:nil="true">1/11/2022 9:04:28 PM</PickedUp>
+    <Delivered xsi:nil="true">1/11/2022 9:04:34 PM</Delivered>
+    <Deleted>False</Deleted>
   </Parcel>
   <Parcel>
     <Id>100020</Id>
@@ -462,11 +462,11 @@
     <Weight>Medium</Weight>
     <Priority>Emergency</Priority>
     <DroneId>100020</DroneId>
-    <Requested>2022-01-10T22:19:12.1770574+02:00</Requested>
-    <Scheduled>2022-01-10T22:19:12.1770577+02:00</Scheduled>
-    <PickedUp>2022-01-10T22:19:12.172466+02:00</PickedUp>
-    <Delivered xsi:nil="true" />
-    <Deleted>false</Deleted>
+    <Requested>1/10/2022 10:19:12 PM</Requested>
+    <Scheduled>1/10/2022 10:19:12 PM</Scheduled>
+    <PickedUp>1/10/2022 10:19:12 PM</PickedUp>
+    <Delivered xsi:nil="true">1/11/2022 9:05:00 PM</Delivered>
+    <Deleted>False</Deleted>
   </Parcel>
   <Parcel>
     <Id>100036</Id>
@@ -605,11 +605,11 @@
     <Weight>Light</Weight>
     <Priority>Normal</Priority>
     <DroneId>100000</DroneId>
-    <Requested>2022-01-10T22:19:12.1770654+02:00</Requested>
-    <Scheduled>2022-01-10T22:19:12.1770657+02:00</Scheduled>
-    <PickedUp>2022-01-10T22:19:12.172466+02:00</PickedUp>
-    <Delivered xsi:nil="true" />
-    <Deleted>false</Deleted>
+    <Requested>1/10/2022 10:19:12 PM</Requested>
+    <Scheduled>1/10/2022 10:19:12 PM</Scheduled>
+    <PickedUp>1/10/2022 10:19:12 PM</PickedUp>
+    <Delivered xsi:nil="true">1/11/2022 9:04:21 PM</Delivered>
+    <Deleted>False</Deleted>
   </Parcel>
   <Parcel>
     <Id>100047</Id>

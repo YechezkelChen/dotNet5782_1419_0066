@@ -25,86 +25,89 @@ namespace BL
                     drone = bl.GetDrone(droneId);
                 }
 
-                Thread.Sleep(DELAY);
-                updateView();
-                if (drone.Status == DroneStatuses.Available)
+                switch (drone.Status)
                 {
-                    try
-                    {
-                        lock (bl)
-                        {
-                            bl.ConnectParcelToDrone(drone.Id);
-                        }
-                    }
-                    catch (NoPackagesToDroneException)
-                    {
-                        IEnumerable<ParcelToList> parcels;
-                        lock (bl)
-                        {
-                            parcels = bl.GetParcelsNoDrones();
-                        }
-
-                        if (parcels.Any()) // if there is no parcels in requested.
-                            Thread.Sleep(DELAY);
-                        else // if there is no battery to drone to take parcels.
-                        {
-                            location = drone.Location; // the place before the charge
-                            lock (bl)
-                            {
-                                bl.SendDroneToDroneCharge(drone.Id);
-                                timeDrive = bl.Distance(location, drone.Location) / SPEED;
-                            }
-
-                            Thread.Sleep(Convert.ToInt32(timeDrive) * 1000); // the place after the charge
-                        }
-                    }
-                    catch(StatusDroneException){}
-                }
-                Thread.Sleep(DELAY);
-                updateView();
-
-                if (drone.Status == DroneStatuses.Maintenance)
-                {
-                    lock (bl)
+                    case DroneStatuses.Available:
                     {
                         try
                         {
-                            bl.ReleaseDroneFromDroneCharge(drone
-                                .Id); // release, to check how much battery there is to drone
-                            drone = bl.GetDrone(droneId);
-                            if (drone.Battery != 100) // if there is no to drone full battery.
-                                bl.SendDroneToDroneCharge(drone.Id);
+                            lock (bl)
+                            {
+                                bl.ConnectParcelToDrone(drone.Id);
+                            }
                         }
-                        catch (StatusDroneException) { }
+                        catch (NoPackagesToDroneException)
+                        {
+                            IEnumerable<ParcelToList> parcels;
+                            lock (bl)
+                            {
+                                parcels = bl.GetParcelsNoDrones();
+                            }
+
+                            if (parcels.Any()) // if there is no parcels in requested.
+                                Thread.Sleep(DELAY);
+                            else // if there is no battery to drone to take parcels.
+                            {
+                                location = drone.Location; // the place before the charge
+                                lock (bl)
+                                {
+                                    bl.SendDroneToDroneCharge(drone.Id);
+                                    timeDrive = bl.Distance(location, drone.Location) / SPEED;
+                                }
+
+                                Thread.Sleep(Convert.ToInt32(timeDrive) * 1000); // the place after the charge
+                            }
+                        }
+                        catch (StatusDroneException)
+                        {
+                        }
+
+                        break;
                     }
-                }
 
-                Thread.Sleep(DELAY);
-                updateView();
-
-                if (drone.Status == DroneStatuses.Delivery)
-                {
-                    if (drone.ParcelByTransfer.OnTheWay == false) // if the parcel just connect, don't collect
+                    case DroneStatuses.Maintenance:
                     {
                         lock (bl)
                         {
-                            bl.CollectionParcelByDrone(drone.Id);
-                            timeDrive = drone.ParcelByTransfer.DistanceOfTransfer / SPEED;
+                            try
+                            {
+                                bl.ReleaseDroneFromDroneCharge(drone
+                                    .Id); // release, to check how much battery there is to drone
+                                drone = bl.GetDrone(droneId);
+                                if (drone.Battery != 100) // if there is no to drone full battery.
+                                    bl.SendDroneToDroneCharge(drone.Id);
+                            }
+                            catch (StatusDroneException) { }
                         }
-
-                        Thread.Sleep(Convert.ToInt32(timeDrive) * 1000);
+                        break;
                     }
-                    else // if the parcel collect
-                    {
-                        lock (bl)
-                        {
-                            bl.SupplyParcelByDrone(drone.Id);
-                            timeDrive = drone.ParcelByTransfer.DistanceOfTransfer / SPEED;
-                        }
 
-                        Thread.Sleep(Convert.ToInt32(timeDrive) * 1000);
+                    case DroneStatuses.Delivery:
+                    {
+                        if (drone.ParcelByTransfer.OnTheWay == false) // if the parcel just connect, don't collect
+                        {
+                            lock (bl)
+                            {
+                                bl.CollectionParcelByDrone(drone.Id);
+                                timeDrive = drone.ParcelByTransfer.DistanceOfTransfer / SPEED;
+                            }
+
+                            Thread.Sleep(Convert.ToInt32(timeDrive) * 1000);
+                        }
+                        else // if the parcel collect
+                        {
+                            lock (bl)
+                            {
+                                bl.SupplyParcelByDrone(drone.Id);
+                                timeDrive = drone.ParcelByTransfer.DistanceOfTransfer / SPEED;
+                            }
+
+                            Thread.Sleep(Convert.ToInt32(timeDrive) * 1000);
+                        }
+                        break;
                     }
                 }
+
                 Thread.Sleep(DELAY);
                 updateView();
             }
