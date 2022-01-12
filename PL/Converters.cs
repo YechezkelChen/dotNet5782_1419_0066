@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -234,6 +231,8 @@ namespace PL
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             double battery = (double) value;
+            if (battery <= 0)
+                return Brushes.Black;
             if (battery < 10)
                 return Brushes.DarkRed;
             if (battery < 20)

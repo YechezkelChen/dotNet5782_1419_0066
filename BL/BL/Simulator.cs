@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using BO;
 using System.Threading;
-using static BL.BL;
 using System.Linq;
 
 
@@ -36,7 +35,7 @@ namespace BL
                                 bl.ConnectParcelToDrone(drone.Id);
                             }
                         }
-                        catch (NoPackagesToDroneException)
+                        catch (NoParcelsToDroneException)
                         {
                             IEnumerable<ParcelToList> parcels;
                             lock (bl)
@@ -45,7 +44,10 @@ namespace BL
                             }
 
                             if (parcels.Any()) // if there is no parcels in requested.
-                                Thread.Sleep(DELAY);
+                            {
+                                throw new NoParcelsToDroneException("No more parcels that can be assigned to the drone, please click the button: 'Regular'");
+                            }
+
                             else // if there is no battery to drone to take parcels.
                             {
                                 location = drone.Location; // the place before the charge
@@ -58,9 +60,7 @@ namespace BL
                                 Thread.Sleep(Convert.ToInt32(timeDrive) * 1000); // the place after the charge
                             }
                         }
-                        catch (StatusDroneException)
-                        {
-                        }
+                        catch (StatusDroneException) { }
 
                         break;
                     }
@@ -71,8 +71,7 @@ namespace BL
                         {
                             try
                             {
-                                bl.ReleaseDroneFromDroneCharge(drone
-                                    .Id); // release, to check how much battery there is to drone
+                                bl.ReleaseDroneFromDroneCharge(drone.Id); // release, to check how much battery there is to drone
                                 drone = bl.GetDrone(droneId);
                                 if (drone.Battery != 100) // if there is no to drone full battery.
                                     bl.SendDroneToDroneCharge(drone.Id);

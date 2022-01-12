@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Reflection;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using System.Windows.Input;
 using PO;
 
 namespace PL

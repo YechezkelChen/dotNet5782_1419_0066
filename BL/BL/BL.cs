@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using BlApi;
 using BO;
 
 
@@ -206,7 +205,14 @@ namespace BL
 
         public void SimulatorMod(int droneId, Action updateView, Func<bool> stopSimulator)
         {
-            new Simulator(this, droneId, updateView, stopSimulator);
+            try
+            {
+                new Simulator(this, droneId, updateView, stopSimulator);
+            }
+            catch (NoParcelsToDroneException ex)
+            {
+                throw new NoParcelsToDroneException(ex.Message);
+            }
         }
 
         /// <summary>

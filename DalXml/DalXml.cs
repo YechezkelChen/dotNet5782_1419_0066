@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
-using DalApi;
 using DalXml;
 
 namespace Dal

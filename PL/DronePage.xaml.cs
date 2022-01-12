@@ -2,11 +2,8 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
 using PO;
 
 
@@ -92,11 +89,6 @@ namespace PL
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            catch (BO.BatteryDroneException ex)
-            {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
 
             MessageBox.Show("You have a new drone!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -170,11 +162,6 @@ namespace PL
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            catch (BO.BatteryDroneException ex)
-            {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
 
             MessageBox.Show("The send success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             
@@ -232,7 +219,7 @@ namespace PL
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            catch (BO.NoPackagesToDroneException ex)
+            catch (BO.NoParcelsToDroneException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -348,13 +335,15 @@ namespace PL
 
         private void UpdateListDrones(Drone updateDrone)
         {
+            BO.DroneToList droneToList = bl.GetDrones().FirstOrDefault(d => d.Id == updateDrone.Id);
             for (int i = 0; i < drones.Count(); i++)
                 if (drones[i].Id == updateDrone.Id)
                 {
-                    DroneToList newDrone = drones[i];
-                    bl.CopyPropertiesTo(updateDrone, newDrone);
+                    DroneToList newDrone = new DroneToList();
+                    //newDrone = drones[i];
+                    bl.CopyPropertiesTo(droneToList, newDrone);
                     newDrone.Location = new Location();
-                    bl.CopyPropertiesTo(updateDrone.Location, newDrone.Location);
+                    bl.CopyPropertiesTo(droneToList.Location, newDrone.Location);
                     drones[i] = newDrone;
                 }
         }
@@ -369,10 +358,24 @@ namespace PL
             RegularButton.Visibility = Visibility.Visible;
 
             droneWorker = new BackgroundWorker();
-            droneWorker.DoWork += (o, args) => bl.SimulatorMod(drone.Id, UpdateView, StopSimulator);
+            droneWorker.DoWork += xsdf;
+            //droneWorker.DoWork += (o, args) => bl.SimulatorMod(drone.Id, UpdateView, StopSimulator);
             droneWorker.ProgressChanged += (o, args) => UpdateView();
             droneWorker.WorkerSupportsCancellation = true;
             droneWorker.RunWorkerAsync(drone.Id);
+        }
+
+        private void xsdf(object? sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                bl.SimulatorMod(drone.Id, UpdateView, StopSimulator);
+            }
+            catch (BO.NoParcelsToDroneException ex)
+            {
+                droneWorker.CancelAsync();
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void UpdateView()
@@ -422,29 +425,6 @@ namespace PL
             RegularButton.Visibility = Visibility.Hidden;
             SimulatorButton.Visibility = Visibility.Visible;
             FixButtonsAfterActions();
-        }
-
-        private Drone CopyBoDroneToPoDrone(BO.Drone boDrone, Drone poDrone)
-        {
-            poDrone = new Drone();
-            bl.CopyPropertiesTo(boDrone, poDrone);
-            poDrone.Location = new Location();
-            bl.CopyPropertiesTo(boDrone.Location, poDrone.Location);
-            if (poDrone.Status == DroneStatuses.Delivery)
-            {
-                poDrone.ParcelByTransfer = new ParcelInTransfer();
-                bl.CopyPropertiesTo(boDrone.ParcelByTransfer, poDrone.ParcelByTransfer);
-                poDrone.ParcelByTransfer.Sender = new CustomerInParcel();
-                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.Sender, poDrone.ParcelByTransfer.Sender);
-                poDrone.ParcelByTransfer.Target = new CustomerInParcel();
-                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.Target, poDrone.ParcelByTransfer.Target);
-                poDrone.ParcelByTransfer.PickUpLocation = new Location();
-                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.PickUpLocation, poDrone.ParcelByTransfer.PickUpLocation);
-                poDrone.ParcelByTransfer.TargetLocation = new Location();
-                bl.CopyPropertiesTo(boDrone.ParcelByTransfer.TargetLocation, poDrone.ParcelByTransfer.TargetLocation);
-            }
-
-            return poDrone;
         }
     }
 }

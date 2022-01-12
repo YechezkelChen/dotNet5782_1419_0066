@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BO;
 using System.Runtime.CompilerServices;
-using BlApi;
 
 namespace BL
 {
@@ -282,12 +281,12 @@ namespace BL
             
             StationToList nearStationToList = GetStationsWithAvailableCharge().OrderByDescending(station => Distance(GetStation(station.Id).Location, drone.Location)).FirstOrDefault();
             if(nearStationToList is null)
-                throw new ChargeSlotsException("ERROR: there is no station with avalible charge ");
+                throw new ChargeSlotsException("ERROR: there is no station with available charge ");
             
             Station nearStation = GetStation(nearStationToList.Id);
             double distance = Distance(drone.Location, nearStation.Location);
-            if (distance * freeBatteryUsing > drone.Battery || distance * freeBatteryUsing > 100)
-                throw new BatteryDroneException("ERROR: the drone not have battery to go to station charge ");
+            if (distance * freeBatteryUsing > drone.Battery || distance * freeBatteryUsing > 100) 
+                drone.Battery = distance * freeBatteryUsing; // There is an SOS vehicle that collects the drones to the charging station closest to them when they do not have a battery to reach the charging station, When a skimmer's battery reaches a negative value it represents a collection of SOS
 
             for (int i = 0; i < listDrones.Count; i++)
                 if (listDrones[i].Id == drone.Id)
@@ -400,7 +399,7 @@ namespace BL
 
             ParcelToList parcelToConnect = parcelsDroneCanCarry.FirstOrDefault();
             if (parcelToConnect is null)
-                throw new NoPackagesToDroneException("There are no parcels that the drone you entered can carry.");
+                throw new NoParcelsToDroneException("There are no parcels that the drone you entered can carry.");
 
             lock (dal)
             {

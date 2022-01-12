@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Channels;
 using BO;
-using BL;
 
 namespace ConsoleBL
 {
@@ -399,10 +397,6 @@ namespace ConsoleBL
                 {
                     Console.WriteLine(e.Message);
                 }
-                catch (BatteryDroneException e)
-                {
-                    Console.WriteLine(e.Message);
-                }
                 Console.WriteLine("Do you want to add drone? please enter yes or no.");
                 string choice = Console.ReadLine();
                 if (choice != "yes")
@@ -719,10 +713,6 @@ namespace ConsoleBL
                 {
                     Console.WriteLine(e.Message);
                 }
-                catch (BatteryDroneException e)
-                {
-                    Console.WriteLine(e.Message);
-                }
                 Console.WriteLine("Do you want to send the drone to charge? please enter yes or no.");
                 string choice = Console.ReadLine();
                 if (choice != "yes")
@@ -795,7 +785,7 @@ namespace ConsoleBL
                 {
                     Console.WriteLine(e.Message);
                 }
-                catch (NoPackagesToDroneException e)
+                catch (NoParcelsToDroneException e)
                 {
                     Console.WriteLine(e.Message);
                 }
