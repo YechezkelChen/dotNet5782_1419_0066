@@ -1,5 +1,9 @@
 # dotNet5782_1419_0066
-shalom david!
-shalom yechezkel!
-hello world!
-Ex0 Final commit
+בונוסים:
+ 1. שימוש במבנה 2
+ 2.  (MVVM שזה כולל אלמנטים של) (PO כרוך ביצירת ישויות) PL בונוס שיפור ארכיטקטורה של שכבת תצוגה
+ 3. wpf שימוש פונקציונליות נוספת של
+ 4. והמרה Multi Binding שימוש ב 
+ 4. MVVM 
+ 5. בונוס ממשק לקוח
+ 6. BackgroundWorker יהיו BL פניות ל
