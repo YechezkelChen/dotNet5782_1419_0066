@@ -1,2 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DronesCharge />
+<DronesCharge>
+  <DroneCharge>
+    <DroneId>100020</DroneId>
+    <StationId>100120</StationId>
+    <StartCharging>2022-01-13T11:16:51.655877+02:00</StartCharging>
+    <Deleted>true</Deleted>
+  </DroneCharge>
+</DronesCharge>
