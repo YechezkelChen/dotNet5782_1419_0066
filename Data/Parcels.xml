@@ -644,11 +644,11 @@
     <Weight>Light</Weight>
     <Priority>Normal</Priority>
     <DroneId>100020</DroneId>
-    <Requested>2022-01-13T11:25:21.2443385+02:00</Requested>
-    <Scheduled>2022-01-13T11:25:21.2401407+02:00</Scheduled>
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-    <Deleted>false</Deleted>
+    <Requested>13/01/2022 11:25:21</Requested>
+    <Scheduled>13/01/2022 11:25:21</Scheduled>
+    <PickedUp xsi:nil="true">13/01/2022 11:37:43</PickedUp>
+    <Delivered xsi:nil="true">13/01/2022 11:37:52</Delivered>
+    <Deleted>False</Deleted>
   </Parcel>
   <Parcel>
     <Id>100050</Id>
