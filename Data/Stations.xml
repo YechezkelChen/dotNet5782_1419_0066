@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
     <Id>100100</Id>
@@ -22,7 +22,7 @@
     <Longitude>32.86725285270589</Longitude>
     <Latitude>36.36394904151743</Latitude>
     <AvailableChargeSlots>4</AvailableChargeSlots>
-    <Deleted>false</Deleted>
+    <Deleted>False</Deleted>
   </Station>
   <Station>
     <Id>100130</Id>

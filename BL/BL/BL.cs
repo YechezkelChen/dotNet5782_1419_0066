@@ -99,7 +99,8 @@ namespace BL
 
                             drone.Battery = (100 - batteryDelivery) * rand.NextDouble() + batteryDelivery;
                             drone.Battery = (double)System.Math.Round(drone.Battery, 2);
-
+                            if (drone.Battery > 100)
+                                drone.Battery = 100;
                             drone.Status = DroneStatuses.Delivery;
                             drone.IdParcel = parcel.Id;
                             drone = listDrones[i];
