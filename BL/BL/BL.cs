@@ -157,6 +157,8 @@ namespace BL
                 //    dal.AddDroneCharge(droneCharge);
                 //}
 
+                ////////////////////////////////////////////////
+                
                 if (drone.Status == DroneStatuses.Available)
                 {
                     var customersWithDelivery = from parcel in dal.GetParcels(parcel => parcel.Deleted == false)

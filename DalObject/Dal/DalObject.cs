@@ -47,6 +47,8 @@ namespace Dal
             //SaveListToXmlSerializer(DataSource.Drones, dronesPath);
             //SaveListToXmlSerializer(DataSource.Parcels, parcelsPath);
             //SaveListToXmlSerializer(DataSource.Stations, stationsPath);
+
+            ////////////////////////////////////////////////////////////////
         }
 
         #endregion

@@ -2,37 +2,37 @@
 <ArrayOfDrone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Drone>
     <Id>100000</Id>
-    <Model>Phantom</Model>
-    <Weight>Heavy</Weight>
+    <Model>Combo</Model>
+    <Weight>Medium</Weight>
     <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100010</Id>
-    <Model>Tello</Model>
+    <Model>Phantom</Model>
     <Weight>Medium</Weight>
     <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100020</Id>
     <Model>Topacc</Model>
-    <Weight>Medium</Weight>
+    <Weight>Heavy</Weight>
     <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100030</Id>
-    <Model>Tello</Model>
-    <Weight>Medium</Weight>
+    <Model>Mavic</Model>
+    <Weight>Light</Weight>
     <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100040</Id>
-    <Model>Phantom</Model>
-    <Weight>Medium</Weight>
+    <Model>Tello</Model>
+    <Weight>Light</Weight>
     <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100050</Id>
-    <Model>Mavic</Model>
+    <Model>Combo</Model>
     <Weight>Light</Weight>
     <Deleted>false</Deleted>
   </Drone>
@@ -44,19 +44,19 @@
   </Drone>
   <Drone>
     <Id>100070</Id>
-    <Model>Mavic</Model>
+    <Model>Phantom</Model>
     <Weight>Light</Weight>
     <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100080</Id>
-    <Model>Mavic</Model>
-    <Weight>Light</Weight>
+    <Model>Tello</Model>
+    <Weight>Heavy</Weight>
     <Deleted>false</Deleted>
   </Drone>
   <Drone>
     <Id>100090</Id>
-    <Model>Topacc</Model>
+    <Model>Phantom</Model>
     <Weight>Heavy</Weight>
     <Deleted>false</Deleted>
   </Drone>

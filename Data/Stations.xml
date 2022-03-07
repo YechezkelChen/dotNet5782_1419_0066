@@ -3,81 +3,81 @@
   <Station>
     <Id>100100</Id>
     <Name>Jaffa</Name>
-    <Longitude>30.934089991233353</Longitude>
-    <Latitude>34.53639860150236</Latitude>
-    <AvailableChargeSlots>5</AvailableChargeSlots>
+    <Longitude>29.68209793264144</Longitude>
+    <Latitude>33.842339147274544</Latitude>
+    <AvailableChargeSlots>8</AvailableChargeSlots>
     <Deleted>false</Deleted>
   </Station>
   <Station>
     <Id>100110</Id>
-    <Name>Bar Ilan</Name>
-    <Longitude>29.988094574300618</Longitude>
-    <Latitude>34.67138001773105</Latitude>
-    <AvailableChargeSlots>7</AvailableChargeSlots>
+    <Name>Carmel</Name>
+    <Longitude>30.063187335181603</Longitude>
+    <Latitude>36.44506817471472</Latitude>
+    <AvailableChargeSlots>0</AvailableChargeSlots>
     <Deleted>false</Deleted>
   </Station>
   <Station>
     <Id>100120</Id>
     <Name>Jaffa</Name>
-    <Longitude>31.248208516392953</Longitude>
-    <Latitude>34.68241930086278</Latitude>
-    <AvailableChargeSlots>4</AvailableChargeSlots>
+    <Longitude>29.081636481025086</Longitude>
+    <Latitude>35.131058706962996</Latitude>
+    <AvailableChargeSlots>0</AvailableChargeSlots>
     <Deleted>false</Deleted>
   </Station>
   <Station>
     <Id>100130</Id>
-    <Name>Jaffa</Name>
-    <Longitude>32.92169118855227</Longitude>
-    <Latitude>33.38555402512921</Latitude>
-    <AvailableChargeSlots>1</AvailableChargeSlots>
-    <Deleted>false</Deleted>
-  </Station>
-  <Station>
-    <Id>100140</Id>
-    <Name>Bar Ilan</Name>
-    <Longitude>30.03688798893098</Longitude>
-    <Latitude>34.089392340318014</Latitude>
+    <Name>Palmach</Name>
+    <Longitude>30.661808225168755</Longitude>
+    <Latitude>34.15594318935459</Latitude>
     <AvailableChargeSlots>6</AvailableChargeSlots>
     <Deleted>false</Deleted>
   </Station>
   <Station>
-    <Id>100150</Id>
+    <Id>100140</Id>
     <Name>Palmach</Name>
-    <Longitude>29.463478798262532</Longitude>
-    <Latitude>36.44807480994988</Latitude>
-    <AvailableChargeSlots>3</AvailableChargeSlots>
-    <Deleted>false</Deleted>
-  </Station>
-  <Station>
-    <Id>100160</Id>
-    <Name>Palmach</Name>
-    <Longitude>30.07084143397903</Longitude>
-    <Latitude>35.60023705037322</Latitude>
+    <Longitude>30.130542804082175</Longitude>
+    <Latitude>33.8531797085205</Latitude>
     <AvailableChargeSlots>2</AvailableChargeSlots>
     <Deleted>false</Deleted>
   </Station>
   <Station>
-    <Id>100170</Id>
-    <Name>Jaffa</Name>
-    <Longitude>32.2391776979152</Longitude>
-    <Latitude>33.707767635913456</Latitude>
+    <Id>100150</Id>
+    <Name>Carmel</Name>
+    <Longitude>32.66597260332944</Longitude>
+    <Latitude>35.58712489837181</Latitude>
     <AvailableChargeSlots>4</AvailableChargeSlots>
     <Deleted>false</Deleted>
   </Station>
   <Station>
+    <Id>100160</Id>
+    <Name>Jaffa</Name>
+    <Longitude>29.260474961372314</Longitude>
+    <Latitude>34.59936451427609</Latitude>
+    <AvailableChargeSlots>9</AvailableChargeSlots>
+    <Deleted>false</Deleted>
+  </Station>
+  <Station>
+    <Id>100170</Id>
+    <Name>Palmach</Name>
+    <Longitude>30.46320989423581</Longitude>
+    <Latitude>36.20763106979785</Latitude>
+    <AvailableChargeSlots>9</AvailableChargeSlots>
+    <Deleted>false</Deleted>
+  </Station>
+  <Station>
     <Id>100180</Id>
-    <Name>Artist</Name>
-    <Longitude>29.714800093655846</Longitude>
-    <Latitude>33.19921160312333</Latitude>
-    <AvailableChargeSlots>1</AvailableChargeSlots>
+    <Name>Carmel</Name>
+    <Longitude>29.908993525853845</Longitude>
+    <Latitude>34.45486305349267</Latitude>
+    <AvailableChargeSlots>5</AvailableChargeSlots>
     <Deleted>false</Deleted>
   </Station>
   <Station>
     <Id>100190</Id>
-    <Name>Jaffa</Name>
-    <Longitude>30.19944822471563</Longitude>
-    <Latitude>34.79085638830013</Latitude>
-    <AvailableChargeSlots>8</AvailableChargeSlots>
+    <Name>Artist</Name>
+    <Longitude>31.88939674891969</Longitude>
+    <Latitude>35.81829513554382</Latitude>
+    <AvailableChargeSlots>7</AvailableChargeSlots>
     <Deleted>false</Deleted>
   </Station>
 </ArrayOfStation>
